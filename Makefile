@@ -9,3 +9,6 @@ clean:
 
 go-update:
 	go get -u ./...
+
+smpp:
+	$(GOBUILD) -o build/package/smpp-simulator cmd/smpp-simulator/smpp-simulator.go
