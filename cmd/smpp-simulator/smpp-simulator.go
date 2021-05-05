@@ -8,10 +8,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/websocket/v2"
 	"github.com/markbates/pkger"
 
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/api"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/ws"
 )
 
 var configFile string
@@ -48,6 +50,19 @@ func main() {
 
 // setupRoutes setup the route for application
 func setupRoutes(app *fiber.App) {
+
+	app.Use(func(c *fiber.Ctx) error {
+		if strings.HasPrefix(c.Path(), "/ws") {
+			if websocket.IsWebSocketUpgrade(c) { // Returns true if the client requested upgrade to the WebSocket protocol
+				return c.Next()
+			}
+			return c.SendStatus(fiber.StatusUpgradeRequired)
+		}
+		return c.Next()
+	})
+
+	go ws.RunHub()
+	app.Get("/ws", websocket.New(ws.WebsocketHandle))
 	app.Get("api/settings", api.GetSettings)
 	app.Post("api/settings", api.SaveSettings)
 	app.Get("api/start-session", api.StartSession)
