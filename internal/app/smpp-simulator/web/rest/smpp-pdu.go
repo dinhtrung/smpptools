@@ -2,26 +2,24 @@ package rest
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"strings"
 
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/domain"
-	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/dto"
 	"github.com/gofiber/fiber/v2"
 	"github.com/tidwall/buntdb"
 )
 
-// GetAllSmppConnectionProfile return all items
-func GetAllSmppConnectionProfile(c *fiber.Ctx) error {
-	rows := make([]domain.EsmeConnection, 0)
+// GetAllPDU return all items
+func GetAllPDU(c *fiber.Ctx) error {
+	rows := make([]domain.BaseSM, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		er := tx.Ascend("", func(key, value string) bool {
-			if !strings.HasPrefix(key, domain.ESME) {
+			if !strings.HasPrefix(key, domain.PDU) {
 				return false
 			}
-			var row domain.EsmeConnection
+			var row domain.BaseSM
 			if err := json.Unmarshal([]byte(value), &row); err == nil {
 				rows = append(rows, row)
 			}
@@ -35,20 +33,19 @@ func GetAllSmppConnectionProfile(c *fiber.Ctx) error {
 	return c.JSON(rows)
 }
 
-// GetSmppConnectionProfile return a single item with given ID
-func GetSmppConnectionProfile(c *fiber.Ctx) error {
+// GetPDU return a single item with given ID
+func GetPDU(c *fiber.Ctx) error {
 	id := c.Params("id")
 	if id == "" {
 		return fiber.ErrBadRequest
 	}
 
-	var item domain.EsmeConnection
+	var item domain.BaseSM
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
-		val, err := tx.Get(id)
+		val, err := tx.Get(domain.PDU + ":" + id)
 		if err != nil {
 			return err
 		}
-		fmt.Printf("value is %s\n", val)
 		if err := json.Unmarshal([]byte(val), &item); err != nil {
 			return err
 		}
@@ -60,10 +57,10 @@ func GetSmppConnectionProfile(c *fiber.Ctx) error {
 	return c.JSON(item)
 }
 
-// NewSmppConnectionProfile create a new domain.EsmeConnection
-func NewSmppConnectionProfile(c *fiber.Ctx) error {
-	item := domain.EsmeConnection{}
-	if err := c.BodyParser(&item.Info); err != nil {
+// NewPDU create a new domain.BaseSM
+func NewPDU(c *fiber.Ctx) error {
+	item := domain.BaseSM{}
+	if err := c.BodyParser(&item.SM); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
@@ -82,12 +79,12 @@ func NewSmppConnectionProfile(c *fiber.Ctx) error {
 	return c.JSON(item)
 }
 
-// DeleteSmppConnectionProfile delete the item with given ID
-func DeleteSmppConnectionProfile(c *fiber.Ctx) error {
+// DeletePDU delete the item with given ID
+func DeletePDU(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(id)
+		_, err := tx.Delete(domain.PDU + ":" + id)
 		return err
 	})
 	if err != nil {
@@ -96,12 +93,12 @@ func DeleteSmppConnectionProfile(c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
-// DeleteSmppConnectionProfile delete the item with given ID
-func DeleteAllSmppConnectionProfile(c *fiber.Ctx) error {
+// DeletePDU delete the item with given ID
+func DeleteAllPDU(c *fiber.Ctx) error {
 	delkeys := make([]string, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		return tx.Ascend("", func(key, value string) bool {
-			if strings.HasPrefix(key, domain.ESME) {
+			if strings.HasPrefix(key, domain.PDU) {
 				delkeys = append(delkeys, key)
 			}
 			return true
@@ -125,24 +122,22 @@ func DeleteAllSmppConnectionProfile(c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
-// ImportJSONSmppConnectionProfile import data on JSON array format into DB
-func ImportJSONSmppConnectionProfile(c *fiber.Ctx) error {
-	var items []dto.SmppConnectionProfile
+// ImportJSONPDU import data on JSON array format into DB
+func ImportJSONPDU(c *fiber.Ctx) error {
+	var items []domain.BaseSM
 	if err := c.BodyParser(&items); err != nil {
 		return err
 	}
-	var okItems []domain.EsmeConnection
+	var okItems []domain.BaseSM
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, item := range items {
-			profile := domain.EsmeConnection{Info: item}
-			key := profile.Key()
-			jsondata, err := json.Marshal(profile)
+			jsondata, err := json.Marshal(item)
 			if err != nil {
 				log.Printf("Unable to serialize value: +%v | %s", item, err)
 				continue
 			}
-			_, _, err = tx.Set(key, string(jsondata), nil)
-			okItems = append(okItems, profile)
+			_, _, err = tx.Set(item.Key(), string(jsondata), nil)
+			okItems = append(okItems, item)
 			return err
 		}
 		return nil

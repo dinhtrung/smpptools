@@ -25,6 +25,9 @@ func SubmitMessage(c *fiber.Ctx) error {
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
+	if len(services.SMPP_CLIENT_SESSIONS) == 0 {
+		return fiber.NewError(fiber.StatusTooEarly, "no active ESME session found")
+	}
 
 	dto.PDU_CHAN <- req
 	return c.SendStatus(fiber.StatusAccepted)

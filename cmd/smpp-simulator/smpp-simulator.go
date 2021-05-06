@@ -62,26 +62,31 @@ func setupRoutes(app *fiber.App) {
 	// + SMPP actions
 	app.Get("api/settings", api.GetSettings)
 	app.Post("api/settings", api.SaveSettings)
+
+	// + api for control ESME sessions
 	app.Get("api/esme-sessions", api.GetSessions)
 	app.Post("api/esme-sessions", api.StartSession)
 	app.Put("api/esme-sessions/:sessionID", api.StopSession)
 	app.Delete("api/esme-sessions", api.StopAllSession)
+
+	// + api for submit SMS into app
+	app.Get("api/submit-message", api.GetDefaultMessage)
+	app.Post("api/submit-message", api.SubmitMessage)
+	app.Put("api/submit-message/:sessionID", api.SubmitMessageOnSession)
+
 	app.Get("api/refresh-state", api.RefreshState)
 	app.Get("api/send-bad-packet", api.SendBadPacket)
-	app.Get("api/submit-message", api.GetDefaultMessage)
-	app.Post("api/submit-message/:sessionID", api.SubmitMessage)
-	app.Post("api/submit-message", api.SubmitMessage)
 	app.Get("api/bulk-sending-random", api.BulkSendingRandom)
 	app.Get("api/stop-bulk-sending", api.StopBulkSending)
 	app.Post("api/convert-text", api.ConvertText)
 
 	// + CRUD API for SMPP Profiles
-	app.Get("api/connection-profiles", rest.GetAllSmppConnectionProfile)
-	app.Get("api/connection-profiles/:id", rest.GetSmppConnectionProfile)
-	app.Post("api/connection-profiles", rest.NewSmppConnectionProfile)
-	app.Delete("api/admin/connection-profiles", rest.DeleteAllSmppConnectionProfile)
-	app.Delete("api/connection-profiles/:id", rest.DeleteSmppConnectionProfile)
-	app.Post("api/import/connection-profiles", rest.ImportJSONSmppConnectionProfile)
+	app.Get("api/esme-profiles", rest.GetAllSmppConnectionProfile)
+	app.Get("api/esme-profiles/:id", rest.GetSmppConnectionProfile)
+	app.Post("api/esme-profiles", rest.NewSmppConnectionProfile)
+	app.Delete("api/esme-profiles/:id", rest.DeleteSmppConnectionProfile)
+	app.Delete("api/admin/esme-profiles", rest.DeleteAllSmppConnectionProfile)
+	app.Post("api/import/esme-profiles", rest.ImportJSONSmppConnectionProfile)
 
 }
 
