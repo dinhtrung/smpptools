@@ -23,3 +23,6 @@ $hamburger-hover-opacity       : 0.7 !default;
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
 @import './assets/lightning-admin';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
