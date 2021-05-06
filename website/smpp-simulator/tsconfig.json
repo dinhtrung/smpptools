@@ -12,6 +12,10 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
+    "paths": {
+      "app/*": ["src/app/*"],
+      "env/*": ["src/environments/*"]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],
