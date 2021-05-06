@@ -27,13 +27,15 @@ func StartSession(c *fiber.Ctx) error {
 // StopSession stop the current sessions
 func StopSession(c *fiber.Ctx) error {
 	sid := c.Params("sessionID")
-	if sid != "" {
-		if cancelFunc, ok := services.SMPP_SESSIONS[sid]; ok {
-			(*cancelFunc)()
-			return c.SendStatus(fiber.StatusAccepted)
-		}
-		return fiber.NewError(fiber.StatusNotFound, "invalid session ID")
+	if cancelFunc, ok := services.SMPP_SESSIONS[sid]; ok {
+		(*cancelFunc)()
+		return c.SendStatus(fiber.StatusAccepted)
 	}
+	return fiber.NewError(fiber.StatusNotFound, "invalid session ID")
+}
+
+// StopSession stop the current sessions
+func StopAllSession(c *fiber.Ctx) error {
 	for k, v := range services.SMPP_SESSIONS {
 		log.Printf("stopping session: %s", k)
 		(*v)()

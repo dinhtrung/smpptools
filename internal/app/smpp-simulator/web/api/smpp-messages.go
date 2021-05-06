@@ -6,6 +6,7 @@ import (
 	"github.com/daominah/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/dto"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,22 +19,22 @@ func GetDefaultMessage(c *fiber.Ctx) error {
 	return c.JSON(req)
 }
 
-// SubmitMessage send a message via selected session
+// SubmitMessage send a message via any active connections
 func SubmitMessage(c *fiber.Ctx) error {
-	sid := c.Params("sessionID")
-	if sid == "" {
-		for k := range services.SMPP_CLIENT_SESSIONS {
-			sid = k
-			break
-		}
-		if sid == "" {
-			return fiber.NewError(fiber.StatusExpectationFailed, "no active SMPP session found")
-		}
-	}
-
 	req := &pdu.SubmitSm{}
 	if err := c.BodyParser(req); err != nil {
 		return err
+	}
+
+	dto.PDU_CHAN <- req
+	return c.SendStatus(fiber.StatusAccepted)
+}
+
+func SubmitMessageOnSession(c *fiber.Ctx) error {
+	sid := c.Params("sessionID")
+	req := &pdu.SubmitSm{}
+	if err := c.BodyParser(req); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
 	if sess, ok := services.SMPP_CLIENT_SESSIONS[sid]; ok {
@@ -44,5 +45,5 @@ func SubmitMessage(c *fiber.Ctx) error {
 		}
 		return c.JSON(resp)
 	}
-	return fiber.ErrNotImplemented
+	return fiber.NewError(fiber.StatusNotAcceptable, "cannot find session with given id")
 }

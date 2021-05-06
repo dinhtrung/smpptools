@@ -13,6 +13,8 @@ import (
 	"github.com/google/uuid"
 )
 
+var PDU_CHAN = make(chan *pdu.SubmitSm)
+
 // SmppConnectionProfile hold the session information
 type SmppConnectionProfile struct {
 	Connection smpp.BindConf
@@ -24,7 +26,9 @@ type SmppConnectionProfile struct {
 func (c *SmppConnectionProfile) Bind(ctx context.Context) error {
 	var err error
 	sc := smpp.SessionConf{
-		Handler: smpp.HandlerFunc(c.SessionHandleFunc),
+		Handler:  smpp.HandlerFunc(c.SessionHandleFunc),
+		SystemID: c.Connection.SystemID,
+		Logger:   services.WebsocketLogger{},
 	}
 
 	switch strings.ToLower(c.BindType) {
@@ -35,17 +39,21 @@ func (c *SmppConnectionProfile) Bind(ctx context.Context) error {
 	default:
 		c.Session, err = smpp.BindTRx(sc, c.Connection)
 	}
-	log.Printf("[%s] starting SMPP connection %s : %+v", c.Session.ID(), c.BindType, c.Connection)
 	if err == nil {
 		services.SMPP_CLIENT_SESSIONS[c.Session.ID()] = c.Session
 		go func() {
-			<-ctx.Done()
-			log.Printf("shutdown connection: %+v", c.Connection)
-			sid := c.Session.ID()
-			if err := c.Session.Close(); err != nil {
-				log.Printf("[%s] error close session: %s", sid, err)
+			for {
+				select {
+				case <-ctx.Done():
+					sid := c.Session.ID()
+					if err := c.Session.Close(); err != nil {
+						log.Printf("[%s] error close session: %s", sid, err)
+					}
+					delete(services.SMPP_CLIENT_SESSIONS, sid)
+				case req := <-PDU_CHAN:
+					c.Session.Send(context.Background(), req)
+				}
 			}
-			delete(services.SMPP_CLIENT_SESSIONS, sid)
 		}()
 	}
 	return err

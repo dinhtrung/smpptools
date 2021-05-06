@@ -13,6 +13,7 @@ import (
 
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/api"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/rest"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/ws"
 )
 
@@ -23,9 +24,16 @@ func main() {
 	flag.StringVar(&configFile, "config", "configs/smpp-simulator.yaml", "SMPP Simulator configuration file")
 	flag.Parse()
 
+	// set default settings
+	app.BuntDBConfig()
+
 	// Load configuration file and watch changes
 	app.ConfigInit(configFile)
 	app.ConfigWatch(configFile)
+
+	// bring up components
+	app.BuntDBInit()
+	// setup fiber
 
 	srv := fiber.New(fiber.Config{
 		BodyLimit: 50 * 1024 * 1024,
@@ -51,13 +59,13 @@ func main() {
 // setupRoutes setup the route for application
 func setupRoutes(app *fiber.App) {
 
+	// + SMPP actions
 	app.Get("api/settings", api.GetSettings)
 	app.Post("api/settings", api.SaveSettings)
-	app.Get("api/start-session", api.StartSession)
-	app.Post("api/start-session", api.StartSession)
-	app.Get("api/sessions", api.GetSessions)
-	app.Delete("api/sessions", api.StopSession)
-	app.Delete("api/sessions/:sessionID", api.StopSession)
+	app.Get("api/esme-sessions", api.GetSessions)
+	app.Post("api/esme-sessions", api.StartSession)
+	app.Put("api/esme-sessions/:sessionID", api.StopSession)
+	app.Delete("api/esme-sessions", api.StopAllSession)
 	app.Get("api/refresh-state", api.RefreshState)
 	app.Get("api/send-bad-packet", api.SendBadPacket)
 	app.Get("api/submit-message", api.GetDefaultMessage)
@@ -66,8 +74,18 @@ func setupRoutes(app *fiber.App) {
 	app.Get("api/bulk-sending-random", api.BulkSendingRandom)
 	app.Get("api/stop-bulk-sending", api.StopBulkSending)
 	app.Post("api/convert-text", api.ConvertText)
+
+	// + CRUD API for SMPP Profiles
+	app.Get("api/connection-profiles", rest.GetAllSmppConnectionProfile)
+	app.Get("api/connection-profiles/:id", rest.GetSmppConnectionProfile)
+	app.Post("api/connection-profiles", rest.NewSmppConnectionProfile)
+	app.Delete("api/admin/connection-profiles", rest.DeleteAllSmppConnectionProfile)
+	app.Delete("api/connection-profiles/:id", rest.DeleteSmppConnectionProfile)
+	app.Post("api/import/connection-profiles", rest.ImportJSONSmppConnectionProfile)
+
 }
 
+// setupWebSocket for push message back to browser
 func setupWebSocket(app *fiber.App) {
 
 	app.Use(func(c *fiber.Ctx) error {
