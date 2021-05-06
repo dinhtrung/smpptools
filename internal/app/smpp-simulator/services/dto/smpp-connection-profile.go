@@ -15,7 +15,6 @@ import (
 
 // SmppConnectionProfile hold the session information
 type SmppConnectionProfile struct {
-	Name       string
 	Connection smpp.BindConf
 	BindType   string
 	Session    *smpp.Session `json:"-"`
@@ -27,10 +26,7 @@ func (c *SmppConnectionProfile) Bind(ctx context.Context) error {
 	sc := smpp.SessionConf{
 		Handler: smpp.HandlerFunc(c.SessionHandleFunc),
 	}
-	if c.Name == "" {
-		c.Name = uuid.NewString()
-	}
-	log.Printf("[%s] starting SMPP connection %s : %+v", c.Name, c.BindType, c.Connection)
+
 	switch strings.ToLower(c.BindType) {
 	case "rx", "receiver":
 		c.Session, err = smpp.BindRx(sc, c.Connection)
@@ -39,15 +35,17 @@ func (c *SmppConnectionProfile) Bind(ctx context.Context) error {
 	default:
 		c.Session, err = smpp.BindTRx(sc, c.Connection)
 	}
+	log.Printf("[%s] starting SMPP connection %s : %+v", c.Session.ID(), c.BindType, c.Connection)
 	if err == nil {
-		services.SMPP_CLIENT_SESSIONS[c.Name] = c.Session
+		services.SMPP_CLIENT_SESSIONS[c.Session.ID()] = c.Session
 		go func() {
 			<-ctx.Done()
 			log.Printf("shutdown connection: %+v", c.Connection)
+			sid := c.Session.ID()
 			if err := c.Session.Close(); err != nil {
-				log.Printf("[%s] error close session: %s", c.Name, err)
+				log.Printf("[%s] error close session: %s", sid, err)
 			}
-			delete(services.SMPP_CLIENT_SESSIONS, c.Name)
+			delete(services.SMPP_CLIENT_SESSIONS, sid)
 		}()
 	}
 	return err
@@ -58,19 +56,32 @@ func (c *SmppConnectionProfile) SessionHandleFunc(ctx *smpp.Context) {
 	switch ctx.CommandID() {
 	case pdu.DeliverSmID:
 		req, _ := ctx.DeliverSm()
-		log.Printf("<< [%s] deliver_sm %+v", c.Name, req)
+		if req.EsmClass.Type == pdu.DelRecEsmType {
+			dlr, err := pdu.ParseDeliveryReceipt(req.ShortMessage)
+			if err != nil {
+				log.Printf("<< [%s] ERR delivery_receipt: %s", c.Session.ID(), err)
+			}
+			log.Printf("<< [%s] delivery_receipt %+v", c.Session.ID(), dlr)
+		} else {
+			log.Printf("<< [%s] deliver_sm %+v", c.Session.ID(), req)
+		}
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
+		resp := req.Response(uuid.NewString())
+		ctx.Respond(resp, pdu.StatusOK)
 	case pdu.DataSmID:
 		req, _ := ctx.DataSm()
-		log.Printf("<< [%s] data_sm %+v", c.Name, req)
+		log.Printf("<< [%s] data_sm %+v", c.Session.ID(), req)
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
+		resp := &pdu.DataSmResp{}
+		ctx.Respond(resp, pdu.StatusRejeAppErr)
+
 	case pdu.SubmitSmID:
 		req, _ := ctx.SubmitSm()
-		log.Printf("<< [%s] submit_sm %+v", c.Name, req)
+		log.Printf("<< [%s] submit_sm %+v", c.Session.ID(), req)
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
