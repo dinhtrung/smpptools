@@ -1,27 +1,28 @@
-# SmppSimulator
+# Lightning Admin Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
+A mobile first design of a responsive admin template built with angular and bootstrap 
 
-## Development server
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Demo
+[Live preview](https://azouaoui-med.github.io/lightning-admin-angular/demo/)
 
-## Code scaffolding
+## Screenshot
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![lightining-screenshot](https://user-images.githubusercontent.com/25878302/58369258-33f20900-7ef8-11e9-8ff3-b277cb7ed7b4.PNG)
 
-## Build
+## Quick start
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
+npm install 
 
-## Running unit tests
+ng serve
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Running end-to-end tests
+## Author
+Mohamed Azouaoui
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
+This code is released under the MIT license.
