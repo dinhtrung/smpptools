@@ -16,10 +16,11 @@ func StartSession(c *fiber.Ctx) error {
 		return err
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	services.SMPP_SESSIONS[info.Name] = &cancel
 	if err := info.Bind(ctx); err != nil {
+		defer cancel()
 		return err
 	}
+	services.SMPP_SESSIONS[info.Name] = &cancel
 	return c.Status(fiber.StatusAccepted).JSON(info)
 }
 

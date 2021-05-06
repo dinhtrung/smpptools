@@ -1,6 +1,8 @@
 package api
 
 import (
+	"log"
+
 	"github.com/daominah/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
@@ -35,6 +37,7 @@ func SubmitMessage(c *fiber.Ctx) error {
 	}
 
 	if sess, ok := services.SMPP_CLIENT_SESSIONS[sid]; ok {
+		log.Printf("[%s] submit_sm >> %+v", sid, *req)
 		resp, err := sess.Send(c.Context(), req)
 		if err != nil {
 			return err

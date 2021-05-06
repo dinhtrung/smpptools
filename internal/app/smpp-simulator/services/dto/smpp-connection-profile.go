@@ -58,19 +58,19 @@ func (c *SmppConnectionProfile) SessionHandleFunc(ctx *smpp.Context) {
 	switch ctx.CommandID() {
 	case pdu.DeliverSmID:
 		req, _ := ctx.DeliverSm()
-		log.Printf("<< [%s] deliver_sm %+v", c.Connection.SystemID, req)
+		log.Printf("<< [%s] deliver_sm %+v", c.Name, req)
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
 	case pdu.DataSmID:
 		req, _ := ctx.DataSm()
-		log.Printf("<< [%s] data_sm %+v", c.Connection.SystemID, req)
+		log.Printf("<< [%s] data_sm %+v", c.Name, req)
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
 	case pdu.SubmitSmID:
 		req, _ := ctx.SubmitSm()
-		log.Printf("<< [%s] submit_sm %+v", c.Connection.SystemID, req)
+		log.Printf("<< [%s] submit_sm %+v", c.Name, req)
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
