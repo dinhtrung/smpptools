@@ -17,7 +17,12 @@ import { FormsComponent } from './pages/forms/forms.component';
 import { TypographyComponent } from './pages/typography/typography.component';
 import { MapsComponent } from './pages/maps/maps.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+// + ng-bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// + formly.dev
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyBootstrapModule
     ],
   providers: [],
   bootstrap: [AppComponent]
