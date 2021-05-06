@@ -1,2 +1,15 @@
 http:
-  listen: 127.0.0.1:9060
+  listen: 127.0.0.1:19060
+
+smpp:
+  client:
+    bind:
+      bindType: "transceiver"
+      connection:
+        addr: "staging.soibe.xyz:12346"
+        systemID: "test"
+        password: "test"
+        systemType: ""
+        addrTon: 0
+        addrNpi: 0
+        addrRange: "1234"

@@ -1,14 +1,9 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"log"
-	"os"
-	"os/signal"
 	"strings"
-	"sync"
-	"syscall"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
@@ -32,47 +27,6 @@ func main() {
 	app.ConfigInit(configFile)
 	app.ConfigWatch(configFile)
 
-	sigChan := make(chan os.Signal)
-	signal.Notify(sigChan, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	var wg sync.WaitGroup
-
-	wg.Add(1)
-	go SetupFiber(ctx, &wg)
-
-	wg.Add(1)
-	go SetupSmpp(ctx, &wg)
-
-	go func() {
-		log.Print("Application started")
-		<-sigChan
-		log.Println("Signal received. Terminating")
-		cancel()
-	}()
-
-	wg.Wait()
-
-}
-
-func SetupSmpp(ctx context.Context, wg *sync.WaitGroup) {
-	defer wg.Done()
-	srv := fiber.New()
-	go srv.Listen(":19090")
-	log.Println("Started another web server for testing")
-	for {
-		<-ctx.Done()
-		log.Println("Shutdown 2nd web server")
-		srv.Shutdown()
-	}
-}
-
-// SetupFiber help setup the web server
-func SetupFiber(ctx context.Context, wg *sync.WaitGroup) {
-
-	defer wg.Done()
-
 	srv := fiber.New(fiber.Config{
 		BodyLimit: 50 * 1024 * 1024,
 	})
@@ -91,17 +45,7 @@ func SetupFiber(ctx context.Context, wg *sync.WaitGroup) {
 
 	setupWebSocket(srv)
 	setupRoutes(srv)
-	go srv.Listen(app.Config.String("http.listen"))
-	log.Println("Web server started")
-
-	for {
-		<-ctx.Done()
-
-		log.Println("Shutdown web server")
-		srv.Shutdown()
-
-	}
-
+	log.Fatal(srv.Listen(app.Config.String("http.listen")))
 }
 
 // setupRoutes setup the route for application
@@ -111,10 +55,11 @@ func setupRoutes(app *fiber.App) {
 	app.Post("api/settings", api.SaveSettings)
 	app.Get("api/start-session", api.StartSession)
 	app.Post("api/start-session", api.StartSession)
-	app.Get("api/stop-session", api.StopSession)
+	app.Delete("api/sessions", api.StopSession)
 	app.Get("api/refresh-state", api.RefreshState)
 	app.Get("api/send-bad-packet", api.SendBadPacket)
-	app.Get("api/submit-message", api.SubmitMessage)
+	app.Get("api/submit-message", api.GetDefaultMessage)
+	app.Post("api/submit-message/:sessionID", api.SubmitMessage)
 	app.Post("api/submit-message", api.SubmitMessage)
 	app.Get("api/bulk-sending-random", api.BulkSendingRandom)
 	app.Get("api/stop-bulk-sending", api.StopBulkSending)

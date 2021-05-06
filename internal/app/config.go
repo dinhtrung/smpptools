@@ -30,7 +30,7 @@ func ConfigWatch(path string) {
 			return
 		}
 
-		log.Println("config changed. Reloading ...")
+		log.Printf("config changed. Reloading %+v", event)
 		Config.Load(file.Provider(path), yaml.Parser())
 		Config.Print()
 	})
