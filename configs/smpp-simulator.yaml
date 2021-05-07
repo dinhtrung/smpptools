@@ -1,6 +1,7 @@
 http:
   listen: 127.0.0.1:19060
-
+buntdb:
+  path: build/package/bunt.db
 smpp:
   client:
     bind:

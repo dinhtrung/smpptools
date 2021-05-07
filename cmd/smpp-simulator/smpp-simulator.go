@@ -52,7 +52,7 @@ func main() {
 		Next: func(c *fiber.Ctx) bool {
 			return strings.HasPrefix(c.Path(), "/api")
 		},
-		Root: pkger.Dir("/web"),
+		Root: pkger.Dir("/web/smpp-simulator"),
 	})
 	srv.Use(staticAsset)
 	srv.Use(logger.New(logger.Config{
