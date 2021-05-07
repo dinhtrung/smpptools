@@ -1,72 +1,100 @@
 <aside class="sidebar shadow-sm">
 
-  <div class="sidebar-profile d-flex flex-column justify-content-center pt-5 pb-3">
-    <div class="picture-wrapper mb-4">
-      <div class="user-picture m-auto">
-        <img src="./assets/img/user.jpg" class="img-fluid" alt="">
-      </div>
-    </div>
-    <div class="profile-details text-center pb-4">
-      <p class="mb-0 text-uppercase name">Jhon Doe</p>
-      <small class="text-uppercase role">Administrator</small>
-    </div>
-  </div>
-  <div class="sidebar-search pt-1 pb-1 pl-3 pr-3">
-    <input type="search" class="form-control rounded-pill" name="search" placeholder="Search ...">
-  </div>
   <nav class="sidebar-menu pt-3 pb-3">
-    <div class="menu-header mt-3 mb-2">
-      Components
+    <div class="menu-header mt-4 mb-4">
+      ESME Management
     </div>
     <ul class="menu-items">
-      <li >
-        <a href="#" routerLink="/dashboard" routerLinkActive="active">
-          <i class="fa fa-tv"></i>
+      <li>
+        <a href="javascript: void(0);" routerLink="/esme/dashboard" routerLinkActive="active">
+          <fa-icon icon="tachometer-alt" [fixedWidth]="true"></fa-icon>
           <span>Dashboard</span>
-          <span class="badge badge-warning rounded-0 text-dark p-1">NEW</span>
         </a>
       </li>
       <li>
-        <a href="javascript:void(0)" routerLink="/smpp" routerLinkActive="active">
-          <i class="fas fa-gem"></i>
-          <span>ESME Profiles</span>
+        <a href="javascript:void(0)" routerLink="/esme/accounts" routerLinkActive="active">
+          <fa-icon icon="id-card" [fixedWidth]="true"></fa-icon>
+          <span>ESME Accounts</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" routerLink="/esme/sessions" routerLinkActive="active">
+          <fa-icon icon="tv" [fixedWidth]="true"></fa-icon>
+          <span>Active Sessions</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" routerLink="/esme/smpp-presets" routerLinkActive="active">
+          <fa-icon icon="file-alt" [fixedWidth]="true"></fa-icon>
+          <span>SMPP Presets</span>
+        </a>
+      </li>
+    </ul>
+    <div class="menu-header mt-4 mb-4">
+      SMSC Management
+    </div>
+    <ul class="menu-items">
+      <li>
+        <a href="javascript: void(0);" routerLink="/smsc/dashboard" routerLinkActive="active">
+          <fa-icon icon="chart-pie" [fixedWidth]="true"></fa-icon>
+          <span>SMSC Reporting</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" routerLink="/smsc/instances" routerLinkActive="active">
+          <fa-icon icon="server" [fixedWidth]="true"></fa-icon>
+          <span>SMSC Instances</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" routerLink="/smsc/sessions" routerLinkActive="active">
+          <fa-icon icon="handshake" [fixedWidth]="true"></fa-icon>
+          <span>Established Sessions</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" routerLink="/smsc/profiles" routerLinkActive="active">
+          <fa-icon icon="cogs" [fixedWidth]="true"></fa-icon>
+          <span>Profiles</span>
         </a>
       </li>
 
+    </ul>
+    <div class="menu-header mt-4 mb-4">
+      Documentation
+    </div>
+    <ul class="menu-items">
       <li>
-        <a href="#" routerLink="/forms" routerLinkActive="active">
-          <i class="fas fa-gem"></i>
+        <a href="javascript: void(0);" routerLink="/forms" routerLinkActive="active">
+          <fa-icon icon="gem"></fa-icon>
           <span>Forms</span>
         </a>
       </li>
       <li>
-        <a href="#" routerLink="/tables" routerLinkActive="active">
+        <a href="javascript: void(0);" routerLink="/tables" routerLinkActive="active">
           <i class="fa fa-table"></i>
           <span>Tables</span>
         </a>
       </li>
       <li>
-        <a href="#" routerLink="/typography" routerLinkActive="active">
+        <a href="javascript: void(0);" routerLink="/typography" routerLinkActive="active">
           <i class="fa fa-align-center"></i>
           <span>Typography</span>
         </a>
       </li>
       <li>
-        <a href="#" routerLink="/maps" routerLinkActive="active">
+        <a href="javascript: void(0);" routerLink="/maps" routerLinkActive="active">
           <i class="fa fa-globe"></i>
           <span>Maps</span>
         </a>
       </li>
       <li>
-        <a href="#" routerLink="/notifications" routerLinkActive="active">
-          <i class="fas fa-bell"></i>
+        <a href="javascript: void(0);" routerLink="/notifications" routerLinkActive="active">
+          <fa-icon icon="bell"></fa-icon>
           <span>Notifications</span>
         </a>
       </li>
     </ul>
-    <div class="menu-header mt-4 mb-4">
-      Github Repo
-    </div>
     <div class="view-source mb-3">
       <a href="https://github.com/azouaoui-med/lightning-admin-angular" target="_blank" class="btn btn-block btn-lightning rounded-0">View Source</a>
     </div>

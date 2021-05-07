@@ -10,8 +10,12 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 const routes: Routes = [
   {path: '',   redirectTo: '/dashboard', pathMatch: 'full'},
   {
-    path: 'smpp',
-    loadChildren: () => import('./smpp/smpp.module').then(m => m.SmppModule)
+    path: 'esme',
+    loadChildren: () => import('./esme/esme.module').then(m => m.EsmeModule)
+  },
+  {
+    path: 'smsc',
+    loadChildren: () => import('./smsc/smsc.module').then(m => m.SmscModule)
   },
   {path: 'dashboard', component: DashboardComponent},
   {path: 'forms', component: FormsComponent},
