@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-accounts',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsComponent implements OnInit {
 
-  constructor() { }
+  rows: any[] = []
+  constructor(
+    private httpClient: HttpClient,
+    private alertService: ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.loadAll()
+  }
+
+  loadAll(): void {
+    this.httpClient.get<any[]>('api/esme-accounts').subscribe(res => this.rows = res, err => this.alertService.error(err.message));
   }
 
 }

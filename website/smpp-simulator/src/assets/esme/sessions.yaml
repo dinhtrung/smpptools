@@ -1,0 +1,580 @@
+title: Inbound SMPP Session established from Service Providers
+apiEndpoint: /services/inbound-smpp/api/management/sessions
+reloadEndpoint: /services/inbound-smpp/api/management/refresh
+restartEndpoint: /services/inbound-smpp/api/management/restart-all
+wsEndpoint: /ws
+wsTopic: "esme-sessions"
+fields:
+  - type: tabset
+    fieldGroup:
+      - templateOptions:
+          label: Connection
+        fieldGroup:
+          - fieldGroupClassName: row
+            fieldGroup:
+
+              - key: host # (string, optional),
+                type: input
+                className: col-md-6
+                defaultValue: 127.0.0.1
+                templateOptions:
+                  label: Host
+              - key: port # (integer, optional),
+                type: input
+                className: col-md-6
+                defaultValue: 2775
+                templateOptions:
+                  label: Port
+                  type: number
+                  description: SMSC port (for client mode), Local port (for server mode)
+              - key: systemId # (string, optional),
+                type: input
+                className: col-md-6
+                defaultValue: test
+                templateOptions:
+                  label: SystemId
+                  maxlength: 8
+              - key: password # (string, optional),
+                type: input
+                defaultValue: test
+                className: col-md-6
+                templateOptions:
+                  label: Password
+                  maxlength: 8
+              - key: addressRange # (string, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: AddressRange
+              - template: <div class="col-md-6"></div>
+              - key: smppSessionType # (string, optional) = ['SERVER', 'CLIENT'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: SmppSessionType
+                  required: true
+                  options:
+                    - value: 'SERVER'
+                      label: 'SERVER'
+                    - value: 'CLIENT'
+                      label: 'CLIENT'
+
+              - key: bindType # (string, optional) = ['TRANSCEIVER', 'TRANSMITTER', 'RECEIVER'],
+                type: select
+                className: col-md-6
+                defaultValue: TRANSCEIVER
+                expressionProperties:
+                  templateOptions.disabled: model.smppSessionType === 'SERVER'
+                templateOptions:
+                  label: BindType
+                  options:
+                    - value: 'TRANSCEIVER'
+                      label: 'TRANSCEIVER'
+                    - value: 'TRANSMITTER'
+                      label: 'TRANSMITTER'
+                    - value: 'RECEIVER'
+                      label: 'RECEIVER'
+
+              - key: connectTimeout # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: ConnectTimeout
+                  type: number
+              - key: useSsl # (boolean, optional),
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: UseSsl
+              - key: windowMonitorInterval # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: WindowMonitorInterval
+                  type: number
+              - key: windowSize # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: WindowSize
+                  type: number
+                  description: The maximum number of requests permitted to be outstanding (unacknowledged) at a given time
+      - templateOptions:
+          label: Message
+        fieldGroup:
+          - fieldGroupClassName: row
+            fieldGroup:
+              - key: destAddress # (string, optional),
+                type: input
+                className: col-md-4
+                templateOptions:
+                  label: DestAddress
+              - key: destNPI # (string, optional) = ['Unknown', 'ISDN', 'Data', 'Telex', 'Land_Mobile', 'National', 'Private', 'ERMES', 'Internet_IP', 'WAP_Client_Id'],
+                type: select
+                className: col-md-4
+                templateOptions:
+                  label: DestNPI
+                  options:
+                    - value: 'Unknown'
+                      label: 'Unknown'
+                    - value: 'ISDN'
+                      label: 'ISDN'
+                    - value: 'Data'
+                      label: 'Data'
+                    - value: 'Telex'
+                      label: 'Telex'
+                    - value: 'Land_Mobile'
+                      label: 'Land_Mobile'
+                    - value: 'National'
+                      label: 'National'
+                    - value: 'Private'
+                      label: 'Private'
+                    - value: 'ERMES'
+                      label: 'ERMES'
+                    - value: 'Internet_IP'
+                      label: 'Internet_IP'
+                    - value: 'WAP_Client_Id'
+                      label: 'WAP_Client_Id'
+              - key: destTON # (string, optional) = ['Unknown', 'International', 'National', 'Network_Specific', 'Subscriber_Number', 'Alfanumeric', 'Abbreviated'],
+                type: select
+                className: col-md-4
+                templateOptions:
+                  label: DestTON
+                  options:
+                    - label: 'Unknown'
+                      value: 'Unknown'
+                    - label: 'International'
+                      value: 'International'
+                    - label: 'National'
+                      value: 'National'
+                    - label: 'Network_Specific'
+                      value: 'Network_Specific'
+                    - label: 'Subscriber_Number'
+                      value: 'Subscriber_Number'
+                    - label: 'Alfanumeric'
+                      value: 'Alfanumeric'
+                    - label: 'Abbreviated'
+                      value: 'Abbreviated'
+              - key: sourceAddress # (string, optional),
+                type: input
+                className: col-md-4
+                templateOptions:
+                  label: SourceAddress
+              - key: sourceNPI # (string, optional) = ['Unknown', 'ISDN', 'Data', 'Telex', 'Land_Mobile', 'National', 'Private', 'ERMES', 'Internet_IP', 'WAP_Client_Id'],
+                type: select
+                className: col-md-4
+                templateOptions:
+                  label: SourceNPI
+                  options:
+                    - value: 'Unknown'
+                      label: 'Unknown'
+                    - value: 'ISDN'
+                      label: 'ISDN'
+                    - value: 'Data'
+                      label: 'Data'
+                    - value: 'Telex'
+                      label: 'Telex'
+                    - value: 'Land_Mobile'
+                      label: 'Land_Mobile'
+                    - value: 'National'
+                      label: 'National'
+                    - value: 'Private'
+                      label: 'Private'
+                    - value: 'ERMES'
+                      label: 'ERMES'
+                    - value: 'Internet_IP'
+                      label: 'Internet_IP'
+                    - value: 'WAP_Client_Id'
+                      label: 'WAP_Client_Id'
+              - key: sourceTON # (string, optional) = ['Unknown', 'International', 'National', 'Network_Specific', 'Subscriber_Number', 'Alfanumeric', 'Abbreviated'],
+                type: select
+                className: col-md-4
+                templateOptions:
+                  label: SourceTON
+                  options:
+                    - label: 'Unknown'
+                      value: 'Unknown'
+                    - label: 'International'
+                      value: 'International'
+                    - label: 'National'
+                      value: 'National'
+                    - label: 'Network_Specific'
+                      value: 'Network_Specific'
+                    - label: 'Subscriber_Number'
+                      value: 'Subscriber_Number'
+                    - label: 'Alfanumeric'
+                      value: 'Alfanumeric'
+                    - label: 'Abbreviated'
+                      value: 'Abbreviated'
+              - key: encodingType # (string, optional) = ['GSM7_DCS_0', 'GSM8_DCS_4', 'UCS2_DCS_8'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: EncodingType
+                  options:
+                    - label: 'GSM7_DCS_0'
+                      value: 'GSM7_DCS_0'
+                    - label: 'GSM8_DCS_4'
+                      value: 'GSM8_DCS_4'
+                    - label: 'UCS2_DCS_8'
+                      value: 'UCS2_DCS_8'
+              - key: smppEncoding # (integer, optional),
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: SmppEncoding
+                  options:
+                    - value: 0
+                      label: UTF-8
+                    - value: 1
+                      label: Unicode
+                    - value: 2
+                      label: GSM7
+              - key: messageText # (string, optional),
+                type: textarea
+                className: col-md-12
+                expressionProperties:
+                  templateOptions.description: '`Message to send to SMSC. Current length ${_.get(model, "messageText.length")}`'
+                templateOptions:
+                  label: Message Text
+                  cols: 80
+                  rows: 5
+              - key: serviceType # (string, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: ServiceType
+              - key: messagingMode # (string, optional) = ['defaultSmscMode', 'datagramm', 'transaction', 'storeAndForward'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: MessagingMode
+                  options:
+                    - value: 'defaultSmscMode'
+                      label: 'defaultSmscMode'
+                    - value: 'datagramm'
+                      label: 'datagramm'
+                    - value: 'transaction'
+                      label: 'transaction'
+                    - value: 'storeAndForward'
+                      label: 'storeAndForward'
+
+              - key: sendingMessageType # (string, optional) = ['SubmitSm', 'DataSm', 'DeliverSm', 'SubmitMulti'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: SendingMessageType
+                  options:
+                    - value: 'SubmitSm'
+                      label: 'SubmitSm'
+                    - value: 'DataSm'
+                      label: 'DataSm'
+                    - value: 'DeliverSm'
+                      label: 'DeliverSm'
+                    - value: 'SubmitMulti'
+                      label: 'SubmitMulti'
+
+              - key: submitMultiMessageCnt # (integer, optional),
+                type: input
+                className: col-md-6
+                expressionProperties:
+                  templateOptions.disabled: model.sendingMessageType !== 'SubmitMulti'
+                templateOptions:
+                  label: SubmitMultiMessageCnt
+                  type: number
+                  className: col-md-6
+              - key: messageClass # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: MessageClass
+                  type: number
+
+              - key: validityType # (string, optional) = ['NoSpecial', 'ValidityPeriod_5min', 'ValidityPeriod_2hours', 'ScheduleDeliveryTime_5min'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: ValidityType
+                  options:
+                    - value: 'NoSpecial'
+                      label: 'NoSpecial'
+                    - value: 'ValidityPeriod_5min'
+                      label: 'ValidityPeriod_5min'
+                    - value: 'ValidityPeriod_2hours'
+                      label: 'ValidityPeriod_2hours'
+                    - value: 'ScheduleDeliveryTime_5min'
+                      label: 'ScheduleDeliveryTime_5min'
+
+
+              - key: splittingType # (string, optional) = ['DoNotSplit', 'SplitWithParameters_DefaultSegmentLength', 'SplitWithUdh_DefaultSegmentLength', 'SplitWithParameters_SpecifiedSegmentLength', 'SplitWithUdh_SpecifiedSegmentLength'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: SplittingType
+                  options:
+                    - label: 'DoNotSplit'
+                      value: 'DoNotSplit'
+                    - label: 'SplitWithParameters_DefaultSegmentLength'
+                      value: 'SplitWithParameters_DefaultSegmentLength'
+                    - label: 'SplitWithUdh_DefaultSegmentLength'
+                      value: 'SplitWithUdh_DefaultSegmentLength'
+                    - label: 'SplitWithParameters_SpecifiedSegmentLength'
+                      value: 'SplitWithParameters_SpecifiedSegmentLength'
+                    - label: 'SplitWithUdh_SpecifiedSegmentLength'
+                      value: 'SplitWithUdh_SpecifiedSegmentLength'
+              - key: specifiedSegmentLength # (integer, optional),
+                type: input
+                className: col-md-6
+                expressionProperties:
+                  templateOptions.disabled: (model.splittingType !== 'SplitWithUdh_SpecifiedSegmentLength') && (model.sendingMessageType !== 'SplitWithParameters_SpecifiedSegmentLength')
+                templateOptions:
+                  label: SpecifiedSegmentLength
+                  type: number
+
+      - templateOptions:
+          label: Responses
+        fieldGroup:
+          - fieldGroupClassName: row
+            fieldGroup:
+              - key: wrongMessageIdInDlr # (boolean, optional)
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: WrongMessageIdInDlr
+              - key: mcDeliveryReceipt # (string, optional) = ['No', 'onSuccessOrFailure', 'onFailure', 'onSuccess', 'onSuccessTempOrPermanentFailure'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: McDeliveryReceipt
+                  options:
+                    - label: 'No'
+                      value: 'No'
+                    - label: 'onSuccessOrFailure'
+                      value: 'onSuccessOrFailure'
+                    - label: 'onFailure'
+                      value: 'onFailure'
+                    - label: 'onSuccess'
+                      value: 'onSuccess'
+                    - label: 'onSuccessTempOrPermanentFailure'
+                      value: 'onSuccessTempOrPermanentFailure'
+              - key: randomDeliveryReceipt # (boolean, optional),
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: RandomDeliveryReceipt
+              - key: rejectIncomingDeliveryMessage # (boolean, optional),
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: RejectIncomingDeliveryMessage
+              - key: requestExpiryTimeout # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: RequestExpiryTimeout
+                  type: number
+              - key: idResponseTlv # (boolean, optional),
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: IdResponseTlv
+              - key: deliveryResponseAfter2Min # (boolean, optional),
+                type: checkbox
+                className: col-md-6
+                templateOptions:
+                  label: DeliveryResponseAfter2Min
+              - key: deliveryResponseGenerating # (string, optional) = ['No', 'Success', 'Error8'],
+                type: select
+                className: col-md-6
+                templateOptions:
+                  label: DeliveryResponseGenerating
+                  options:
+                    - value: 'No'
+                      label: 'No'
+                    - value: 'Success'
+                      label: 'Success'
+                    - value: 'Error8'
+                      label: 'Error8'
+      - templateOptions:
+          label: Bulk SMS
+        fieldGroup:
+          - fieldGroupClassName: row
+            fieldGroup:
+              - key: bulkDestAddressRangeEnd # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: BulkDestAddressRangeEnd
+                  type: number
+              - key: bulkDestAddressRangeStart # (integer, optional),
+                type: input
+                className: col-md-6
+                templateOptions:
+                  label: BulkDestAddressRangeStart
+                  type: number
+              - key: bulkMessagePerSecond # (integer, optional),
+                type: input
+                className: col-md-6
+                defaultValue: 100
+                templateOptions:
+                  label: BulkMessagePerSecond
+                  type: number
+              - key: bulkThreadCnt # (integer, optional),
+                type: input
+                className: col-md-6
+                defaultValue: 10
+                templateOptions:
+                  label: Number of Concurrent Threads
+                  type: number
+      - templateOptions:
+          label: TLV
+        fieldGroup:
+          - fieldGroupClassName: row
+            fieldGroup:
+              - key: tlvList # (Array[TlvDTO], optional),
+                type: repeat
+                templateOptions:
+                  label: Tlv List
+                  addText: Add TLV
+                fieldArray:
+                  fieldGroupClassName: row no-gutters
+                  fieldGroup:
+                    - key: tag
+                      type: select
+                      className: col-md-6
+                      templateOptions:
+                        options:
+                          - label: 'TAG_SOURCE_TELEMATICS_ID'
+                            value: '0x0010'
+                          - label: 'TAG_PAYLOAD_TYPE'
+                            value: '0x0019'
+                          - label: 'TAG_PRIVACY_INDICATOR'
+                            value: '0x0201'
+                          - label: 'TAG_USER_MESSAGE_REFERENCE'
+                            value: '0x0204'
+                          - label: 'TAG_USER_RESPONSE_CODE'
+                            value: '0x0205'
+                          - label: 'TAG_SOURCE_PORT'
+                            value: '0x020A'
+                          - label: 'TAG_DESTINATION_PORT'
+                            value: '0x020B'
+                          - label: 'TAG_SAR_MSG_REF_NUM'
+                            value: '0x020C'
+                          - label: 'TAG_LANGUAGE_INDICATOR'
+                            value: '0x020D'
+                          - label: 'TAG_SAR_TOTAL_SEGMENTS'
+                            value: '0x020E'
+                          - label: 'TAG_SAR_SEGMENT_SEQNUM'
+                            value: '0x020F'
+                          - label: 'TAG_SOURCE_SUBADDRESS'
+                            value: '0x0202'
+                          - label: 'TAG_DEST_SUBADDRESS'
+                            value: '0x0203'
+                          - label: 'TAG_CALLBACK_NUM'
+                            value: '0x0381'
+                          - label: 'TAG_MESSAGE_PAYLOAD'
+                            value: '0x0424'
+                          - label: 'TAG_SC_INTERFACE_VERSION'
+                            value: '0x0210'
+                          - label: 'TAG_DISPLAY_TIME'
+                            value: '0x1201'
+                          - label: 'TAG_MS_VALIDITY'
+                            value: '0x1204'
+                          - label: 'TAG_DPF_RESULT'
+                            value: '0x0420'
+                          - label: 'TAG_SET_DPF'
+                            value: '0x0421'
+                          - label: 'TAG_MS_AVAIL_STATUS'
+                            value: '0x0422'
+                          - label: 'TAG_NETWORK_ERROR_CODE'
+                            value: '0x0423'
+                          - label: 'TAG_DELIVERY_FAILURE_REASON'
+                            value: '0x0425'
+                          - label: 'TAG_MORE_MSGS_TO_FOLLOW'
+                            value: '0x0426'
+                          - label: 'TAG_MSG_STATE'
+                            value: '0x0427'
+                          - label: 'TAG_CONGESTION_STATE'
+                            value: '0x0428'
+                          - label: 'TAG_CALLBACK_NUM_PRES_IND'
+                            value: '0x0302'
+                          - label: 'TAG_CALLBACK_NUM_ATAG'
+                            value: '0x0303'
+                          - label: 'TAG_NUM_MSGS'
+                            value: '0x0304'
+                          - label: 'TAG_SMS_SIGNAL'
+                            value: '0x1203'
+                          - label: 'TAG_ALERT_ON_MSG_DELIVERY'
+                            value: '0x130C'
+                          - label: 'TAG_ITS_REPLY_TYPE'
+                            value: '0x1380'
+                          - label: 'TAG_ITS_SESSION_INFO'
+                            value: '0x1383'
+                          - label: 'TAG_USSD_SERVICE_OP'
+                            value: '0x0501'
+                          - label: 'TAG_BROADCAST_CHANNEL_INDICATOR'
+                            value: '0x0600'
+                          - label: 'TAG_BROADCAST_CONTENT_TYPE'
+                            value: '0x0601'
+                          - label: 'TAG_BROADCAST_CONTENT_TYPE_INFO'
+                            value: '0x0602'
+                          - label: 'TAG_BROADCAST_MESSAGE_CLASS'
+                            value: '0x0603'
+                          - label: 'TAG_BROADCAST_REP_NUM'
+                            value: '0x0604'
+                          - label: 'TAG_BROADCAST_FREQUENCY_INTERVAL'
+                            value: '0x0605'
+                          - label: 'TAG_BROADCAST_AREA_IDENTIFIER'
+                            value: '0x0606'
+                          - label: 'TAG_BROADCAST_ERROR_STATUS'
+                            value: '0x0607'
+                          - label: 'TAG_BROADCAST_AREA_SUCCESS'
+                            value: '0x0608'
+                          - label: 'TAG_BROADCAST_END_TIME'
+                            value: '0x0609'
+                          - label: 'TAG_BROADCAST_SERVICE_GROUP'
+                            value: '0x060A'
+                          - label: 'TAG_SOURCE_NETWORK_ID'
+                            value: '0x060D'
+                          - label: 'TAG_DEST_NETWORK_ID'
+                            value: '0x060E'
+                          - label: 'TAG_SOURCE_NODE_ID'
+                            value: '0x060F'
+                          - label: 'TAG_DEST_NODE_ID'
+                            value: '0x0610'
+                          - label: 'TAG_BILLING_IDENTIFICATION'
+                            value: '0x060B'
+                          - label: 'TAG_ORIG_MSC_ADDR'
+                            value: '0x8081'
+                          - label: 'TAG_DEST_MSC_ADDR'
+                            value: '0x8082'
+                          - label: 'TAG_DEST_ADDR_SUBUNIT'
+                            value: '0x0005'
+                          - label: 'TAG_DEST_NETWORK_TYPE'
+                            value: '0x0006'
+                          - label: 'TAG_DEST_BEAR_TYPE'
+                            value: '0x0007'
+                          - label: 'TAG_DEST_TELE_ID'
+                            value: '0x0008'
+                          - label: 'TAG_SOURCE_ADDR_SUBUNIT'
+                            value: '0x000D'
+                          - label: 'TAG_SOURCE_NETWORK_TYPE'
+                            value: '0x000E'
+                          - label: 'TAG_SOURCE_BEAR_TYPE'
+                            value: '0x000F'
+                          - label: 'TAG_SOURCE_TELE_ID'
+                            value: '0x0010'
+                          - label: 'TAG_QOS_TIME_TO_LIVE'
+                            value: '0x0017'
+                          - label: 'TAG_ADD_STATUS_INFO'
+                            value: '0x001D'
+                          - label: 'TAG_RECEIPTED_MSG_ID'
+                            value: '0x001E'
+                          - label: 'TAG_MS_MSG_WAIT_FACILITIES'
+                            value: '0x0030'
+
+                    - key: value
+                      type: input
+                      className: col-md-6
+                      templateOptions:
+                        placeholder: Tag Value in Hex String

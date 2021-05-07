@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToastrModule } from 'ngx-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 // + app specific
 import { FormlyModule } from '@ngx-formly/core';
@@ -29,11 +28,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    ToastrModule,
     FormlyBootstrapModule,
     FormlyModule.forRoot({
       validators: [{ name: 'ip', validation: AppValidators.IpValidator }],
@@ -64,11 +61,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
   ],
   exports: [
     CommonModule,
-    ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    ToastrModule,
     FormlyBootstrapModule,
     FormlyModule
   ]

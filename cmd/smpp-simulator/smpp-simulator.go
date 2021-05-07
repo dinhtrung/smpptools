@@ -95,12 +95,12 @@ func setupRoutes(app *fiber.App) {
 	app.Post("api/convert-text", api.ConvertText)
 
 	// + CRUD API for SMPP Profiles
-	app.Get("api/esme-profiles", rest.GetAllSmppConnectionProfile)
-	app.Get("api/esme-profiles/:id", rest.GetSmppConnectionProfile)
-	app.Post("api/esme-profiles", rest.NewSmppConnectionProfile)
-	app.Delete("api/esme-profiles/:id", rest.DeleteSmppConnectionProfile)
-	app.Delete("api/admin/esme-profiles", rest.DeleteAllSmppConnectionProfile)
-	app.Post("api/import/esme-profiles", rest.ImportJSONSmppConnectionProfile)
+	app.Get("api/esme-accounts", rest.GetAllSmppConnectionProfile)
+	app.Get("api/esme-accounts/:id", rest.GetSmppConnectionProfile)
+	app.Post("api/esme-accounts", rest.NewSmppConnectionProfile)
+	app.Delete("api/esme-accounts/:id", rest.DeleteSmppConnectionProfile)
+	app.Delete("api/admin/esme-accounts", rest.DeleteAllSmppConnectionProfile)
+	app.Post("api/import/esme-accounts", rest.ImportJSONSmppConnectionProfile)
 
 }
 
