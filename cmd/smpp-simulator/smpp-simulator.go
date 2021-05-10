@@ -102,6 +102,13 @@ func setupRoutes(app *fiber.App) {
 	app.Delete("api/admin/esme-accounts", rest.DeleteAllSmppConnectionProfile)
 	app.Post("api/import/esme-accounts", rest.ImportJSONSmppConnectionProfile)
 
+	// + Tasks for SMSC
+	// + api for control ESME sessions
+	app.Get("api/smsc-instances", api.GetAllSmscInstances)
+	app.Post("api/smsc-instances", api.StartSmscInstance)
+	app.Delete("api/smsc-instances/:instanceID", api.StopSmscInstance)
+	app.Delete("api/smsc-instances", api.StopAllSmscInstances)
+
 }
 
 // setupWebSocket for push message back to browser
