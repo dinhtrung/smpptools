@@ -12,3 +12,11 @@ go-update:
 
 smpp:
 	$(GOBUILD) -o build/package/smpp-simulator cmd/smpp-simulator/smpp-simulator.go
+
+# === PROJECT SPECIFIC TARGETS =========
+generate-sources:
+	docker run --rm -v "${PWD}:/local" -u 1000:1000 openapitools/openapi-generator-cli:latest generate \
+    -i /local/api/openapi.yaml \
+    -g go \
+    -o /local/pkg/smpptools/openapi
+

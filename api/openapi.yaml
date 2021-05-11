@@ -1,0 +1,1135 @@
+---
+openapi: 3.0.0
+info:
+  title: smpptools API
+  description: smpptools API documentation
+  contact: {}
+  license:
+    name: unlicensed
+  version: 0.0.1
+servers:
+- url: https://virtserver.swaggerhub.com/foxtechvn/smpptools/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: account-resource
+  description: Account Resource
+- name: base-sm-resource
+  description: Base Sm Resource
+- name: esme-account-resource
+  description: Esme Account Resource
+- name: isdn-list-resource
+  description: Isdn List Resource
+- name: public-user-resource
+  description: Public User Resource
+- name: smsc-account-resource
+  description: Smsc Account Resource
+- name: smsc-instance-resource
+  description: Smsc Instance Resource
+- name: user-jwt-controller
+  description: User JWT Controller
+- name: user-resource
+  description: User Resource
+paths:
+  /api/base-sms:
+    get:
+      tags:
+      - base-sm-resource
+      summary: getAllBaseSms
+      operationId: getAllBaseSmsUsingGET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/x-ndjson:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BaseSm'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - base-sm-resource
+      summary: createBaseSm
+      operationId: createBaseSmUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseSm'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /api/base-sms/{id}:
+    get:
+      tags:
+      - base-sm-resource
+      summary: getBaseSm
+      operationId: getBaseSmUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseSm'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - base-sm-resource
+      summary: updateBaseSm
+      operationId: updateBaseSmUsingPUT
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseSm'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - base-sm-resource
+      summary: deleteBaseSm
+      operationId: deleteBaseSmUsingDELETE
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+    patch:
+      tags:
+      - base-sm-resource
+      summary: partialUpdateBaseSm
+      operationId: partialUpdateBaseSmUsingPATCH
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseSm'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+  /api/esme-accounts:
+    get:
+      tags:
+      - esme-account-resource
+      summary: getAllEsmeAccounts
+      operationId: getAllEsmeAccountsUsingGET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/x-ndjson:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EsmeAccount'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - esme-account-resource
+      summary: createEsmeAccount
+      operationId: createEsmeAccountUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeAccount'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /api/esme-accounts/{id}:
+    get:
+      tags:
+      - esme-account-resource
+      summary: getEsmeAccount
+      operationId: getEsmeAccountUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeAccount'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - esme-account-resource
+      summary: updateEsmeAccount
+      operationId: updateEsmeAccountUsingPUT
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeAccount'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - esme-account-resource
+      summary: deleteEsmeAccount
+      operationId: deleteEsmeAccountUsingDELETE
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+    patch:
+      tags:
+      - esme-account-resource
+      summary: partialUpdateEsmeAccount
+      operationId: partialUpdateEsmeAccountUsingPATCH
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeAccount'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/EsmeAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeAccount'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+  /api/isdn-lists:
+    get:
+      tags:
+      - isdn-list-resource
+      summary: getAllIsdnLists
+      operationId: getAllIsdnListsUsingGET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/x-ndjson:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IsdnList'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - isdn-list-resource
+      summary: createIsdnList
+      operationId: createIsdnListUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IsdnList'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IsdnList'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /api/isdn-lists/{id}:
+    get:
+      tags:
+      - isdn-list-resource
+      summary: getIsdnList
+      operationId: getIsdnListUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IsdnList'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - isdn-list-resource
+      summary: updateIsdnList
+      operationId: updateIsdnListUsingPUT
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IsdnList'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IsdnList'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - isdn-list-resource
+      summary: deleteIsdnList
+      operationId: deleteIsdnListUsingDELETE
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+    patch:
+      tags:
+      - isdn-list-resource
+      summary: partialUpdateIsdnList
+      operationId: partialUpdateIsdnListUsingPATCH
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IsdnList'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/IsdnList'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IsdnList'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+  /api/smsc-accounts:
+    get:
+      tags:
+      - smsc-account-resource
+      summary: getAllSmscAccounts
+      operationId: getAllSmscAccountsUsingGET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/x-ndjson:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmscAccount'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - smsc-account-resource
+      summary: createSmscAccount
+      operationId: createSmscAccountUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscAccount'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /api/smsc-accounts/{id}:
+    get:
+      tags:
+      - smsc-account-resource
+      summary: getSmscAccount
+      operationId: getSmscAccountUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscAccount'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - smsc-account-resource
+      summary: updateSmscAccount
+      operationId: updateSmscAccountUsingPUT
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscAccount'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - smsc-account-resource
+      summary: deleteSmscAccount
+      operationId: deleteSmscAccountUsingDELETE
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+    patch:
+      tags:
+      - smsc-account-resource
+      summary: partialUpdateSmscAccount
+      operationId: partialUpdateSmscAccountUsingPATCH
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscAccount'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/SmscAccount'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscAccount'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+  /api/smsc-instances:
+    get:
+      tags:
+      - smsc-instance-resource
+      summary: getAllSmscInstances
+      operationId: getAllSmscInstancesUsingGET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/x-ndjson:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmscInstance'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    post:
+      tags:
+      - smsc-instance-resource
+      summary: createSmscInstance
+      operationId: createSmscInstanceUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscInstance'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscInstance'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+  /api/smsc-instances/{id}:
+    get:
+      tags:
+      - smsc-instance-resource
+      summary: getSmscInstance
+      operationId: getSmscInstanceUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscInstance'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - smsc-instance-resource
+      summary: updateSmscInstance
+      operationId: updateSmscInstanceUsingPUT
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscInstance'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscInstance'
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - smsc-instance-resource
+      summary: deleteSmscInstance
+      operationId: deleteSmscInstanceUsingDELETE
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+    patch:
+      tags:
+      - smsc-instance-resource
+      summary: partialUpdateSmscInstance
+      operationId: partialUpdateSmscInstanceUsingPATCH
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscInstance'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/SmscInstance'
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscInstance'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+components:
+  schemas:
+    BaseSm:
+      title: BaseSm
+      type: object
+      properties:
+        dataCoding:
+          type: integer
+          description: Data Coding for SMS
+          format: int32
+        defaultMessageID:
+          type: integer
+          description: Default Message ID
+          format: int32
+        destinationAddr:
+          type: string
+          description: destination address
+        destinationNPI:
+          type: integer
+          description: destination address Number plan indication
+          format: int32
+        destinationTON:
+          type: integer
+          description: destination address Type of number
+          format: int32
+        esmClass:
+          type: integer
+          description: ESM Class
+          format: int32
+        id:
+          type: string
+        priorityFlag:
+          type: integer
+          description: Priority Flag
+          format: int32
+        protocolID:
+          type: integer
+          description: Protocol ID
+          format: int32
+        registeredDelivery:
+          type: integer
+          description: Registered Delivery
+          format: int32
+        replaceIfPresentFlag:
+          type: integer
+          description: Replace if present flag
+          format: int32
+        scheduleDeliveryTime:
+          type: string
+          description: Scheduled Delivery Time
+        serviceType:
+          type: string
+          description: SMPP Service Type
+        sourceAddr:
+          type: string
+          description: source address
+        sourceNPI:
+          type: integer
+          description: source address Number plan indication
+          format: int32
+        sourceTON:
+          type: integer
+          description: source address Type of number
+          format: int32
+        text:
+          type: string
+          description: Message content in text
+        tlvList:
+          type: string
+          description: List of optional TLV
+        txtParts:
+          type: string
+          description: List of TXT parts in hex dump
+        udhParts:
+          type: string
+          description: List of UDH parts in hex dump
+        validityPeriod:
+          type: string
+          description: Validity Period
+      description: BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
+    EsmeAccount:
+      title: EsmeAccount
+      required:
+      - name
+      type: object
+      properties:
+        addressNPI:
+          type: integer
+          description: Bind Address Numbering Plan Indication
+          format: int32
+        addressRange:
+          type: string
+          description: Bind Address Range
+        addressTON:
+          type: integer
+          description: Bind Address Type of Number
+          format: int32
+        bindType:
+          type: string
+          description: Bind Type, transmitter, receiver or transceiver
+        connectionTimeout:
+          type: integer
+          description: Connection timeout in milliseconds
+          format: int32
+        description:
+          type: string
+          description: short description text
+        dlrErrorCode:
+          type: integer
+          description: Error Code return to SMSC for Mobile Originated SMS
+          format: int32
+        dlrErrorRate:
+          type: integer
+          description: Error Ratio for Receiving Mobile Orignated SMS
+          format: int32
+        enquireLinkInterval:
+          type: integer
+          description: Enquire links interval in seconds
+          format: int32
+        host:
+          type: string
+          description: remote SMSC host
+        id:
+          type: string
+        isEnable:
+          type: boolean
+          description: true if this ESME should be start automatically
+          example: false
+        isPersist:
+          type: boolean
+          description: true if this ESME should be start automatically on start up
+          example: false
+        moErrorCode:
+          type: integer
+          description: Error Code return to SMSC for Mobile Originated SMS
+          format: int32
+        moErrorRate:
+          type: integer
+          description: Error Ratio for Receiving Mobile Orignated SMS
+          format: int32
+        mtThroughtput:
+          type: integer
+          description: Sending out speeds in TPS
+          format: int32
+        name:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: name of this ESME account
+        numBinds:
+          type: integer
+          description: number of active binds on start up
+          format: int32
+        password:
+          type: string
+          description: Password for login
+        port:
+          type: integer
+          description: remote SMSC port
+          format: int32
+        reconnectDelay:
+          type: integer
+          description: Delay in seconds before retry reconnect
+          format: int32
+        systemID:
+          type: string
+          description: SystemID used to connect to remote SMSC
+        windowSize:
+          type: integer
+          description: Number of packets send out per one go
+          format: int32
+      description: ESME hold information on how to establish a SMPP Session towards SMSC
+    IsdnList:
+      title: IsdnList
+      required:
+      - name
+      type: object
+      properties:
+        content:
+          type: string
+          description: Uploaded files or CSV
+        description:
+          type: string
+          description: short description text
+        id:
+          type: string
+        name:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: name of this ISDN list
+    SmscAccount:
+      title: SmscAccount
+      required:
+      - name
+      - password
+      - systemID
+      type: object
+      properties:
+        addressNPI:
+          type: integer
+          description: Bind Address Numbering Plan Indication
+          format: int32
+        addressRange:
+          type: string
+          description: Bind Address Range
+        addressTON:
+          type: integer
+          description: Bind Address Type of Number
+          format: int32
+        bindType:
+          type: string
+          description: Bind Type, transmitter, receiver or transceiver
+        description:
+          type: string
+          description: short description text
+        dlrErrorCode:
+          type: integer
+          description: Error Code return to SMSC for Mobile Originated SMS
+          format: int32
+        dlrErrorRate:
+          type: integer
+          description: Error Ratio for Receiving Mobile Orignated SMS
+          format: int32
+        id:
+          type: string
+        maxBinds:
+          type: integer
+          description: max number of active binds on this account
+          format: int32
+        moErrorCode:
+          type: integer
+          description: Error Code return to SMSC for Mobile Originated SMS
+          format: int32
+        moErrorRate:
+          type: integer
+          description: Error Ratio for Receiving Mobile Orignated SMS
+          format: int32
+        name:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: name of this SMSCaccount account
+        password:
+          type: string
+          description: Password for login
+        systemID:
+          type: string
+          description: SystemID used to connect to remote SMSC
+      description: SMSC account allow or deny BIND request from ESME
+    SmscInstance:
+      title: SmscInstance
+      required:
+      - name
+      type: object
+      properties:
+        connectionTimeout:
+          type: integer
+          description: Connection timeout in milliseconds
+          format: int32
+        description:
+          type: string
+          description: short description text
+        id:
+          type: string
+        isPersist:
+          type: boolean
+          description: true if this SMSC should be start automatically on start up
+          example: false
+        name:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: name of this ESME account
+        port:
+          type: integer
+          description: TCP Port to listen to
+          format: int32
+        windowSize:
+          type: integer
+          description: Number of packets send out per one go
+          format: int32
+      description: SMSC hold information for SMPP instances that serve traffic from ESME
