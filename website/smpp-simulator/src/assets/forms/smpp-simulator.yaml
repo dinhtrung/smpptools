@@ -107,20 +107,20 @@
               templateOptions:
                 label: SourceTON
                 options:
-                  - label: 'Unknown'
-                    value: 'Unknown'
-                  - label: 'International'
-                    value: 'International'
-                  - label: 'National'
-                    value: 'National'
-                  - label: 'Network_Specific'
-                    value: 'Network_Specific'
-                  - label: 'Subscriber_Number'
-                    value: 'Subscriber_Number'
-                  - label: 'Alfanumeric'
-                    value: 'Alfanumeric'
-                  - label: 'Abbreviated'
-                    value: 'Abbreviated'
+                  - label: '0 - Unknown'
+                    value: 0
+                  - label: '1 - International'
+                    value: 1
+                  - label: '2 - National'
+                    value: 2
+                  - label: '3 - Network_Specific'
+                    value: 3
+                  - label: '4 - Subscriber_Number'
+                    value: 4
+                  - label: '5 - Alfanumeric'
+                    value: 5
+                  - label: '6 - Abbreviated'
+                    value: 6
             - key: sourceNpi # (string, optional) = ['Unknown', 'ISDN', 'Data', 'Telex', 'Land_Mobile', 'National', 'Private', 'ERMES', 'Internet_IP', 'WAP_Client_Id'],
               type: select
               className: col-md-4
@@ -128,26 +128,26 @@
               templateOptions:
                 label: SourceNPI
                 options:
-                  - value: 'Unknown'
-                    label: 'Unknown'
-                  - value: 'ISDN'
-                    label: 'ISDN'
-                  - value: 'Data'
-                    label: 'Data'
-                  - value: 'Telex'
-                    label: 'Telex'
-                  - value: 'Land_Mobile'
-                    label: 'Land_Mobile'
-                  - value: 'National'
-                    label: 'National'
-                  - value: 'Private'
-                    label: 'Private'
-                  - value: 'ERMES'
-                    label: 'ERMES'
-                  - value: 'Internet_IP'
-                    label: 'Internet_IP'
-                  - value: 'WAP_Client_Id'
-                    label: 'WAP_Client_Id'
+                  - value: 0
+                    label: '0 - Unknown'
+                  - value: 1
+                    label: '1 - ISDN'
+                  - value: 2
+                    label: '2 - Data'
+                  - value: 3
+                    label: '3 - Telex'
+                  - value: 4
+                    label: '4 - Land Mobile'
+                  - value: 5
+                    label: '5 - National'
+                  - value: 6
+                    label: '6 - Private'
+                  - value: 7
+                    label: '7 - ERMES'
+                  - value: 8
+                    label: '8 - Internet_IP'
+                  - value: 9
+                    label: '9 - WAP_Client_Id'
             - key: sourceAddress
               type: input
               className: col-md-4

@@ -4,7 +4,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { SmppPresetsComponent } from './smpp-presets/smpp-presets.component';
-
+import { YamlResolve } from 'app/shared/util/yaml-resolve';
 export const routes: Routes = [
   {
     path: '',
@@ -21,7 +21,13 @@ export const routes: Routes = [
   },
   {
     path: 'accounts',
-    component: AccountsComponent
+    component: AccountsComponent,
+    data: {
+      yamlFile: 'esme/esme-account.yaml'
+    },
+    resolve: {
+      config: YamlResolve
+    }
   },
   {
     path: 'session-details/:id',

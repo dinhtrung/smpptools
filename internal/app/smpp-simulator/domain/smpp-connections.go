@@ -8,12 +8,14 @@ import (
 
 const ESME = "ESME"
 
-type EsmeConnection struct {
-	ID   string
-	Info dto.SmppConnectionProfile
+type ESMEAccount struct {
+	ID          string
+	Name        string
+	Description string
+	Info        dto.SmppConnectionProfile
 }
 
-func (c *EsmeConnection) Key() string {
+func (c *ESMEAccount) Key() string {
 	if c.ID == "" {
 		c.ID = fmt.Sprintf("%s:%s:%s", ESME, c.Info.Connection.SystemID, c.Info.Connection.Addr)
 	}

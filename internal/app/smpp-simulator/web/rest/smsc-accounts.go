@@ -13,15 +13,15 @@ import (
 	"github.com/tidwall/buntdb"
 )
 
-// GetAllESMEAccount return all items
-func GetAllESMEAccount(c *fiber.Ctx) error {
-	rows := make([]domain.ESMEAccount, 0)
+// GetAllSMSCAccount return all items
+func GetAllSMSCAccount(c *fiber.Ctx) error {
+	rows := make([]dto.SMSCAccount, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		er := tx.Ascend("", func(key, value string) bool {
 			if !strings.HasPrefix(key, domain.ESME) {
 				return false
 			}
-			var row domain.ESMEAccount
+			var row dto.SMSCAccount
 			if err := json.Unmarshal([]byte(value), &row); err == nil {
 				rows = append(rows, row)
 			}
@@ -35,14 +35,14 @@ func GetAllESMEAccount(c *fiber.Ctx) error {
 	return c.JSON(rows)
 }
 
-// GetESMEAccount return a single item with given ID
-func GetESMEAccount(c *fiber.Ctx) error {
+// GetSMSCAccount return a single item with given ID
+func GetSMSCAccount(c *fiber.Ctx) error {
 	id := c.Params("id")
 	if id == "" {
 		return fiber.ErrBadRequest
 	}
 
-	var item domain.ESMEAccount
+	var item dto.SMSCAccount
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		val, err := tx.Get(id)
 		if err != nil {
@@ -60,14 +60,14 @@ func GetESMEAccount(c *fiber.Ctx) error {
 	return c.JSON(item)
 }
 
-// NewESMEAccount create a new domain.ESMEAccount
-func NewESMEAccount(c *fiber.Ctx) error {
-	item := domain.ESMEAccount{}
-	if err := c.BodyParser(&item.Info); err != nil {
+// NewSMSCAccount create a new domain.SMSCAccount
+func NewSMSCAccount(c *fiber.Ctx) error {
+	item := dto.SMSCAccount{}
+	if err := c.BodyParser(&item); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		key := item.Key()
+		key := item.Connection.Addr
 		jsondata, err := json.Marshal(item)
 		if err != nil {
 			return err
@@ -82,8 +82,8 @@ func NewESMEAccount(c *fiber.Ctx) error {
 	return c.JSON(item)
 }
 
-// DeleteESMEAccount delete the item with given ID
-func DeleteESMEAccount(c *fiber.Ctx) error {
+// DeleteSMSCAccount delete the item with given ID
+func DeleteSMSCAccount(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
@@ -96,8 +96,8 @@ func DeleteESMEAccount(c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
-// DeleteESMEAccount delete the item with given ID
-func DeleteAllESMEAccount(c *fiber.Ctx) error {
+// DeleteSMSCAccount delete the item with given ID
+func DeleteAllSMSCAccount(c *fiber.Ctx) error {
 	delkeys := make([]string, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		return tx.Ascend("", func(key, value string) bool {
@@ -125,24 +125,23 @@ func DeleteAllESMEAccount(c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
-// ImportJSONESMEAccount import data on JSON array format into DB
-func ImportJSONESMEAccount(c *fiber.Ctx) error {
-	var items []dto.SmppConnectionProfile
+// ImportJSONSMSCAccount import data on JSON array format into DB
+func ImportJSONSMSCAccount(c *fiber.Ctx) error {
+	var items []dto.SMSCAccount
 	if err := c.BodyParser(&items); err != nil {
 		return err
 	}
-	var okItems []domain.ESMEAccount
+	var okItems []dto.SMSCAccount
 	err := app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, item := range items {
-			profile := domain.ESMEAccount{Info: item}
-			key := profile.Key()
-			jsondata, err := json.Marshal(profile)
+			key := item.Connection.Addr
+			jsondata, err := json.Marshal(item)
 			if err != nil {
 				log.Printf("Unable to serialize value: +%v | %s", item, err)
 				continue
 			}
 			_, _, err = tx.Set(key, string(jsondata), nil)
-			okItems = append(okItems, profile)
+			okItems = append(okItems, item)
 			return err
 		}
 		return nil

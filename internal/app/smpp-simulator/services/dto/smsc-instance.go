@@ -18,10 +18,11 @@ var MO_CHAN = make(chan *pdu.DeliverSm)
 
 // SmppConnectionProfile hold the session information
 type SmscInstance struct {
-	Address string
-	Server  *smpp.Server `json:"-"`
-	// active client session. key is a pattern of ${systemID}-${ip-host}-${unixTimestamp}
-	Sessions map[string]*smpp.Session
+	Address             string
+	Server              *smpp.Server             `json:"-"`
+	Sessions            map[string]*smpp.Session `json:"-"` // active client session. key is a pattern of ${systemID}-${ip-host}-${unixTimestamp}
+	MobileOriginatedSMS *SmsSet                  // template of the Mobile OriginatedSMS to send out
+	Accounts            map[string]*SMSCAccount  // active smsc account, key by smpp context ID
 }
 
 // StartInstance perform bind request to server for testing
@@ -45,25 +46,20 @@ func (c *SmscInstance) StartInstance(ctx context.Context) error {
 		}
 	}()
 	go func() {
-		for {
-			select {
-			case <-ctx.Done():
-				log.Printf("[%s] stopping instance", c.Address)
-				if err := c.Server.Unbind(context.Background()); err != nil {
-					log.Printf("[%s] unable to send unbind to all connection: %s", c.Address, err)
-				}
-				if err := c.Server.Close(); err != nil {
-					log.Printf("[%s] error close server instance: %s", c.Address, err)
-				}
-				delete(services.SMSC_INSTANCES, c.Address)
-
-				return
-				// case req := <-MO_CHAN:
-				// 	c.Sessions.Send(context.Background(), req)
-				// case <-ENQUIRELINK_TIMER.C:
-				// 	c.Session.Send(context.Background(), &pdu.EnquireLink{})
-			}
+		<-ctx.Done()
+		log.Printf("[%s] stopping instance", c.Address)
+		if err := c.Server.Unbind(context.Background()); err != nil {
+			log.Printf("[%s] unable to send unbind to all connection: %s", c.Address, err)
 		}
+		if err := c.Server.Close(); err != nil {
+			log.Printf("[%s] error close server instance: %s", c.Address, err)
+		}
+		delete(services.SMSC_INSTANCES, c.Address)
+
+		// case req := <-MO_CHAN:
+		// 	c.Sessions.Send(context.Background(), req)
+		// case <-ENQUIRELINK_TIMER.C:
+		// 	c.Session.Send(context.Background(), &pdu.EnquireLink{})
 	}()
 	return err
 }
@@ -72,13 +68,24 @@ func (c *SmscInstance) StartInstance(ctx context.Context) error {
 func (c *SmscInstance) SmscHandleFunc(ctx *smpp.Context) {
 	switch ctx.CommandID() {
 	case pdu.BindTransceiverID:
-		log.Printf("<< [%s] bind transceiver received: %s", ctx.SystemID())
 		c.Sessions[ctx.Sess.ID()] = ctx.Sess
 		req, _ := ctx.BindTRx()
 		rsp := req.Response("smsc")
 		ctx.Respond(rsp, pdu.StatusOK)
+
+	case pdu.BindReceiverID:
+		c.Sessions[ctx.Sess.ID()] = ctx.Sess
+		req, _ := ctx.BindRx()
+		rsp := req.Response("smsc")
+		ctx.Respond(rsp, pdu.StatusOK)
+
+	case pdu.BindTransmitterID:
+		c.Sessions[ctx.Sess.ID()] = ctx.Sess
+		req, _ := ctx.BindTx()
+		rsp := req.Response("smsc")
+		ctx.Respond(rsp, pdu.StatusOK)
+
 	case pdu.UnbindID:
-		log.Printf("<< [%s] unbind request received: %s", ctx.SystemID())
 		delete(c.Sessions, ctx.Sess.ID())
 		req, _ := ctx.Unbind()
 		ctx.Respond(req.Response(), pdu.StatusOK)
@@ -89,8 +96,9 @@ func (c *SmscInstance) SmscHandleFunc(ctx *smpp.Context) {
 		if err := ctx.Respond(resp, pdu.StatusOK); err != nil {
 			log.Printf("client can't respond to the enquire_link")
 		} else {
-			log.Printf(">> enquire_link_resp[%+v]", ctx.Sess.SystemID())
+			log.Printf(">> enquire_link_resp[%+v]", ctx.SystemID())
 		}
+
 	case pdu.DeliverSmID:
 		req, _ := ctx.DeliverSm()
 		if req.EsmClass.Type == pdu.DelRecEsmType {
@@ -107,6 +115,7 @@ func (c *SmscInstance) SmscHandleFunc(ctx *smpp.Context) {
 		}
 		resp := req.Response(uuid.NewString())
 		ctx.Respond(resp, pdu.StatusOK)
+
 	case pdu.DataSmID:
 		req, _ := ctx.DataSm()
 		log.Printf("<< [%s] data_sm %+v", ctx.Sess.ID(), req)
