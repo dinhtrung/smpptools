@@ -28,8 +28,8 @@ var (
 type ThroughputSeriesResourceApiService service
 
 type ApiCreateThroughputSeriesUsingPOSTRequest struct {
-	ctx _context.Context
-	ApiService *ThroughputSeriesResourceApiService
+	ctx              _context.Context
+	ApiService       *ThroughputSeriesResourceApiService
 	throughputSeries *ThroughputSeries
 }
 
@@ -50,7 +50,7 @@ func (r ApiCreateThroughputSeriesUsingPOSTRequest) Execute() (ThroughputSeries, 
 func (a *ThroughputSeriesResourceApiService) CreateThroughputSeriesUsingPOST(ctx _context.Context) ApiCreateThroughputSeriesUsingPOSTRequest {
 	return ApiCreateThroughputSeriesUsingPOSTRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -136,11 +136,10 @@ func (a *ThroughputSeriesResourceApiService) CreateThroughputSeriesUsingPOSTExec
 }
 
 type ApiDeleteThroughputSeriesUsingDELETERequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *ThroughputSeriesResourceApiService
-	id string
+	id         string
 }
-
 
 func (r ApiDeleteThroughputSeriesUsingDELETERequest) Execute() (*_nethttp.Response, error) {
 	return r.ApiService.DeleteThroughputSeriesUsingDELETEExecute(r)
@@ -155,8 +154,8 @@ func (r ApiDeleteThroughputSeriesUsingDELETERequest) Execute() (*_nethttp.Respon
 func (a *ThroughputSeriesResourceApiService) DeleteThroughputSeriesUsingDELETE(ctx _context.Context, id string) ApiDeleteThroughputSeriesUsingDELETERequest {
 	return ApiDeleteThroughputSeriesUsingDELETERequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -230,10 +229,9 @@ func (a *ThroughputSeriesResourceApiService) DeleteThroughputSeriesUsingDELETEEx
 }
 
 type ApiGetAllThroughputSeriessUsingGETRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *ThroughputSeriesResourceApiService
 }
-
 
 func (r ApiGetAllThroughputSeriessUsingGETRequest) Execute() ([]ThroughputSeries, *_nethttp.Response, error) {
 	return r.ApiService.GetAllThroughputSeriessUsingGETExecute(r)
@@ -247,7 +245,7 @@ func (r ApiGetAllThroughputSeriessUsingGETRequest) Execute() ([]ThroughputSeries
 func (a *ThroughputSeriesResourceApiService) GetAllThroughputSeriessUsingGET(ctx _context.Context) ApiGetAllThroughputSeriessUsingGETRequest {
 	return ApiGetAllThroughputSeriessUsingGETRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -331,11 +329,10 @@ func (a *ThroughputSeriesResourceApiService) GetAllThroughputSeriessUsingGETExec
 }
 
 type ApiGetThroughputSeriesUsingGETRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *ThroughputSeriesResourceApiService
-	id string
+	id         string
 }
-
 
 func (r ApiGetThroughputSeriesUsingGETRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
 	return r.ApiService.GetThroughputSeriesUsingGETExecute(r)
@@ -350,8 +347,8 @@ func (r ApiGetThroughputSeriesUsingGETRequest) Execute() (ThroughputSeries, *_ne
 func (a *ThroughputSeriesResourceApiService) GetThroughputSeriesUsingGET(ctx _context.Context, id string) ApiGetThroughputSeriesUsingGETRequest {
 	return ApiGetThroughputSeriesUsingGETRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -436,12 +433,12 @@ func (a *ThroughputSeriesResourceApiService) GetThroughputSeriesUsingGETExecute(
 }
 
 type ApiGetVariantThroughputSeriesUsingGETRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *ThroughputSeriesResourceApiService
-	id string
-	variantID string
-	min *float32
-	max *float32
+	id         string
+	variantID  string
+	min        *float32
+	max        *float32
 }
 
 func (r ApiGetVariantThroughputSeriesUsingGETRequest) Min(min float32) ApiGetVariantThroughputSeriesUsingGETRequest {
@@ -467,9 +464,9 @@ func (r ApiGetVariantThroughputSeriesUsingGETRequest) Execute() (ThroughputSerie
 func (a *ThroughputSeriesResourceApiService) GetVariantThroughputSeriesUsingGET(ctx _context.Context, id string, variantID string) ApiGetVariantThroughputSeriesUsingGETRequest {
 	return ApiGetVariantThroughputSeriesUsingGETRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
-		variantID: variantID,
+		ctx:        ctx,
+		id:         id,
+		variantID:  variantID,
 	}
 }
 
@@ -561,9 +558,9 @@ func (a *ThroughputSeriesResourceApiService) GetVariantThroughputSeriesUsingGETE
 }
 
 type ApiPartialUpdateThroughputSeriesUsingPATCHRequest struct {
-	ctx _context.Context
-	ApiService *ThroughputSeriesResourceApiService
-	id string
+	ctx              _context.Context
+	ApiService       *ThroughputSeriesResourceApiService
+	id               string
 	throughputSeries *ThroughputSeries
 }
 
@@ -585,8 +582,8 @@ func (r ApiPartialUpdateThroughputSeriesUsingPATCHRequest) Execute() (Throughput
 func (a *ThroughputSeriesResourceApiService) PartialUpdateThroughputSeriesUsingPATCH(ctx _context.Context, id string) ApiPartialUpdateThroughputSeriesUsingPATCHRequest {
 	return ApiPartialUpdateThroughputSeriesUsingPATCHRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -673,9 +670,9 @@ func (a *ThroughputSeriesResourceApiService) PartialUpdateThroughputSeriesUsingP
 }
 
 type ApiUpdateThroughputSeriesUsingPUTRequest struct {
-	ctx _context.Context
-	ApiService *ThroughputSeriesResourceApiService
-	id string
+	ctx              _context.Context
+	ApiService       *ThroughputSeriesResourceApiService
+	id               string
 	throughputSeries *ThroughputSeries
 }
 
@@ -697,8 +694,8 @@ func (r ApiUpdateThroughputSeriesUsingPUTRequest) Execute() (ThroughputSeries, *
 func (a *ThroughputSeriesResourceApiService) UpdateThroughputSeriesUsingPUT(ctx _context.Context, id string) ApiUpdateThroughputSeriesUsingPUTRequest {
 	return ApiUpdateThroughputSeriesUsingPUTRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
