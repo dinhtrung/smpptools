@@ -1,25 +1,25 @@
-# \SmscAccountResourceApi
+# \EsmeSessionResourceApi
 
 All URIs are relative to *https://virtserver.swaggerhub.com/foxtechvn/smpptools/0.0.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSmscAccountUsingPOST**](SmscAccountResourceApi.md#CreateSmscAccountUsingPOST) | **Post** /api/smsc-accounts | createSmscAccount
-[**DeleteSmscAccountUsingDELETE**](SmscAccountResourceApi.md#DeleteSmscAccountUsingDELETE) | **Delete** /api/smsc-accounts/{id} | deleteSmscAccount
-[**GetAllSmscAccountsUsingGET**](SmscAccountResourceApi.md#GetAllSmscAccountsUsingGET) | **Get** /api/smsc-accounts | getAllSmscAccounts
-[**GetSmscAccountUsingGET**](SmscAccountResourceApi.md#GetSmscAccountUsingGET) | **Get** /api/smsc-accounts/{id} | getSmscAccount
-[**PartialUpdateSmscAccountUsingPATCH**](SmscAccountResourceApi.md#PartialUpdateSmscAccountUsingPATCH) | **Patch** /api/smsc-accounts/{id} | partialUpdateSmscAccount
-[**SendMobileOriginatedSMSOnAccountUsingPOST**](SmscAccountResourceApi.md#SendMobileOriginatedSMSOnAccountUsingPOST) | **Post** /api/smsc-accounts/{id}/send-mo | Send Mobile Originated SMS on selected SMSC account during Functional Testing
-[**StopAllSessionsForSmscAccountUsingDELETE**](SmscAccountResourceApi.md#StopAllSessionsForSmscAccountUsingDELETE) | **Delete** /api/smsc-accounts/{id}/stop-all | Stop all active SMPP sessions from this account
-[**UpdateSmscAccountUsingPUT**](SmscAccountResourceApi.md#UpdateSmscAccountUsingPUT) | **Put** /api/smsc-accounts/{id} | updateSmscAccount
+[**CreateEsmeSessionUsingPOST**](EsmeSessionResourceApi.md#CreateEsmeSessionUsingPOST) | **Post** /api/esme-sessions | Create a new SMPP Session from ESME based on given account
+[**DeleteEsmeSessionUsingDELETE**](EsmeSessionResourceApi.md#DeleteEsmeSessionUsingDELETE) | **Delete** /api/esme-sessions/{sessionID} | deleteEsmeSession
+[**GetAllEsmeSessions**](EsmeSessionResourceApi.md#GetAllEsmeSessions) | **Get** /api/esme-sessions | getAllEsmeSessions
+[**GetEsmeSessionUsingGET**](EsmeSessionResourceApi.md#GetEsmeSessionUsingGET) | **Get** /api/esme-sessions/{sessionID} | View ESME Session Details
+[**PartialUpdateEsmeSessionUsingPATCH**](EsmeSessionResourceApi.md#PartialUpdateEsmeSessionUsingPATCH) | **Patch** /api/esme-sessions/{sessionID} | partialUpdateEsmeSession
+[**SendSMSonEsmeSessionUsingPOST**](EsmeSessionResourceApi.md#SendSMSonEsmeSessionUsingPOST) | **Post** /api/esme-sessions/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
+[**StopAllBachOnEsmeSessionUsingDELETE**](EsmeSessionResourceApi.md#StopAllBachOnEsmeSessionUsingDELETE) | **Delete** /api/esme-sessions/{id}/batch | Stop all batch current running in selected SMSC sessions
+[**UpdateEsmeSessionUsingPUT**](EsmeSessionResourceApi.md#UpdateEsmeSessionUsingPUT) | **Put** /api/esme-sessions/{sessionID} | updateEsmeSession
 
 
 
-## CreateSmscAccountUsingPOST
+## CreateEsmeSessionUsingPOST
 
-> SmscAccount CreateSmscAccountUsingPOST(ctx).SmscAccount(smscAccount).Execute()
+> EsmeSession CreateEsmeSessionUsingPOST(ctx).EsmeAccount(esmeAccount).Execute()
 
-createSmscAccount
+Create a new SMPP Session from ESME based on given account
 
 ### Example
 
@@ -34,17 +34,17 @@ import (
 )
 
 func main() {
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    esmeAccount := *openapiclient.NewEsmeAccount("Name_example") // EsmeAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.CreateSmscAccountUsingPOST(context.Background()).SmscAccount(smscAccount).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.CreateEsmeSessionUsingPOST(context.Background()).EsmeAccount(esmeAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.CreateSmscAccountUsingPOST``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.CreateEsmeSessionUsingPOST``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateSmscAccountUsingPOST`: SmscAccount
-    fmt.Fprintf(os.Stdout, "Response from `SmscAccountResourceApi.CreateSmscAccountUsingPOST`: %v\n", resp)
+    // response from `CreateEsmeSessionUsingPOST`: EsmeSession
+    fmt.Fprintf(os.Stdout, "Response from `EsmeSessionResourceApi.CreateEsmeSessionUsingPOST`: %v\n", resp)
 }
 ```
 
@@ -54,16 +54,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateSmscAccountUsingPOSTRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateEsmeSessionUsingPOSTRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smscAccount** | [**SmscAccount**](SmscAccount.md) |  | 
+ **esmeAccount** | [**EsmeAccount**](EsmeAccount.md) |  | 
 
 ### Return type
 
-[**SmscAccount**](SmscAccount.md)
+[**EsmeSession**](EsmeSession.md)
 
 ### Authorization
 
@@ -79,11 +79,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeleteSmscAccountUsingDELETE
+## DeleteEsmeSessionUsingDELETE
 
-> DeleteSmscAccountUsingDELETE(ctx, id).Execute()
+> DeleteEsmeSessionUsingDELETE(ctx, sessionID).Execute()
 
-deleteSmscAccount
+deleteEsmeSession
 
 ### Example
 
@@ -98,13 +98,13 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    sessionID := "sessionID_example" // string | id
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.DeleteSmscAccountUsingDELETE(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.DeleteEsmeSessionUsingDELETE(context.Background(), sessionID).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.DeleteSmscAccountUsingDELETE``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.DeleteEsmeSessionUsingDELETE``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -116,11 +116,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**sessionID** | **string** | id | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteSmscAccountUsingDELETERequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteEsmeSessionUsingDELETERequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -145,11 +145,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetAllSmscAccountsUsingGET
+## GetAllEsmeSessions
 
-> []SmscAccount GetAllSmscAccountsUsingGET(ctx).Execute()
+> []EsmeSession GetAllEsmeSessions(ctx).Execute()
 
-getAllSmscAccounts
+getAllEsmeSessions
 
 ### Example
 
@@ -167,13 +167,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.GetAllSmscAccountsUsingGET(context.Background()).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.GetAllEsmeSessions(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.GetAllSmscAccountsUsingGET``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.GetAllEsmeSessions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetAllSmscAccountsUsingGET`: []SmscAccount
-    fmt.Fprintf(os.Stdout, "Response from `SmscAccountResourceApi.GetAllSmscAccountsUsingGET`: %v\n", resp)
+    // response from `GetAllEsmeSessions`: []EsmeSession
+    fmt.Fprintf(os.Stdout, "Response from `EsmeSessionResourceApi.GetAllEsmeSessions`: %v\n", resp)
 }
 ```
 
@@ -183,12 +183,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAllSmscAccountsUsingGETRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAllEsmeSessionsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**[]SmscAccount**](SmscAccount.md)
+[**[]EsmeSession**](EsmeSession.md)
 
 ### Authorization
 
@@ -204,11 +204,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetSmscAccountUsingGET
+## GetEsmeSessionUsingGET
 
-> SmscAccount GetSmscAccountUsingGET(ctx, id).Execute()
+> EsmeSession GetEsmeSessionUsingGET(ctx, sessionID).Execute()
 
-getSmscAccount
+View ESME Session Details
 
 ### Example
 
@@ -223,17 +223,17 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    sessionID := "sessionID_example" // string | session ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.GetSmscAccountUsingGET(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.GetEsmeSessionUsingGET(context.Background(), sessionID).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.GetSmscAccountUsingGET``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.GetEsmeSessionUsingGET``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSmscAccountUsingGET`: SmscAccount
-    fmt.Fprintf(os.Stdout, "Response from `SmscAccountResourceApi.GetSmscAccountUsingGET`: %v\n", resp)
+    // response from `GetEsmeSessionUsingGET`: EsmeSession
+    fmt.Fprintf(os.Stdout, "Response from `EsmeSessionResourceApi.GetEsmeSessionUsingGET`: %v\n", resp)
 }
 ```
 
@@ -243,11 +243,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**sessionID** | **string** | session ID | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetSmscAccountUsingGETRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEsmeSessionUsingGETRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SmscAccount**](SmscAccount.md)
+[**EsmeSession**](EsmeSession.md)
 
 ### Authorization
 
@@ -272,11 +272,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PartialUpdateSmscAccountUsingPATCH
+## PartialUpdateEsmeSessionUsingPATCH
 
-> SmscAccount PartialUpdateSmscAccountUsingPATCH(ctx, id).SmscAccount(smscAccount).Execute()
+> IsdnList PartialUpdateEsmeSessionUsingPATCH(ctx, sessionID).EsmeSession(esmeSession).Execute()
 
-partialUpdateSmscAccount
+partialUpdateEsmeSession
 
 ### Example
 
@@ -291,18 +291,18 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    sessionID := "sessionID_example" // string | id
+    esmeSession := *openapiclient.NewEsmeSession("Id_example") // EsmeSession |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.PartialUpdateSmscAccountUsingPATCH(context.Background(), id).SmscAccount(smscAccount).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.PartialUpdateEsmeSessionUsingPATCH(context.Background(), sessionID).EsmeSession(esmeSession).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.PartialUpdateSmscAccountUsingPATCH``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.PartialUpdateEsmeSessionUsingPATCH``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PartialUpdateSmscAccountUsingPATCH`: SmscAccount
-    fmt.Fprintf(os.Stdout, "Response from `SmscAccountResourceApi.PartialUpdateSmscAccountUsingPATCH`: %v\n", resp)
+    // response from `PartialUpdateEsmeSessionUsingPATCH`: IsdnList
+    fmt.Fprintf(os.Stdout, "Response from `EsmeSessionResourceApi.PartialUpdateEsmeSessionUsingPATCH`: %v\n", resp)
 }
 ```
 
@@ -312,21 +312,21 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**sessionID** | **string** | id | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPartialUpdateSmscAccountUsingPATCHRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPartialUpdateEsmeSessionUsingPATCHRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **smscAccount** | [**SmscAccount**](SmscAccount.md) |  | 
+ **esmeSession** | [**EsmeSession**](EsmeSession.md) |  | 
 
 ### Return type
 
-[**SmscAccount**](SmscAccount.md)
+[**IsdnList**](IsdnList.md)
 
 ### Authorization
 
@@ -342,11 +342,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## SendMobileOriginatedSMSOnAccountUsingPOST
+## SendSMSonEsmeSessionUsingPOST
 
-> SendMobileOriginatedSMSOnAccountUsingPOST(ctx, id).BaseSm(baseSm).Execute()
+> SendSMSonEsmeSessionUsingPOST(ctx, id).Batch(batch).Execute()
 
-Send Mobile Originated SMS on selected SMSC account during Functional Testing
+Send Mobile Originated SMS on selected session with given patterns and data files
 
 ### Example
 
@@ -362,13 +362,13 @@ import (
 
 func main() {
     id := "id_example" // string | ID of selected session
-    baseSm := *openapiclient.NewBaseSm() // BaseSm |  (optional)
+    batch := *openapiclient.NewBatch() // Batch |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.SendMobileOriginatedSMSOnAccountUsingPOST(context.Background(), id).BaseSm(baseSm).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.SendSMSonEsmeSessionUsingPOST(context.Background(), id).Batch(batch).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.SendMobileOriginatedSMSOnAccountUsingPOST``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.SendSMSonEsmeSessionUsingPOST``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -384,13 +384,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSendMobileOriginatedSMSOnAccountUsingPOSTRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSendSMSonEsmeSessionUsingPOSTRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **baseSm** | [**BaseSm**](BaseSm.md) |  | 
+ **batch** | [**Batch**](Batch.md) |  | 
 
 ### Return type
 
@@ -410,11 +410,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## StopAllSessionsForSmscAccountUsingDELETE
+## StopAllBachOnEsmeSessionUsingDELETE
 
-> StopAllSessionsForSmscAccountUsingDELETE(ctx, id).Execute()
+> StopAllBachOnEsmeSessionUsingDELETE(ctx, id).Execute()
 
-Stop all active SMPP sessions from this account
+Stop all batch current running in selected SMSC sessions
 
 ### Example
 
@@ -433,9 +433,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.StopAllSessionsForSmscAccountUsingDELETE(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.StopAllBachOnEsmeSessionUsingDELETE(context.Background(), id).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.StopAllSessionsForSmscAccountUsingDELETE``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.StopAllBachOnEsmeSessionUsingDELETE``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiStopAllSessionsForSmscAccountUsingDELETERequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStopAllBachOnEsmeSessionUsingDELETERequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -476,11 +476,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UpdateSmscAccountUsingPUT
+## UpdateEsmeSessionUsingPUT
 
-> SmscAccount UpdateSmscAccountUsingPUT(ctx, id).SmscAccount(smscAccount).Execute()
+> EsmeSession UpdateEsmeSessionUsingPUT(ctx, sessionID).EsmeSession(esmeSession).Execute()
 
-updateSmscAccount
+updateEsmeSession
 
 ### Example
 
@@ -495,18 +495,18 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    sessionID := "sessionID_example" // string | id
+    esmeSession := *openapiclient.NewEsmeSession("Id_example") // EsmeSession |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SmscAccountResourceApi.UpdateSmscAccountUsingPUT(context.Background(), id).SmscAccount(smscAccount).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.UpdateEsmeSessionUsingPUT(context.Background(), sessionID).EsmeSession(esmeSession).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SmscAccountResourceApi.UpdateSmscAccountUsingPUT``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.UpdateEsmeSessionUsingPUT``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateSmscAccountUsingPUT`: SmscAccount
-    fmt.Fprintf(os.Stdout, "Response from `SmscAccountResourceApi.UpdateSmscAccountUsingPUT`: %v\n", resp)
+    // response from `UpdateEsmeSessionUsingPUT`: EsmeSession
+    fmt.Fprintf(os.Stdout, "Response from `EsmeSessionResourceApi.UpdateEsmeSessionUsingPUT`: %v\n", resp)
 }
 ```
 
@@ -516,21 +516,21 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**sessionID** | **string** | id | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateSmscAccountUsingPUTRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateEsmeSessionUsingPUTRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **smscAccount** | [**SmscAccount**](SmscAccount.md) |  | 
+ **esmeSession** | [**EsmeSession**](EsmeSession.md) |  | 
 
 ### Return type
 
-[**SmscAccount**](SmscAccount.md)
+[**EsmeSession**](EsmeSession.md)
 
 ### Authorization
 

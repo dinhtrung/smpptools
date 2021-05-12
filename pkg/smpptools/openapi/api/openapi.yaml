@@ -5,29 +5,28 @@ info:
   license:
     name: unlicensed
   title: smpptools API
-  version: 0.0.1
+  version: 0.0.2
 servers:
 - description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/foxtechvn/smpptools/1.0.0
+  url: https://virtserver.swaggerhub.com/foxtechvn/smpptools/0.0.2
 tags:
-- description: Account Resource
-  name: account-resource
-- description: Base Sm Resource
+- description: Manage SMPP parameters like source dest address TON, NPI, TLV, UDH,
+    and so on
   name: base-sm-resource
-- description: Esme Account Resource
+- description: Manage ESME Account to connect to remote SMSC
   name: esme-account-resource
-- description: Isdn List Resource
+- description: Manage active SMPP sessions from ESME
+  name: esme-session-resource
+- description: Manage active SMPP sessions connected to local SMSC
+  name: smsc-session-resource
+- description: Manage list of phone numbers used for stress testing
   name: isdn-list-resource
-- description: Public User Resource
-  name: public-user-resource
-- description: Smsc Account Resource
+- description: Manage SMSC Accounts
   name: smsc-account-resource
-- description: Smsc Instance Resource
+- description: Manage SMPP Server instances
   name: smsc-instance-resource
-- description: User JWT Controller
-  name: user-jwt-controller
-- description: User Resource
-  name: user-resource
+- description: Manage Traffic sending throughput
+  name: throughput-series-resource
 paths:
   /api/base-sms:
     get:
@@ -193,6 +192,230 @@ paths:
       summary: updateBaseSm
       tags:
       - base-sm-resource
+  /api/throughput-series:
+    get:
+      operationId: getAllThroughputSeriessUsingGET
+      responses:
+        "200":
+          content:
+            application/x-ndjson:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ThroughputSeries'
+                type: array
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: getAllThroughputSeriess
+      tags:
+      - throughput-series-resource
+    post:
+      operationId: createThroughputSeriesUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThroughputSeries'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThroughputSeries'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: createThroughputSeries
+      tags:
+      - throughput-series-resource
+  /api/throughput-series/{id}:
+    delete:
+      operationId: deleteThroughputSeriesUsingDELETE
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: deleteThroughputSeries
+      tags:
+      - throughput-series-resource
+    get:
+      operationId: getThroughputSeriesUsingGET
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThroughputSeries'
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: getThroughputSeries
+      tags:
+      - throughput-series-resource
+    patch:
+      operationId: partialUpdateThroughputSeriesUsingPATCH
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThroughputSeries'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/ThroughputSeries'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThroughputSeries'
+          description: OK
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: partialUpdateThroughputSeries
+      tags:
+      - throughput-series-resource
+    put:
+      operationId: updateThroughputSeriesUsingPUT
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThroughputSeries'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThroughputSeries'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: updateThroughputSeries
+      tags:
+      - throughput-series-resource
+  /api/throughput-series/{id}/transform/{variantID}:
+    get:
+      operationId: getVariantThroughputSeriesUsingGET
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: One of available transform over throughput series values
+        explode: false
+        in: path
+        name: variantID
+        required: true
+        schema:
+          enum:
+          - time-shift
+          - reduce
+          - speed
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: min
+        required: false
+        schema:
+          description: Minimum adjustment ratio
+          format: float32
+          type: number
+        style: form
+      - explode: true
+        in: query
+        name: max
+        required: false
+        schema:
+          description: Maximum adjustment ratio
+          format: float32
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ThroughputSeries'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get a variant of selected throughput series
+      tags:
+      - throughput-series-resource
   /api/esme-accounts:
     get:
       operationId: getAllEsmeAccountsUsingGET
@@ -357,6 +580,550 @@ paths:
       summary: updateEsmeAccount
       tags:
       - esme-account-resource
+  /api/esme-accounts/{id}/stop-all:
+    delete:
+      operationId: stopAllEsmeSessionsForAccountUsingDELETE
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all active SMPP sessions from this account
+      tags:
+      - esme-account-resource
+  /api/esme-accounts/{id}/send-mt:
+    post:
+      operationId: sendMobileTerminatedSMSOnAccountUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Terminated SMS on selected SMSC account during Functional
+        Testing
+      tags:
+      - esme-account-resource
+  /api/esme-accounts/{id}/batch:
+    delete:
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all batch current running in selected SMSC sessions
+      tags:
+      - esme-account-resource
+    post:
+      operationId: sendSMSonSMSCsessionUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Batch'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Originated SMS on selected session with given patterns
+        and data files
+      tags:
+      - esme-account-resource
+  /api/esme-sessions:
+    get:
+      operationId: getAllEsmeSessions
+      responses:
+        "200":
+          content:
+            application/x-ndjson:
+              schema:
+                items:
+                  $ref: '#/components/schemas/EsmeSession'
+                type: array
+          description: OK
+      summary: getAllEsmeSessions
+      tags:
+      - esme-session-resource
+    post:
+      operationId: createEsmeSessionUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeAccount'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeSession'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Create a new SMPP Session from ESME based on given account
+      tags:
+      - esme-session-resource
+  /api/esme-sessions/{sessionID}:
+    delete:
+      operationId: deleteEsmeSessionUsingDELETE
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: deleteEsmeSession
+      tags:
+      - esme-session-resource
+    get:
+      operationId: getEsmeSessionUsingGET
+      parameters:
+      - description: session ID
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeSession'
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: View ESME Session Details
+      tags:
+      - esme-session-resource
+    patch:
+      operationId: partialUpdateEsmeSessionUsingPATCH
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeSession'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/EsmeSession'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/IsdnList'
+          description: OK
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: partialUpdateEsmeSession
+      tags:
+      - esme-session-resource
+    put:
+      operationId: updateEsmeSessionUsingPUT
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EsmeSession'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeSession'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: updateEsmeSession
+      tags:
+      - esme-session-resource
+  /api/esme-sessions/{id}/batch:
+    delete:
+      operationId: stopAllBachOnEsmeSessionUsingDELETE
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all batch current running in selected SMSC sessions
+      tags:
+      - esme-session-resource
+    post:
+      operationId: sendSMSonEsmeSessionUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Batch'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Originated SMS on selected session with given patterns
+        and data files
+      tags:
+      - esme-session-resource
+  /api/smsc-sessions:
+    get:
+      operationId: getAllSmscSessions
+      responses:
+        "200":
+          content:
+            application/x-ndjson:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SmscSession'
+                type: array
+          description: OK
+      summary: getAllSmscSessions
+      tags:
+      - smsc-session-resource
+  /api/smsc-sessions/{id}:
+    delete:
+      operationId: deleteSmscSessionUsingDELETE
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: deleteSmscSession
+      tags:
+      - smsc-session-resource
+    get:
+      operationId: getSmscSessionUsingGET
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscSession'
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: getSmscSessionList
+      tags:
+      - smsc-session-resource
+    patch:
+      operationId: partialUpdateSmscSessionUsingPATCH
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscSession'
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/SmscSession'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscSession'
+          description: OK
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: partialUpdateSmscSession
+      tags:
+      - smsc-session-resource
+    put:
+      operationId: updateSmscSessionUsingPUT
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmscSession'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscSession'
+          description: OK
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: updateSmscSession
+      tags:
+      - smsc-session-resource
+  /api/smsc-sessions/{id}/stop:
+    delete:
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop the selected SMSC sessions
+      tags:
+      - smsc-session-resource
+  /api/smsc-sessions/{id}/send-mo:
+    post:
+      operationId: sendMobileOriginatedSMSUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Originated SMS on selected session during Functional Testing
+      tags:
+      - smsc-session-resource
+  /api/smsc-sessions/{id}/batch:
+    delete:
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all batch current running in selected SMSC sessions
+      tags:
+      - smsc-session-resource
+    post:
+      operationId: sendSMSonSmscSessionUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Batch'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Originated SMS on selected session with given patterns
+        and data files
+      tags:
+      - smsc-session-resource
   /api/isdn-lists:
     get:
       operationId: getAllIsdnListsUsingGET
@@ -685,6 +1452,58 @@ paths:
       summary: updateSmscAccount
       tags:
       - smsc-account-resource
+  /api/smsc-accounts/{id}/stop-all:
+    delete:
+      operationId: stopAllSessionsForSmscAccountUsingDELETE
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all active SMPP sessions from this account
+      tags:
+      - smsc-account-resource
+  /api/smsc-accounts/{id}/send-mo:
+    post:
+      operationId: sendMobileOriginatedSMSOnAccountUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Originated SMS on selected SMSC account during Functional
+        Testing
+      tags:
+      - smsc-account-resource
   /api/smsc-instances:
     get:
       operationId: getAllSmscInstancesUsingGET
@@ -729,6 +1548,110 @@ paths:
         "404":
           description: Not Found
       summary: createSmscInstance
+      tags:
+      - smsc-instance-resource
+  /api/smsc-instances/{id}/start:
+    get:
+      operationId: startSmscInstanceUsingGET
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscInstance'
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Start selected SMSC Instance
+      tags:
+      - smsc-instance-resource
+  /api/smsc-instances/{id}/stop:
+    delete:
+      operationId: stopSmscInstanceUsingDELETE
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Stop selected SMSC Instance
+      tags:
+      - smsc-instance-resource
+  /api/smsc-instances/{id}/batch:
+    delete:
+      operationId: stopAllBatchSmscInstanceUsingDELETE
+      parameters:
+      - description: SMS Intance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Stop all batch sending using DELETE
+      tags:
+      - smsc-instance-resource
+    post:
+      operationId: startBatchOnSmscInstanceUsingPOST
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Batch'
+      responses:
+        "202":
+          description: Accepted
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Start sending batch on selected SMSC Instance
       tags:
       - smsc-instance-resource
   /api/smsc-instances/{id}:
@@ -951,6 +1874,90 @@ components:
           type: string
       title: BaseSm
       type: object
+    ThroughputSeries:
+      description: A series of traffic throughput used for re-generate traffic throughput
+        patterns
+      example:
+        values:
+        - 0.8008281904610115
+        - 0.8008281904610115
+        name: Load test 2021-05-12
+        description: Traffic throughput collected from production system on 2021-05-12
+        state: 0
+        datafile: cdr-20210512.csv
+      properties:
+        name:
+          description: Name of this throughput series
+          example: Load test 2021-05-12
+          type: string
+        description:
+          description: A short description of this throughput
+          example: Traffic throughput collected from production system on 2021-05-12
+          type: string
+        values:
+          description: throughput per minute of current series
+          items:
+            format: float32
+            type: number
+          type: array
+        datafile:
+          description: CDR file name this throughput series was generated from
+          example: cdr-20210512.csv
+          type: string
+        state:
+          description: State of this throughput series
+          example: 0
+          type: number
+      required:
+      - name
+      title: ThroughputSeries
+    Batch:
+      description: model used for stress testing
+      example:
+        throuput:
+          values:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          name: Load test 2021-05-12
+          description: Traffic throughput collected from production system on 2021-05-12
+          state: 0
+          datafile: cdr-20210512.csv
+        smsData:
+          name: name
+          description: description
+          id: id
+          content: content
+        smsPattern:
+          serviceType: serviceType
+          udhParts: udhParts
+          sourceNPI: 2
+          registeredDelivery: 9
+          txtParts: txtParts
+          scheduleDeliveryTime: scheduleDeliveryTime
+          destinationTON: 5
+          validityPeriod: validityPeriod
+          protocolID: 7
+          destinationNPI: 1
+          dataCoding: 0
+          destinationAddr: destinationAddr
+          replaceIfPresentFlag: 3
+          id: id
+          sourceAddr: sourceAddr
+          text: text
+          priorityFlag: 2
+          sourceTON: 4
+          tlvList: tlvList
+          defaultMessageID: 6
+          esmClass: 5
+      properties:
+        smsPattern:
+          $ref: '#/components/schemas/BaseSm'
+        smsData:
+          $ref: '#/components/schemas/IsdnList'
+        throuput:
+          $ref: '#/components/schemas/ThroughputSeries'
+      title: Batch
+      type: object
     EsmeAccount:
       description: ESME hold information on how to establish a SMPP Session towards
         SMSC
@@ -1068,6 +2075,93 @@ components:
       - name
       title: EsmeAccount
       type: object
+    EsmeSession:
+      example:
+        createdAt: 2021-05-11T12:24:00Z
+        id: id
+        localAddr: 127.0.0.1:23456
+        account:
+          enquireLinkInterval: 2
+          systemID: systemID
+          addressRange: addressRange
+          bindType: bindType
+          dlrErrorCode: 5
+          mtThroughtput: 3
+          description: description
+          isPersist: false
+          moErrorRate: 9
+          reconnectDelay: 7
+          isEnable: false
+          addressTON: 6
+          password: password
+          windowSize: 1
+          moErrorCode: 7
+          port: 4
+          dlrErrorRate: 5
+          host: host
+          name: name
+          id: id
+          addressNPI: 0
+          connectionTimeout: 1
+          numBinds: 2
+      properties:
+        id:
+          description: unique session ID
+          type: string
+        localAddr:
+          description: local TCP address
+          example: 127.0.0.1:23456
+          type: string
+        createdAt:
+          description: the local time this session is created
+          example: 2021-05-11T12:24:00Z
+          format: date-time
+          type: string
+        account:
+          $ref: '#/components/schemas/EsmeAccount'
+      required:
+      - id
+      title: EsmeSession
+      type: object
+    SmscSession:
+      example:
+        createdAt: 2021-05-11T12:24:00Z
+        id: id
+        account:
+          systemID: systemID
+          maxBinds: 5
+          addressRange: addressRange
+          bindType: bindType
+          dlrErrorCode: 1
+          description: description
+          moErrorRate: 7
+          addressTON: 6
+          password: password
+          moErrorCode: 2
+          dlrErrorRate: 5
+          name: name
+          id: id
+          addressNPI: 0
+        remoteAddr: 127.0.0.1:23456
+      properties:
+        id:
+          description: unique session ID
+          type: string
+        remoteAddr:
+          description: remote TCP address
+          example: 127.0.0.1:23456
+          type: string
+        createdAt:
+          description: the local time this session is created
+          example: 2021-05-11T12:24:00Z
+          format: date-time
+          type: string
+        account:
+          $ref: '#/components/schemas/SmscAccount'
+      required:
+      - id
+      title: SmscSession
+      type: object
     IsdnList:
       example:
         name: name
@@ -1170,8 +2264,8 @@ components:
       description: SMSC hold information for SMPP instances that serve traffic from
         ESME
       example:
-        windowSize: 1
-        port: 6
+        windowSize: 6
+        port: 2775
         name: name
         description: description
         id: id
@@ -1198,6 +2292,7 @@ components:
           type: string
         port:
           description: TCP Port to listen to
+          example: 2775
           format: int32
           type: integer
         windowSize:

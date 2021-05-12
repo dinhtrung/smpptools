@@ -24,31 +24,31 @@ var (
 	_ _context.Context
 )
 
-// IsdnListResourceApiService IsdnListResourceApi service
-type IsdnListResourceApiService service
+// ThroughputSeriesResourceApiService ThroughputSeriesResourceApi service
+type ThroughputSeriesResourceApiService service
 
-type ApiCreateIsdnListUsingPOSTRequest struct {
+type ApiCreateThroughputSeriesUsingPOSTRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
-	isdnList *IsdnList
+	ApiService *ThroughputSeriesResourceApiService
+	throughputSeries *ThroughputSeries
 }
 
-func (r ApiCreateIsdnListUsingPOSTRequest) IsdnList(isdnList IsdnList) ApiCreateIsdnListUsingPOSTRequest {
-	r.isdnList = &isdnList
+func (r ApiCreateThroughputSeriesUsingPOSTRequest) ThroughputSeries(throughputSeries ThroughputSeries) ApiCreateThroughputSeriesUsingPOSTRequest {
+	r.throughputSeries = &throughputSeries
 	return r
 }
 
-func (r ApiCreateIsdnListUsingPOSTRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.CreateIsdnListUsingPOSTExecute(r)
+func (r ApiCreateThroughputSeriesUsingPOSTRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.CreateThroughputSeriesUsingPOSTExecute(r)
 }
 
 /*
- * CreateIsdnListUsingPOST createIsdnList
+ * CreateThroughputSeriesUsingPOST createThroughputSeries
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCreateIsdnListUsingPOSTRequest
+ * @return ApiCreateThroughputSeriesUsingPOSTRequest
  */
-func (a *IsdnListResourceApiService) CreateIsdnListUsingPOST(ctx _context.Context) ApiCreateIsdnListUsingPOSTRequest {
-	return ApiCreateIsdnListUsingPOSTRequest{
+func (a *ThroughputSeriesResourceApiService) CreateThroughputSeriesUsingPOST(ctx _context.Context) ApiCreateThroughputSeriesUsingPOSTRequest {
+	return ApiCreateThroughputSeriesUsingPOSTRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -56,24 +56,24 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOST(ctx _context.Contex
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return ThroughputSeries
  */
-func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateIsdnListUsingPOSTRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) CreateThroughputSeriesUsingPOSTExecute(r ApiCreateThroughputSeriesUsingPOSTRequest) (ThroughputSeries, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  ThroughputSeries
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.CreateIsdnListUsingPOST")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.CreateThroughputSeriesUsingPOST")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists"
+	localVarPath := localBasePath + "/api/throughput-series"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -97,7 +97,7 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.isdnList
+	localVarPostBody = r.throughputSeries
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -135,25 +135,25 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteIsdnListUsingDELETERequest struct {
+type ApiDeleteThroughputSeriesUsingDELETERequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *ThroughputSeriesResourceApiService
 	id string
 }
 
 
-func (r ApiDeleteIsdnListUsingDELETERequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.DeleteIsdnListUsingDELETEExecute(r)
+func (r ApiDeleteThroughputSeriesUsingDELETERequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.DeleteThroughputSeriesUsingDELETEExecute(r)
 }
 
 /*
- * DeleteIsdnListUsingDELETE deleteIsdnList
+ * DeleteThroughputSeriesUsingDELETE deleteThroughputSeries
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id id
- * @return ApiDeleteIsdnListUsingDELETERequest
+ * @return ApiDeleteThroughputSeriesUsingDELETERequest
  */
-func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETE(ctx _context.Context, id string) ApiDeleteIsdnListUsingDELETERequest {
-	return ApiDeleteIsdnListUsingDELETERequest{
+func (a *ThroughputSeriesResourceApiService) DeleteThroughputSeriesUsingDELETE(ctx _context.Context, id string) ApiDeleteThroughputSeriesUsingDELETERequest {
+	return ApiDeleteThroughputSeriesUsingDELETERequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -163,7 +163,7 @@ func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETE(ctx _context.Cont
 /*
  * Execute executes the request
  */
-func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDeleteIsdnListUsingDELETERequest) (*_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) DeleteThroughputSeriesUsingDELETEExecute(r ApiDeleteThroughputSeriesUsingDELETERequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -172,12 +172,12 @@ func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDelet
 		localVarFileBytes    []byte
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.DeleteIsdnListUsingDELETE")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.DeleteThroughputSeriesUsingDELETE")
 	if err != nil {
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
+	localVarPath := localBasePath + "/api/throughput-series/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -229,23 +229,23 @@ func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDelet
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetAllIsdnListsUsingGETRequest struct {
+type ApiGetAllThroughputSeriessUsingGETRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *ThroughputSeriesResourceApiService
 }
 
 
-func (r ApiGetAllIsdnListsUsingGETRequest) Execute() ([]IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.GetAllIsdnListsUsingGETExecute(r)
+func (r ApiGetAllThroughputSeriessUsingGETRequest) Execute() ([]ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.GetAllThroughputSeriessUsingGETExecute(r)
 }
 
 /*
- * GetAllIsdnListsUsingGET getAllIsdnLists
+ * GetAllThroughputSeriessUsingGET getAllThroughputSeriess
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAllIsdnListsUsingGETRequest
+ * @return ApiGetAllThroughputSeriessUsingGETRequest
  */
-func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGET(ctx _context.Context) ApiGetAllIsdnListsUsingGETRequest {
-	return ApiGetAllIsdnListsUsingGETRequest{
+func (a *ThroughputSeriesResourceApiService) GetAllThroughputSeriessUsingGET(ctx _context.Context) ApiGetAllThroughputSeriessUsingGETRequest {
+	return ApiGetAllThroughputSeriessUsingGETRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -253,24 +253,24 @@ func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGET(ctx _context.Contex
 
 /*
  * Execute executes the request
- * @return []IsdnList
+ * @return []ThroughputSeries
  */
-func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGETExecute(r ApiGetAllIsdnListsUsingGETRequest) ([]IsdnList, *_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) GetAllThroughputSeriessUsingGETExecute(r ApiGetAllThroughputSeriessUsingGETRequest) ([]ThroughputSeries, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []IsdnList
+		localVarReturnValue  []ThroughputSeries
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.GetAllIsdnListsUsingGET")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.GetAllThroughputSeriessUsingGET")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists"
+	localVarPath := localBasePath + "/api/throughput-series"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -330,25 +330,25 @@ func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGETExecute(r ApiGetAllI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetIsdnListUsingGETRequest struct {
+type ApiGetThroughputSeriesUsingGETRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *ThroughputSeriesResourceApiService
 	id string
 }
 
 
-func (r ApiGetIsdnListUsingGETRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.GetIsdnListUsingGETExecute(r)
+func (r ApiGetThroughputSeriesUsingGETRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.GetThroughputSeriesUsingGETExecute(r)
 }
 
 /*
- * GetIsdnListUsingGET getIsdnList
+ * GetThroughputSeriesUsingGET getThroughputSeries
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id id
- * @return ApiGetIsdnListUsingGETRequest
+ * @return ApiGetThroughputSeriesUsingGETRequest
  */
-func (a *IsdnListResourceApiService) GetIsdnListUsingGET(ctx _context.Context, id string) ApiGetIsdnListUsingGETRequest {
-	return ApiGetIsdnListUsingGETRequest{
+func (a *ThroughputSeriesResourceApiService) GetThroughputSeriesUsingGET(ctx _context.Context, id string) ApiGetThroughputSeriesUsingGETRequest {
+	return ApiGetThroughputSeriesUsingGETRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -357,24 +357,24 @@ func (a *IsdnListResourceApiService) GetIsdnListUsingGET(ctx _context.Context, i
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return ThroughputSeries
  */
-func (a *IsdnListResourceApiService) GetIsdnListUsingGETExecute(r ApiGetIsdnListUsingGETRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) GetThroughputSeriesUsingGETExecute(r ApiGetThroughputSeriesUsingGETRequest) (ThroughputSeries, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  ThroughputSeries
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.GetIsdnListUsingGET")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.GetThroughputSeriesUsingGET")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
+	localVarPath := localBasePath + "/api/throughput-series/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -435,64 +435,79 @@ func (a *IsdnListResourceApiService) GetIsdnListUsingGETExecute(r ApiGetIsdnList
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPartialUpdateIsdnListUsingPATCHRequest struct {
+type ApiGetVariantThroughputSeriesUsingGETRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *ThroughputSeriesResourceApiService
 	id string
-	isdnList *IsdnList
+	variantID string
+	min *float32
+	max *float32
 }
 
-func (r ApiPartialUpdateIsdnListUsingPATCHRequest) IsdnList(isdnList IsdnList) ApiPartialUpdateIsdnListUsingPATCHRequest {
-	r.isdnList = &isdnList
+func (r ApiGetVariantThroughputSeriesUsingGETRequest) Min(min float32) ApiGetVariantThroughputSeriesUsingGETRequest {
+	r.min = &min
+	return r
+}
+func (r ApiGetVariantThroughputSeriesUsingGETRequest) Max(max float32) ApiGetVariantThroughputSeriesUsingGETRequest {
+	r.max = &max
 	return r
 }
 
-func (r ApiPartialUpdateIsdnListUsingPATCHRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.PartialUpdateIsdnListUsingPATCHExecute(r)
+func (r ApiGetVariantThroughputSeriesUsingGETRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.GetVariantThroughputSeriesUsingGETExecute(r)
 }
 
 /*
- * PartialUpdateIsdnListUsingPATCH partialUpdateIsdnList
+ * GetVariantThroughputSeriesUsingGET Get a variant of selected throughput series
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id id
- * @return ApiPartialUpdateIsdnListUsingPATCHRequest
+ * @param variantID One of available transform over throughput series values
+ * @return ApiGetVariantThroughputSeriesUsingGETRequest
  */
-func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCH(ctx _context.Context, id string) ApiPartialUpdateIsdnListUsingPATCHRequest {
-	return ApiPartialUpdateIsdnListUsingPATCHRequest{
+func (a *ThroughputSeriesResourceApiService) GetVariantThroughputSeriesUsingGET(ctx _context.Context, id string, variantID string) ApiGetVariantThroughputSeriesUsingGETRequest {
+	return ApiGetVariantThroughputSeriesUsingGETRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
+		variantID: variantID,
 	}
 }
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return ThroughputSeries
  */
-func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r ApiPartialUpdateIsdnListUsingPATCHRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) GetVariantThroughputSeriesUsingGETExecute(r ApiGetVariantThroughputSeriesUsingGETRequest) (ThroughputSeries, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  ThroughputSeries
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.PartialUpdateIsdnListUsingPATCH")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.GetVariantThroughputSeriesUsingGET")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
+	localVarPath := localBasePath + "/api/throughput-series/{id}/transform/{variantID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"variantID"+"}", _neturl.PathEscape(parameterToString(r.variantID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.min != nil {
+		localVarQueryParams.Add("min", parameterToString(*r.min, ""))
+	}
+	if r.max != nil {
+		localVarQueryParams.Add("max", parameterToString(*r.max, ""))
+	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json", "application/merge-patch+json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -508,8 +523,6 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.isdnList
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -547,30 +560,30 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateIsdnListUsingPUTRequest struct {
+type ApiPartialUpdateThroughputSeriesUsingPATCHRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *ThroughputSeriesResourceApiService
 	id string
-	isdnList *IsdnList
+	throughputSeries *ThroughputSeries
 }
 
-func (r ApiUpdateIsdnListUsingPUTRequest) IsdnList(isdnList IsdnList) ApiUpdateIsdnListUsingPUTRequest {
-	r.isdnList = &isdnList
+func (r ApiPartialUpdateThroughputSeriesUsingPATCHRequest) ThroughputSeries(throughputSeries ThroughputSeries) ApiPartialUpdateThroughputSeriesUsingPATCHRequest {
+	r.throughputSeries = &throughputSeries
 	return r
 }
 
-func (r ApiUpdateIsdnListUsingPUTRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.UpdateIsdnListUsingPUTExecute(r)
+func (r ApiPartialUpdateThroughputSeriesUsingPATCHRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.PartialUpdateThroughputSeriesUsingPATCHExecute(r)
 }
 
 /*
- * UpdateIsdnListUsingPUT updateIsdnList
+ * PartialUpdateThroughputSeriesUsingPATCH partialUpdateThroughputSeries
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id id
- * @return ApiUpdateIsdnListUsingPUTRequest
+ * @return ApiPartialUpdateThroughputSeriesUsingPATCHRequest
  */
-func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUT(ctx _context.Context, id string) ApiUpdateIsdnListUsingPUTRequest {
-	return ApiUpdateIsdnListUsingPUTRequest{
+func (a *ThroughputSeriesResourceApiService) PartialUpdateThroughputSeriesUsingPATCH(ctx _context.Context, id string) ApiPartialUpdateThroughputSeriesUsingPATCHRequest {
+	return ApiPartialUpdateThroughputSeriesUsingPATCHRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -579,24 +592,136 @@ func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUT(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return ThroughputSeries
  */
-func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUTExecute(r ApiUpdateIsdnListUsingPUTRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *ThroughputSeriesResourceApiService) PartialUpdateThroughputSeriesUsingPATCHExecute(r ApiPartialUpdateThroughputSeriesUsingPATCHRequest) (ThroughputSeries, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ThroughputSeries
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.PartialUpdateThroughputSeriesUsingPATCH")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/throughput-series/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/merge-patch+json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.throughputSeries
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateThroughputSeriesUsingPUTRequest struct {
+	ctx _context.Context
+	ApiService *ThroughputSeriesResourceApiService
+	id string
+	throughputSeries *ThroughputSeries
+}
+
+func (r ApiUpdateThroughputSeriesUsingPUTRequest) ThroughputSeries(throughputSeries ThroughputSeries) ApiUpdateThroughputSeriesUsingPUTRequest {
+	r.throughputSeries = &throughputSeries
+	return r
+}
+
+func (r ApiUpdateThroughputSeriesUsingPUTRequest) Execute() (ThroughputSeries, *_nethttp.Response, error) {
+	return r.ApiService.UpdateThroughputSeriesUsingPUTExecute(r)
+}
+
+/*
+ * UpdateThroughputSeriesUsingPUT updateThroughputSeries
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param id id
+ * @return ApiUpdateThroughputSeriesUsingPUTRequest
+ */
+func (a *ThroughputSeriesResourceApiService) UpdateThroughputSeriesUsingPUT(ctx _context.Context, id string) ApiUpdateThroughputSeriesUsingPUTRequest {
+	return ApiUpdateThroughputSeriesUsingPUTRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return ThroughputSeries
+ */
+func (a *ThroughputSeriesResourceApiService) UpdateThroughputSeriesUsingPUTExecute(r ApiUpdateThroughputSeriesUsingPUTRequest) (ThroughputSeries, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  ThroughputSeries
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.UpdateIsdnListUsingPUT")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThroughputSeriesResourceApiService.UpdateThroughputSeriesUsingPUT")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
+	localVarPath := localBasePath + "/api/throughput-series/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -621,7 +746,7 @@ func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUTExecute(r ApiUpdateIs
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.isdnList
+	localVarPostBody = r.throughputSeries
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

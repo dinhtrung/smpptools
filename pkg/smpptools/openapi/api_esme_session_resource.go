@@ -24,31 +24,31 @@ var (
 	_ _context.Context
 )
 
-// IsdnListResourceApiService IsdnListResourceApi service
-type IsdnListResourceApiService service
+// EsmeSessionResourceApiService EsmeSessionResourceApi service
+type EsmeSessionResourceApiService service
 
-type ApiCreateIsdnListUsingPOSTRequest struct {
+type ApiCreateEsmeSessionUsingPOSTRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
-	isdnList *IsdnList
+	ApiService *EsmeSessionResourceApiService
+	esmeAccount *EsmeAccount
 }
 
-func (r ApiCreateIsdnListUsingPOSTRequest) IsdnList(isdnList IsdnList) ApiCreateIsdnListUsingPOSTRequest {
-	r.isdnList = &isdnList
+func (r ApiCreateEsmeSessionUsingPOSTRequest) EsmeAccount(esmeAccount EsmeAccount) ApiCreateEsmeSessionUsingPOSTRequest {
+	r.esmeAccount = &esmeAccount
 	return r
 }
 
-func (r ApiCreateIsdnListUsingPOSTRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.CreateIsdnListUsingPOSTExecute(r)
+func (r ApiCreateEsmeSessionUsingPOSTRequest) Execute() (EsmeSession, *_nethttp.Response, error) {
+	return r.ApiService.CreateEsmeSessionUsingPOSTExecute(r)
 }
 
 /*
- * CreateIsdnListUsingPOST createIsdnList
+ * CreateEsmeSessionUsingPOST Create a new SMPP Session from ESME based on given account
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCreateIsdnListUsingPOSTRequest
+ * @return ApiCreateEsmeSessionUsingPOSTRequest
  */
-func (a *IsdnListResourceApiService) CreateIsdnListUsingPOST(ctx _context.Context) ApiCreateIsdnListUsingPOSTRequest {
-	return ApiCreateIsdnListUsingPOSTRequest{
+func (a *EsmeSessionResourceApiService) CreateEsmeSessionUsingPOST(ctx _context.Context) ApiCreateEsmeSessionUsingPOSTRequest {
+	return ApiCreateEsmeSessionUsingPOSTRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -56,24 +56,24 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOST(ctx _context.Contex
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return EsmeSession
  */
-func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateIsdnListUsingPOSTRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) CreateEsmeSessionUsingPOSTExecute(r ApiCreateEsmeSessionUsingPOSTRequest) (EsmeSession, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  EsmeSession
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.CreateIsdnListUsingPOST")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.CreateEsmeSessionUsingPOST")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists"
+	localVarPath := localBasePath + "/api/esme-sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -97,7 +97,7 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.isdnList
+	localVarPostBody = r.esmeAccount
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -135,35 +135,35 @@ func (a *IsdnListResourceApiService) CreateIsdnListUsingPOSTExecute(r ApiCreateI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteIsdnListUsingDELETERequest struct {
+type ApiDeleteEsmeSessionUsingDELETERequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
-	id string
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
 }
 
 
-func (r ApiDeleteIsdnListUsingDELETERequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.DeleteIsdnListUsingDELETEExecute(r)
+func (r ApiDeleteEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.DeleteEsmeSessionUsingDELETEExecute(r)
 }
 
 /*
- * DeleteIsdnListUsingDELETE deleteIsdnList
+ * DeleteEsmeSessionUsingDELETE deleteEsmeSession
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
- * @return ApiDeleteIsdnListUsingDELETERequest
+ * @param sessionID id
+ * @return ApiDeleteEsmeSessionUsingDELETERequest
  */
-func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETE(ctx _context.Context, id string) ApiDeleteIsdnListUsingDELETERequest {
-	return ApiDeleteIsdnListUsingDELETERequest{
+func (a *EsmeSessionResourceApiService) DeleteEsmeSessionUsingDELETE(ctx _context.Context, sessionID string) ApiDeleteEsmeSessionUsingDELETERequest {
+	return ApiDeleteEsmeSessionUsingDELETERequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		sessionID: sessionID,
 	}
 }
 
 /*
  * Execute executes the request
  */
-func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDeleteIsdnListUsingDELETERequest) (*_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) DeleteEsmeSessionUsingDELETEExecute(r ApiDeleteEsmeSessionUsingDELETERequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -172,13 +172,13 @@ func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDelet
 		localVarFileBytes    []byte
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.DeleteIsdnListUsingDELETE")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.DeleteEsmeSessionUsingDELETE")
 	if err != nil {
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -229,23 +229,23 @@ func (a *IsdnListResourceApiService) DeleteIsdnListUsingDELETEExecute(r ApiDelet
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetAllIsdnListsUsingGETRequest struct {
+type ApiGetAllEsmeSessionsRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *EsmeSessionResourceApiService
 }
 
 
-func (r ApiGetAllIsdnListsUsingGETRequest) Execute() ([]IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.GetAllIsdnListsUsingGETExecute(r)
+func (r ApiGetAllEsmeSessionsRequest) Execute() ([]EsmeSession, *_nethttp.Response, error) {
+	return r.ApiService.GetAllEsmeSessionsExecute(r)
 }
 
 /*
- * GetAllIsdnListsUsingGET getAllIsdnLists
+ * GetAllEsmeSessions getAllEsmeSessions
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAllIsdnListsUsingGETRequest
+ * @return ApiGetAllEsmeSessionsRequest
  */
-func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGET(ctx _context.Context) ApiGetAllIsdnListsUsingGETRequest {
-	return ApiGetAllIsdnListsUsingGETRequest{
+func (a *EsmeSessionResourceApiService) GetAllEsmeSessions(ctx _context.Context) ApiGetAllEsmeSessionsRequest {
+	return ApiGetAllEsmeSessionsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -253,24 +253,24 @@ func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGET(ctx _context.Contex
 
 /*
  * Execute executes the request
- * @return []IsdnList
+ * @return []EsmeSession
  */
-func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGETExecute(r ApiGetAllIsdnListsUsingGETRequest) ([]IsdnList, *_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) GetAllEsmeSessionsExecute(r ApiGetAllEsmeSessionsRequest) ([]EsmeSession, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []IsdnList
+		localVarReturnValue  []EsmeSession
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.GetAllIsdnListsUsingGET")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.GetAllEsmeSessions")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists"
+	localVarPath := localBasePath + "/api/esme-sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -330,52 +330,52 @@ func (a *IsdnListResourceApiService) GetAllIsdnListsUsingGETExecute(r ApiGetAllI
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetIsdnListUsingGETRequest struct {
+type ApiGetEsmeSessionUsingGETRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
-	id string
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
 }
 
 
-func (r ApiGetIsdnListUsingGETRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.GetIsdnListUsingGETExecute(r)
+func (r ApiGetEsmeSessionUsingGETRequest) Execute() (EsmeSession, *_nethttp.Response, error) {
+	return r.ApiService.GetEsmeSessionUsingGETExecute(r)
 }
 
 /*
- * GetIsdnListUsingGET getIsdnList
+ * GetEsmeSessionUsingGET View ESME Session Details
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
- * @return ApiGetIsdnListUsingGETRequest
+ * @param sessionID session ID
+ * @return ApiGetEsmeSessionUsingGETRequest
  */
-func (a *IsdnListResourceApiService) GetIsdnListUsingGET(ctx _context.Context, id string) ApiGetIsdnListUsingGETRequest {
-	return ApiGetIsdnListUsingGETRequest{
+func (a *EsmeSessionResourceApiService) GetEsmeSessionUsingGET(ctx _context.Context, sessionID string) ApiGetEsmeSessionUsingGETRequest {
+	return ApiGetEsmeSessionUsingGETRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		sessionID: sessionID,
 	}
 }
 
 /*
  * Execute executes the request
- * @return IsdnList
+ * @return EsmeSession
  */
-func (a *IsdnListResourceApiService) GetIsdnListUsingGETExecute(r ApiGetIsdnListUsingGETRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) GetEsmeSessionUsingGETExecute(r ApiGetEsmeSessionUsingGETRequest) (EsmeSession, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  EsmeSession
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.GetIsdnListUsingGET")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.GetEsmeSessionUsingGET")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -435,33 +435,33 @@ func (a *IsdnListResourceApiService) GetIsdnListUsingGETExecute(r ApiGetIsdnList
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPartialUpdateIsdnListUsingPATCHRequest struct {
+type ApiPartialUpdateEsmeSessionUsingPATCHRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
-	id string
-	isdnList *IsdnList
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
+	esmeSession *EsmeSession
 }
 
-func (r ApiPartialUpdateIsdnListUsingPATCHRequest) IsdnList(isdnList IsdnList) ApiPartialUpdateIsdnListUsingPATCHRequest {
-	r.isdnList = &isdnList
+func (r ApiPartialUpdateEsmeSessionUsingPATCHRequest) EsmeSession(esmeSession EsmeSession) ApiPartialUpdateEsmeSessionUsingPATCHRequest {
+	r.esmeSession = &esmeSession
 	return r
 }
 
-func (r ApiPartialUpdateIsdnListUsingPATCHRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.PartialUpdateIsdnListUsingPATCHExecute(r)
+func (r ApiPartialUpdateEsmeSessionUsingPATCHRequest) Execute() (IsdnList, *_nethttp.Response, error) {
+	return r.ApiService.PartialUpdateEsmeSessionUsingPATCHExecute(r)
 }
 
 /*
- * PartialUpdateIsdnListUsingPATCH partialUpdateIsdnList
+ * PartialUpdateEsmeSessionUsingPATCH partialUpdateEsmeSession
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
- * @return ApiPartialUpdateIsdnListUsingPATCHRequest
+ * @param sessionID id
+ * @return ApiPartialUpdateEsmeSessionUsingPATCHRequest
  */
-func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCH(ctx _context.Context, id string) ApiPartialUpdateIsdnListUsingPATCHRequest {
-	return ApiPartialUpdateIsdnListUsingPATCHRequest{
+func (a *EsmeSessionResourceApiService) PartialUpdateEsmeSessionUsingPATCH(ctx _context.Context, sessionID string) ApiPartialUpdateEsmeSessionUsingPATCHRequest {
+	return ApiPartialUpdateEsmeSessionUsingPATCHRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		sessionID: sessionID,
 	}
 }
 
@@ -469,7 +469,7 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCH(ctx _contex
  * Execute executes the request
  * @return IsdnList
  */
-func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r ApiPartialUpdateIsdnListUsingPATCHRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) PartialUpdateEsmeSessionUsingPATCHExecute(r ApiPartialUpdateEsmeSessionUsingPATCHRequest) (IsdnList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -479,13 +479,13 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r Ap
 		localVarReturnValue  IsdnList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.PartialUpdateIsdnListUsingPATCH")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.PartialUpdateEsmeSessionUsingPATCH")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -509,7 +509,7 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r Ap
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.isdnList
+	localVarPostBody = r.esmeSession
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -547,30 +547,30 @@ func (a *IsdnListResourceApiService) PartialUpdateIsdnListUsingPATCHExecute(r Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateIsdnListUsingPUTRequest struct {
+type ApiSendSMSonEsmeSessionUsingPOSTRequest struct {
 	ctx _context.Context
-	ApiService *IsdnListResourceApiService
+	ApiService *EsmeSessionResourceApiService
 	id string
-	isdnList *IsdnList
+	batch *Batch
 }
 
-func (r ApiUpdateIsdnListUsingPUTRequest) IsdnList(isdnList IsdnList) ApiUpdateIsdnListUsingPUTRequest {
-	r.isdnList = &isdnList
+func (r ApiSendSMSonEsmeSessionUsingPOSTRequest) Batch(batch Batch) ApiSendSMSonEsmeSessionUsingPOSTRequest {
+	r.batch = &batch
 	return r
 }
 
-func (r ApiUpdateIsdnListUsingPUTRequest) Execute() (IsdnList, *_nethttp.Response, error) {
-	return r.ApiService.UpdateIsdnListUsingPUTExecute(r)
+func (r ApiSendSMSonEsmeSessionUsingPOSTRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.SendSMSonEsmeSessionUsingPOSTExecute(r)
 }
 
 /*
- * UpdateIsdnListUsingPUT updateIsdnList
+ * SendSMSonEsmeSessionUsingPOST Send Mobile Originated SMS on selected session with given patterns and data files
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
- * @return ApiUpdateIsdnListUsingPUTRequest
+ * @param id ID of selected session
+ * @return ApiSendSMSonEsmeSessionUsingPOSTRequest
  */
-func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUT(ctx _context.Context, id string) ApiUpdateIsdnListUsingPUTRequest {
-	return ApiUpdateIsdnListUsingPUTRequest{
+func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOST(ctx _context.Context, id string) ApiSendSMSonEsmeSessionUsingPOSTRequest {
+	return ApiSendSMSonEsmeSessionUsingPOSTRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -579,25 +579,220 @@ func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUT(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return IsdnList
  */
-func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUTExecute(r ApiUpdateIsdnListUsingPUTRequest) (IsdnList, *_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r ApiSendSMSonEsmeSessionUsingPOSTRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.SendSMSonEsmeSessionUsingPOST")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-sessions/{id}/batch"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.batch
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiStopAllBachOnEsmeSessionUsingDELETERequest struct {
+	ctx _context.Context
+	ApiService *EsmeSessionResourceApiService
+	id string
+}
+
+
+func (r ApiStopAllBachOnEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.StopAllBachOnEsmeSessionUsingDELETEExecute(r)
+}
+
+/*
+ * StopAllBachOnEsmeSessionUsingDELETE Stop all batch current running in selected SMSC sessions
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param id ID of selected session
+ * @return ApiStopAllBachOnEsmeSessionUsingDELETERequest
+ */
+func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETE(ctx _context.Context, id string) ApiStopAllBachOnEsmeSessionUsingDELETERequest {
+	return ApiStopAllBachOnEsmeSessionUsingDELETERequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETEExecute(r ApiStopAllBachOnEsmeSessionUsingDELETERequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.StopAllBachOnEsmeSessionUsingDELETE")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-sessions/{id}/batch"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateEsmeSessionUsingPUTRequest struct {
+	ctx _context.Context
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
+	esmeSession *EsmeSession
+}
+
+func (r ApiUpdateEsmeSessionUsingPUTRequest) EsmeSession(esmeSession EsmeSession) ApiUpdateEsmeSessionUsingPUTRequest {
+	r.esmeSession = &esmeSession
+	return r
+}
+
+func (r ApiUpdateEsmeSessionUsingPUTRequest) Execute() (EsmeSession, *_nethttp.Response, error) {
+	return r.ApiService.UpdateEsmeSessionUsingPUTExecute(r)
+}
+
+/*
+ * UpdateEsmeSessionUsingPUT updateEsmeSession
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param sessionID id
+ * @return ApiUpdateEsmeSessionUsingPUTRequest
+ */
+func (a *EsmeSessionResourceApiService) UpdateEsmeSessionUsingPUT(ctx _context.Context, sessionID string) ApiUpdateEsmeSessionUsingPUTRequest {
+	return ApiUpdateEsmeSessionUsingPUTRequest{
+		ApiService: a,
+		ctx: ctx,
+		sessionID: sessionID,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return EsmeSession
+ */
+func (a *EsmeSessionResourceApiService) UpdateEsmeSessionUsingPUTExecute(r ApiUpdateEsmeSessionUsingPUTRequest) (EsmeSession, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IsdnList
+		localVarReturnValue  EsmeSession
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IsdnListResourceApiService.UpdateIsdnListUsingPUT")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.UpdateEsmeSessionUsingPUT")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/isdn-lists/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -621,7 +816,7 @@ func (a *IsdnListResourceApiService) UpdateIsdnListUsingPUTExecute(r ApiUpdateIs
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.isdnList
+	localVarPostBody = r.esmeSession
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

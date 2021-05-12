@@ -1,6 +1,6 @@
 # \SmscInstanceResourceApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/foxtechvn/smpptools/1.0.0*
+All URIs are relative to *https://virtserver.swaggerhub.com/foxtechvn/smpptools/0.0.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,6 +9,10 @@ Method | HTTP request | Description
 [**GetAllSmscInstancesUsingGET**](SmscInstanceResourceApi.md#GetAllSmscInstancesUsingGET) | **Get** /api/smsc-instances | getAllSmscInstances
 [**GetSmscInstanceUsingGET**](SmscInstanceResourceApi.md#GetSmscInstanceUsingGET) | **Get** /api/smsc-instances/{id} | getSmscInstance
 [**PartialUpdateSmscInstanceUsingPATCH**](SmscInstanceResourceApi.md#PartialUpdateSmscInstanceUsingPATCH) | **Patch** /api/smsc-instances/{id} | partialUpdateSmscInstance
+[**StartBatchOnSmscInstanceUsingPOST**](SmscInstanceResourceApi.md#StartBatchOnSmscInstanceUsingPOST) | **Post** /api/smsc-instances/{id}/batch | Start sending batch on selected SMSC Instance
+[**StartSmscInstanceUsingGET**](SmscInstanceResourceApi.md#StartSmscInstanceUsingGET) | **Get** /api/smsc-instances/{id}/start | Start selected SMSC Instance
+[**StopAllBatchSmscInstanceUsingDELETE**](SmscInstanceResourceApi.md#StopAllBatchSmscInstanceUsingDELETE) | **Delete** /api/smsc-instances/{id}/batch | Stop all batch sending using DELETE
+[**StopSmscInstanceUsingDELETE**](SmscInstanceResourceApi.md#StopSmscInstanceUsingDELETE) | **Delete** /api/smsc-instances/{id}/stop | Stop selected SMSC Instance
 [**UpdateSmscInstanceUsingPUT**](SmscInstanceResourceApi.md#UpdateSmscInstanceUsingPUT) | **Put** /api/smsc-instances/{id} | updateSmscInstance
 
 
@@ -334,6 +338,274 @@ No authorization required
 
 - **Content-Type**: application/json, application/merge-patch+json
 - **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StartBatchOnSmscInstanceUsingPOST
+
+> StartBatchOnSmscInstanceUsingPOST(ctx, id).Batch(batch).Execute()
+
+Start sending batch on selected SMSC Instance
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | id
+    batch := *openapiclient.NewBatch() // Batch |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SmscInstanceResourceApi.StartBatchOnSmscInstanceUsingPOST(context.Background(), id).Batch(batch).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SmscInstanceResourceApi.StartBatchOnSmscInstanceUsingPOST``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStartBatchOnSmscInstanceUsingPOSTRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **batch** | [**Batch**](Batch.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StartSmscInstanceUsingGET
+
+> SmscInstance StartSmscInstanceUsingGET(ctx, id).Execute()
+
+Start selected SMSC Instance
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | id
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SmscInstanceResourceApi.StartSmscInstanceUsingGET(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SmscInstanceResourceApi.StartSmscInstanceUsingGET``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `StartSmscInstanceUsingGET`: SmscInstance
+    fmt.Fprintf(os.Stdout, "Response from `SmscInstanceResourceApi.StartSmscInstanceUsingGET`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStartSmscInstanceUsingGETRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SmscInstance**](SmscInstance.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StopAllBatchSmscInstanceUsingDELETE
+
+> StopAllBatchSmscInstanceUsingDELETE(ctx, id).Execute()
+
+Stop all batch sending using DELETE
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | SMS Intance ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SmscInstanceResourceApi.StopAllBatchSmscInstanceUsingDELETE(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SmscInstanceResourceApi.StopAllBatchSmscInstanceUsingDELETE``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | SMS Intance ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStopAllBatchSmscInstanceUsingDELETERequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StopSmscInstanceUsingDELETE
+
+> StopSmscInstanceUsingDELETE(ctx, id).Execute()
+
+Stop selected SMSC Instance
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | id
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SmscInstanceResourceApi.StopSmscInstanceUsingDELETE(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SmscInstanceResourceApi.StopSmscInstanceUsingDELETE``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStopSmscInstanceUsingDELETERequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

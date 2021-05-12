@@ -1,6 +1,6 @@
 # \IsdnListResourceApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/foxtechvn/smpptools/1.0.0*
+All URIs are relative to *https://virtserver.swaggerhub.com/foxtechvn/smpptools/0.0.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
