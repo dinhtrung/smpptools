@@ -36,7 +36,8 @@ func main() {
 	app.BuntDBInit()
 
 	// autowire repository
-	instances.BaseSmRepo = impl.NewBaseSmRepository()
+	setupDB()
+
 	// setup fiber
 
 	srv := fiber.New(fiber.Config{
@@ -58,6 +59,17 @@ func main() {
 	setupWebSocket(srv)
 	setupRoutes(srv)
 	log.Fatal(srv.Listen(app.Config.String("http.listen")))
+}
+
+// setupDB wire the Repository implement back to its interface
+func setupDB() {
+	instances.BaseSmRepo = impl.NewBaseSmRepository()
+	instances.EsmeAccountRepo = impl.NewEsmeAccountRepository()
+	instances.EsmeSessionRepo = impl.NewEsmeSessionRepository()
+	instances.SmscAccountRepo = impl.NewSmscAccountRepository()
+	instances.SmscInstanceRepo = impl.NewSmscInstanceRepository()
+	instances.IsdnListRepo = impl.NewIsdnListRepository()
+	instances.ThroughputSeriesRepo = impl.NewThroughputSeriesRepository()
 }
 
 // setupRoutes setup the route for application

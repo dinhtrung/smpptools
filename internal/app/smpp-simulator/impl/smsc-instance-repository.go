@@ -10,22 +10,22 @@ import (
 	"github.com/tidwall/buntdb"
 )
 
-const BASE_SM_PREFIX = "BASE_SM:"
+const SMSC_INSTANCE_PREFIX = "SMSC:INSTANCE:"
 
-type BaseSmRepository struct {
+type SmscInstanceRepository struct {
 }
 
-func NewBaseSmRepository() interfaces.BaseSmCrudRepository {
-	app.BuntDB.CreateIndex(BASE_SM_PREFIX, BASE_SM_PREFIX+"*", buntdb.IndexString)
+func NewSmscInstanceRepository() interfaces.SmscInstanceCrudRepository {
+	app.BuntDB.CreateIndex(SMSC_INSTANCE_PREFIX, SMSC_INSTANCE_PREFIX+"*", buntdb.IndexString)
 
-	return &BaseSmRepository{}
+	return &SmscInstanceRepository{}
 }
 
 // Returns the number of entities available.
-func (r *BaseSmRepository) Count() (int, error) {
+func (r *SmscInstanceRepository) Count() (int, error) {
 	cnt := 0
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
-		return tx.Ascend(BASE_SM_PREFIX, func(key, value string) bool {
+		return tx.Ascend(SMSC_INSTANCE_PREFIX, func(key, value string) bool {
 			cnt++
 			return true
 		})
@@ -34,9 +34,9 @@ func (r *BaseSmRepository) Count() (int, error) {
 }
 
 // Deletes a given entity.
-func (r *BaseSmRepository) Delete(entity *openapi.BaseSm) error {
+func (r *SmscInstanceRepository) Delete(entity *openapi.SmscInstance) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(BASE_SM_PREFIX + entity.GetId())
+		_, err := tx.Delete(SMSC_INSTANCE_PREFIX + entity.GetId())
 		if err != nil {
 			return err
 		}
@@ -45,10 +45,10 @@ func (r *BaseSmRepository) Delete(entity *openapi.BaseSm) error {
 }
 
 // Deletes all entities managed by the repository.
-func (r *BaseSmRepository) DeleteAll() error {
+func (r *SmscInstanceRepository) DeleteAll() error {
 	ids := make([]string, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
-		return tx.Ascend(BASE_SM_PREFIX, func(key, value string) bool {
+		return tx.Ascend(SMSC_INSTANCE_PREFIX, func(key, value string) bool {
 			ids = append(ids, key)
 			return true
 		})
@@ -68,7 +68,7 @@ func (r *BaseSmRepository) DeleteAll() error {
 }
 
 // Deletes the given entities.
-func (r *BaseSmRepository) DeleteAllEntities(entities []*openapi.BaseSm) error {
+func (r *SmscInstanceRepository) DeleteAllEntities(entities []*openapi.SmscInstance) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
 			_, err := tx.Delete(entity.GetId())
@@ -81,10 +81,10 @@ func (r *BaseSmRepository) DeleteAllEntities(entities []*openapi.BaseSm) error {
 }
 
 // Deletes all instances of the type T with the given IDs.
-func (r *BaseSmRepository) DeleteAllById(ids []string) error {
+func (r *SmscInstanceRepository) DeleteAllById(ids []string) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, id := range ids {
-			_, err := tx.Delete(BASE_SM_PREFIX + id)
+			_, err := tx.Delete(SMSC_INSTANCE_PREFIX + id)
 			if err != nil {
 				return err
 			}
@@ -94,27 +94,27 @@ func (r *BaseSmRepository) DeleteAllById(ids []string) error {
 }
 
 // Deletes the entity with the given id.
-func (r *BaseSmRepository) DeleteById(ID string) error {
+func (r *SmscInstanceRepository) DeleteById(ID string) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(BASE_SM_PREFIX + ID)
+		_, err := tx.Delete(SMSC_INSTANCE_PREFIX + ID)
 		return err
 	})
 }
 
 // Returns whether an entity with the given id exists.
-func (r *BaseSmRepository) ExistsById(ID string) bool {
+func (r *SmscInstanceRepository) ExistsById(ID string) bool {
 	return app.BuntDB.View(func(tx *buntdb.Tx) error {
-		_, err := tx.Get(BASE_SM_PREFIX + ID)
+		_, err := tx.Get(SMSC_INSTANCE_PREFIX + ID)
 		return err
 	}) == nil
 }
 
 // Returns all instances of the type.
-func (r *BaseSmRepository) FindAll() ([]*openapi.BaseSm, error) {
-	entities := make([]*openapi.BaseSm, 0)
+func (r *SmscInstanceRepository) FindAll() ([]*openapi.SmscInstance, error) {
+	entities := make([]*openapi.SmscInstance, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
-		return tx.Ascend(BASE_SM_PREFIX, func(key, value string) bool {
-			entity := openapi.NewBaseSmWithDefaults()
+		return tx.Ascend(SMSC_INSTANCE_PREFIX, func(key, value string) bool {
+			entity := openapi.NewSmscInstanceWithDefaults()
 			if err := json.Unmarshal([]byte(value), entity); err == nil {
 				entities = append(entities, entity)
 			}
@@ -125,15 +125,15 @@ func (r *BaseSmRepository) FindAll() ([]*openapi.BaseSm, error) {
 }
 
 // Returns all instances of the type T with the given IDs.
-func (r *BaseSmRepository) FindAllById(ids []string) ([]*openapi.BaseSm, error) {
-	entities := make([]*openapi.BaseSm, 0)
+func (r *SmscInstanceRepository) FindAllById(ids []string) ([]*openapi.SmscInstance, error) {
+	entities := make([]*openapi.SmscInstance, 0)
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
 		for _, id := range ids {
-			value, err := tx.Get(BASE_SM_PREFIX + id)
+			value, err := tx.Get(SMSC_INSTANCE_PREFIX + id)
 			if err != nil {
 				continue
 			}
-			entity := openapi.NewBaseSmWithDefaults()
+			entity := openapi.NewSmscInstanceWithDefaults()
 			if err := json.Unmarshal([]byte(value), entity); err == nil {
 				entities = append(entities, entity)
 			}
@@ -144,10 +144,10 @@ func (r *BaseSmRepository) FindAllById(ids []string) ([]*openapi.BaseSm, error) 
 }
 
 // Retrieves an entity by its id.
-func (r *BaseSmRepository) FindById(ID string) (*openapi.BaseSm, error) {
-	entity := openapi.NewBaseSmWithDefaults()
+func (r *SmscInstanceRepository) FindById(ID string) (*openapi.SmscInstance, error) {
+	entity := openapi.NewSmscInstanceWithDefaults()
 	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
-		value, err := tx.Get(BASE_SM_PREFIX + ID)
+		value, err := tx.Get(SMSC_INSTANCE_PREFIX + ID)
 		if err != nil {
 			return err
 		}
@@ -160,7 +160,7 @@ func (r *BaseSmRepository) FindById(ID string) (*openapi.BaseSm, error) {
 }
 
 // Saves a given entity.
-func (r *BaseSmRepository) Save(entity *openapi.BaseSm) error {
+func (r *SmscInstanceRepository) Save(entity *openapi.SmscInstance) error {
 	if _, ok := entity.GetIdOk(); !ok {
 		entity.SetId(uuid.NewString())
 	}
@@ -169,20 +169,20 @@ func (r *BaseSmRepository) Save(entity *openapi.BaseSm) error {
 		if err != nil {
 			return err
 		}
-		_, _, err = tx.Set(BASE_SM_PREFIX+entity.GetId(), string(entityJson), nil)
+		_, _, err = tx.Set(SMSC_INSTANCE_PREFIX+entity.GetId(), string(entityJson), nil)
 		return err
 	})
 }
 
 // Saves all given entities.
-func (r *BaseSmRepository) SaveAll(entities []*openapi.BaseSm) error {
+func (r *SmscInstanceRepository) SaveAll(entities []*openapi.SmscInstance) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err
 			}
-			_, _, err = tx.Set(BASE_SM_PREFIX+entity.GetId(), string(entityJson), nil)
+			_, _, err = tx.Set(SMSC_INSTANCE_PREFIX+entity.GetId(), string(entityJson), nil)
 			if err != nil {
 				return err
 			}
