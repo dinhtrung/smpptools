@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 
-	"github.com/daominah/smpp"
+	"github.com/ajankovic/smpp"
 )
 
 // SMPP_SESSIONS hold a map of session unique name vs its cancelFunc

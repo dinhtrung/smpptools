@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/daominah/smpp/pdu"
+	"github.com/ajankovic/smpp/pdu"
 	"github.com/google/uuid"
 )
 

@@ -6,8 +6,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/daominah/smpp"
-	"github.com/daominah/smpp/pdu"
+	"github.com/ajankovic/smpp"
+	"github.com/ajankovic/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/channels"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
 	"github.com/google/uuid"

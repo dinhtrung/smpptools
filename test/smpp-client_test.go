@@ -1,19 +1,17 @@
-package main
+package test
 
 import (
 	"context"
-	"fmt"
-	"os"
 	"testing"
 
-	"github.com/daominah/smpp"
-	"github.com/daominah/smpp/pdu"
+	"github.com/ajankovic/smpp"
+	"github.com/ajankovic/smpp/pdu"
 )
 
-func TestSending(t *testing.T) {
+func TestSMPPClient(t *testing.T) {
 
 	bc := smpp.BindConf{
-		Addr:     "172.16.16.84:2775",
+		Addr:     "127.0.0.1:2775",
 		SystemID: "1536",
 		Password: "abcd1234",
 	}
@@ -22,7 +20,7 @@ func TestSending(t *testing.T) {
 	}
 	sess, err := smpp.BindTRx(sc, bc)
 	if err != nil {
-		fail("Can't bind: %v", err)
+		t.Fatalf("Can't bind: %v", err)
 	}
 	sm := &pdu.SubmitSm{
 		SourceAddr:         "1536",
@@ -35,16 +33,11 @@ func TestSending(t *testing.T) {
 
 	resp, err := sess.Send(context.Background(), sm)
 	if err != nil {
-		fail("Can't send message: %+v", err)
+		t.Fatalf("Can't send message: %+v", err)
 	}
-	fmt.Fprintf(os.Stderr, "Message sent\n")
-	fmt.Fprintf(os.Stderr, "Received response %s %+v\n", resp.CommandID(), resp)
+	t.Log("Message sent")
+	t.Logf("Received response %s %+v", resp.CommandID(), resp)
 	if err := smpp.Unbind(context.Background(), sess); err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
+		t.Fatal(err)
 	}
-}
-
-func fail(msg string, params ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", params...)
-	os.Exit(1)
 }
