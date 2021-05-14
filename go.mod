@@ -9,8 +9,10 @@ require (
 	github.com/google/uuid v1.2.0
 	github.com/knadh/koanf v0.16.0
 	github.com/markbates/pkger v0.17.1
+	github.com/sethvargo/go-limiter v0.6.0
 	github.com/tidwall/buntdb v1.2.3
 	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 )
 
 replace github.com/ajankovic/smpp => ../smpp
+replace "github.com/sethvargo/go-limiter" => ../go-limiter

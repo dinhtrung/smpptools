@@ -3,6 +3,8 @@ http:
 
 # Embed Database
 buntdb.path: build/package/bunt.db
+
+# SMPP Client profile
 smpp:
   client:
     bind:
