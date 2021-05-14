@@ -24,9 +24,10 @@ func BuntDBConfig() {
 func BuntDBInit() {
 	var err error
 	log.Printf("Connecting to database: %s", Config.MustString("buntdb.path"))
-	BuntDB, err = buntdb.Open(Config.String("buntdb.path"))
+	dbconn, err := buntdb.Open(Config.String("buntdb.path"))
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatalf("failed to connect database: %s", err)
 	}
-	log.Println("Connection Opened to BuntDB")
+	BuntDB = dbconn
+	log.Println("connected to BuntDB")
 }
