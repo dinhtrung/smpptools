@@ -1,0 +1,104 @@
+<h1 class="text-muted mb-4">ESME Accounts</h1>
+
+<div class="alert alert-info">
+  <p [innerHtml]="config.description"></p>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>ESME Accounts
+          <button type="button" name="create" class="btn btn-primary float-right" (click)="create()">
+            <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+            <span>Create a new ESME Account</span>
+          </button>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Address</th>
+                <th scope="col">System ID</th>
+                <th scope="col">Password</th>
+                <th scope="col">BindType</th>
+                <th scope="col" class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of rows; let j=index; trackBy: trackID">
+                <th scope="row" [innerHTML]="j + 1"></th>
+                <td [innerHTML]="r.Name"></td>
+                <td [innerHTML]="r.Description"></td>
+                <td [innerHTML]="r.Info.Connection.Addr"></td>
+                <td [innerHTML]="r.Info.Connection.SystemID"></td>
+                <td [innerHTML]="r.Info.Connection.Password">@mdo</td>
+                <td>
+                  <span class="badge badge-primary rounded-0 p-1" [innerHTML]="r.Info.BindType"></span>
+                </td>
+                <td class="text-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-success" ngbTooltip="Start a new session">
+                      <fa-icon icon="play"></fa-icon>
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-primary" ngbTooltip="Edit ESME Account" (click)="update(r)">
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" ngbTooltip="Delete ESME Account" (click)="delete(r.ID)">
+                      <fa-icon icon="trash"></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add / Edit ESME Account</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="modal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <formly-form [model]="model" [fields]="config.fields" [options]="options" [form]="editForm"></formly-form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss()">
+      <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button id="jhi-confirm-delete-ticket" type="submit" class="btn btn-danger" (click)="modal.close()">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+    </button>
+  </div>
+</ng-template>
+
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" [innerHtml]="deleteTitle">Confirm delete operation</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="modal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this item?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss()">
+      <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button id="jhi-confirm-delete-ticket" type="submit" class="btn btn-danger" (click)="modal.close()">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+    </button>
+  </div>
+</ng-template>

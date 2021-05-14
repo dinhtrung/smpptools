@@ -1,0 +1,55 @@
+<h1 class="text-muted mb-4">SMSC Instances</h1>
+
+<div class="alert alert-info">
+  <p><fa-icon icon="info-circle" [fixedWidth]="true"></fa-icon>In this page you can configure the ESME's binding parameters</p>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>SMSC Instances
+        <button type="button" name="create" class="btn btn-primary float-right">
+          <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+          <span>Create a new SMSC Instances</span>
+        </button>
+      </h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Address</th>
+                <th scope="col" class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of rows; let j=index; trackBy: trackID">
+                <th scope="row" [innerHTML]="j + 1"></th>
+                <td [innerHTML]="r.Name"></td>
+                <td [innerHTML]="r.Description"></td>
+                <td [innerHTML]="r.Info.Addr"></td>
+                <td>
+                  <a class="btn btn-sm btn-success rounded-0 mr-2 " ngbTooltip="Start a new session">
+                    <fa-icon icon="play"></fa-icon>
+                  </a>
+
+                  <a class="btn btn-sm btn-primary rounded-0 mr-2 ">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                  </a>
+                  <a class="btn btn-sm btn-danger rounded-0">
+                    <fa-icon icon="trash"></fa-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<h1 class="text-muted mb-4">ESME Accounts</h1>
+
+<div class="alert alert-info">
+  <p>
+    <fa-icon icon="info-circle" [fixedWidth]="true"></fa-icon>In this page you can configure the ESME's binding parameters
+  </p>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <div class="form-inline float-right">
+        <div class="input-group btn-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Filter</span>
+          </div>
+          <input class="form-control" placeholder="Enter System ID for filter" [(ngModel)]="systemID" />
+          <button type="button" name="reset" (click)="reset()" class="btn btn-secondary">
+            Reset
+          </button>
+        </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th *ngFor="let c of columns" [jhiTranslate]="c"></th>
+                <th scope="col" class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let instanceSession of sessionsByInstance | keyvalue">
+              <tr>
+                <th colspan="8" class="bg-dark text-white text-center" [innerHtml]="instanceSession.key"></th>
+              </tr>
+              <tr *ngFor="let s of instanceSession.value; let j = index; trackBy: trackId">
+                <th [innerHtml]="j + 1 | number"></th>
+                <td *ngFor="let c of columns" [innerHtml]="s.c"></td>
+                <td class="text-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="stopSession(s.systemId)">
+                      <fa-icon icon="ban"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.stop">Stop</span>
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" (click)="viewDetail(s)">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #detailModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Session Information</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="modal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <jhi-detail [entity]="session" [columns]="counters"></jhi-detail>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss()">
+      <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">OK</span>
+    </button>
+  </div>
+</ng-template>

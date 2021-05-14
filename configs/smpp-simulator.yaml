@@ -1,10 +1,7 @@
 http:
   listen: 127.0.0.1:19060
-
-# Embed Database
-buntdb.path: build/package/bunt.db
-
-# SMPP Client profile
+buntdb:
+  path: build/package/bunt.db
 smpp:
   client:
     bind:

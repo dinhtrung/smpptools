@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/ajankovic/smpp"
 	"github.com/ajankovic/smpp/pdu"
@@ -14,6 +15,7 @@ import (
 )
 
 var PDU_CHAN = make(chan *pdu.SubmitSm)
+var ENQUIRELINK_TIMER *time.Ticker
 
 // SmppConnectionProfile hold the session information
 type SmppConnectionProfile struct {
@@ -52,6 +54,8 @@ func (c *SmppConnectionProfile) Bind(ctx context.Context) error {
 					delete(services.SMPP_CLIENT_SESSIONS, sid)
 				case req := <-PDU_CHAN:
 					c.Session.Send(context.Background(), req)
+				case <-ENQUIRELINK_TIMER.C:
+					c.Session.Send(context.Background(), &pdu.EnquireLink{})
 				}
 			}
 		}()
