@@ -1,7 +1,10 @@
 package api
 
 import (
+	"context"
+
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
+	"github.com/dinhtrung/smpptools/internal/pkg/smsc"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/gofiber/fiber/v2"
 )
@@ -65,8 +68,15 @@ func StartBatchOnSmscInstanceUsingPOST(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
 }
 
+// Start selected SMSC Instance
 func StartSmscInstanceUsingGET(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
+	entity, err := instances.SmscInstanceRepo.FindById(c.Params("id"))
+	if err != nil {
+		return err
+	}
+	instance := smsc.NewSmscSimulatorInstance(entity)
+	go instance.Start(context.Background())
+	return c.JSON(entity)
 }
 
 func StopAllBatchSmscInstanceUsingDELETE(c *fiber.Ctx) error {

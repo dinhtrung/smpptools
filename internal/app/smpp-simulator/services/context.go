@@ -13,4 +13,4 @@ var SMPP_SESSIONS = make(map[string]*context.CancelFunc)
 var SMPP_CLIENT_SESSIONS = make(map[string]*smpp.Session)
 
 // SMSC_INSTANCES hold a map of session unique name vs its cancelFunc
-var SMSC_INSTANCES = make(map[string]*smpp.Server)
+var SMSC_INSTANCES = make(map[int32]*smpp.Server)

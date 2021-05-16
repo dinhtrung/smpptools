@@ -15,9 +15,9 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/impl"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
-	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/dto"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/api"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/ws"
+	"github.com/dinhtrung/smpptools/internal/pkg/esme"
 )
 
 var configFile string
@@ -68,10 +68,9 @@ func main() {
 
 	setupWebSocket(srv)
 	setupRoutes(srv)
-	setupSmpp()
 
-	dto.ENQUIRELINK_TIMER = time.NewTicker(time.Duration(15) * time.Second)
-	defer dto.ENQUIRELINK_TIMER.Stop()
+	esme.ENQUIRELINK_TIMER = time.NewTicker(time.Duration(15) * time.Second)
+	defer esme.ENQUIRELINK_TIMER.Stop()
 	log.Fatal(srv.Listen(app.Config.String("http.listen")))
 }
 
@@ -175,10 +174,5 @@ func setupWebSocket(app *fiber.App) {
 	go ws.RunHub()
 	app.Get("/ws", websocket.New(ws.WebsocketHandle))
 	app.Post("api/ws", api.MessagePost)
-
-}
-
-// setupSmpp setup utilities for SMPP apps
-func setupSmpp() {
 
 }

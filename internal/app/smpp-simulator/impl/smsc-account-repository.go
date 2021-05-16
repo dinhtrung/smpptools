@@ -6,7 +6,6 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/pkg/interfaces"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
-	"github.com/google/uuid"
 	"github.com/tidwall/buntdb"
 )
 
@@ -161,9 +160,7 @@ func (r *SmscAccountRepository) FindById(ID string) (*openapi.SmscAccount, error
 
 // Saves a given entity.
 func (r *SmscAccountRepository) Save(entity *openapi.SmscAccount) error {
-	if _, ok := entity.GetIdOk(); !ok {
-		entity.SetId(uuid.NewString())
-	}
+	entity.SetId(entity.GetSystemID())
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		entityJson, err := json.Marshal(entity)
 		if err != nil {
@@ -178,6 +175,7 @@ func (r *SmscAccountRepository) Save(entity *openapi.SmscAccount) error {
 func (r *SmscAccountRepository) SaveAll(entities []*openapi.SmscAccount) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
+			entity.SetId(entity.GetSystemID())
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err

@@ -1,4 +1,4 @@
-package dto
+package smsc
 
 import (
 	"context"
@@ -10,83 +10,125 @@ import (
 	"github.com/ajankovic/smpp"
 	"github.com/ajankovic/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/channels"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
+	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/google/uuid"
+)
+
+const (
+	CtxKeyAccount = iota
+	CtxKeyFeatures
 )
 
 var MO_CHAN = make(chan *pdu.DeliverSm)
 
 // SmppConnectionProfile hold the session information
-type SmscInstance struct {
-	Address             string
-	Server              *smpp.Server             `json:"-"`
-	Sessions            map[string]*smpp.Session `json:"-"` // active client session. key is a pattern of ${systemID}-${ip-host}-${unixTimestamp}
-	MobileOriginatedSMS *SmsSet                  // template of the Mobile OriginatedSMS to send out
-	Accounts            map[string]*SMSCAccount  // active smsc account, key by smpp context ID
+type SmscSimulator struct {
+	config *openapi.SmscInstance
+	server *smpp.Server
+}
+
+func NewSmscSimulatorInstance(config *openapi.SmscInstance) SmscSimulator {
+	return SmscSimulator{
+		config: config,
+	}
 }
 
 // StartInstance perform bind request to server for testing
-func (c *SmscInstance) StartInstance(ctx context.Context) error {
-	var err error
-	if _, ok := services.SMSC_INSTANCES[c.Address]; ok {
-		return fmt.Errorf("there is already instance running on address %s", c.Address)
+func (c *SmscSimulator) Start(ctx context.Context) error {
+	instancePort := c.config.GetPort()
+	if instancePort <= 0 {
+		return fmt.Errorf("invalid port")
+	}
+
+	if _, ok := services.SMSC_INSTANCES[instancePort]; ok {
+		return fmt.Errorf("there is already instance running on port %d", instancePort)
 	}
 	sc := smpp.SessionConf{
 		Handler: smpp.HandlerFunc(c.SmscHandleFunc),
-		Logger:  services.WebsocketLogger{},
 	}
-
-	c.Server = smpp.NewServer(c.Address, sc)
-	c.Sessions = make(map[string]*smpp.Session)
-	services.SMSC_INSTANCES[c.Address] = c.Server
+	server := smpp.NewServer(fmt.Sprintf(":%d", instancePort), sc)
+	services.SMSC_INSTANCES[instancePort] = server
 	go func() {
-		err := c.Server.ListenAndServe()
-		if err != nil {
-			log.Printf("error starting smsc: %s", err)
+		for {
+			select {
+			case <-ctx.Done():
+				log.Printf("[%s] stopping instance", c.config.GetName())
+				if err := server.Unbind(context.Background()); err != nil {
+					log.Printf("[%s] unable to send unbind to all connection: %s", c.config.GetName(), err)
+					return
+				}
+				delete(services.SMSC_INSTANCES, instancePort)
+			case req := <-MO_CHAN:
+				for _, sess := range server.EsmeSessions {
+					sess.Send(context.TODO(), req)
+				}
+			}
 		}
 	}()
-	go func() {
-		<-ctx.Done()
-		log.Printf("[%s] stopping instance", c.Address)
-		if err := c.Server.Unbind(context.Background()); err != nil {
-			log.Printf("[%s] unable to send unbind to all connection: %s", c.Address, err)
-		}
-		if err := c.Server.Close(); err != nil {
-			log.Printf("[%s] error close server instance: %s", c.Address, err)
-		}
-		delete(services.SMSC_INSTANCES, c.Address)
-
-		// case req := <-MO_CHAN:
-		// 	c.Sessions.Send(context.Background(), req)
-		// case <-ENQUIRELINK_TIMER.C:
-		// 	c.Session.Send(context.Background(), &pdu.EnquireLink{})
-	}()
-	return err
+	c.server = server
+	return server.ListenAndServe()
 }
 
 // SessionHandleFunc handle incoming messages
-func (c *SmscInstance) SmscHandleFunc(ctx *smpp.Context) {
+func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 	switch ctx.CommandID() {
 	case pdu.BindTransceiverID:
-		c.Sessions[ctx.Sess.ID()] = ctx.Sess
 		req, _ := ctx.BindTRx()
-		rsp := req.Response("smsc")
+		rsp := req.Response(c.config.GetName())
+		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
+		if err != nil {
+			ctx.Respond(rsp, pdu.StatusInvSysID)
+			return
+		}
+		if account.GetBindType() != "transceiver" {
+			ctx.Respond(rsp, pdu.StatusInvBnd)
+			return
+		}
+		if account.GetPassword() != req.Password {
+			ctx.Respond(rsp, pdu.StatusInvPaswd)
+			return
+		}
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.BindReceiverID:
-		c.Sessions[ctx.Sess.ID()] = ctx.Sess
 		req, _ := ctx.BindRx()
-		rsp := req.Response("smsc")
+		rsp := req.Response(c.config.GetName())
+		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
+		if err != nil {
+			ctx.Respond(rsp, pdu.StatusInvSysID)
+			return
+		}
+		if account.GetBindType() != "receiver" {
+			ctx.Respond(rsp, pdu.StatusInvBnd)
+			return
+		}
+		if account.GetPassword() != req.Password {
+			ctx.Respond(rsp, pdu.StatusInvPaswd)
+			return
+		}
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.BindTransmitterID:
-		c.Sessions[ctx.Sess.ID()] = ctx.Sess
 		req, _ := ctx.BindTx()
-		rsp := req.Response("smsc")
+		rsp := req.Response(c.config.GetName())
+		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
+		if err != nil {
+			ctx.Respond(rsp, pdu.StatusInvSysID)
+			return
+		}
+		if account.GetBindType() != "transmitter" {
+			ctx.Respond(rsp, pdu.StatusInvBnd)
+			return
+		}
+		if account.GetPassword() != req.Password {
+			ctx.Respond(rsp, pdu.StatusInvPaswd)
+			return
+		}
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.UnbindID:
-		delete(c.Sessions, ctx.Sess.ID())
 		req, _ := ctx.Unbind()
 		ctx.Respond(req.Response(), pdu.StatusOK)
 
@@ -135,14 +177,13 @@ func (c *SmscInstance) SmscHandleFunc(ctx *smpp.Context) {
 		if notif, err := json.Marshal(req); err == nil {
 			channels.WS_BROADCAST <- string(notif)
 		}
-
 		go c.SendDLRDelay(ctx.Sess.ID(), msgID, req)
 	}
 }
 
 // SendDLRDelay send a message back to current client ID
-func (c *SmscInstance) SendDLRDelay(sessionID string, msgID string, origin *pdu.SubmitSm) {
-	if sess, ok := c.Sessions[sessionID]; ok {
+func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu.SubmitSm) {
+	if sess, ok := c.server.EsmeSessions[sessionID]; ok {
 		dlr := &pdu.DeliveryReceipt{
 			Id:         msgID,
 			Sub:        "001",

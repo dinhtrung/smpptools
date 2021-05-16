@@ -9,7 +9,8 @@ import (
 
 var (
 	// DBConn hold the connection to database
-	BuntDB *buntdb.DB
+	BuntDB         *buntdb.DB
+	BuntDBInMemory *buntdb.DB
 )
 
 // BuntDBConfig configure application runtime
@@ -29,5 +30,6 @@ func BuntDBInit() {
 		log.Fatalf("failed to connect database: %s", err)
 	}
 	BuntDB = dbconn
+	BuntDBInMemory, _ = buntdb.Open(":memory:")
 	log.Println("connected to BuntDB")
 }

@@ -16,7 +16,7 @@ type EsmeSessionRepository struct {
 }
 
 func NewEsmeSessionRepository() interfaces.EsmeSessionCrudRepository {
-	app.BuntDB.CreateIndex(ESME_SESSION_PREFIX, ESME_SESSION_PREFIX+"*", buntdb.IndexString)
+	app.BuntDBInMemory.CreateIndex(ESME_SESSION_PREFIX, ESME_SESSION_PREFIX+"*", buntdb.IndexString)
 
 	return &EsmeSessionRepository{}
 }
@@ -24,7 +24,7 @@ func NewEsmeSessionRepository() interfaces.EsmeSessionCrudRepository {
 // Returns the number of entities available.
 func (r *EsmeSessionRepository) Count() (int, error) {
 	cnt := 0
-	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		return tx.Ascend(ESME_SESSION_PREFIX, func(key, value string) bool {
 			cnt++
 			return true
@@ -35,7 +35,7 @@ func (r *EsmeSessionRepository) Count() (int, error) {
 
 // Deletes a given entity.
 func (r *EsmeSessionRepository) Delete(entity *openapi.EsmeSession) error {
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		_, err := tx.Delete(ESME_SESSION_PREFIX + entity.GetId())
 		if err != nil {
 			return err
@@ -47,7 +47,7 @@ func (r *EsmeSessionRepository) Delete(entity *openapi.EsmeSession) error {
 // Deletes all entities managed by the repository.
 func (r *EsmeSessionRepository) DeleteAll() error {
 	ids := make([]string, 0)
-	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		return tx.Ascend(ESME_SESSION_PREFIX, func(key, value string) bool {
 			ids = append(ids, key)
 			return true
@@ -56,7 +56,7 @@ func (r *EsmeSessionRepository) DeleteAll() error {
 	if err != nil {
 		return err
 	}
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		for _, id := range ids {
 			_, err := tx.Delete(id)
 			if err != nil {
@@ -69,7 +69,7 @@ func (r *EsmeSessionRepository) DeleteAll() error {
 
 // Deletes the given entities.
 func (r *EsmeSessionRepository) DeleteAllEntities(entities []*openapi.EsmeSession) error {
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
 			_, err := tx.Delete(entity.GetId())
 			if err != nil {
@@ -82,7 +82,7 @@ func (r *EsmeSessionRepository) DeleteAllEntities(entities []*openapi.EsmeSessio
 
 // Deletes all instances of the type T with the given IDs.
 func (r *EsmeSessionRepository) DeleteAllById(ids []string) error {
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		for _, id := range ids {
 			_, err := tx.Delete(ESME_SESSION_PREFIX + id)
 			if err != nil {
@@ -95,7 +95,7 @@ func (r *EsmeSessionRepository) DeleteAllById(ids []string) error {
 
 // Deletes the entity with the given id.
 func (r *EsmeSessionRepository) DeleteById(ID string) error {
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		_, err := tx.Delete(ESME_SESSION_PREFIX + ID)
 		return err
 	})
@@ -103,7 +103,7 @@ func (r *EsmeSessionRepository) DeleteById(ID string) error {
 
 // Returns whether an entity with the given id exists.
 func (r *EsmeSessionRepository) ExistsById(ID string) bool {
-	return app.BuntDB.View(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		_, err := tx.Get(ESME_SESSION_PREFIX + ID)
 		return err
 	}) == nil
@@ -112,7 +112,7 @@ func (r *EsmeSessionRepository) ExistsById(ID string) bool {
 // Returns all instances of the type.
 func (r *EsmeSessionRepository) FindAll() ([]*openapi.EsmeSession, error) {
 	entities := make([]*openapi.EsmeSession, 0)
-	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		return tx.Ascend(ESME_SESSION_PREFIX, func(key, value string) bool {
 			entity := openapi.NewEsmeSessionWithDefaults()
 			if err := json.Unmarshal([]byte(value), entity); err == nil {
@@ -127,7 +127,7 @@ func (r *EsmeSessionRepository) FindAll() ([]*openapi.EsmeSession, error) {
 // Returns all instances of the type T with the given IDs.
 func (r *EsmeSessionRepository) FindAllById(ids []string) ([]*openapi.EsmeSession, error) {
 	entities := make([]*openapi.EsmeSession, 0)
-	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		for _, id := range ids {
 			value, err := tx.Get(ESME_SESSION_PREFIX + id)
 			if err != nil {
@@ -146,7 +146,7 @@ func (r *EsmeSessionRepository) FindAllById(ids []string) ([]*openapi.EsmeSessio
 // Retrieves an entity by its id.
 func (r *EsmeSessionRepository) FindById(ID string) (*openapi.EsmeSession, error) {
 	entity := openapi.NewEsmeSessionWithDefaults()
-	err := app.BuntDB.View(func(tx *buntdb.Tx) error {
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
 		value, err := tx.Get(ESME_SESSION_PREFIX + ID)
 		if err != nil {
 			return err
@@ -164,7 +164,7 @@ func (r *EsmeSessionRepository) Save(entity *openapi.EsmeSession) error {
 	if _, ok := entity.GetIdOk(); !ok {
 		entity.SetId(uuid.NewString())
 	}
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		entityJson, err := json.Marshal(entity)
 		if err != nil {
 			return err
@@ -176,7 +176,7 @@ func (r *EsmeSessionRepository) Save(entity *openapi.EsmeSession) error {
 
 // Saves all given entities.
 func (r *EsmeSessionRepository) SaveAll(entities []*openapi.EsmeSession) error {
-	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
+	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
