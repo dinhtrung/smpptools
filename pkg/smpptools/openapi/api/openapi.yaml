@@ -1826,44 +1826,44 @@ components:
           type: string
         dataCoding:
           description: Data Coding for SMS
-          format: int32
+          format: int8
           type: integer
         defaultMessageID:
           description: Default Message ID
-          format: int32
+          format: int8
           type: integer
         destinationAddr:
           description: destination address
           type: string
         destinationNPI:
           description: destination address Number plan indication
-          format: int32
+          format: int8
           type: integer
         destinationTON:
           description: destination address Type of number
-          format: int32
+          format: int8
           type: integer
         esmClass:
           description: ESM Class
-          format: int32
+          format: int8
           type: integer
         id:
           type: string
         priorityFlag:
           description: Priority Flag
-          format: int32
+          format: int8
           type: integer
         protocolID:
           description: Protocol ID
-          format: int32
+          format: int8
           type: integer
         registeredDelivery:
           description: Registered Delivery
-          format: int32
+          format: int8
           type: integer
         replaceIfPresentFlag:
           description: Replace if present flag
-          format: int32
+          format: int8
           type: integer
         scheduleDeliveryTime:
           description: Scheduled Delivery Time
@@ -1876,11 +1876,11 @@ components:
           type: string
         sourceNPI:
           description: source address Number plan indication
-          format: int32
+          format: int8
           type: integer
         sourceTON:
           description: source address Type of number
-          format: int32
+          format: int8
           type: integer
         text:
           description: Message content in text

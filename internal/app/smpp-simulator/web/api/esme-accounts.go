@@ -1,8 +1,12 @@
 package api
 
 import (
+	"context"
+
+	"github.com/ajankovic/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/mappers"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/gofiber/fiber/v2"
 )
@@ -67,7 +71,40 @@ func ApiEsmeAccountsIdBatchDelete(c *fiber.Ctx) error {
 }
 
 func SendMobileTerminatedSMSOnAccountUsingPOST(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
+	accountID := c.Params("accountID")
+	if accountID == "" {
+		return fiber.ErrBadRequest
+	}
+
+	entities, err := instances.EsmeSessionRepo.FindAllByAccountID(accountID)
+	if err != nil {
+		return err
+	}
+	if len(entities) == 0 {
+		return fiber.ErrExpectationFailed
+	}
+
+	req := openapi.NewBaseSmWithDefaults()
+	if err := c.BodyParser(req); err != nil {
+		return err
+	}
+
+	pdus, err := mappers.ToSubmitSM(req)
+	if err != nil {
+		return err
+	}
+	res := make([]pdu.PDU, 0)
+	for _, entity := range entities {
+		sid := entity.GetId()
+		if sess, ok := services.SMPP_CLIENT_SESSIONS[sid]; ok {
+			for _, p := range pdus {
+				if respdu, err := sess.Send(context.TODO(), p); err == nil {
+					res = append(res, respdu)
+				}
+			}
+		}
+	}
+	return c.JSON(res)
 }
 
 func SendSMSonSMSCsessionUsingPOST(c *fiber.Ctx) error {

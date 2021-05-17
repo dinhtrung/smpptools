@@ -45,11 +45,19 @@ func GetAllEsmeSessions(c *fiber.Ctx) error {
 	return c.JSON(result)
 }
 func GetEsmeSessionUsingGET(c *fiber.Ctx) error {
-	conn, ok := services.SMPP_CLIENT_SESSIONS[c.Params("sessionID")]
+	sid := c.Params("sessionID")
+	if sid == "" {
+		return fiber.ErrBadRequest
+	}
+	_, ok := services.SMPP_CLIENT_SESSIONS[sid]
 	if !ok {
 		return fiber.ErrNotFound
 	}
-	return c.JSON(conn.ID())
+	entity, err := instances.EsmeSessionRepo.FindById(sid)
+	if err != nil {
+		return err
+	}
+	return c.JSON(entity)
 }
 func PartialUpdateEsmeSessionUsingPATCH(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
