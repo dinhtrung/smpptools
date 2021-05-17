@@ -1,0 +1,33 @@
+{
+  "smpptoolsApp": {
+    "isdnList": {
+      "cnt": "ISDN no.",
+      "content": "Content",
+      "created": "A new Isdn List is created with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Isdn List {{ id }}?"
+      },
+      "deleted": "A Isdn List is deleted with identifier {{ param }}",
+      "description": "Description",
+      "detail": {
+        "title": "Isdn List"
+      },
+      "help": {
+        "cnt": "Number of Phone numbers",
+        "content": "Uploaded files or CSV",
+        "description": "short description text",
+        "name": "name of this ISDN list"
+      },
+      "home": {
+        "createLabel": "Create a new Isdn List",
+        "createOrEditLabel": "Create or edit a Isdn List",
+        "notFound": "No Isdn Lists found",
+        "refreshListLabel": "Refresh list",
+        "title": "Isdn Lists"
+      },
+      "id": "ID",
+      "name": "Name",
+      "updated": "A Isdn List is updated with identifier {{ param }}"
+    }
+  }
+}

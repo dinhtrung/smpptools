@@ -39,7 +39,7 @@ func CreateSmscInstanceUsingPOST(c *fiber.Ctx) error {
 }
 
 func DeleteSmscInstanceUsingDELETE(c *fiber.Ctx) error {
-	if err := instances.SmscInstanceRepo.DeleteById(c.Params("id")); err != nil {
+	if err := instances.SmscInstanceRepo.DeleteById(c.Params("instanceID")); err != nil {
 		return err
 	}
 	return c.SendStatus(fiber.StatusNoContent)
@@ -54,7 +54,7 @@ func GetAllSmscInstancesUsingGET(c *fiber.Ctx) error {
 }
 
 func GetSmscInstanceUsingGET(c *fiber.Ctx) error {
-	entity, err := instances.SmscInstanceRepo.FindById(c.Params("id"))
+	entity, err := instances.SmscInstanceRepo.FindById(c.Params("instanceID"))
 	if err != nil {
 		return err
 	}

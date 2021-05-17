@@ -16,6 +16,10 @@ import (
 
 // BaseSm BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
 type BaseSm struct {
+	// a short name for this SMPP parameter set
+	Name *string `json:"name,omitempty"`
+	// a short description
+	Description *string `json:"description,omitempty"`
 	// Data Coding for SMS
 	DataCoding *int32 `json:"dataCoding,omitempty"`
 	// Default Message ID
@@ -50,7 +54,7 @@ type BaseSm struct {
 	// Message content in text
 	Text *string `json:"text,omitempty"`
 	// List of optional TLV
-	TlvList *string `json:"tlvList,omitempty"`
+	TlvList *[]SmppTlv `json:"tlvList,omitempty"`
 	// List of TXT parts in hex dump
 	TxtParts *string `json:"txtParts,omitempty"`
 	// List of UDH parts in hex dump
@@ -74,6 +78,70 @@ func NewBaseSm() *BaseSm {
 func NewBaseSmWithDefaults() *BaseSm {
 	this := BaseSm{}
 	return &this
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *BaseSm) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *BaseSm) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *BaseSm) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *BaseSm) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *BaseSm) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *BaseSm) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetDataCoding returns the DataCoding field value if set, zero value otherwise.
@@ -621,9 +689,9 @@ func (o *BaseSm) SetText(v string) {
 }
 
 // GetTlvList returns the TlvList field value if set, zero value otherwise.
-func (o *BaseSm) GetTlvList() string {
+func (o *BaseSm) GetTlvList() []SmppTlv {
 	if o == nil || o.TlvList == nil {
-		var ret string
+		var ret []SmppTlv
 		return ret
 	}
 	return *o.TlvList
@@ -631,7 +699,7 @@ func (o *BaseSm) GetTlvList() string {
 
 // GetTlvListOk returns a tuple with the TlvList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetTlvListOk() (*string, bool) {
+func (o *BaseSm) GetTlvListOk() (*[]SmppTlv, bool) {
 	if o == nil || o.TlvList == nil {
 		return nil, false
 	}
@@ -647,8 +715,8 @@ func (o *BaseSm) HasTlvList() bool {
 	return false
 }
 
-// SetTlvList gets a reference to the given string and assigns it to the TlvList field.
-func (o *BaseSm) SetTlvList(v string) {
+// SetTlvList gets a reference to the given []SmppTlv and assigns it to the TlvList field.
+func (o *BaseSm) SetTlvList(v []SmppTlv) {
 	o.TlvList = &v
 }
 
@@ -750,6 +818,12 @@ func (o *BaseSm) SetValidityPeriod(v string) {
 
 func (o BaseSm) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
 	if o.DataCoding != nil {
 		toSerialize["dataCoding"] = o.DataCoding
 	}

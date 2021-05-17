@@ -101,16 +101,21 @@ func setupRoutes(app *fiber.App) {
 	app.Patch("/api/base-sms/:id", api.PartialUpdateBaseSmUsingPATCH)
 	app.Put("/api/base-sms/:id", api.UpdateBaseSmUsingPUT)
 
-	app.Delete("/api/esme-accounts/:id/batch", api.ApiEsmeAccountsIdBatchDelete)
-	app.Post("/api/esme-accounts", api.CreateEsmeAccountUsingPOST)
-	app.Delete("/api/esme-accounts/:id", api.DeleteEsmeAccountUsingDELETE)
+	// + esme-accounts
 	app.Get("/api/esme-accounts", api.GetAllEsmeAccountsUsingGET)
-	app.Get("/api/esme-accounts/:id", api.GetEsmeAccountUsingGET)
-	app.Patch("/api/esme-accounts/:id", api.PartialUpdateEsmeAccountUsingPATCH)
-	app.Post("/api/esme-accounts/:id/send-mt", api.SendMobileTerminatedSMSOnAccountUsingPOST)
-	app.Post("/api/esme-accounts/:id/batch", api.SendSMSonSMSCsessionUsingPOST)
-	app.Delete("/api/esme-accounts/:id/stop-all", api.StopAllEsmeSessionsForAccountUsingDELETE)
-	app.Put("/api/esme-accounts/:id", api.UpdateEsmeAccountUsingPUT)
+	app.Post("/api/esme-accounts", api.CreateEsmeAccountUsingPOST)
+	app.Get("/api/esme-accounts/:accountID", api.GetEsmeAccountUsingGET)
+	app.Put("/api/esme-accounts/:accountID", api.UpdateEsmeAccountUsingPUT)
+	app.Delete("/api/esme-accounts/:accountID", api.DeleteEsmeAccountUsingDELETE)
+	app.Patch("/api/esme-accounts/:accountID", api.PartialUpdateEsmeAccountUsingPATCH)
+	// + esme-account tasks
+	app.Post("/api/esme-accounts/:accountID/send-mt", api.SendMobileTerminatedSMSOnAccountUsingPOST)
+	app.Post("/api/esme-accounts/:accountID/batch", api.SendSMSonSMSCsessionUsingPOST)
+	app.Delete("/api/esme-accounts/:accountID/batch", api.ApiEsmeAccountsIdBatchDelete)
+	app.Get("/api/esme-accounts/:accountID/sessions", api.GetAllEsmeSessionsByAccountUsingGET)
+	app.Delete("/api/esme-accounts/:accountID/sessions", api.StopAllEsmeSessionsForAccountUsingDELETE)
+
+	// + esme-sessions
 	app.Post("/api/esme-sessions", api.CreateEsmeSessionUsingPOST)
 	app.Delete("/api/esme-sessions/:sessionID", api.DeleteEsmeSessionUsingDELETE)
 	app.Get("/api/esme-sessions", api.GetAllEsmeSessions)

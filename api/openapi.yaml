@@ -1769,10 +1769,26 @@ paths:
           description: Forbidden
 components:
   schemas:
+    SmppTlv:
+      type: object
+      properties:
+        tag:
+          type: integer
+          description: Tag ID
+          format: int8
+        value:
+          type: string
+          description: hex bytes of the value
     BaseSm:
       title: BaseSm
       type: object
       properties:
+        name:
+          type: string
+          description: a short name for this SMPP parameter set
+        description:
+          type: string
+          description: a short description
         dataCoding:
           type: integer
           description: Data Coding for SMS
@@ -1835,8 +1851,10 @@ components:
           type: string
           description: Message content in text
         tlvList:
-          type: string
+          type: array
           description: List of optional TLV
+          items:
+            $ref: '#/components/schemas/SmppTlv'
         txtParts:
           type: string
           description: List of TXT parts in hex dump

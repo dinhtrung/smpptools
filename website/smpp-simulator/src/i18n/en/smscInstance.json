@@ -1,0 +1,37 @@
+{
+  "smpptoolsApp": {
+    "smscInstance": {
+      "connectionTimeout": "Connection Timeout",
+      "created": "A new SMSC Instance is created with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete SMSC Instance {{ id }}?"
+      },
+      "deleted": "A SMSC Instance is deleted with identifier {{ param }}",
+      "description": "Description",
+      "detail": {
+        "title": "SMSC Instance"
+      },
+      "help": {
+        "connectionTimeout": "Connection timeout in milliseconds",
+        "description": "short description text",
+        "isPersist": "true if this SMSC should be start automatically on start up",
+        "name": "name of this ESME account",
+        "port": "TCP Port to listen to",
+        "windowSize": "Number of packets send out per one go"
+      },
+      "home": {
+        "createLabel": "Create a new SMSC Instance",
+        "createOrEditLabel": "Create or edit a SMSC Instance",
+        "notFound": "No SMSC Instances found",
+        "refreshListLabel": "Refresh list",
+        "title": "SMSC Instances"
+      },
+      "id": "ID",
+      "isPersist": "Is Persist",
+      "name": "Name",
+      "port": "Port",
+      "updated": "A SMSC Instance is updated with identifier {{ param }}",
+      "windowSize": "Window Size"
+    }
+  }
+}

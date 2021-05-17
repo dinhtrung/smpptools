@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "form": {
+      "button": "Save",
+      "firstname": "First Name",
+      "firstname.placeholder": "Your first name",
+      "language": "Language",
+      "lastname": "Last Name",
+      "lastname.placeholder": "Your last name"
+    },
+    "messages": {
+      "error": {
+        "emailexists": "\u003cstrong\u003eEmail is already in use!\u003c/strong\u003e Please choose another one.",
+        "fail": "\u003cstrong\u003eAn error has occurred!\u003c/strong\u003e Settings could not be saved."
+      },
+      "success": "\u003cstrong\u003eSettings saved!\u003c/strong\u003e",
+      "validate": {
+        "firstname": {
+          "maxlength": "Your first name cannot be longer than 50 characters",
+          "minlength": "Your first name is required to be at least 1 character",
+          "required": "Your first name is required."
+        },
+        "lastname": {
+          "maxlength": "Your last name cannot be longer than 50 characters",
+          "minlength": "Your last name is required to be at least 1 character",
+          "required": "Your last name is required."
+        }
+      }
+    },
+    "title": "User settings for [\u003cstrong\u003e{{username}}\u003c/strong\u003e]"
+  }
+}

@@ -1774,12 +1774,26 @@ paths:
       - smsc-instance-resource
 components:
   schemas:
+    SmppTlv:
+      example:
+        tag: 7
+        value: value
+      properties:
+        tag:
+          description: Tag ID
+          format: int8
+          type: integer
+        value:
+          description: hex bytes of the value
+          type: string
+      type: object
     BaseSm:
       description: BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
       example:
         serviceType: serviceType
         udhParts: udhParts
         sourceNPI: 2
+        description: description
         registeredDelivery: 9
         txtParts: txtParts
         scheduleDeliveryTime: scheduleDeliveryTime
@@ -1789,16 +1803,27 @@ components:
         destinationNPI: 1
         dataCoding: 0
         destinationAddr: destinationAddr
+        name: name
         replaceIfPresentFlag: 3
         id: id
         sourceAddr: sourceAddr
         text: text
         priorityFlag: 2
         sourceTON: 4
-        tlvList: tlvList
+        tlvList:
+        - tag: 7
+          value: value
+        - tag: 7
+          value: value
         defaultMessageID: 6
         esmClass: 5
       properties:
+        name:
+          description: a short name for this SMPP parameter set
+          type: string
+        description:
+          description: a short description
+          type: string
         dataCoding:
           description: Data Coding for SMS
           format: int32
@@ -1862,7 +1887,9 @@ components:
           type: string
         tlvList:
           description: List of optional TLV
-          type: string
+          items:
+            $ref: '#/components/schemas/SmppTlv'
+          type: array
         txtParts:
           description: List of TXT parts in hex dump
           type: string
@@ -1931,6 +1958,7 @@ components:
           serviceType: serviceType
           udhParts: udhParts
           sourceNPI: 2
+          description: description
           registeredDelivery: 9
           txtParts: txtParts
           scheduleDeliveryTime: scheduleDeliveryTime
@@ -1940,13 +1968,18 @@ components:
           destinationNPI: 1
           dataCoding: 0
           destinationAddr: destinationAddr
+          name: name
           replaceIfPresentFlag: 3
           id: id
           sourceAddr: sourceAddr
           text: text
           priorityFlag: 2
           sourceTON: 4
-          tlvList: tlvList
+          tlvList:
+          - tag: 7
+            value: value
+          - tag: 7
+            value: value
           defaultMessageID: 6
           esmClass: 5
       properties:

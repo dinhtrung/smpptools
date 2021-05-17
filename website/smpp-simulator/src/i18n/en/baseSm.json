@@ -1,0 +1,69 @@
+{
+  "smpptoolsApp": {
+    "baseSm": {
+      "created": "A new SMS Preset is created with identifier {{ param }}",
+      "dataCoding": "Data Coding",
+      "defaultMessageID": "Default Message ID",
+      "delete": {
+        "question": "Are you sure you want to delete SMS Preset {{ id }}?"
+      },
+      "deleted": "A SMS Preset is deleted with identifier {{ param }}",
+      "description": "Description",
+      "destinationAddr": "Destination Addr",
+      "destinationNPI": "Destination NPI",
+      "destinationTON": "Destination TON",
+      "detail": {
+        "title": "SMS Preset"
+      },
+      "esmClass": "Esm Class",
+      "help": {
+        "dataCoding": "Data Coding for SMS",
+        "defaultMessageID": "Default Message ID",
+        "description": "short description text",
+        "destinationAddr": "destination address",
+        "destinationNPI": "destination address Number plan indication",
+        "destinationTON": "destination address Type of number",
+        "esmClass": "ESM Class",
+        "name": "name of this ESME account",
+        "priorityFlag": "Priority Flag",
+        "protocolID": "Protocol ID",
+        "registeredDelivery": "Registered Delivery",
+        "replaceIfPresentFlag": "Replace if present flag",
+        "scheduleDeliveryTime": "Scheduled Delivery Time",
+        "serviceType": "SMPP Service Type",
+        "sourceAddr": "source address",
+        "sourceNPI": "source address Number plan indication",
+        "sourceTON": "source address Type of number",
+        "text": "Message content in text",
+        "tlvList": "List of optional TLV",
+        "txtParts": "List of TXT parts in hex dump",
+        "udhParts": "List of UDH parts in hex dump",
+        "validityPeriod": "Validity Period"
+      },
+      "home": {
+        "createLabel": "Create a new SMS Preset",
+        "createOrEditLabel": "Create or edit a SMS Preset",
+        "notFound": "No SMPP Preset found",
+        "refreshListLabel": "Refresh list",
+        "title": "SMPP Presets"
+      },
+      "id": "ID",
+      "name": "Name",
+      "priorityFlag": "Priority Flag",
+      "protocolID": "Protocol ID",
+      "registeredDelivery": "Registered Delivery",
+      "replaceIfPresentFlag": "Replace If Present Flag",
+      "scheduleDeliveryTime": "Schedule Delivery Time",
+      "serviceType": "Service Type",
+      "sourceAddr": "Source Addr",
+      "sourceNPI": "Source NPI",
+      "sourceTON": "Source TON",
+      "text": "Text",
+      "tlvList": "Tlv List",
+      "txtParts": "Txt Parts",
+      "udhParts": "Udh Parts",
+      "updated": "A SMS Preset is updated with identifier {{ param }}",
+      "validityPeriod": "Validity Period"
+    }
+  }
+}

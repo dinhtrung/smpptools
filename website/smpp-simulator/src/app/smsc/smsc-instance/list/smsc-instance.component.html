@@ -20,9 +20,9 @@
     </div>
   </h2>
 
-  
 
-  
+
+
 
   <div class="alert alert-warning" id="no-result" *ngIf="smscInstances?.length === 0">
     <span jhiTranslate="smpptoolsApp.smscInstance.home.notFound">No smscInstances found</span>
@@ -42,7 +42,7 @@
       <tbody>
         <tr *ngFor="let smscInstance of smscInstances; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/smsc-instance', smscInstance.id, 'view']">{{ smscInstance.name }}</a>
+            <a [routerLink]="['/smsc-instance', smscInstance.id, 'view']">{{ smscInstance.id }}</a>
           </td>
           <td>{{ smscInstance.description }}</td>
           <td>{{ smscInstance.port }}</td>

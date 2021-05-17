@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
  - [EsmeAccount](docs/EsmeAccount.md)
  - [EsmeSession](docs/EsmeSession.md)
  - [IsdnList](docs/IsdnList.md)
+ - [SmppTlv](docs/SmppTlv.md)
  - [SmscAccount](docs/SmscAccount.md)
  - [SmscInstance](docs/SmscInstance.md)
  - [SmscSession](docs/SmscSession.md)

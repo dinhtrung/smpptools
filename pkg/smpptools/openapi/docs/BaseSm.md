@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Name** | Pointer to **string** | a short name for this SMPP parameter set | [optional] 
+**Description** | Pointer to **string** | a short description | [optional] 
 **DataCoding** | Pointer to **int32** | Data Coding for SMS | [optional] 
 **DefaultMessageID** | Pointer to **int32** | Default Message ID | [optional] 
 **DestinationAddr** | Pointer to **string** | destination address | [optional] 
@@ -21,7 +23,7 @@ Name | Type | Description | Notes
 **SourceNPI** | Pointer to **int32** | source address Number plan indication | [optional] 
 **SourceTON** | Pointer to **int32** | source address Type of number | [optional] 
 **Text** | Pointer to **string** | Message content in text | [optional] 
-**TlvList** | Pointer to **string** | List of optional TLV | [optional] 
+**TlvList** | Pointer to [**[]SmppTlv**](SmppTlv.md) | List of optional TLV | [optional] 
 **TxtParts** | Pointer to **string** | List of TXT parts in hex dump | [optional] 
 **UdhParts** | Pointer to **string** | List of UDH parts in hex dump | [optional] 
 **ValidityPeriod** | Pointer to **string** | Validity Period | [optional] 
@@ -44,6 +46,56 @@ will change when the set of required properties is changed
 NewBaseSmWithDefaults instantiates a new BaseSm object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetName
+
+`func (o *BaseSm) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *BaseSm) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *BaseSm) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *BaseSm) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *BaseSm) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *BaseSm) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *BaseSm) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *BaseSm) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetDataCoding
 
@@ -472,20 +524,20 @@ HasText returns a boolean if a field has been set.
 
 ### GetTlvList
 
-`func (o *BaseSm) GetTlvList() string`
+`func (o *BaseSm) GetTlvList() []SmppTlv`
 
 GetTlvList returns the TlvList field if non-nil, zero value otherwise.
 
 ### GetTlvListOk
 
-`func (o *BaseSm) GetTlvListOk() (*string, bool)`
+`func (o *BaseSm) GetTlvListOk() (*[]SmppTlv, bool)`
 
 GetTlvListOk returns a tuple with the TlvList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTlvList
 
-`func (o *BaseSm) SetTlvList(v string)`
+`func (o *BaseSm) SetTlvList(v []SmppTlv)`
 
 SetTlvList sets TlvList field to given value.
 

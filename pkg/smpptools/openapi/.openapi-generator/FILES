@@ -21,6 +21,7 @@ docs/EsmeSession.md
 docs/EsmeSessionResourceApi.md
 docs/IsdnList.md
 docs/IsdnListResourceApi.md
+docs/SmppTlv.md
 docs/SmscAccount.md
 docs/SmscAccountResourceApi.md
 docs/SmscInstance.md
@@ -30,13 +31,12 @@ docs/SmscSessionResourceApi.md
 docs/ThroughputSeries.md
 docs/ThroughputSeriesResourceApi.md
 git_push.sh
-go.mod
-go.sum
 model_base_sm.go
 model_batch.go
 model_esme_account.go
 model_esme_session.go
 model_isdn_list.go
+model_smpp_tlv.go
 model_smsc_account.go
 model_smsc_instance.go
 model_smsc_session.go

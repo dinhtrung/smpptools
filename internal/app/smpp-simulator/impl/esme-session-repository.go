@@ -143,6 +143,24 @@ func (r *EsmeSessionRepository) FindAllById(ids []string) ([]*openapi.EsmeSessio
 	return entities, err
 }
 
+func (r *EsmeSessionRepository) FindAllByAccountID(accountID string) ([]*openapi.EsmeSession, error) {
+	entities := make([]*openapi.EsmeSession, 0)
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
+		return tx.Ascend(ESME_SESSION_PREFIX, func(key, value string) bool {
+			entity := openapi.NewEsmeSessionWithDefaults()
+			if err := json.Unmarshal([]byte(value), entity); err == nil {
+				if account, ok := entity.GetAccountOk(); ok {
+					if account.GetId() == accountID {
+						entities = append(entities, entity)
+					}
+				}
+			}
+			return true
+		})
+	})
+	return entities, err
+}
+
 // Retrieves an entity by its id.
 func (r *EsmeSessionRepository) FindById(ID string) (*openapi.EsmeSession, error) {
 	entity := openapi.NewEsmeSessionWithDefaults()
@@ -178,6 +196,9 @@ func (r *EsmeSessionRepository) Save(entity *openapi.EsmeSession) error {
 func (r *EsmeSessionRepository) SaveAll(entities []*openapi.EsmeSession) error {
 	return app.BuntDBInMemory.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
+			if _, ok := entity.GetIdOk(); !ok {
+				entity.SetId(uuid.NewString())
+			}
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err

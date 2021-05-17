@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   smppMenuItems: any[] = [
     { title: 'SMPP Preset',   path: '/smpp/base-sm', icon: 'asterisk' },
     { title: 'MSISDN List', path: '/smpp/isdn-list', icon: 'th-list' },
-    { title: 'Throughput Series', path: '/smpp/throughput-series', icon: 'chartline' },
+    { title: 'Throughput Series', path: '/smpp/throughput-series', icon: 'asterisk' },
   ];
 
   constructor() { }

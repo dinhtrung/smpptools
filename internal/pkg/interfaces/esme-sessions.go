@@ -31,6 +31,8 @@ type EsmeSessionCrudRepository interface {
 	// Returns all instances of the type T with the given IDs.
 	FindAllById(ids []string) ([]*openapi.EsmeSession, error)
 
+	FindAllByAccountID(id string) ([]*openapi.EsmeSession, error)
+
 	// Retrieves an entity by its id.
 	FindById(ID string) (*openapi.EsmeSession, error)
 
