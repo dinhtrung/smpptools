@@ -7,8 +7,6 @@ import { finalize } from 'rxjs/operators';
 
 import { IIsdnList, IsdnList } from '../isdn-list.model';
 import { IsdnListService } from '../service/isdn-list.service';
-import { AlertError } from 'app/shared/alert/alert-error.model';
-
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
 @Component({
@@ -26,8 +24,6 @@ export class IsdnListUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected dataUtils: DataUtils,
-    
     protected isdnListService: IsdnListService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -36,23 +32,6 @@ export class IsdnListUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ isdnList }) => {
       this.updateForm(isdnList);
-    });
-  }
-
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    this.dataUtils.openFile(base64String, contentType);
-  }
-
-  setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
-      error: (err: FileLoadError) =>
-        this.eventManager.broadcast(
-          new EventWithContent<AlertError>('smpptoolsApp.error', { ...err, key: 'error.file.' + err.key })
-        ),
     });
   }
 

@@ -15,6 +15,7 @@
       "app/*": ["src/app/*"],
       "env/*": ["src/environments/*"]
     },
+    "types" : ["node"],
     "typeRoots": [
       "node_modules/@types"
     ],

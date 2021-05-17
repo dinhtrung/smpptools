@@ -18,6 +18,8 @@ import { FormsComponent } from './pages/forms/forms.component';
 import { TypographyComponent } from './pages/typography/typography.component';
 import { MapsComponent } from './pages/maps/maps.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+// + child modules
+
 
 @NgModule({
   declarations: [

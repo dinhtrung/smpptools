@@ -9,6 +9,18 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 
 const routes: Routes = [
   {path: '',   redirectTo: '/dashboard', pathMatch: 'full'},
+  {
+    path: 'esme',
+    loadChildren: () => import('./esme/esme.module').then(m => m.EsmeModule)
+  },
+  {
+    path: 'smsc',
+    loadChildren: () => import('./smsc/smsc.module').then(m => m.SmscModule)
+  },
+  {
+    path: 'smpp',
+    loadChildren: () => import('./smpp/smpp.module').then(m => m.SmppModule)
+  },
   {path: 'dashboard', component: DashboardComponent},
   {path: 'forms', component: FormsComponent},
   {path: 'tables', component: TablesComponent},
@@ -18,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
