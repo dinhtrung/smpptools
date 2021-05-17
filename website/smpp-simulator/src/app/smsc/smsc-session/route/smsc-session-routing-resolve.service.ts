@@ -15,9 +15,9 @@ export class SmscSessionRoutingResolveService implements Resolve<ISmscSession> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((smscAccount: HttpResponse<SmscSession>) => {
-          if (smscAccount.body) {
-            return of(smscAccount.body);
+        mergeMap((smscSession: HttpResponse<SmscSession>) => {
+          if (smscSession.body) {
+            return of(smscSession.body);
           } else {
             this.router.navigate(['404']);
             return EMPTY;

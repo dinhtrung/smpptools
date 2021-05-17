@@ -45,11 +45,11 @@ export class SmscSessionUpdateComponent implements OnInit {
     reconnectDelay: [],
   });
 
-  constructor(protected smscAccountService: SmscSessionService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(protected smscSessionService: SmscSessionService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ smscAccount }) => {
-      this.updateForm(smscAccount);
+    this.activatedRoute.data.subscribe(({ smscSession }) => {
+      this.updateForm(smscSession);
     });
   }
 
@@ -59,11 +59,11 @@ export class SmscSessionUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const smscAccount = this.createFromForm();
-    if (smscAccount.id !== undefined) {
-      this.subscribeToSaveResponse(this.smscAccountService.update(smscAccount));
+    const smscSession = this.createFromForm();
+    if (smscSession.id !== undefined) {
+      this.subscribeToSaveResponse(this.smscSessionService.update(smscSession));
     } else {
-      this.subscribeToSaveResponse(this.smscAccountService.create(smscAccount));
+      this.subscribeToSaveResponse(this.smscSessionService.create(smscSession));
     }
   }
 
@@ -86,31 +86,31 @@ export class SmscSessionUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(smscAccount: ISmscSession): void {
+  protected updateForm(smscSession: ISmscSession): void {
     this.editForm.patchValue({
-      id: smscAccount.id,
-      name: smscAccount.name,
-      description: smscAccount.description,
-      isEnable: smscAccount.isEnable,
-      isPersist: smscAccount.isPersist,
-      numBinds: smscAccount.numBinds,
-      host: smscAccount.host,
-      port: smscAccount.port,
-      systemID: smscAccount.systemID,
-      password: smscAccount.password,
-      bindType: smscAccount.bindType,
-      addressRange: smscAccount.addressRange,
-      addressTON: smscAccount.addressTON,
-      addressNPI: smscAccount.addressNPI,
-      moErrorRate: smscAccount.moErrorRate,
-      moErrorCode: smscAccount.moErrorCode,
-      dlrErrorRate: smscAccount.dlrErrorRate,
-      dlrErrorCode: smscAccount.dlrErrorCode,
-      mtThroughtput: smscAccount.mtThroughtput,
-      enquireLinkInterval: smscAccount.enquireLinkInterval,
-      connectionTimeout: smscAccount.connectionTimeout,
-      windowSize: smscAccount.windowSize,
-      reconnectDelay: smscAccount.reconnectDelay,
+      id: smscSession.id,
+      name: smscSession.name,
+      description: smscSession.description,
+      isEnable: smscSession.isEnable,
+      isPersist: smscSession.isPersist,
+      numBinds: smscSession.numBinds,
+      host: smscSession.host,
+      port: smscSession.port,
+      systemID: smscSession.systemID,
+      password: smscSession.password,
+      bindType: smscSession.bindType,
+      addressRange: smscSession.addressRange,
+      addressTON: smscSession.addressTON,
+      addressNPI: smscSession.addressNPI,
+      moErrorRate: smscSession.moErrorRate,
+      moErrorCode: smscSession.moErrorCode,
+      dlrErrorRate: smscSession.dlrErrorRate,
+      dlrErrorCode: smscSession.dlrErrorCode,
+      mtThroughtput: smscSession.mtThroughtput,
+      enquireLinkInterval: smscSession.enquireLinkInterval,
+      connectionTimeout: smscSession.connectionTimeout,
+      windowSize: smscSession.windowSize,
+      reconnectDelay: smscSession.reconnectDelay,
     });
   }
 

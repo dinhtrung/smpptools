@@ -16,18 +16,18 @@ export class SmscSessionService {
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  create(smscAccount: ISmscSession): Observable<EntityResponseType> {
-    return this.http.post<ISmscSession>(this.resourceUrl, smscAccount, { observe: 'response' });
+  create(smscSession: ISmscSession): Observable<EntityResponseType> {
+    return this.http.post<ISmscSession>(this.resourceUrl, smscSession, { observe: 'response' });
   }
 
-  update(smscAccount: ISmscSession): Observable<EntityResponseType> {
-    return this.http.put<ISmscSession>(`${this.resourceUrl}/${getSmscSessionIdentifier(smscAccount) as string}`, smscAccount, {
+  update(smscSession: ISmscSession): Observable<EntityResponseType> {
+    return this.http.put<ISmscSession>(`${this.resourceUrl}/${getSmscSessionIdentifier(smscSession) as string}`, smscSession, {
       observe: 'response',
     });
   }
 
-  partialUpdate(smscAccount: ISmscSession): Observable<EntityResponseType> {
-    return this.http.patch<ISmscSession>(`${this.resourceUrl}/${getSmscSessionIdentifier(smscAccount) as string}`, smscAccount, {
+  partialUpdate(smscSession: ISmscSession): Observable<EntityResponseType> {
+    return this.http.patch<ISmscSession>(`${this.resourceUrl}/${getSmscSessionIdentifier(smscSession) as string}`, smscSession, {
       observe: 'response',
     });
   }
@@ -46,22 +46,22 @@ export class SmscSessionService {
   }
 
   addSmscSessionToCollectionIfMissing(
-    smscAccountCollection: ISmscSession[],
-    ...smscAccountsToCheck: (ISmscSession | null | undefined)[]
+    smscSessionCollection: ISmscSession[],
+    ...smscSessionsToCheck: (ISmscSession | null | undefined)[]
   ): ISmscSession[] {
-    const smscAccounts: ISmscSession[] = smscAccountsToCheck.filter(isPresent);
-    if (smscAccounts.length > 0) {
-      const smscAccountCollectionIdentifiers = smscAccountCollection.map(smscAccountItem => getSmscSessionIdentifier(smscAccountItem)!);
-      const smscAccountsToAdd = smscAccounts.filter(smscAccountItem => {
-        const smscAccountIdentifier = getSmscSessionIdentifier(smscAccountItem);
-        if (smscAccountIdentifier == null || smscAccountCollectionIdentifiers.includes(smscAccountIdentifier)) {
+    const smscSessions: ISmscSession[] = smscSessionsToCheck.filter(isPresent);
+    if (smscSessions.length > 0) {
+      const smscSessionCollectionIdentifiers = smscSessionCollection.map(smscSessionItem => getSmscSessionIdentifier(smscSessionItem)!);
+      const smscSessionsToAdd = smscSessions.filter(smscSessionItem => {
+        const smscSessionIdentifier = getSmscSessionIdentifier(smscSessionItem);
+        if (smscSessionIdentifier == null || smscSessionCollectionIdentifiers.includes(smscSessionIdentifier)) {
           return false;
         }
-        smscAccountCollectionIdentifiers.push(smscAccountIdentifier);
+        smscSessionCollectionIdentifiers.push(smscSessionIdentifier);
         return true;
       });
-      return [...smscAccountsToAdd, ...smscAccountCollection];
+      return [...smscSessionsToAdd, ...smscSessionCollection];
     }
-    return smscAccountCollection;
+    return smscSessionCollection;
   }
 }

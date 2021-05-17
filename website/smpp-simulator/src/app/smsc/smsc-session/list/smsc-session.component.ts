@@ -11,18 +11,18 @@ import { SmscSessionDeleteDialogComponent } from '../delete/smsc-session-delete-
   templateUrl: './smsc-session.component.html',
 })
 export class SmscSessionComponent implements OnInit {
-  smscAccounts?: ISmscSession[];
+  smscSessions?: ISmscSession[];
   isLoading = false;
 
-  constructor(protected smscAccountService: SmscSessionService, protected modalService: NgbModal) {}
+  constructor(protected smscSessionService: SmscSessionService, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
 
-    this.smscAccountService.query().subscribe(
+    this.smscSessionService.query().subscribe(
       (res: HttpResponse<ISmscSession[]>) => {
         this.isLoading = false;
-        this.smscAccounts = res.body ?? [];
+        this.smscSessions = res.body ?? [];
       },
       () => {
         this.isLoading = false;
@@ -38,9 +38,9 @@ export class SmscSessionComponent implements OnInit {
     return item.id!;
   }
 
-  delete(smscAccount: ISmscSession): void {
+  delete(smscSession: ISmscSession): void {
     const modalRef = this.modalService.open(SmscSessionDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.smscAccount = smscAccount;
+    modalRef.componentInstance.smscSession = smscSession;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {

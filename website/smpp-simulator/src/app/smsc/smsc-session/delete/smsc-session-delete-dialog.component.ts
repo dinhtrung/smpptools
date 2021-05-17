@@ -8,16 +8,16 @@ import { SmscSessionService } from '../service/smsc-session.service';
   templateUrl: './smsc-session-delete-dialog.component.html',
 })
 export class SmscSessionDeleteDialogComponent {
-  smscAccount?: ISmscSession;
+  smscSession?: ISmscSession;
 
-  constructor(protected smscAccountService: SmscSessionService, public activeModal: NgbActiveModal) {}
+  constructor(protected smscSessionService: SmscSessionService, public activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();
   }
 
   confirmDelete(id: string): void {
-    this.smscAccountService.delete(id).subscribe(() => {
+    this.smscSessionService.delete(id).subscribe(() => {
       this.activeModal.close('deleted');
     });
   }

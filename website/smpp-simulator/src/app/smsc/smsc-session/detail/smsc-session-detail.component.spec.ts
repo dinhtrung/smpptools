@@ -15,7 +15,7 @@ describe('Component Tests', () => {
         providers: [
           {
             provide: ActivatedRoute,
-            useValue: { data: of({ smscAccount: { id: 'ABC' } }) },
+            useValue: { data: of({ smscSession: { id: 'ABC' } }) },
           },
         ],
       })
@@ -26,12 +26,12 @@ describe('Component Tests', () => {
     });
 
     describe('OnInit', () => {
-      it('Should load smscAccount on init', () => {
+      it('Should load smscSession on init', () => {
         // WHEN
         comp.ngOnInit();
 
         // THEN
-        expect(comp.smscAccount).toEqual(jasmine.objectContaining({ id: 'ABC' }));
+        expect(comp.smscSession).toEqual(jasmine.objectContaining({ id: 'ABC' }));
       });
     });
   });

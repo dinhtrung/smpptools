@@ -42,7 +42,7 @@ describe('Component Tests', () => {
 
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.smscAccounts?.[0]).toEqual(jasmine.objectContaining({ id: 'ABC' }));
+      expect(comp.smscSessions?.[0]).toEqual(jasmine.objectContaining({ id: 'ABC' }));
     });
   });
 });

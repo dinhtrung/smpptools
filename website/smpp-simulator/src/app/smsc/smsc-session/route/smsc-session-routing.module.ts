@@ -7,7 +7,7 @@ import { SmscSessionDetailComponent } from '../detail/smsc-session-detail.compon
 import { SmscSessionUpdateComponent } from '../update/smsc-session-update.component';
 import { SmscSessionRoutingResolveService } from './smsc-session-routing-resolve.service';
 
-const smscAccountRoute: Routes = [
+const smscSessionRoute: Routes = [
   {
     path: '',
     component: SmscSessionComponent,
@@ -17,7 +17,7 @@ const smscAccountRoute: Routes = [
     path: ':id/view',
     component: SmscSessionDetailComponent,
     resolve: {
-      smscAccount: SmscSessionRoutingResolveService,
+      smscSession: SmscSessionRoutingResolveService,
     },
 
   },
@@ -25,7 +25,7 @@ const smscAccountRoute: Routes = [
     path: 'new',
     component: SmscSessionUpdateComponent,
     resolve: {
-      smscAccount: SmscSessionRoutingResolveService,
+      smscSession: SmscSessionRoutingResolveService,
     },
 
   },
@@ -33,14 +33,14 @@ const smscAccountRoute: Routes = [
     path: ':id/edit',
     component: SmscSessionUpdateComponent,
     resolve: {
-      smscAccount: SmscSessionRoutingResolveService,
+      smscSession: SmscSessionRoutingResolveService,
     },
 
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(smscAccountRoute)],
+  imports: [RouterModule.forChild(smscSessionRoute)],
   exports: [RouterModule],
 })
 export class SmscSessionRoutingModule {}

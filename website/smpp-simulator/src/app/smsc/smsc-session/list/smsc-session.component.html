@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="SmscSessionHeading">
-    <span jhiTranslate="smpptoolsApp.smscAccount.home.title">Smsc Accounts</span>
+    <span jhiTranslate="smpptoolsApp.smscSession.home.title">Smsc Accounts</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="smpptoolsApp.smscAccount.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="smpptoolsApp.smscSession.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,51 +15,51 @@
         [routerLink]="['/smsc-session/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="smpptoolsApp.smscAccount.home.createLabel"> Create a new Smsc Account </span>
+        <span jhiTranslate="smpptoolsApp.smscSession.home.createLabel"> Create a new Smsc Account </span>
       </button>
     </div>
   </h2>
 
-  
 
-  
 
-  <div class="alert alert-warning" id="no-result" *ngIf="smscAccounts?.length === 0">
-    <span jhiTranslate="smpptoolsApp.smscAccount.home.notFound">No smscAccounts found</span>
+
+
+  <div class="alert alert-warning" id="no-result" *ngIf="smscSessions?.length === 0">
+    <span jhiTranslate="smpptoolsApp.smscSession.home.notFound">No smscSessions found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="smscAccounts && smscAccounts.length > 0">
+  <div class="table-responsive" id="entities" *ngIf="smscSessions && smscSessions.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.name">Name</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.description">Description</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.host">Host</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.port">Port</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.systemID">System ID</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.password">Password</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.bindType">Bind Type</span></th>
-          <th scope="col"><span jhiTranslate="smpptoolsApp.smscAccount.addressRange">Address Range</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.host">Host</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.port">Port</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.systemID">System ID</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.password">Password</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.bindType">Bind Type</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.smscSession.addressRange">Address Range</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let smscAccount of smscAccounts; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let smscSession of smscSessions; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/smsc-session', smscAccount.id, 'view']">{{ smscAccount.name }}</a>
+            <a [routerLink]="['/smsc-session', smscSession.id, 'view']">{{ smscSession.name }}</a>
           </td>
-          <td>{{ smscAccount.description }}</td>
-          <td>{{ smscAccount.host }}</td>
-          <td>{{ smscAccount.port }}</td>
-          <td>{{ smscAccount.systemID }}</td>
-          <td>{{ smscAccount.password }}</td>
-          <td><span class="badge badge-info text-uppercase" [innerHtml]="smscAccount.bindType"></span></td>
-          <td>{{ smscAccount.addressRange }}</td>
+          <td>{{ smscSession.description }}</td>
+          <td>{{ smscSession.host }}</td>
+          <td>{{ smscSession.port }}</td>
+          <td>{{ smscSession.systemID }}</td>
+          <td>{{ smscSession.password }}</td>
+          <td><span class="badge badge-info text-uppercase" [innerHtml]="smscSession.bindType"></span></td>
+          <td>{{ smscSession.addressRange }}</td>
           <td class="text-right">
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/smsc-session', smscAccount.id, 'view']"
+                [routerLink]="['/smsc-session', smscSession.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
@@ -69,7 +69,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/smsc-session', smscAccount.id, 'edit']"
+                [routerLink]="['/smsc-session', smscSession.id, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
@@ -77,7 +77,7 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(smscAccount)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button type="submit" (click)="delete(smscSession)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>

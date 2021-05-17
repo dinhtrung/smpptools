@@ -194,53 +194,53 @@ describe('Service Tests', () => {
 
       describe('addSmscSessionToCollectionIfMissing', () => {
         it('should add a SmscSession to an empty array', () => {
-          const smscAccount: ISmscSession = { id: 'ABC' };
-          expectedResult = service.addSmscSessionToCollectionIfMissing([], smscAccount);
+          const smscSession: ISmscSession = { id: 'ABC' };
+          expectedResult = service.addSmscSessionToCollectionIfMissing([], smscSession);
           expect(expectedResult).toHaveLength(1);
-          expect(expectedResult).toContain(smscAccount);
+          expect(expectedResult).toContain(smscSession);
         });
 
         it('should not add a SmscSession to an array that contains it', () => {
-          const smscAccount: ISmscSession = { id: 'ABC' };
-          const smscAccountCollection: ISmscSession[] = [
+          const smscSession: ISmscSession = { id: 'ABC' };
+          const smscSessionCollection: ISmscSession[] = [
             {
-              ...smscAccount,
+              ...smscSession,
             },
             { id: 'CBA' },
           ];
-          expectedResult = service.addSmscSessionToCollectionIfMissing(smscAccountCollection, smscAccount);
+          expectedResult = service.addSmscSessionToCollectionIfMissing(smscSessionCollection, smscSession);
           expect(expectedResult).toHaveLength(2);
         });
 
         it("should add a SmscSession to an array that doesn't contain it", () => {
-          const smscAccount: ISmscSession = { id: 'ABC' };
-          const smscAccountCollection: ISmscSession[] = [{ id: 'CBA' }];
-          expectedResult = service.addSmscSessionToCollectionIfMissing(smscAccountCollection, smscAccount);
+          const smscSession: ISmscSession = { id: 'ABC' };
+          const smscSessionCollection: ISmscSession[] = [{ id: 'CBA' }];
+          expectedResult = service.addSmscSessionToCollectionIfMissing(smscSessionCollection, smscSession);
           expect(expectedResult).toHaveLength(2);
-          expect(expectedResult).toContain(smscAccount);
+          expect(expectedResult).toContain(smscSession);
         });
 
         it('should add only unique SmscSession to an array', () => {
-          const smscAccountArray: ISmscSession[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: 'redefine Missouri Checking' }];
-          const smscAccountCollection: ISmscSession[] = [{ id: 'ABC' }];
-          expectedResult = service.addSmscSessionToCollectionIfMissing(smscAccountCollection, ...smscAccountArray);
+          const smscSessionArray: ISmscSession[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: 'redefine Missouri Checking' }];
+          const smscSessionCollection: ISmscSession[] = [{ id: 'ABC' }];
+          expectedResult = service.addSmscSessionToCollectionIfMissing(smscSessionCollection, ...smscSessionArray);
           expect(expectedResult).toHaveLength(3);
         });
 
         it('should accept varargs', () => {
-          const smscAccount: ISmscSession = { id: 'ABC' };
-          const smscAccount2: ISmscSession = { id: 'CBA' };
-          expectedResult = service.addSmscSessionToCollectionIfMissing([], smscAccount, smscAccount2);
+          const smscSession: ISmscSession = { id: 'ABC' };
+          const smscSession2: ISmscSession = { id: 'CBA' };
+          expectedResult = service.addSmscSessionToCollectionIfMissing([], smscSession, smscSession2);
           expect(expectedResult).toHaveLength(2);
-          expect(expectedResult).toContain(smscAccount);
-          expect(expectedResult).toContain(smscAccount2);
+          expect(expectedResult).toContain(smscSession);
+          expect(expectedResult).toContain(smscSession2);
         });
 
         it('should accept null and undefined values', () => {
-          const smscAccount: ISmscSession = { id: 'ABC' };
-          expectedResult = service.addSmscSessionToCollectionIfMissing([], null, smscAccount, undefined);
+          const smscSession: ISmscSession = { id: 'ABC' };
+          expectedResult = service.addSmscSessionToCollectionIfMissing([], null, smscSession, undefined);
           expect(expectedResult).toHaveLength(1);
-          expect(expectedResult).toContain(smscAccount);
+          expect(expectedResult).toContain(smscSession);
         });
       });
     });

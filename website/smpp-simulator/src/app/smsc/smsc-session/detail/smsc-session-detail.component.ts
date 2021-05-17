@@ -9,15 +9,15 @@ import * as _ from 'lodash';
   templateUrl: './smsc-session-detail.component.html',
 })
 export class SmscSessionDetailComponent implements OnInit {
-  smscAccount: ISmscSession | null = null;
+  smscSession: ISmscSession | null = null;
   smscSessions: any[] = [];
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ smscAccount }) => {
-      this.smscAccount = smscAccount;
-      this.generateFakeSessions(smscAccount.systemID);
+    this.activatedRoute.data.subscribe(({ smscSession }) => {
+      this.smscSession = smscSession;
+      this.generateFakeSessions(smscSession.systemID);
     });
   }
 

@@ -58,6 +58,6 @@ export class SmscSession implements ISmscSession {
   }
 }
 
-export function getSmscSessionIdentifier(smscAccount: ISmscSession): string | undefined {
-  return smscAccount.id;
+export function getSmscSessionIdentifier(smscSession: ISmscSession): string | undefined {
+  return smscSession.id;
 }

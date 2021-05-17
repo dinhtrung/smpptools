@@ -17,7 +17,7 @@ describe('Component Tests', () => {
     let comp: SmscSessionUpdateComponent;
     let fixture: ComponentFixture<SmscSessionUpdateComponent>;
     let activatedRoute: ActivatedRoute;
-    let smscAccountService: SmscSessionService;
+    let smscSessionService: SmscSessionService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -30,19 +30,19 @@ describe('Component Tests', () => {
 
       fixture = TestBed.createComponent(SmscSessionUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
-      smscAccountService = TestBed.inject(SmscSessionService);
+      smscSessionService = TestBed.inject(SmscSessionService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
       it('Should update editForm', () => {
-        const smscAccount: ISmscSession = { id: 'CBA' };
+        const smscSession: ISmscSession = { id: 'CBA' };
 
-        activatedRoute.data = of({ smscAccount });
+        activatedRoute.data = of({ smscSession });
         comp.ngOnInit();
 
-        expect(comp.editForm.value).toEqual(expect.objectContaining(smscAccount));
+        expect(comp.editForm.value).toEqual(expect.objectContaining(smscSession));
       });
     });
 
@@ -50,41 +50,41 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', () => {
         // GIVEN
         const saveSubject = new Subject();
-        const smscAccount = { id: 'ABC' };
-        spyOn(smscAccountService, 'update').and.returnValue(saveSubject);
+        const smscSession = { id: 'ABC' };
+        spyOn(smscSessionService, 'update').and.returnValue(saveSubject);
         spyOn(comp, 'previousState');
-        activatedRoute.data = of({ smscAccount });
+        activatedRoute.data = of({ smscSession });
         comp.ngOnInit();
 
         // WHEN
         comp.save();
         expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: smscAccount }));
+        saveSubject.next(new HttpResponse({ body: smscSession }));
         saveSubject.complete();
 
         // THEN
         expect(comp.previousState).toHaveBeenCalled();
-        expect(smscAccountService.update).toHaveBeenCalledWith(smscAccount);
+        expect(smscSessionService.update).toHaveBeenCalledWith(smscSession);
         expect(comp.isSaving).toEqual(false);
       });
 
       it('Should call create service on save for new entity', () => {
         // GIVEN
         const saveSubject = new Subject();
-        const smscAccount = new SmscSession();
-        spyOn(smscAccountService, 'create').and.returnValue(saveSubject);
+        const smscSession = new SmscSession();
+        spyOn(smscSessionService, 'create').and.returnValue(saveSubject);
         spyOn(comp, 'previousState');
-        activatedRoute.data = of({ smscAccount });
+        activatedRoute.data = of({ smscSession });
         comp.ngOnInit();
 
         // WHEN
         comp.save();
         expect(comp.isSaving).toEqual(true);
-        saveSubject.next(new HttpResponse({ body: smscAccount }));
+        saveSubject.next(new HttpResponse({ body: smscSession }));
         saveSubject.complete();
 
         // THEN
-        expect(smscAccountService.create).toHaveBeenCalledWith(smscAccount);
+        expect(smscSessionService.create).toHaveBeenCalledWith(smscSession);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).toHaveBeenCalled();
       });
@@ -92,10 +92,10 @@ describe('Component Tests', () => {
       it('Should set isSaving to false on error', () => {
         // GIVEN
         const saveSubject = new Subject();
-        const smscAccount = { id: 'ABC' };
-        spyOn(smscAccountService, 'update').and.returnValue(saveSubject);
+        const smscSession = { id: 'ABC' };
+        spyOn(smscSessionService, 'update').and.returnValue(saveSubject);
         spyOn(comp, 'previousState');
-        activatedRoute.data = of({ smscAccount });
+        activatedRoute.data = of({ smscSession });
         comp.ngOnInit();
 
         // WHEN
@@ -104,7 +104,7 @@ describe('Component Tests', () => {
         saveSubject.error('This is an error!');
 
         // THEN
-        expect(smscAccountService.update).toHaveBeenCalledWith(smscAccount);
+        expect(smscSessionService.update).toHaveBeenCalledWith(smscSession);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
       });
