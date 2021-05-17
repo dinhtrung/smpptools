@@ -1,0 +1,287 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="smscAccount">
+      <h2 data-cy="smscAccountDetailsHeading">
+        <small jhiTranslate="smpptoolsApp.smscAccount.detail.title">Smsc Account</small>
+        <span class="ml-3">{{ smscAccount.name }}</span>
+        <div class="btn-group float-right">
+          <button type="button" class="btn btn-primary" ngbTooltip="create a new ESME session towards SMSC">Create new ESME Session</button>
+          <button type="button" class="btn btn-danger" ngbTooltip="to terminate all sessions belongs to this account.">
+            Stop All ESME Session
+          </button>
+        </div>
+      </h2>
+
+      <p [innerHtml]="smscAccount.description" class="text-muted"></p>
+
+      <hr />
+
+      
+
+      
+
+      <div class="btn-toolbar my-3">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" ngbTooltip="Submit an SMS based on current SMPP parameters">Send Message</button>
+          <button type="button" class="btn btn-secondary" ngbTooltip="Update stress test configuration">Stress Test Settings</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            ngbTooltip="a dialog appear, let user select one of the ISDN list to perform stress testing."
+          >
+            Start Stress Test
+          </button>
+          <button type="button" class="btn btn-dark" ngbTooltip="stop the stress test process.">Stop Stress Test</button>
+        </div>
+        <div class="btn-group ml-auto">
+          <button
+            type="button"
+            class="btn btn-info"
+            ngbTooltip="to load an existing SMPP Parameter set into configuration form for testing"
+          >
+            Open SMPP Preset
+          </button>
+          <button type="button" class="btn btn-success" ngbTooltip="to save current SMPP parameters into one SMPP preset for re-use later">
+            Save SMPP Preset
+          </button>
+        </div>
+      </div>
+
+      <h3>Active ESME Sessions</h3>
+
+      <div class="table-responsive" id="entities" *ngIf="smscSessions && smscSessions.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr>
+              <th scope="col"><span>Session ID</span></th>
+              <th scope="col"><span>Local Address</span></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let smscAccount of smscSessions" data-cy="entityTable">
+              <td>{{ smscAccount.id }}</td>
+              <td>{{ smscAccount.localAddr }}</td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    [routerLink]="['/smsc-sessions', smscAccount.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </button>
+
+                  <button type="button" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="sms"></fa-icon>
+                    <span class="d-none d-md-inline">Send SMS</span>
+                  </button>
+
+                  <button type="button" class="btn btn-danger btn-sm" ngbTooltip="stop the selected session">
+                    <fa-icon icon="ban"></fa-icon>
+                    Stop ESME Session
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <dl class="row-md d-none jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ smscAccount.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.name" [ngbTooltip]="'smpptoolsApp.smscAccount.help.name' | translate">Name</span>
+        </dt>
+        <dd>
+          <span>{{ smscAccount.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.description" [ngbTooltip]="'smpptoolsApp.smscAccount.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.description }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.isEnable" [ngbTooltip]="'smpptoolsApp.smscAccount.help.isEnable' | translate"
+            >Is Enable</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.isEnable }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.isPersist" [ngbTooltip]="'smpptoolsApp.smscAccount.help.isPersist' | translate"
+            >Is Persist</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.isPersist }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.numBinds" [ngbTooltip]="'smpptoolsApp.smscAccount.help.numBinds' | translate"
+            >Num Binds</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.numBinds }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.host" [ngbTooltip]="'smpptoolsApp.smscAccount.help.host' | translate">Host</span>
+        </dt>
+        <dd>
+          <span>{{ smscAccount.host }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.port" [ngbTooltip]="'smpptoolsApp.smscAccount.help.port' | translate">Port</span>
+        </dt>
+        <dd>
+          <span>{{ smscAccount.port }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.systemID" [ngbTooltip]="'smpptoolsApp.smscAccount.help.systemID' | translate"
+            >System ID</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.systemID }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.password" [ngbTooltip]="'smpptoolsApp.smscAccount.help.password' | translate"
+            >Password</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.password }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.bindType" [ngbTooltip]="'smpptoolsApp.smscAccount.help.bindType' | translate"
+            >Bind Type</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.bindType }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressRange" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressRange' | translate"
+            >Address Range</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.addressRange }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressTON" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressTON' | translate"
+            >Address TON</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.addressTON }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressNPI" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressNPI' | translate"
+            >Address NPI</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.addressNPI }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.moErrorRate" [ngbTooltip]="'smpptoolsApp.smscAccount.help.moErrorRate' | translate"
+            >Mo Error Rate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.moErrorRate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.moErrorCode" [ngbTooltip]="'smpptoolsApp.smscAccount.help.moErrorCode' | translate"
+            >Mo Error Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.moErrorCode }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.dlrErrorRate" [ngbTooltip]="'smpptoolsApp.smscAccount.help.dlrErrorRate' | translate"
+            >Dlr Error Rate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.dlrErrorRate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.dlrErrorCode" [ngbTooltip]="'smpptoolsApp.smscAccount.help.dlrErrorCode' | translate"
+            >Dlr Error Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.dlrErrorCode }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.smscAccount.mtThroughtput"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.mtThroughtput' | translate"
+            >Mt Throughtput</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.mtThroughtput }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.smscAccount.enquireLinkInterval"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.enquireLinkInterval' | translate"
+            >Enquire Link Interval</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.enquireLinkInterval }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.smscAccount.connectionTimeout"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.connectionTimeout' | translate"
+            >Connection Timeout</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.connectionTimeout }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.windowSize" [ngbTooltip]="'smpptoolsApp.smscAccount.help.windowSize' | translate"
+            >Window Size</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.windowSize }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.smscAccount.reconnectDelay"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.reconnectDelay' | translate"
+            >Reconnect Delay</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscAccount.reconnectDelay }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/smsc-session', smscAccount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

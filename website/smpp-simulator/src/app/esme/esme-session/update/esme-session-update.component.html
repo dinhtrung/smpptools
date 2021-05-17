@@ -1,0 +1,464 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-esme-session-heading"
+        data-cy="EsmeSessionCreateUpdateHeading"
+        jhiTranslate="smpptoolsApp.esmeAccount.home.createOrEditLabel"
+      >
+        Create or edit a Esme Account
+      </h2>
+
+      <div>
+        
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.name"
+              for="field_name"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.name' | translate"
+              >Name</label
+            >
+            <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+            <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('name')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 80 }"
+              >
+                This field cannot be longer than 80 characters.
+              </small>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.isEnable"
+              for="field_isEnable"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.isEnable' | translate"
+              >Is Enable</label
+            >
+            <select class="form-control" name="isEnable" id="field_isEnable" data-cy="isEnable" formControlName="isEnable">
+              <option [ngValue]="false">No</option>
+              <option [ngValue]="true">Yes</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.isPersist"
+              for="field_isPersist"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.isPersist' | translate"
+              >Is Persist</label
+            >
+            <select class="form-control" name="isPersist" id="field_isPersist" data-cy="isPersist" formControlName="isPersist">
+              <option [ngValue]="true">Start On Boot</option>
+              <option [ngValue]="false">Start Manually</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.numBinds"
+              for="field_numBinds"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.numBinds' | translate"
+              >Num Binds</label
+            >
+            <input type="number" class="form-control" name="numBinds" id="field_numBinds" data-cy="numBinds" formControlName="numBinds" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.esmeAccount.description"
+            for="field_description"
+            [ngbTooltip]="'smpptoolsApp.esmeAccount.help.description' | translate"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.host"
+              for="field_host"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.host' | translate"
+              >Host</label
+            >
+            <input type="text" class="form-control" name="host" id="field_host" data-cy="host" formControlName="host" />
+          </div>
+
+          <div class="form-group col-md-2">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.port"
+              for="field_port"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.port' | translate"
+              >Port</label
+            >
+            <input type="number" class="form-control" name="port" id="field_port" data-cy="port" formControlName="port" />
+            <div *ngIf="editForm.get('port')!.invalid && (editForm.get('port')!.dirty || editForm.get('port')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('port')?.errors?.min"
+                jhiTranslate="entity.validation.min"
+                [translateValues]="{ min: 1 }"
+              >
+                This field cannot be more than 1.
+              </small>
+              <small class="form-text text-danger" [hidden]="!editForm.get('port')?.errors?.number" jhiTranslate="entity.validation.number">
+                This field should be a number.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.systemID"
+              for="field_systemID"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.systemID' | translate"
+              >System ID</label
+            >
+            <input type="text" class="form-control" name="systemID" id="field_systemID" data-cy="systemID" formControlName="systemID" />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.password"
+              for="field_password"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.password' | translate"
+              >Password</label
+            >
+            <input type="text" class="form-control" name="password" id="field_password" data-cy="password" formControlName="password" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-2">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.bindType"
+              for="field_bindType"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.bindType' | translate"
+              >Bind Type</label
+            >
+            <select class="form-control" name="bindType" id="field_bindType" data-cy="bindType" formControlName="bindType">
+              <option value="transceiver">Transceiver</option>
+              <option value="transmitter">Transmitter</option>
+              <option value="receiver">Receiver</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.addressRange"
+              for="field_addressRange"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressRange' | translate"
+              >Address Range</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="addressRange"
+              id="field_addressRange"
+              data-cy="addressRange"
+              formControlName="addressRange"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.addressTON"
+              for="field_addressTON"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressTON' | translate"
+              >Address TON</label
+            >
+            <select class="form-control" name="addressTON" id="field_addressTON" data-cy="addressTON" formControlName="addressTON">
+              <option *ngFor="let o of smppTON" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.esmeAccount.addressNPI"
+              for="field_addressNPI"
+              [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressNPI' | translate"
+              >Address NPI</label
+            >
+            <select class="form-control" name="addressNPI" id="field_addressNPI" data-cy="addressNPI" formControlName="addressNPI">
+              <option *ngFor="let o of smppNPI" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Session Connectivity</legend>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.enquireLinkInterval"
+                for="field_enquireLinkInterval"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.enquireLinkInterval' | translate"
+                >Enquire Link Interval</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="enquireLinkInterval"
+                id="field_enquireLinkInterval"
+                data-cy="enquireLinkInterval"
+                formControlName="enquireLinkInterval"
+              />
+            </div>
+
+            <div class="form-group col-md-3">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.connectionTimeout"
+                for="field_connectionTimeout"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.connectionTimeout' | translate"
+                >Connection Timeout</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="connectionTimeout"
+                id="field_connectionTimeout"
+                data-cy="connectionTimeout"
+                formControlName="connectionTimeout"
+              />
+            </div>
+
+            <div class="form-group col-md-3">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.reconnectDelay"
+                for="field_reconnectDelay"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.reconnectDelay' | translate"
+                >Reconnect Delay</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="reconnectDelay"
+                id="field_reconnectDelay"
+                data-cy="reconnectDelay"
+                formControlName="reconnectDelay"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>SMS Submission</legend>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.windowSize"
+                for="field_windowSize"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.windowSize' | translate"
+                >Window Size</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="windowSize"
+                id="field_windowSize"
+                data-cy="windowSize"
+                formControlName="windowSize"
+              />
+            </div>
+
+            <div class="form-group col-md-2">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.mtThroughtput"
+                for="field_mtThroughtput"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.mtThroughtput' | translate"
+                >Mt Throughtput</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="mtThroughtput"
+                id="field_mtThroughtput"
+                data-cy="mtThroughtput"
+                formControlName="mtThroughtput"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>SMS Receiving</legend>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.moErrorRate"
+                for="field_moErrorRate"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorRate' | translate"
+                >Mo Error Rate</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="moErrorRate"
+                id="field_moErrorRate"
+                data-cy="moErrorRate"
+                formControlName="moErrorRate"
+              />
+              <div
+                *ngIf="editForm.get('moErrorRate')!.invalid && (editForm.get('moErrorRate')!.dirty || editForm.get('moErrorRate')!.touched)"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('moErrorRate')?.errors?.min"
+                  jhiTranslate="entity.validation.min"
+                  [translateValues]="{ min: 0 }"
+                >
+                  This field should be at least 0.
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('moErrorRate')?.errors?.max"
+                  jhiTranslate="entity.validation.max"
+                  [translateValues]="{ max: 100 }"
+                >
+                  This field cannot be more than 100.
+                </small>
+                <small
+                  class="form-text text-danger"
+                  [hidden]="!editForm.get('moErrorRate')?.errors?.number"
+                  jhiTranslate="entity.validation.number"
+                >
+                  This field should be a number.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group col-md-10">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.moErrorCode"
+                for="field_moErrorCode"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorCode' | translate"
+                >Mo Error Code</label
+              >
+              <select class="form-control" name="moErrorCode" id="field_moErrorCode" data-cy="moErrorCode" formControlName="moErrorCode">
+                <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Delivery Receipt Processing</legend>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorRate"
+                for="field_dlrErrorRate"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorRate' | translate"
+                >Dlr Error Rate</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="dlrErrorRate"
+                id="field_dlrErrorRate"
+                data-cy="dlrErrorRate"
+                formControlName="dlrErrorRate"
+              />
+              <div
+                *ngIf="
+                  editForm.get('dlrErrorRate')!.invalid && (editForm.get('dlrErrorRate')!.dirty || editForm.get('dlrErrorRate')!.touched)
+                "
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('dlrErrorRate')?.errors?.min"
+                  jhiTranslate="entity.validation.min"
+                  [translateValues]="{ min: 0 }"
+                >
+                  This field should be at least 0.
+                </small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('dlrErrorRate')?.errors?.max"
+                  jhiTranslate="entity.validation.max"
+                  [translateValues]="{ max: 100 }"
+                >
+                  This field cannot be more than 100.
+                </small>
+                <small
+                  class="form-text text-danger"
+                  [hidden]="!editForm.get('dlrErrorRate')?.errors?.number"
+                  jhiTranslate="entity.validation.number"
+                >
+                  This field should be a number.
+                </small>
+              </div>
+            </div>
+            <div class="form-group col-md-10">
+              <label
+                class="form-control-label"
+                jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorCode"
+                for="field_dlrErrorCode"
+                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorCode' | translate"
+                >Dlr Error Code</label
+              >
+              <select
+                class="form-control"
+                name="dlrErrorCode"
+                id="field_dlrErrorCode"
+                data-cy="dlrErrorCode"
+                formControlName="dlrErrorCode"
+              >
+                <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

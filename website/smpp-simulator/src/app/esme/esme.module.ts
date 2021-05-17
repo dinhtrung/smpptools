@@ -9,6 +9,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'smpptoolsApp.esmeAccount.home.title' },
         loadChildren: () => import('./esme-account/esme-account.module').then(m => m.EsmeAccountModule),
       },
+      {
+        path: 'esme-session',
+        data: { pageTitle: 'smpptoolsApp.esmeSession.home.title' },
+        loadChildren: () => import('./esme-session/esme-session.module').then(m => m.EsmeSessionModule),
+      },
     ]),
   ],
 })

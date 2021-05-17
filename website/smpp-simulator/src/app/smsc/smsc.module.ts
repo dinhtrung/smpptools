@@ -13,6 +13,11 @@ import { RouterModule } from '@angular/router';
         path: 'smsc-account',
         data: { pageTitle: 'smpptoolsApp.smscAccount.home.title' },
         loadChildren: () => import('./smsc-account/smsc-account.module').then(m => m.SmscAccountModule),
+      },
+      {
+        path: 'smsc-session',
+        data: { pageTitle: 'smpptoolsApp.smscSession.home.title' },
+        loadChildren: () => import('./smsc-session/smsc-session.module').then(m => m.SmscSessionModule),
       }
     ]),
   ],
