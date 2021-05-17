@@ -76,11 +76,15 @@ func main() {
 
 // setupDB wire the Repository implement back to its interface
 func setupDB() {
-	instances.BaseSmRepo = impl.NewBaseSmRepository()
+	// + esme
 	instances.EsmeAccountRepo = impl.NewEsmeAccountRepository()
 	instances.EsmeSessionRepo = impl.NewEsmeSessionRepository()
+	// + smsc
 	instances.SmscAccountRepo = impl.NewSmscAccountRepository()
 	instances.SmscInstanceRepo = impl.NewSmscInstanceRepository()
+	instances.SmscSessionRepo = impl.NewSmscSessionRepository()
+	// + others
+	instances.BaseSmRepo = impl.NewBaseSmRepository()
 	instances.IsdnListRepo = impl.NewIsdnListRepository()
 	instances.ThroughputSeriesRepo = impl.NewThroughputSeriesRepository()
 }
@@ -129,16 +133,19 @@ func setupRoutes(app *fiber.App) {
 	app.Post("/api/smsc-accounts/:id/send-mo", api.SendMobileOriginatedSMSOnAccountUsingPOST)
 	app.Delete("/api/smsc-accounts/:id/stop-all", api.StopAllSessionsForSmscAccountUsingDELETE)
 	app.Put("/api/smsc-accounts/:id", api.UpdateSmscAccountUsingPUT)
+
+	// + smsc-instances
 	app.Post("/api/smsc-instances", api.CreateSmscInstanceUsingPOST)
-	app.Delete("/api/smsc-instances/:id", api.DeleteSmscInstanceUsingDELETE)
+	app.Delete("/api/smsc-instances/:instanceID", api.DeleteSmscInstanceUsingDELETE)
 	app.Get("/api/smsc-instances", api.GetAllSmscInstancesUsingGET)
-	app.Get("/api/smsc-instances/:id", api.GetSmscInstanceUsingGET)
-	app.Patch("/api/smsc-instances/:id", api.PartialUpdateSmscInstanceUsingPATCH)
-	app.Post("/api/smsc-instances/:id/batch", api.StartBatchOnSmscInstanceUsingPOST)
-	app.Get("/api/smsc-instances/:id/start", api.StartSmscInstanceUsingGET)
-	app.Delete("/api/smsc-instances/:id/batch", api.StopAllBatchSmscInstanceUsingDELETE)
-	app.Delete("/api/smsc-instances/:id/stop", api.StopSmscInstanceUsingDELETE)
-	app.Put("/api/smsc-instances/:id", api.UpdateSmscInstanceUsingPUT)
+	app.Get("/api/smsc-instances/:instanceID", api.GetSmscInstanceUsingGET)
+	app.Patch("/api/smsc-instances/:instanceID", api.PartialUpdateSmscInstanceUsingPATCH)
+	app.Post("/api/smsc-instances/:instanceID/batch", api.StartBatchOnSmscInstanceUsingPOST)
+	app.Get("/api/smsc-instances/:instanceID/start", api.StartSmscInstanceUsingGET)
+	app.Delete("/api/smsc-instances/:instanceID/batch", api.StopAllBatchSmscInstanceUsingDELETE)
+	app.Delete("/api/smsc-instances/:instanceID/stop", api.StopSmscInstanceUsingDELETE)
+	app.Put("/api/smsc-instances/:instanceID", api.UpdateSmscInstanceUsingPUT)
+
 	app.Delete("/api/smsc-sessions/:id/batch", api.ApiSmscSessionsIdBatchDelete)
 	app.Delete("/api/smsc-sessions/:id/stop", api.ApiSmscSessionsIdStopDelete)
 	app.Delete("/api/smsc-sessions/:id", api.DeleteSmscSessionUsingDELETE)

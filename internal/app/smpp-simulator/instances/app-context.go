@@ -9,6 +9,7 @@ var (
 	EsmeSessionRepo      interfaces.EsmeSessionCrudRepository
 	SmscAccountRepo      interfaces.SmscAccountCrudRepository
 	SmscInstanceRepo     interfaces.SmscInstanceCrudRepository
+	SmscSessionRepo      interfaces.SmscSessionCrudRepository
 	ThroughputSeriesRepo interfaces.ThroughputSeriesCrudRepository
 	IsdnListRepo         interfaces.IsdnListCrudRepository
 )

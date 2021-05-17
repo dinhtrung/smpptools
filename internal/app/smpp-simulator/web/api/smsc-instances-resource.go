@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
 	"github.com/dinhtrung/smpptools/internal/pkg/smsc"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/gofiber/fiber/v2"
@@ -70,7 +71,7 @@ func StartBatchOnSmscInstanceUsingPOST(c *fiber.Ctx) error {
 
 // Start selected SMSC Instance
 func StartSmscInstanceUsingGET(c *fiber.Ctx) error {
-	entity, err := instances.SmscInstanceRepo.FindById(c.Params("id"))
+	entity, err := instances.SmscInstanceRepo.FindById(c.Params("instanceID"))
 	if err != nil {
 		return err
 	}
@@ -84,5 +85,16 @@ func StopAllBatchSmscInstanceUsingDELETE(c *fiber.Ctx) error {
 }
 
 func StopSmscInstanceUsingDELETE(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
+	instanceID := c.Params("instanceID")
+	entity, err := instances.SmscInstanceRepo.FindById(instanceID)
+	if err != nil {
+		return err
+	}
+	instance, ok := services.SMSC_INSTANCES[entity.GetPort()]
+	if !ok {
+		return fiber.ErrNotFound
+	}
+	instance.Close()
+	delete(services.SMSC_INSTANCES, entity.GetPort())
+	return c.SendStatus(fiber.StatusNoContent)
 }

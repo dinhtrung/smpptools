@@ -1,0 +1,374 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-base-sm-heading" data-cy="BaseSmCreateUpdateHeading" jhiTranslate="smpptoolsApp.baseSm.home.createOrEditLabel">
+        Create or edit a Base Sm
+      </h2>
+
+      <div>
+        
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.baseSm.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.baseSm.description" for="field_description">Name</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.sourceAddr"
+              for="field_sourceAddr"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceAddr' | translate"
+              >Source Addr</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="sourceAddr"
+              id="field_sourceAddr"
+              data-cy="sourceAddr"
+              formControlName="sourceAddr"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.sourceTON"
+              for="field_sourceTON"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceTON' | translate"
+              >Source TON</label
+            >
+            <select class="form-control" name="sourceTON" id="field_sourceTON" data-cy="sourceTON" formControlName="sourceTON">
+              <option *ngFor="let o of smppTON" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.sourceNPI"
+              for="field_sourceNPI"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceNPI' | translate"
+              >Source NPI</label
+            >
+            <select class="form-control" name="sourceNPI" id="field_sourceNPI" data-cy="sourceNPI" formControlName="sourceNPI">
+              <option *ngFor="let o of smppNPI" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.destinationAddr"
+              for="field_destinationAddr"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationAddr' | translate"
+              >Destination Addr</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="destinationAddr"
+              id="field_destinationAddr"
+              data-cy="destinationAddr"
+              formControlName="destinationAddr"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.destinationTON"
+              for="field_destinationTON"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationTON' | translate"
+              >Destination TON</label
+            >
+            <select
+              class="form-control"
+              name="destinationTON"
+              id="field_destinationTON"
+              data-cy="destinationTON"
+              formControlName="destinationTON"
+            >
+              <option *ngFor="let o of smppTON" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.destinationNPI"
+              for="field_destinationNPI"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationNPI' | translate"
+              >Destination NPI</label
+            >
+            <select
+              class="form-control"
+              name="destinationNPI"
+              id="field_destinationNPI"
+              data-cy="destinationNPI"
+              formControlName="destinationNPI"
+            >
+              <option *ngFor="let o of smppNPI" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.serviceType"
+              for="field_serviceType"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.serviceType' | translate"
+              >Service Type</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="serviceType"
+              id="field_serviceType"
+              data-cy="serviceType"
+              formControlName="serviceType"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.esmClass"
+              for="field_esmClass"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.esmClass' | translate"
+              >Esm Class</label
+            >
+            <input type="number" class="form-control" name="esmClass" id="field_esmClass" data-cy="esmClass" formControlName="esmClass" />
+          </div>
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.protocolID"
+              for="field_protocolID"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.protocolID' | translate"
+              >Protocol ID</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="protocolID"
+              id="field_protocolID"
+              data-cy="protocolID"
+              formControlName="protocolID"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.priorityFlag"
+              for="field_priorityFlag"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.priorityFlag' | translate"
+              >Priority Flag</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="priorityFlag"
+              id="field_priorityFlag"
+              data-cy="priorityFlag"
+              formControlName="priorityFlag"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.scheduleDeliveryTime"
+              for="field_scheduleDeliveryTime"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.scheduleDeliveryTime' | translate"
+              >Schedule Delivery Time</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="scheduleDeliveryTime"
+              id="field_scheduleDeliveryTime"
+              data-cy="scheduleDeliveryTime"
+              formControlName="scheduleDeliveryTime"
+            />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.validityPeriod"
+              for="field_validityPeriod"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.validityPeriod' | translate"
+              >Validity Period</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="validityPeriod"
+              id="field_validityPeriod"
+              data-cy="validityPeriod"
+              formControlName="validityPeriod"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.registeredDelivery"
+              for="field_registeredDelivery"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.registeredDelivery' | translate"
+              >Registered Delivery</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="registeredDelivery"
+              id="field_registeredDelivery"
+              data-cy="registeredDelivery"
+              formControlName="registeredDelivery"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.replaceIfPresentFlag"
+              for="field_replaceIfPresentFlag"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.replaceIfPresentFlag' | translate"
+              >Replace If Present Flag</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="replaceIfPresentFlag"
+              id="field_replaceIfPresentFlag"
+              data-cy="replaceIfPresentFlag"
+              formControlName="replaceIfPresentFlag"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.dataCoding"
+              for="field_dataCoding"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.dataCoding' | translate"
+              >Data Coding</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="dataCoding"
+              id="field_dataCoding"
+              data-cy="dataCoding"
+              formControlName="dataCoding"
+            />
+          </div>
+
+          <div class="form-group col-md-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.baseSm.defaultMessageID"
+              for="field_defaultMessageID"
+              [ngbTooltip]="'smpptoolsApp.baseSm.help.defaultMessageID' | translate"
+              >Default Message ID</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="defaultMessageID"
+              id="field_defaultMessageID"
+              data-cy="defaultMessageID"
+              formControlName="defaultMessageID"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.baseSm.text"
+            for="field_text"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.text' | translate"
+            >Text</label
+          >
+          <textarea type="text" class="form-control" name="text" id="field_text" data-cy="text" formControlName="text"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.baseSm.udhParts"
+            for="field_udhParts"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.udhParts' | translate"
+            >Udh Parts</label
+          >
+          <input type="text" class="form-control" name="udhParts" id="field_udhParts" data-cy="udhParts" formControlName="udhParts" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.baseSm.txtParts"
+            for="field_txtParts"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.txtParts' | translate"
+            >Txt Parts</label
+          >
+          <input type="text" class="form-control" name="txtParts" id="field_txtParts" data-cy="txtParts" formControlName="txtParts" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.baseSm.tlvList"
+            for="field_tlvList"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.tlvList' | translate"
+            >Tlv List</label
+          >
+          <input type="text" class="form-control" name="tlvList" id="field_tlvList" data-cy="tlvList" formControlName="tlvList" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

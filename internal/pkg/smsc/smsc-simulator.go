@@ -54,12 +54,7 @@ func (c *SmscSimulator) Start(ctx context.Context) error {
 		for {
 			select {
 			case <-ctx.Done():
-				log.Printf("[%s] stopping instance", c.config.GetName())
-				if err := server.Unbind(context.Background()); err != nil {
-					log.Printf("[%s] unable to send unbind to all connection: %s", c.config.GetName(), err)
-					return
-				}
-				delete(services.SMSC_INSTANCES, instancePort)
+				c.Stop()
 			case req := <-MO_CHAN:
 				for _, sess := range server.EsmeSessions {
 					sess.Send(context.TODO(), req)
@@ -69,6 +64,16 @@ func (c *SmscSimulator) Start(ctx context.Context) error {
 	}()
 	c.server = server
 	return server.ListenAndServe()
+}
+
+// Stop terminate all server
+func (c *SmscSimulator) Stop() {
+	log.Printf("[%s] stopping instance", c.config.GetName())
+	if err := c.server.Unbind(context.Background()); err != nil {
+		log.Printf("[%s] unable to send unbind to all connection: %s", c.config.GetName(), err)
+		return
+	}
+	delete(services.SMSC_INSTANCES, *c.config.Port)
 }
 
 // SessionHandleFunc handle incoming messages
@@ -90,6 +95,13 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 			ctx.Respond(rsp, pdu.StatusInvPaswd)
 			return
 		}
+		sess := openapi.NewSmscSessionWithDefaults()
+		sess.Account = account
+		sess.SetCreatedAt(time.Now())
+		sess.SetRemoteAddr(ctx.RemoteAddr())
+		sess.SetId(ctx.SessionID())
+		instances.SmscSessionRepo.Save(sess)
+
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.BindReceiverID:
@@ -108,6 +120,12 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 			ctx.Respond(rsp, pdu.StatusInvPaswd)
 			return
 		}
+		sess := openapi.NewSmscSessionWithDefaults()
+		sess.Account = account
+		sess.SetCreatedAt(time.Now())
+		sess.SetRemoteAddr(ctx.RemoteAddr())
+		sess.SetId(ctx.SessionID())
+		instances.SmscSessionRepo.Save(sess)
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.BindTransmitterID:
@@ -126,10 +144,17 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 			ctx.Respond(rsp, pdu.StatusInvPaswd)
 			return
 		}
+		sess := openapi.NewSmscSessionWithDefaults()
+		sess.Account = account
+		sess.SetCreatedAt(time.Now())
+		sess.SetRemoteAddr(ctx.RemoteAddr())
+		sess.SetId(ctx.SessionID())
+		instances.SmscSessionRepo.Save(sess)
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.UnbindID:
 		req, _ := ctx.Unbind()
+		instances.SmscSessionRepo.DeleteById(ctx.SessionID())
 		ctx.Respond(req.Response(), pdu.StatusOK)
 
 	case pdu.EnquireLinkID:

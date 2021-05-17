@@ -2,16 +2,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "downlevelIteration": true,
+    "outDir": "../web/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "esnext",
+    "target": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
     "paths": {
       "app/*": ["src/app/*"],
       "env/*": ["src/environments/*"]

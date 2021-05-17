@@ -1,0 +1,287 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="esmeAccount">
+      <h2 data-cy="esmeAccountDetailsHeading">
+        <small jhiTranslate="smpptoolsApp.esmeAccount.detail.title">Esme Account</small>
+        <span class="ml-3">{{ esmeAccount.name }}</span>
+        <div class="btn-group float-right">
+          <button type="button" class="btn btn-primary" ngbTooltip="create a new ESME session towards SMSC">Create new ESME Session</button>
+          <button type="button" class="btn btn-danger" ngbTooltip="to terminate all sessions belongs to this account.">
+            Stop All ESME Session
+          </button>
+        </div>
+      </h2>
+
+      <p [innerHtml]="esmeAccount.description" class="text-muted"></p>
+
+      <hr />
+
+      
+
+      
+
+      <div class="btn-toolbar my-3">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" ngbTooltip="Submit an SMS based on current SMPP parameters">Send Message</button>
+          <button type="button" class="btn btn-secondary" ngbTooltip="Update stress test configuration">Stress Test Settings</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            ngbTooltip="a dialog appear, let user select one of the ISDN list to perform stress testing."
+          >
+            Start Stress Test
+          </button>
+          <button type="button" class="btn btn-dark" ngbTooltip="stop the stress test process.">Stop Stress Test</button>
+        </div>
+        <div class="btn-group ml-auto">
+          <button
+            type="button"
+            class="btn btn-info"
+            ngbTooltip="to load an existing SMPP Parameter set into configuration form for testing"
+          >
+            Open SMPP Preset
+          </button>
+          <button type="button" class="btn btn-success" ngbTooltip="to save current SMPP parameters into one SMPP preset for re-use later">
+            Save SMPP Preset
+          </button>
+        </div>
+      </div>
+
+      <h3>Active ESME Sessions</h3>
+
+      <div class="table-responsive" id="entities" *ngIf="esmeSessions && esmeSessions.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr>
+              <th scope="col"><span>Session ID</span></th>
+              <th scope="col"><span>Local Address</span></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let esmeAccount of esmeSessions" data-cy="entityTable">
+              <td>{{ esmeAccount.id }}</td>
+              <td>{{ esmeAccount.localAddr }}</td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    [routerLink]="['/esme-sessions', esmeAccount.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </button>
+
+                  <button type="button" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="sms"></fa-icon>
+                    <span class="d-none d-md-inline">Send SMS</span>
+                  </button>
+
+                  <button type="button" class="btn btn-danger btn-sm" ngbTooltip="stop the selected session">
+                    <fa-icon icon="ban"></fa-icon>
+                    Stop ESME Session
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <dl class="row-md d-none jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ esmeAccount.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.name" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.name' | translate">Name</span>
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.description" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.description }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.isEnable" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.isEnable' | translate"
+            >Is Enable</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.isEnable }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.isPersist" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.isPersist' | translate"
+            >Is Persist</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.isPersist }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.numBinds" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.numBinds' | translate"
+            >Num Binds</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.numBinds }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.host" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.host' | translate">Host</span>
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.host }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.port" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.port' | translate">Port</span>
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.port }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.systemID" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.systemID' | translate"
+            >System ID</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.systemID }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.password" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.password' | translate"
+            >Password</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.password }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.bindType" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.bindType' | translate"
+            >Bind Type</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.bindType }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.addressRange" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressRange' | translate"
+            >Address Range</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.addressRange }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.addressTON" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressTON' | translate"
+            >Address TON</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.addressTON }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.addressNPI" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.addressNPI' | translate"
+            >Address NPI</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.addressNPI }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.moErrorRate" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorRate' | translate"
+            >Mo Error Rate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.moErrorRate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.moErrorCode" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorCode' | translate"
+            >Mo Error Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.moErrorCode }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorRate" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorRate' | translate"
+            >Dlr Error Rate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.dlrErrorRate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorCode" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorCode' | translate"
+            >Dlr Error Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.dlrErrorCode }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.esmeAccount.mtThroughtput"
+            [ngbTooltip]="'smpptoolsApp.esmeAccount.help.mtThroughtput' | translate"
+            >Mt Throughtput</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.mtThroughtput }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.esmeAccount.enquireLinkInterval"
+            [ngbTooltip]="'smpptoolsApp.esmeAccount.help.enquireLinkInterval' | translate"
+            >Enquire Link Interval</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.enquireLinkInterval }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.esmeAccount.connectionTimeout"
+            [ngbTooltip]="'smpptoolsApp.esmeAccount.help.connectionTimeout' | translate"
+            >Connection Timeout</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.connectionTimeout }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.esmeAccount.windowSize" [ngbTooltip]="'smpptoolsApp.esmeAccount.help.windowSize' | translate"
+            >Window Size</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.windowSize }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.esmeAccount.reconnectDelay"
+            [ngbTooltip]="'smpptoolsApp.esmeAccount.help.reconnectDelay' | translate"
+            >Reconnect Delay</span
+          >
+        </dt>
+        <dd>
+          <span>{{ esmeAccount.reconnectDelay }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/esme-account', esmeAccount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

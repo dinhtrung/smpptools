@@ -1,23 +1,20 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'app/shared/shared.module';
-
 import { RouterModule } from '@angular/router';
-import { routes } from './smsc.routing';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { InstancesComponent } from './instances/instances.component';
-import { ProfilesComponent } from './profiles/profiles.component';
-import { SessionsComponent } from './sessions/sessions.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    InstancesComponent,
-    ProfilesComponent,
-    SessionsComponent
-  ],
   imports: [
-    SharedModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild([
+      {
+        path: 'smsc-instance',
+        data: { pageTitle: 'smpptoolsApp.smscInstance.home.title' },
+        loadChildren: () => import('./smsc-instance/smsc-instance.module').then(m => m.SmscInstanceModule),
+      },
+      {
+        path: 'smsc-account',
+        data: { pageTitle: 'smpptoolsApp.smscAccount.home.title' },
+        loadChildren: () => import('./smsc-account/smsc-account.module').then(m => m.SmscAccountModule),
+      }
+    ]),
+  ],
 })
 export class SmscModule { }

@@ -13,8 +13,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-export const DEBUG_INFO_ENABLED = true;
-export const SERVER_API_URL = '';
-export const AUTH_SERVER_PUBLIC_URL = 'http://127.0.0.1:4300/';
-export const BUILD_TIMESTAMP = 0;
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

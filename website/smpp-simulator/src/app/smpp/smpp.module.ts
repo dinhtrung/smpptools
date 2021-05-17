@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'app/shared/shared.module';
-
 import { RouterModule } from '@angular/router';
-import { routes } from './smpp.routing';
-
-import { EsmeComponent } from './esme/esme.component';
 
 @NgModule({
-  declarations: [
-    EsmeComponent
-  ],
   imports: [
-    SharedModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild([
+      {
+        path: 'base-sm',
+        data: { pageTitle: 'smpptoolsApp.baseSm.home.title' },
+        loadChildren: () => import('./base-sm/base-sm.module').then(m => m.BaseSmModule),
+      },
+      {
+        path: 'isdn-list',
+        data: { pageTitle: 'smpptoolsApp.isdnList.home.title' },
+        loadChildren: () => import('./isdn-list/isdn-list.module').then(m => m.IsdnListModule),
+      },
+    ]),
+  ],
 })
 export class SmppModule { }
