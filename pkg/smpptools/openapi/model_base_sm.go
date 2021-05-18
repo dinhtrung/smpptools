@@ -57,6 +57,8 @@ type BaseSm struct {
 	Text *string `json:"text,omitempty"`
 	// Array of short messages
 	ShortMessages *[]ShortMessageHex `json:"shortMessages,omitempty"`
+	// Character set used for encoding and decoding between text and shortMessages
+	Charset *string `json:"charset,omitempty"`
 	// is this message using TLV for concatenate long SMS
 	IsConcatTLV *bool `json:"isConcatTLV,omitempty"`
 	// List of optional TLV
@@ -756,6 +758,38 @@ func (o *BaseSm) SetShortMessages(v []ShortMessageHex) {
 	o.ShortMessages = &v
 }
 
+// GetCharset returns the Charset field value if set, zero value otherwise.
+func (o *BaseSm) GetCharset() string {
+	if o == nil || o.Charset == nil {
+		var ret string
+		return ret
+	}
+	return *o.Charset
+}
+
+// GetCharsetOk returns a tuple with the Charset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetCharsetOk() (*string, bool) {
+	if o == nil || o.Charset == nil {
+		return nil, false
+	}
+	return o.Charset, true
+}
+
+// HasCharset returns a boolean if a field has been set.
+func (o *BaseSm) HasCharset() bool {
+	if o != nil && o.Charset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCharset gets a reference to the given string and assigns it to the Charset field.
+func (o *BaseSm) SetCharset(v string) {
+	o.Charset = &v
+}
+
 // GetIsConcatTLV returns the IsConcatTLV field value if set, zero value otherwise.
 func (o *BaseSm) GetIsConcatTLV() bool {
 	if o == nil || o.IsConcatTLV == nil {
@@ -884,6 +918,9 @@ func (o BaseSm) MarshalJSON() ([]byte, error) {
 	}
 	if o.ShortMessages != nil {
 		toSerialize["shortMessages"] = o.ShortMessages
+	}
+	if o.Charset != nil {
+		toSerialize["charset"] = o.Charset
 	}
 	if o.IsConcatTLV != nil {
 		toSerialize["isConcatTLV"] = o.IsConcatTLV

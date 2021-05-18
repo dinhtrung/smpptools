@@ -121,10 +121,13 @@ func setupRoutes(app *fiber.App) {
 	app.Delete("/api/esme-sessions/:sessionID", api.DeleteEsmeSessionUsingDELETE)
 	app.Get("/api/esme-sessions", api.GetAllEsmeSessions)
 	app.Get("/api/esme-sessions/:sessionID", api.GetEsmeSessionUsingGET)
-	app.Patch("/api/esme-sessions/:sessionID", api.PartialUpdateEsmeSessionUsingPATCH)
-	app.Post("/api/esme-sessions/:id/batch", api.SendSMSonEsmeSessionUsingPOST)
-	app.Delete("/api/esme-sessions/:id/batch", api.StopAllBachOnEsmeSessionUsingDELETE)
 	app.Put("/api/esme-sessions/:sessionID", api.UpdateEsmeSessionUsingPUT)
+	app.Patch("/api/esme-sessions/:sessionID", api.PartialUpdateEsmeSessionUsingPATCH)
+	app.Post("/api/esme-sessions/:sessionID/send-mt", api.SendMTonEsmeSessionUsingPOST)
+	app.Post("/api/esme-sessions/:sessionID/batch", api.SendSMSonEsmeSessionUsingPOST)
+	app.Delete("/api/esme-sessions/:sessionID/batch", api.StopAllBachOnEsmeSessionUsingDELETE)
+
+	// + ISDN list
 	app.Post("/api/isdn-lists", api.CreateIsdnListUsingPOST)
 	app.Delete("/api/isdn-lists/:id", api.DeleteIsdnListUsingDELETE)
 	app.Get("/api/isdn-lists", api.GetAllIsdnListsUsingGET)

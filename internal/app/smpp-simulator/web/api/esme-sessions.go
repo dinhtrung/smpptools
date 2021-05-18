@@ -1,8 +1,12 @@
 package api
 
 import (
+	"context"
+
+	"github.com/ajankovic/smpp/pdu"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/mappers"
 	"github.com/dinhtrung/smpptools/internal/pkg/esme"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/gofiber/fiber/v2"
@@ -64,6 +68,36 @@ func PartialUpdateEsmeSessionUsingPATCH(c *fiber.Ctx) error {
 }
 func SendSMSonEsmeSessionUsingPOST(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
+}
+
+func SendMTonEsmeSessionUsingPOST(c *fiber.Ctx) error {
+	sessionID := c.Params("sessionID")
+	if sessionID == "" {
+		return fiber.ErrBadRequest
+	}
+	sess, ok := services.SMPP_CLIENT_SESSIONS[sessionID]
+	if !ok {
+		return fiber.ErrExpectationFailed
+	}
+
+	req := openapi.NewBaseSmWithDefaults()
+	if err := c.BodyParser(req); err != nil {
+		return err
+	}
+
+	pdus, err := mappers.ToSubmitSM(req)
+	if err != nil {
+		return err
+	}
+	res := make([]pdu.PDU, 0)
+	for _, p := range pdus {
+		respdu, err := sess.Send(context.TODO(), p)
+		if err != nil {
+			return err
+		}
+		res = append(res, respdu)
+	}
+	return c.JSON(res)
 }
 func StopAllBachOnEsmeSessionUsingDELETE(c *fiber.Ctx) error {
 	results := make([]string, 0)

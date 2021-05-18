@@ -24,7 +24,8 @@ const BINARY_SPLITLEN = 132
 func ToSubmitSM(r *openapi.BaseSm) ([]pdu.PDU, error) {
 	results := make([]pdu.PDU, 0)
 	isConcat := len(r.GetShortMessages()) > 1
-	for _, part := range r.GetShortMessages() {
+	msgRef := rand.Int()
+	for idx, part := range r.GetShortMessages() {
 		segmentPDU := pdu.NewPDU(pdu.SubmitSmID)
 		submit := segmentPDU.(*pdu.SubmitSm)
 		submit.ServiceType = r.GetServiceType()
@@ -33,7 +34,14 @@ func ToSubmitSM(r *openapi.BaseSm) ([]pdu.PDU, error) {
 
 		submit.EsmClass = pdu.ParseEsmClass(byte(r.GetEsmClass()))
 		if isConcat {
-			submit.EsmClass.Feature |= pdu.UDHIEsmFeat
+			if !r.GetIsConcatTLV() {
+				submit.EsmClass.Feature |= pdu.UDHIEsmFeat
+			} else {
+				submit.Options = pdu.NewOptions()
+				submit.Options.SetSarMsgRefNum(msgRef)
+				submit.Options.SetSarTotalSegments(len(r.GetShortMessages()))
+				submit.Options.SetSarSegmentSeqnum(idx + 1)
+			}
 		}
 		submit.ProtocolID = int(r.GetProtocolID())
 		submit.PriorityFlag = int(r.GetPriorityFlag())
@@ -41,8 +49,19 @@ func ToSubmitSM(r *openapi.BaseSm) ([]pdu.PDU, error) {
 		submit.ReplaceIfPresentFlag = int(r.GetReplaceIfPresentFlag())
 		submit.DataCoding = int(r.GetDataCoding())
 		submit.SmDefaultMsgID = int(r.GetDefaultMessageID())
-		submit.ShortMessageHex = part.GetUdhPart() + part.GetTxtPart()
 		// FIXME: TLV should be in the same way as the message part
+		submit.ShortMessageHex = part.GetUdhPart() + part.GetTxtPart()
+		if (len(r.GetTlvList())) > 0 {
+			if submit.Options == nil {
+				submit.Options = pdu.NewOptions()
+			}
+			for _, tlv := range r.GetTlvList() {
+				if val, err := hex.DecodeString(tlv.GetValue()); err == nil {
+					log.Printf("+tagID: %d", tlv.GetTag())
+					submit.Options.Set(pdu.TagID(uint16(tlv.GetTag())), val)
+				}
+			}
+		}
 		results = append(results, segmentPDU)
 	}
 	return results, nil
@@ -108,7 +127,9 @@ func SplitDCS4(r *openapi.BaseSm) error {
 		msgPart := openapi.NewShortMessageHex()
 		for msgCur := 1; msgCur <= msgTotal; msgCur++ {
 			output := pdutext.Raw([]byte(r.GetText()[(msgCur-1)*GSM_SPLITLEN : msgCur*GSM_SPLITLEN]))
-			msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur, msgTotal))
+			if !r.GetIsConcatTLV() {
+				msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur, msgTotal))
+			}
 			msgPart.SetTxtPart(hex.EncodeToString(output.Encode()))
 			parts = append(parts, *msgPart)
 		}
@@ -132,7 +153,9 @@ func SplitDCS8(r *openapi.BaseSm) error {
 		msgPart := openapi.NewShortMessageHex()
 		for msgCur, txtPart := range txtParts {
 			output := pdutext.UCS2([]byte(txtPart))
-			msgPart.SetUdhPart(ConcatenateUdh6(int16(msgRef), msgCur+1, msgTotal))
+			if !r.GetIsConcatTLV() {
+				msgPart.SetUdhPart(ConcatenateUdh6(int16(msgRef), msgCur+1, msgTotal))
+			}
 			msgPart.SetTxtPart(hex.EncodeToString(output.Encode()))
 			parts = append(parts, *msgPart)
 		}
@@ -159,7 +182,9 @@ func SplitGSM(r *openapi.BaseSm) error {
 			if err != nil {
 				return err
 			}
-			msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur, msgTotal))
+			if !r.GetIsConcatTLV() {
+				msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur, msgTotal))
+			}
 			msgPart.SetTxtPart(hex.EncodeToString(output))
 			parts = append(parts, *msgPart)
 		}

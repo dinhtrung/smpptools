@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **ValidityPeriod** | Pointer to **string** | Validity Period | [optional] 
 **Text** | Pointer to **string** | Message content in text | [optional] 
 **ShortMessages** | Pointer to [**[]ShortMessageHex**](ShortMessageHex.md) | Array of short messages | [optional] 
+**Charset** | Pointer to **string** | Character set used for encoding and decoding between text and shortMessages | [optional] 
 **IsConcatTLV** | Pointer to **bool** | is this message using TLV for concatenate long SMS | [optional] [default to false]
 **TlvList** | Pointer to [**[]SmppTlv**](SmppTlv.md) | List of optional TLV | [optional] 
 
@@ -571,6 +572,31 @@ SetShortMessages sets ShortMessages field to given value.
 `func (o *BaseSm) HasShortMessages() bool`
 
 HasShortMessages returns a boolean if a field has been set.
+
+### GetCharset
+
+`func (o *BaseSm) GetCharset() string`
+
+GetCharset returns the Charset field if non-nil, zero value otherwise.
+
+### GetCharsetOk
+
+`func (o *BaseSm) GetCharsetOk() (*string, bool)`
+
+GetCharsetOk returns a tuple with the Charset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCharset
+
+`func (o *BaseSm) SetCharset(v string)`
+
+SetCharset sets Charset field to given value.
+
+### HasCharset
+
+`func (o *BaseSm) HasCharset() bool`
+
+HasCharset returns a boolean if a field has been set.
 
 ### GetIsConcatTLV
 

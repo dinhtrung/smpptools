@@ -87,6 +87,9 @@ func (c *EsmeSimulator) Start() error {
 		go func() {
 			for {
 				select {
+				case <-c.Session.NotifyClosed():
+					log.Print("notify closed.")
+					return
 				case req := <-PDU_CHAN:
 					c.Session.Send(context.Background(), req)
 				case <-ENQUIRELINK_TIMER.C:

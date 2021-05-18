@@ -27,9 +27,6 @@ func ConvertTextUsingPOST(c *fiber.Ctx) error {
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
-	if req.GetText() == "" {
-		return fiber.ErrBadRequest
-	}
 	mappers.SplitShortMessages(req)
 	return c.JSON(req)
 }

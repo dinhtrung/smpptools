@@ -1831,6 +1831,7 @@ components:
       example:
         serviceType: serviceType
         isConcatTLV: false
+        charset: charset
         sourceNPI: 2
         description: description
         registeredDelivery: 9
@@ -1936,6 +1937,10 @@ components:
           items:
             $ref: '#/components/schemas/ShortMessageHex'
           type: array
+        charset:
+          description: Character set used for encoding and decoding between text and
+            shortMessages
+          type: string
         isConcatTLV:
           default: false
           description: is this message using TLV for concatenate long SMS
@@ -2003,6 +2008,7 @@ components:
         smsPattern:
           serviceType: serviceType
           isConcatTLV: false
+          charset: charset
           sourceNPI: 2
           description: description
           registeredDelivery: 9

@@ -1894,6 +1894,9 @@ components:
           description: Array of short messages
           items:
             $ref: '#/components/schemas/ShortMessageHex'
+        charset:
+          type: string
+          description: Character set used for encoding and decoding between text and shortMessages
         isConcatTLV:
           type: boolean
           description: is this message using TLV for concatenate long SMS
