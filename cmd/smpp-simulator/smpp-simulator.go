@@ -95,6 +95,7 @@ func setupRoutes(app *fiber.App) {
 	// + SMPP actions
 	// -- base-sm-resource
 	app.Post("/api/base-sms", api.CreateBaseSmUsingPOST)
+	app.Post("/api/base-sms/convert-text", api.ConvertTextUsingPOST)
 	app.Delete("/api/base-sms/:id", api.DeleteBaseSmUsingDELETE)
 	app.Get("/api/base-sms", api.GetAllBaseSmsUsingGET)
 	app.Get("/api/base-sms/:id", api.GetBaseSmUsingGET)

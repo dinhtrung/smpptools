@@ -462,14 +462,14 @@ paths:
           description: Forbidden
         "404":
           description: Not Found
-  /api/esme-accounts/{id}:
+  /api/esme-accounts/{accountID}:
     get:
       tags:
       - esme-account-resource
       summary: getEsmeAccount
       operationId: getEsmeAccountUsingGET
       parameters:
-      - name: id
+      - name: accountID
         in: path
         description: id
         required: true
@@ -496,7 +496,7 @@ paths:
       summary: updateEsmeAccount
       operationId: updateEsmeAccountUsingPUT
       parameters:
-      - name: id
+      - name: accountID
         in: path
         description: id
         required: true
@@ -530,7 +530,7 @@ paths:
       summary: deleteEsmeAccount
       operationId: deleteEsmeAccountUsingDELETE
       parameters:
-      - name: id
+      - name: accountID
         in: path
         description: id
         required: true
@@ -551,7 +551,7 @@ paths:
       summary: partialUpdateEsmeAccount
       operationId: partialUpdateEsmeAccountUsingPATCH
       parameters:
-      - name: id
+      - name: accountID
         in: path
         description: id
         required: true
@@ -580,14 +580,41 @@ paths:
           description: Unauthorized
         "403":
           description: Forbidden
-  /api/esme-accounts/{id}/stop-all:
+  /api/esme-accounts/{accountID}/esme-sessions:
+    get:
+      tags:
+      - esme-account-resource
+      summary: Retrieve all active session for current account
+      operationId: getAllEsmeSessionsByAccountUsingGET
+      parameters:
+      - name: accountID
+        in: path
+        description: ID of selected session
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EsmeSession'
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
     delete:
       tags:
       - esme-account-resource
       summary: Stop all active SMPP sessions from this account
       operationId: stopAllEsmeSessionsForAccountUsingDELETE
       parameters:
-      - name: id
+      - name: accountID
         in: path
         description: ID of selected session
         required: true
@@ -838,14 +865,14 @@ paths:
           description: Unauthorized
         "403":
           description: Forbidden
-  /api/esme-sessions/{id}/batch:
+  /api/esme-sessions/{sessionID}/batch:
     post:
       tags:
       - esme-session-resource
       summary: Send Mobile Originated SMS on selected session with given patterns and data files
       operationId: sendSMSonEsmeSessionUsingPOST
       parameters:
-      - name: id
+      - name: sessionID
         in: path
         description: ID of selected session
         required: true
@@ -873,7 +900,7 @@ paths:
       summary: Stop all batch current running in selected SMSC sessions
       operationId: stopAllBachOnEsmeSessionUsingDELETE
       parameters:
-      - name: id
+      - name: sessionID
         in: path
         description: ID of selected session
         required: true
@@ -1769,6 +1796,15 @@ paths:
           description: Forbidden
 components:
   schemas:
+    ShortMessageHex:
+      type: object
+      properties:
+        txtPart:
+          type: string
+          description: List of TXT parts in hex dump
+        udhPart:
+          type: string
+          description: List of UDH parts in hex dump
     SmppTlv:
       type: object
       properties:
@@ -1847,23 +1883,26 @@ components:
           type: integer
           description: source address Type of number
           format: int8
+        validityPeriod:
+          type: string
+          description: Validity Period
         text:
           type: string
           description: Message content in text
+        shortMessages:
+          type: array
+          description: Array of short messages
+          items:
+            $ref: '#/components/schemas/ShortMessageHex'
+        isConcatTLV:
+          type: boolean
+          description: is this message using TLV for concatenate long SMS
+          default: false
         tlvList:
           type: array
           description: List of optional TLV
           items:
             $ref: '#/components/schemas/SmppTlv'
-        txtParts:
-          type: string
-          description: List of TXT parts in hex dump
-        udhParts:
-          type: string
-          description: List of UDH parts in hex dump
-        validityPeriod:
-          type: string
-          description: Validity Period
       description: BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
     ThroughputSeries:
       title: ThroughputSeries

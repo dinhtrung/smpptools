@@ -21,6 +21,7 @@ docs/EsmeSession.md
 docs/EsmeSessionResourceApi.md
 docs/IsdnList.md
 docs/IsdnListResourceApi.md
+docs/ShortMessageHex.md
 docs/SmppTlv.md
 docs/SmscAccount.md
 docs/SmscAccountResourceApi.md
@@ -36,6 +37,7 @@ model_batch.go
 model_esme_account.go
 model_esme_session.go
 model_isdn_list.go
+model_short_message_hex.go
 model_smpp_tlv.go
 model_smsc_account.go
 model_smsc_instance.go

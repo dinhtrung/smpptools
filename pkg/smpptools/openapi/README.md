@@ -86,21 +86,22 @@ Class | Method | HTTP request | Description
 *BaseSmResourceApi* | [**UpdateBaseSmUsingPUT**](docs/BaseSmResourceApi.md#updatebasesmusingput) | **Put** /api/base-sms/{id} | updateBaseSm
 *EsmeAccountResourceApi* | [**ApiEsmeAccountsIdBatchDelete**](docs/EsmeAccountResourceApi.md#apiesmeaccountsidbatchdelete) | **Delete** /api/esme-accounts/{id}/batch | Stop all batch current running in selected SMSC sessions
 *EsmeAccountResourceApi* | [**CreateEsmeAccountUsingPOST**](docs/EsmeAccountResourceApi.md#createesmeaccountusingpost) | **Post** /api/esme-accounts | createEsmeAccount
-*EsmeAccountResourceApi* | [**DeleteEsmeAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#deleteesmeaccountusingdelete) | **Delete** /api/esme-accounts/{id} | deleteEsmeAccount
+*EsmeAccountResourceApi* | [**DeleteEsmeAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#deleteesmeaccountusingdelete) | **Delete** /api/esme-accounts/{accountID} | deleteEsmeAccount
 *EsmeAccountResourceApi* | [**GetAllEsmeAccountsUsingGET**](docs/EsmeAccountResourceApi.md#getallesmeaccountsusingget) | **Get** /api/esme-accounts | getAllEsmeAccounts
-*EsmeAccountResourceApi* | [**GetEsmeAccountUsingGET**](docs/EsmeAccountResourceApi.md#getesmeaccountusingget) | **Get** /api/esme-accounts/{id} | getEsmeAccount
-*EsmeAccountResourceApi* | [**PartialUpdateEsmeAccountUsingPATCH**](docs/EsmeAccountResourceApi.md#partialupdateesmeaccountusingpatch) | **Patch** /api/esme-accounts/{id} | partialUpdateEsmeAccount
+*EsmeAccountResourceApi* | [**GetAllEsmeSessionsByAccountUsingGET**](docs/EsmeAccountResourceApi.md#getallesmesessionsbyaccountusingget) | **Get** /api/esme-accounts/{accountID}/esme-sessions | Retrieve all active session for current account
+*EsmeAccountResourceApi* | [**GetEsmeAccountUsingGET**](docs/EsmeAccountResourceApi.md#getesmeaccountusingget) | **Get** /api/esme-accounts/{accountID} | getEsmeAccount
+*EsmeAccountResourceApi* | [**PartialUpdateEsmeAccountUsingPATCH**](docs/EsmeAccountResourceApi.md#partialupdateesmeaccountusingpatch) | **Patch** /api/esme-accounts/{accountID} | partialUpdateEsmeAccount
 *EsmeAccountResourceApi* | [**SendMobileTerminatedSMSOnAccountUsingPOST**](docs/EsmeAccountResourceApi.md#sendmobileterminatedsmsonaccountusingpost) | **Post** /api/esme-accounts/{id}/send-mt | Send Mobile Terminated SMS on selected SMSC account during Functional Testing
 *EsmeAccountResourceApi* | [**SendSMSonSMSCsessionUsingPOST**](docs/EsmeAccountResourceApi.md#sendsmsonsmscsessionusingpost) | **Post** /api/esme-accounts/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-*EsmeAccountResourceApi* | [**StopAllEsmeSessionsForAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#stopallesmesessionsforaccountusingdelete) | **Delete** /api/esme-accounts/{id}/stop-all | Stop all active SMPP sessions from this account
-*EsmeAccountResourceApi* | [**UpdateEsmeAccountUsingPUT**](docs/EsmeAccountResourceApi.md#updateesmeaccountusingput) | **Put** /api/esme-accounts/{id} | updateEsmeAccount
+*EsmeAccountResourceApi* | [**StopAllEsmeSessionsForAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#stopallesmesessionsforaccountusingdelete) | **Delete** /api/esme-accounts/{accountID}/esme-sessions | Stop all active SMPP sessions from this account
+*EsmeAccountResourceApi* | [**UpdateEsmeAccountUsingPUT**](docs/EsmeAccountResourceApi.md#updateesmeaccountusingput) | **Put** /api/esme-accounts/{accountID} | updateEsmeAccount
 *EsmeSessionResourceApi* | [**CreateEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#createesmesessionusingpost) | **Post** /api/esme-sessions | Create a new SMPP Session from ESME based on given account
 *EsmeSessionResourceApi* | [**DeleteEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#deleteesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID} | deleteEsmeSession
 *EsmeSessionResourceApi* | [**GetAllEsmeSessions**](docs/EsmeSessionResourceApi.md#getallesmesessions) | **Get** /api/esme-sessions | getAllEsmeSessions
 *EsmeSessionResourceApi* | [**GetEsmeSessionUsingGET**](docs/EsmeSessionResourceApi.md#getesmesessionusingget) | **Get** /api/esme-sessions/{sessionID} | View ESME Session Details
 *EsmeSessionResourceApi* | [**PartialUpdateEsmeSessionUsingPATCH**](docs/EsmeSessionResourceApi.md#partialupdateesmesessionusingpatch) | **Patch** /api/esme-sessions/{sessionID} | partialUpdateEsmeSession
-*EsmeSessionResourceApi* | [**SendSMSonEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#sendsmsonesmesessionusingpost) | **Post** /api/esme-sessions/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-*EsmeSessionResourceApi* | [**StopAllBachOnEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#stopallbachonesmesessionusingdelete) | **Delete** /api/esme-sessions/{id}/batch | Stop all batch current running in selected SMSC sessions
+*EsmeSessionResourceApi* | [**SendSMSonEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#sendsmsonesmesessionusingpost) | **Post** /api/esme-sessions/{sessionID}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
+*EsmeSessionResourceApi* | [**StopAllBachOnEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#stopallbachonesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID}/batch | Stop all batch current running in selected SMSC sessions
 *EsmeSessionResourceApi* | [**UpdateEsmeSessionUsingPUT**](docs/EsmeSessionResourceApi.md#updateesmesessionusingput) | **Put** /api/esme-sessions/{sessionID} | updateEsmeSession
 *IsdnListResourceApi* | [**CreateIsdnListUsingPOST**](docs/IsdnListResourceApi.md#createisdnlistusingpost) | **Post** /api/isdn-lists | createIsdnList
 *IsdnListResourceApi* | [**DeleteIsdnListUsingDELETE**](docs/IsdnListResourceApi.md#deleteisdnlistusingdelete) | **Delete** /api/isdn-lists/{id} | deleteIsdnList
@@ -151,6 +152,7 @@ Class | Method | HTTP request | Description
  - [EsmeAccount](docs/EsmeAccount.md)
  - [EsmeSession](docs/EsmeSession.md)
  - [IsdnList](docs/IsdnList.md)
+ - [ShortMessageHex](docs/ShortMessageHex.md)
  - [SmppTlv](docs/SmppTlv.md)
  - [SmscAccount](docs/SmscAccount.md)
  - [SmscInstance](docs/SmscInstance.md)

@@ -232,7 +232,7 @@ func (a *EsmeAccountResourceApiService) CreateEsmeAccountUsingPOSTExecute(r ApiC
 type ApiDeleteEsmeAccountUsingDELETERequest struct {
 	ctx _context.Context
 	ApiService *EsmeAccountResourceApiService
-	id string
+	accountID string
 }
 
 
@@ -243,14 +243,14 @@ func (r ApiDeleteEsmeAccountUsingDELETERequest) Execute() (*_nethttp.Response, e
 /*
  * DeleteEsmeAccountUsingDELETE deleteEsmeAccount
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
+ * @param accountID id
  * @return ApiDeleteEsmeAccountUsingDELETERequest
  */
-func (a *EsmeAccountResourceApiService) DeleteEsmeAccountUsingDELETE(ctx _context.Context, id string) ApiDeleteEsmeAccountUsingDELETERequest {
+func (a *EsmeAccountResourceApiService) DeleteEsmeAccountUsingDELETE(ctx _context.Context, accountID string) ApiDeleteEsmeAccountUsingDELETERequest {
 	return ApiDeleteEsmeAccountUsingDELETERequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		accountID: accountID,
 	}
 }
 
@@ -271,8 +271,8 @@ func (a *EsmeAccountResourceApiService) DeleteEsmeAccountUsingDELETEExecute(r Ap
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -424,10 +424,115 @@ func (a *EsmeAccountResourceApiService) GetAllEsmeAccountsUsingGETExecute(r ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAllEsmeSessionsByAccountUsingGETRequest struct {
+	ctx _context.Context
+	ApiService *EsmeAccountResourceApiService
+	accountID string
+}
+
+
+func (r ApiGetAllEsmeSessionsByAccountUsingGETRequest) Execute() (EsmeSession, *_nethttp.Response, error) {
+	return r.ApiService.GetAllEsmeSessionsByAccountUsingGETExecute(r)
+}
+
+/*
+ * GetAllEsmeSessionsByAccountUsingGET Retrieve all active session for current account
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param accountID ID of selected session
+ * @return ApiGetAllEsmeSessionsByAccountUsingGETRequest
+ */
+func (a *EsmeAccountResourceApiService) GetAllEsmeSessionsByAccountUsingGET(ctx _context.Context, accountID string) ApiGetAllEsmeSessionsByAccountUsingGETRequest {
+	return ApiGetAllEsmeSessionsByAccountUsingGETRequest{
+		ApiService: a,
+		ctx: ctx,
+		accountID: accountID,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return EsmeSession
+ */
+func (a *EsmeAccountResourceApiService) GetAllEsmeSessionsByAccountUsingGETExecute(r ApiGetAllEsmeSessionsByAccountUsingGETRequest) (EsmeSession, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  EsmeSession
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeAccountResourceApiService.GetAllEsmeSessionsByAccountUsingGET")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/esme-sessions"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetEsmeAccountUsingGETRequest struct {
 	ctx _context.Context
 	ApiService *EsmeAccountResourceApiService
-	id string
+	accountID string
 }
 
 
@@ -438,14 +543,14 @@ func (r ApiGetEsmeAccountUsingGETRequest) Execute() (EsmeAccount, *_nethttp.Resp
 /*
  * GetEsmeAccountUsingGET getEsmeAccount
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
+ * @param accountID id
  * @return ApiGetEsmeAccountUsingGETRequest
  */
-func (a *EsmeAccountResourceApiService) GetEsmeAccountUsingGET(ctx _context.Context, id string) ApiGetEsmeAccountUsingGETRequest {
+func (a *EsmeAccountResourceApiService) GetEsmeAccountUsingGET(ctx _context.Context, accountID string) ApiGetEsmeAccountUsingGETRequest {
 	return ApiGetEsmeAccountUsingGETRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		accountID: accountID,
 	}
 }
 
@@ -468,8 +573,8 @@ func (a *EsmeAccountResourceApiService) GetEsmeAccountUsingGETExecute(r ApiGetEs
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -532,7 +637,7 @@ func (a *EsmeAccountResourceApiService) GetEsmeAccountUsingGETExecute(r ApiGetEs
 type ApiPartialUpdateEsmeAccountUsingPATCHRequest struct {
 	ctx _context.Context
 	ApiService *EsmeAccountResourceApiService
-	id string
+	accountID string
 	esmeAccount *EsmeAccount
 }
 
@@ -548,14 +653,14 @@ func (r ApiPartialUpdateEsmeAccountUsingPATCHRequest) Execute() (EsmeAccount, *_
 /*
  * PartialUpdateEsmeAccountUsingPATCH partialUpdateEsmeAccount
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
+ * @param accountID id
  * @return ApiPartialUpdateEsmeAccountUsingPATCHRequest
  */
-func (a *EsmeAccountResourceApiService) PartialUpdateEsmeAccountUsingPATCH(ctx _context.Context, id string) ApiPartialUpdateEsmeAccountUsingPATCHRequest {
+func (a *EsmeAccountResourceApiService) PartialUpdateEsmeAccountUsingPATCH(ctx _context.Context, accountID string) ApiPartialUpdateEsmeAccountUsingPATCHRequest {
 	return ApiPartialUpdateEsmeAccountUsingPATCHRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		accountID: accountID,
 	}
 }
 
@@ -578,8 +683,8 @@ func (a *EsmeAccountResourceApiService) PartialUpdateEsmeAccountUsingPATCHExecut
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -846,7 +951,7 @@ func (a *EsmeAccountResourceApiService) SendSMSonSMSCsessionUsingPOSTExecute(r A
 type ApiStopAllEsmeSessionsForAccountUsingDELETERequest struct {
 	ctx _context.Context
 	ApiService *EsmeAccountResourceApiService
-	id string
+	accountID string
 }
 
 
@@ -857,14 +962,14 @@ func (r ApiStopAllEsmeSessionsForAccountUsingDELETERequest) Execute() (*_nethttp
 /*
  * StopAllEsmeSessionsForAccountUsingDELETE Stop all active SMPP sessions from this account
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id ID of selected session
+ * @param accountID ID of selected session
  * @return ApiStopAllEsmeSessionsForAccountUsingDELETERequest
  */
-func (a *EsmeAccountResourceApiService) StopAllEsmeSessionsForAccountUsingDELETE(ctx _context.Context, id string) ApiStopAllEsmeSessionsForAccountUsingDELETERequest {
+func (a *EsmeAccountResourceApiService) StopAllEsmeSessionsForAccountUsingDELETE(ctx _context.Context, accountID string) ApiStopAllEsmeSessionsForAccountUsingDELETERequest {
 	return ApiStopAllEsmeSessionsForAccountUsingDELETERequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		accountID: accountID,
 	}
 }
 
@@ -885,8 +990,8 @@ func (a *EsmeAccountResourceApiService) StopAllEsmeSessionsForAccountUsingDELETE
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{id}/stop-all"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/esme-sessions"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -940,7 +1045,7 @@ func (a *EsmeAccountResourceApiService) StopAllEsmeSessionsForAccountUsingDELETE
 type ApiUpdateEsmeAccountUsingPUTRequest struct {
 	ctx _context.Context
 	ApiService *EsmeAccountResourceApiService
-	id string
+	accountID string
 	esmeAccount *EsmeAccount
 }
 
@@ -956,14 +1061,14 @@ func (r ApiUpdateEsmeAccountUsingPUTRequest) Execute() (EsmeAccount, *_nethttp.R
 /*
  * UpdateEsmeAccountUsingPUT updateEsmeAccount
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id id
+ * @param accountID id
  * @return ApiUpdateEsmeAccountUsingPUTRequest
  */
-func (a *EsmeAccountResourceApiService) UpdateEsmeAccountUsingPUT(ctx _context.Context, id string) ApiUpdateEsmeAccountUsingPUTRequest {
+func (a *EsmeAccountResourceApiService) UpdateEsmeAccountUsingPUT(ctx _context.Context, accountID string) ApiUpdateEsmeAccountUsingPUTRequest {
 	return ApiUpdateEsmeAccountUsingPUTRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		accountID: accountID,
 	}
 }
 
@@ -986,8 +1091,8 @@ func (a *EsmeAccountResourceApiService) UpdateEsmeAccountUsingPUTExecute(r ApiUp
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

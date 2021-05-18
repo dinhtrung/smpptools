@@ -6,14 +6,15 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ApiEsmeAccountsIdBatchDelete**](EsmeAccountResourceApi.md#ApiEsmeAccountsIdBatchDelete) | **Delete** /api/esme-accounts/{id}/batch | Stop all batch current running in selected SMSC sessions
 [**CreateEsmeAccountUsingPOST**](EsmeAccountResourceApi.md#CreateEsmeAccountUsingPOST) | **Post** /api/esme-accounts | createEsmeAccount
-[**DeleteEsmeAccountUsingDELETE**](EsmeAccountResourceApi.md#DeleteEsmeAccountUsingDELETE) | **Delete** /api/esme-accounts/{id} | deleteEsmeAccount
+[**DeleteEsmeAccountUsingDELETE**](EsmeAccountResourceApi.md#DeleteEsmeAccountUsingDELETE) | **Delete** /api/esme-accounts/{accountID} | deleteEsmeAccount
 [**GetAllEsmeAccountsUsingGET**](EsmeAccountResourceApi.md#GetAllEsmeAccountsUsingGET) | **Get** /api/esme-accounts | getAllEsmeAccounts
-[**GetEsmeAccountUsingGET**](EsmeAccountResourceApi.md#GetEsmeAccountUsingGET) | **Get** /api/esme-accounts/{id} | getEsmeAccount
-[**PartialUpdateEsmeAccountUsingPATCH**](EsmeAccountResourceApi.md#PartialUpdateEsmeAccountUsingPATCH) | **Patch** /api/esme-accounts/{id} | partialUpdateEsmeAccount
+[**GetAllEsmeSessionsByAccountUsingGET**](EsmeAccountResourceApi.md#GetAllEsmeSessionsByAccountUsingGET) | **Get** /api/esme-accounts/{accountID}/esme-sessions | Retrieve all active session for current account
+[**GetEsmeAccountUsingGET**](EsmeAccountResourceApi.md#GetEsmeAccountUsingGET) | **Get** /api/esme-accounts/{accountID} | getEsmeAccount
+[**PartialUpdateEsmeAccountUsingPATCH**](EsmeAccountResourceApi.md#PartialUpdateEsmeAccountUsingPATCH) | **Patch** /api/esme-accounts/{accountID} | partialUpdateEsmeAccount
 [**SendMobileTerminatedSMSOnAccountUsingPOST**](EsmeAccountResourceApi.md#SendMobileTerminatedSMSOnAccountUsingPOST) | **Post** /api/esme-accounts/{id}/send-mt | Send Mobile Terminated SMS on selected SMSC account during Functional Testing
 [**SendSMSonSMSCsessionUsingPOST**](EsmeAccountResourceApi.md#SendSMSonSMSCsessionUsingPOST) | **Post** /api/esme-accounts/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-[**StopAllEsmeSessionsForAccountUsingDELETE**](EsmeAccountResourceApi.md#StopAllEsmeSessionsForAccountUsingDELETE) | **Delete** /api/esme-accounts/{id}/stop-all | Stop all active SMPP sessions from this account
-[**UpdateEsmeAccountUsingPUT**](EsmeAccountResourceApi.md#UpdateEsmeAccountUsingPUT) | **Put** /api/esme-accounts/{id} | updateEsmeAccount
+[**StopAllEsmeSessionsForAccountUsingDELETE**](EsmeAccountResourceApi.md#StopAllEsmeSessionsForAccountUsingDELETE) | **Delete** /api/esme-accounts/{accountID}/esme-sessions | Stop all active SMPP sessions from this account
+[**UpdateEsmeAccountUsingPUT**](EsmeAccountResourceApi.md#UpdateEsmeAccountUsingPUT) | **Put** /api/esme-accounts/{accountID} | updateEsmeAccount
 
 
 
@@ -149,7 +150,7 @@ No authorization required
 
 ## DeleteEsmeAccountUsingDELETE
 
-> DeleteEsmeAccountUsingDELETE(ctx, id).Execute()
+> DeleteEsmeAccountUsingDELETE(ctx, accountID).Execute()
 
 deleteEsmeAccount
 
@@ -166,11 +167,11 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    accountID := "accountID_example" // string | id
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeAccountResourceApi.DeleteEsmeAccountUsingDELETE(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeAccountResourceApi.DeleteEsmeAccountUsingDELETE(context.Background(), accountID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.DeleteEsmeAccountUsingDELETE``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -184,7 +185,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**accountID** | **string** | id | 
 
 ### Other Parameters
 
@@ -272,9 +273,77 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetAllEsmeSessionsByAccountUsingGET
+
+> EsmeSession GetAllEsmeSessionsByAccountUsingGET(ctx, accountID).Execute()
+
+Retrieve all active session for current account
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountID := "accountID_example" // string | ID of selected session
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EsmeAccountResourceApi.GetAllEsmeSessionsByAccountUsingGET(context.Background(), accountID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.GetAllEsmeSessionsByAccountUsingGET``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAllEsmeSessionsByAccountUsingGET`: EsmeSession
+    fmt.Fprintf(os.Stdout, "Response from `EsmeAccountResourceApi.GetAllEsmeSessionsByAccountUsingGET`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountID** | **string** | ID of selected session | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAllEsmeSessionsByAccountUsingGETRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**EsmeSession**](EsmeSession.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetEsmeAccountUsingGET
 
-> EsmeAccount GetEsmeAccountUsingGET(ctx, id).Execute()
+> EsmeAccount GetEsmeAccountUsingGET(ctx, accountID).Execute()
 
 getEsmeAccount
 
@@ -291,11 +360,11 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    accountID := "accountID_example" // string | id
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeAccountResourceApi.GetEsmeAccountUsingGET(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeAccountResourceApi.GetEsmeAccountUsingGET(context.Background(), accountID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.GetEsmeAccountUsingGET``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -311,7 +380,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**accountID** | **string** | id | 
 
 ### Other Parameters
 
@@ -342,7 +411,7 @@ No authorization required
 
 ## PartialUpdateEsmeAccountUsingPATCH
 
-> EsmeAccount PartialUpdateEsmeAccountUsingPATCH(ctx, id).EsmeAccount(esmeAccount).Execute()
+> EsmeAccount PartialUpdateEsmeAccountUsingPATCH(ctx, accountID).EsmeAccount(esmeAccount).Execute()
 
 partialUpdateEsmeAccount
 
@@ -359,12 +428,12 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    accountID := "accountID_example" // string | id
     esmeAccount := *openapiclient.NewEsmeAccount("Name_example") // EsmeAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeAccountResourceApi.PartialUpdateEsmeAccountUsingPATCH(context.Background(), id).EsmeAccount(esmeAccount).Execute()
+    resp, r, err := api_client.EsmeAccountResourceApi.PartialUpdateEsmeAccountUsingPATCH(context.Background(), accountID).EsmeAccount(esmeAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.PartialUpdateEsmeAccountUsingPATCH``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -380,7 +449,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**accountID** | **string** | id | 
 
 ### Other Parameters
 
@@ -548,7 +617,7 @@ No authorization required
 
 ## StopAllEsmeSessionsForAccountUsingDELETE
 
-> StopAllEsmeSessionsForAccountUsingDELETE(ctx, id).Execute()
+> StopAllEsmeSessionsForAccountUsingDELETE(ctx, accountID).Execute()
 
 Stop all active SMPP sessions from this account
 
@@ -565,11 +634,11 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | ID of selected session
+    accountID := "accountID_example" // string | ID of selected session
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeAccountResourceApi.StopAllEsmeSessionsForAccountUsingDELETE(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeAccountResourceApi.StopAllEsmeSessionsForAccountUsingDELETE(context.Background(), accountID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.StopAllEsmeSessionsForAccountUsingDELETE``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -583,7 +652,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID of selected session | 
+**accountID** | **string** | ID of selected session | 
 
 ### Other Parameters
 
@@ -614,7 +683,7 @@ No authorization required
 
 ## UpdateEsmeAccountUsingPUT
 
-> EsmeAccount UpdateEsmeAccountUsingPUT(ctx, id).EsmeAccount(esmeAccount).Execute()
+> EsmeAccount UpdateEsmeAccountUsingPUT(ctx, accountID).EsmeAccount(esmeAccount).Execute()
 
 updateEsmeAccount
 
@@ -631,12 +700,12 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | id
+    accountID := "accountID_example" // string | id
     esmeAccount := *openapiclient.NewEsmeAccount("Name_example") // EsmeAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeAccountResourceApi.UpdateEsmeAccountUsingPUT(context.Background(), id).EsmeAccount(esmeAccount).Execute()
+    resp, r, err := api_client.EsmeAccountResourceApi.UpdateEsmeAccountUsingPUT(context.Background(), accountID).EsmeAccount(esmeAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeAccountResourceApi.UpdateEsmeAccountUsingPUT``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -652,7 +721,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id | 
+**accountID** | **string** | id | 
 
 ### Other Parameters
 

@@ -51,16 +51,16 @@ type BaseSm struct {
 	SourceNPI *int32 `json:"sourceNPI,omitempty"`
 	// source address Type of number
 	SourceTON *int32 `json:"sourceTON,omitempty"`
-	// Message content in text
-	Text *string `json:"text,omitempty"`
-	// List of optional TLV
-	TlvList *[]SmppTlv `json:"tlvList,omitempty"`
-	// List of TXT parts in hex dump
-	TxtParts *string `json:"txtParts,omitempty"`
-	// List of UDH parts in hex dump
-	UdhParts *string `json:"udhParts,omitempty"`
 	// Validity Period
 	ValidityPeriod *string `json:"validityPeriod,omitempty"`
+	// Message content in text
+	Text *string `json:"text,omitempty"`
+	// Array of short messages
+	ShortMessages *[]ShortMessageHex `json:"shortMessages,omitempty"`
+	// is this message using TLV for concatenate long SMS
+	IsConcatTLV *bool `json:"isConcatTLV,omitempty"`
+	// List of optional TLV
+	TlvList *[]SmppTlv `json:"tlvList,omitempty"`
 }
 
 // NewBaseSm instantiates a new BaseSm object
@@ -69,6 +69,8 @@ type BaseSm struct {
 // will change when the set of required properties is changed
 func NewBaseSm() *BaseSm {
 	this := BaseSm{}
+	var isConcatTLV bool = false
+	this.IsConcatTLV = &isConcatTLV
 	return &this
 }
 
@@ -77,6 +79,8 @@ func NewBaseSm() *BaseSm {
 // but it doesn't guarantee that properties required by API are set
 func NewBaseSmWithDefaults() *BaseSm {
 	this := BaseSm{}
+	var isConcatTLV bool = false
+	this.IsConcatTLV = &isConcatTLV
 	return &this
 }
 
@@ -656,6 +660,38 @@ func (o *BaseSm) SetSourceTON(v int32) {
 	o.SourceTON = &v
 }
 
+// GetValidityPeriod returns the ValidityPeriod field value if set, zero value otherwise.
+func (o *BaseSm) GetValidityPeriod() string {
+	if o == nil || o.ValidityPeriod == nil {
+		var ret string
+		return ret
+	}
+	return *o.ValidityPeriod
+}
+
+// GetValidityPeriodOk returns a tuple with the ValidityPeriod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetValidityPeriodOk() (*string, bool) {
+	if o == nil || o.ValidityPeriod == nil {
+		return nil, false
+	}
+	return o.ValidityPeriod, true
+}
+
+// HasValidityPeriod returns a boolean if a field has been set.
+func (o *BaseSm) HasValidityPeriod() bool {
+	if o != nil && o.ValidityPeriod != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValidityPeriod gets a reference to the given string and assigns it to the ValidityPeriod field.
+func (o *BaseSm) SetValidityPeriod(v string) {
+	o.ValidityPeriod = &v
+}
+
 // GetText returns the Text field value if set, zero value otherwise.
 func (o *BaseSm) GetText() string {
 	if o == nil || o.Text == nil {
@@ -688,6 +724,70 @@ func (o *BaseSm) SetText(v string) {
 	o.Text = &v
 }
 
+// GetShortMessages returns the ShortMessages field value if set, zero value otherwise.
+func (o *BaseSm) GetShortMessages() []ShortMessageHex {
+	if o == nil || o.ShortMessages == nil {
+		var ret []ShortMessageHex
+		return ret
+	}
+	return *o.ShortMessages
+}
+
+// GetShortMessagesOk returns a tuple with the ShortMessages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetShortMessagesOk() (*[]ShortMessageHex, bool) {
+	if o == nil || o.ShortMessages == nil {
+		return nil, false
+	}
+	return o.ShortMessages, true
+}
+
+// HasShortMessages returns a boolean if a field has been set.
+func (o *BaseSm) HasShortMessages() bool {
+	if o != nil && o.ShortMessages != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetShortMessages gets a reference to the given []ShortMessageHex and assigns it to the ShortMessages field.
+func (o *BaseSm) SetShortMessages(v []ShortMessageHex) {
+	o.ShortMessages = &v
+}
+
+// GetIsConcatTLV returns the IsConcatTLV field value if set, zero value otherwise.
+func (o *BaseSm) GetIsConcatTLV() bool {
+	if o == nil || o.IsConcatTLV == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsConcatTLV
+}
+
+// GetIsConcatTLVOk returns a tuple with the IsConcatTLV field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseSm) GetIsConcatTLVOk() (*bool, bool) {
+	if o == nil || o.IsConcatTLV == nil {
+		return nil, false
+	}
+	return o.IsConcatTLV, true
+}
+
+// HasIsConcatTLV returns a boolean if a field has been set.
+func (o *BaseSm) HasIsConcatTLV() bool {
+	if o != nil && o.IsConcatTLV != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsConcatTLV gets a reference to the given bool and assigns it to the IsConcatTLV field.
+func (o *BaseSm) SetIsConcatTLV(v bool) {
+	o.IsConcatTLV = &v
+}
+
 // GetTlvList returns the TlvList field value if set, zero value otherwise.
 func (o *BaseSm) GetTlvList() []SmppTlv {
 	if o == nil || o.TlvList == nil {
@@ -718,102 +818,6 @@ func (o *BaseSm) HasTlvList() bool {
 // SetTlvList gets a reference to the given []SmppTlv and assigns it to the TlvList field.
 func (o *BaseSm) SetTlvList(v []SmppTlv) {
 	o.TlvList = &v
-}
-
-// GetTxtParts returns the TxtParts field value if set, zero value otherwise.
-func (o *BaseSm) GetTxtParts() string {
-	if o == nil || o.TxtParts == nil {
-		var ret string
-		return ret
-	}
-	return *o.TxtParts
-}
-
-// GetTxtPartsOk returns a tuple with the TxtParts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseSm) GetTxtPartsOk() (*string, bool) {
-	if o == nil || o.TxtParts == nil {
-		return nil, false
-	}
-	return o.TxtParts, true
-}
-
-// HasTxtParts returns a boolean if a field has been set.
-func (o *BaseSm) HasTxtParts() bool {
-	if o != nil && o.TxtParts != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTxtParts gets a reference to the given string and assigns it to the TxtParts field.
-func (o *BaseSm) SetTxtParts(v string) {
-	o.TxtParts = &v
-}
-
-// GetUdhParts returns the UdhParts field value if set, zero value otherwise.
-func (o *BaseSm) GetUdhParts() string {
-	if o == nil || o.UdhParts == nil {
-		var ret string
-		return ret
-	}
-	return *o.UdhParts
-}
-
-// GetUdhPartsOk returns a tuple with the UdhParts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseSm) GetUdhPartsOk() (*string, bool) {
-	if o == nil || o.UdhParts == nil {
-		return nil, false
-	}
-	return o.UdhParts, true
-}
-
-// HasUdhParts returns a boolean if a field has been set.
-func (o *BaseSm) HasUdhParts() bool {
-	if o != nil && o.UdhParts != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUdhParts gets a reference to the given string and assigns it to the UdhParts field.
-func (o *BaseSm) SetUdhParts(v string) {
-	o.UdhParts = &v
-}
-
-// GetValidityPeriod returns the ValidityPeriod field value if set, zero value otherwise.
-func (o *BaseSm) GetValidityPeriod() string {
-	if o == nil || o.ValidityPeriod == nil {
-		var ret string
-		return ret
-	}
-	return *o.ValidityPeriod
-}
-
-// GetValidityPeriodOk returns a tuple with the ValidityPeriod field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseSm) GetValidityPeriodOk() (*string, bool) {
-	if o == nil || o.ValidityPeriod == nil {
-		return nil, false
-	}
-	return o.ValidityPeriod, true
-}
-
-// HasValidityPeriod returns a boolean if a field has been set.
-func (o *BaseSm) HasValidityPeriod() bool {
-	if o != nil && o.ValidityPeriod != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValidityPeriod gets a reference to the given string and assigns it to the ValidityPeriod field.
-func (o *BaseSm) SetValidityPeriod(v string) {
-	o.ValidityPeriod = &v
 }
 
 func (o BaseSm) MarshalJSON() ([]byte, error) {
@@ -872,20 +876,20 @@ func (o BaseSm) MarshalJSON() ([]byte, error) {
 	if o.SourceTON != nil {
 		toSerialize["sourceTON"] = o.SourceTON
 	}
+	if o.ValidityPeriod != nil {
+		toSerialize["validityPeriod"] = o.ValidityPeriod
+	}
 	if o.Text != nil {
 		toSerialize["text"] = o.Text
 	}
+	if o.ShortMessages != nil {
+		toSerialize["shortMessages"] = o.ShortMessages
+	}
+	if o.IsConcatTLV != nil {
+		toSerialize["isConcatTLV"] = o.IsConcatTLV
+	}
 	if o.TlvList != nil {
 		toSerialize["tlvList"] = o.TlvList
-	}
-	if o.TxtParts != nil {
-		toSerialize["txtParts"] = o.TxtParts
-	}
-	if o.UdhParts != nil {
-		toSerialize["udhParts"] = o.UdhParts
-	}
-	if o.ValidityPeriod != nil {
-		toSerialize["validityPeriod"] = o.ValidityPeriod
 	}
 	return json.Marshal(toSerialize)
 }

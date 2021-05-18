@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
+	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/services/mappers"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/gofiber/fiber/v2"
 )
@@ -17,6 +18,19 @@ func CreateBaseSmUsingPOST(c *fiber.Ctx) error {
 	if err := instances.BaseSmRepo.Save(req); err != nil {
 		return err
 	}
+	return c.JSON(req)
+}
+
+// ConvertTextUsingPost convert request .text into txtParts and udhParts for long messages if neccessary
+func ConvertTextUsingPOST(c *fiber.Ctx) error {
+	req := openapi.NewBaseSm()
+	if err := c.BodyParser(req); err != nil {
+		return err
+	}
+	if req.GetText() == "" {
+		return fiber.ErrBadRequest
+	}
+	mappers.SplitShortMessages(req)
 	return c.JSON(req)
 }
 

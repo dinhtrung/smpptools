@@ -79,7 +79,7 @@ func (c *EsmeSimulator) Start() error {
 	}
 	if err == nil {
 		c.config.SetId(c.Session.ID())
-		c.config.SetLocalAddr(c.Session.LemoteAddr())
+		c.config.SetLocalAddr(c.Session.LocalAddr())
 		c.config.SetCreatedAt(time.Now())
 		// + save to DB
 		instances.EsmeSessionRepo.Save(c.config)

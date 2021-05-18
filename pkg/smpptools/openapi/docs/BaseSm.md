@@ -22,11 +22,11 @@ Name | Type | Description | Notes
 **SourceAddr** | Pointer to **string** | source address | [optional] 
 **SourceNPI** | Pointer to **int32** | source address Number plan indication | [optional] 
 **SourceTON** | Pointer to **int32** | source address Type of number | [optional] 
-**Text** | Pointer to **string** | Message content in text | [optional] 
-**TlvList** | Pointer to [**[]SmppTlv**](SmppTlv.md) | List of optional TLV | [optional] 
-**TxtParts** | Pointer to **string** | List of TXT parts in hex dump | [optional] 
-**UdhParts** | Pointer to **string** | List of UDH parts in hex dump | [optional] 
 **ValidityPeriod** | Pointer to **string** | Validity Period | [optional] 
+**Text** | Pointer to **string** | Message content in text | [optional] 
+**ShortMessages** | Pointer to [**[]ShortMessageHex**](ShortMessageHex.md) | Array of short messages | [optional] 
+**IsConcatTLV** | Pointer to **bool** | is this message using TLV for concatenate long SMS | [optional] [default to false]
+**TlvList** | Pointer to [**[]SmppTlv**](SmppTlv.md) | List of optional TLV | [optional] 
 
 ## Methods
 
@@ -497,6 +497,31 @@ SetSourceTON sets SourceTON field to given value.
 
 HasSourceTON returns a boolean if a field has been set.
 
+### GetValidityPeriod
+
+`func (o *BaseSm) GetValidityPeriod() string`
+
+GetValidityPeriod returns the ValidityPeriod field if non-nil, zero value otherwise.
+
+### GetValidityPeriodOk
+
+`func (o *BaseSm) GetValidityPeriodOk() (*string, bool)`
+
+GetValidityPeriodOk returns a tuple with the ValidityPeriod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValidityPeriod
+
+`func (o *BaseSm) SetValidityPeriod(v string)`
+
+SetValidityPeriod sets ValidityPeriod field to given value.
+
+### HasValidityPeriod
+
+`func (o *BaseSm) HasValidityPeriod() bool`
+
+HasValidityPeriod returns a boolean if a field has been set.
+
 ### GetText
 
 `func (o *BaseSm) GetText() string`
@@ -522,6 +547,56 @@ SetText sets Text field to given value.
 
 HasText returns a boolean if a field has been set.
 
+### GetShortMessages
+
+`func (o *BaseSm) GetShortMessages() []ShortMessageHex`
+
+GetShortMessages returns the ShortMessages field if non-nil, zero value otherwise.
+
+### GetShortMessagesOk
+
+`func (o *BaseSm) GetShortMessagesOk() (*[]ShortMessageHex, bool)`
+
+GetShortMessagesOk returns a tuple with the ShortMessages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShortMessages
+
+`func (o *BaseSm) SetShortMessages(v []ShortMessageHex)`
+
+SetShortMessages sets ShortMessages field to given value.
+
+### HasShortMessages
+
+`func (o *BaseSm) HasShortMessages() bool`
+
+HasShortMessages returns a boolean if a field has been set.
+
+### GetIsConcatTLV
+
+`func (o *BaseSm) GetIsConcatTLV() bool`
+
+GetIsConcatTLV returns the IsConcatTLV field if non-nil, zero value otherwise.
+
+### GetIsConcatTLVOk
+
+`func (o *BaseSm) GetIsConcatTLVOk() (*bool, bool)`
+
+GetIsConcatTLVOk returns a tuple with the IsConcatTLV field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsConcatTLV
+
+`func (o *BaseSm) SetIsConcatTLV(v bool)`
+
+SetIsConcatTLV sets IsConcatTLV field to given value.
+
+### HasIsConcatTLV
+
+`func (o *BaseSm) HasIsConcatTLV() bool`
+
+HasIsConcatTLV returns a boolean if a field has been set.
+
 ### GetTlvList
 
 `func (o *BaseSm) GetTlvList() []SmppTlv`
@@ -546,81 +621,6 @@ SetTlvList sets TlvList field to given value.
 `func (o *BaseSm) HasTlvList() bool`
 
 HasTlvList returns a boolean if a field has been set.
-
-### GetTxtParts
-
-`func (o *BaseSm) GetTxtParts() string`
-
-GetTxtParts returns the TxtParts field if non-nil, zero value otherwise.
-
-### GetTxtPartsOk
-
-`func (o *BaseSm) GetTxtPartsOk() (*string, bool)`
-
-GetTxtPartsOk returns a tuple with the TxtParts field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTxtParts
-
-`func (o *BaseSm) SetTxtParts(v string)`
-
-SetTxtParts sets TxtParts field to given value.
-
-### HasTxtParts
-
-`func (o *BaseSm) HasTxtParts() bool`
-
-HasTxtParts returns a boolean if a field has been set.
-
-### GetUdhParts
-
-`func (o *BaseSm) GetUdhParts() string`
-
-GetUdhParts returns the UdhParts field if non-nil, zero value otherwise.
-
-### GetUdhPartsOk
-
-`func (o *BaseSm) GetUdhPartsOk() (*string, bool)`
-
-GetUdhPartsOk returns a tuple with the UdhParts field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUdhParts
-
-`func (o *BaseSm) SetUdhParts(v string)`
-
-SetUdhParts sets UdhParts field to given value.
-
-### HasUdhParts
-
-`func (o *BaseSm) HasUdhParts() bool`
-
-HasUdhParts returns a boolean if a field has been set.
-
-### GetValidityPeriod
-
-`func (o *BaseSm) GetValidityPeriod() string`
-
-GetValidityPeriod returns the ValidityPeriod field if non-nil, zero value otherwise.
-
-### GetValidityPeriodOk
-
-`func (o *BaseSm) GetValidityPeriodOk() (*string, bool)`
-
-GetValidityPeriodOk returns a tuple with the ValidityPeriod field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidityPeriod
-
-`func (o *BaseSm) SetValidityPeriod(v string)`
-
-SetValidityPeriod sets ValidityPeriod field to given value.
-
-### HasValidityPeriod
-
-`func (o *BaseSm) HasValidityPeriod() bool`
-
-HasValidityPeriod returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

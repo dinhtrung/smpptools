@@ -550,7 +550,7 @@ func (a *EsmeSessionResourceApiService) PartialUpdateEsmeSessionUsingPATCHExecut
 type ApiSendSMSonEsmeSessionUsingPOSTRequest struct {
 	ctx _context.Context
 	ApiService *EsmeSessionResourceApiService
-	id string
+	sessionID string
 	batch *Batch
 }
 
@@ -566,14 +566,14 @@ func (r ApiSendSMSonEsmeSessionUsingPOSTRequest) Execute() (*_nethttp.Response, 
 /*
  * SendSMSonEsmeSessionUsingPOST Send Mobile Originated SMS on selected session with given patterns and data files
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id ID of selected session
+ * @param sessionID ID of selected session
  * @return ApiSendSMSonEsmeSessionUsingPOSTRequest
  */
-func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOST(ctx _context.Context, id string) ApiSendSMSonEsmeSessionUsingPOSTRequest {
+func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOST(ctx _context.Context, sessionID string) ApiSendSMSonEsmeSessionUsingPOSTRequest {
 	return ApiSendSMSonEsmeSessionUsingPOSTRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		sessionID: sessionID,
 	}
 }
 
@@ -594,8 +594,8 @@ func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r A
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-sessions/{id}/batch"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/batch"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -651,7 +651,7 @@ func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r A
 type ApiStopAllBachOnEsmeSessionUsingDELETERequest struct {
 	ctx _context.Context
 	ApiService *EsmeSessionResourceApiService
-	id string
+	sessionID string
 }
 
 
@@ -662,14 +662,14 @@ func (r ApiStopAllBachOnEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Resp
 /*
  * StopAllBachOnEsmeSessionUsingDELETE Stop all batch current running in selected SMSC sessions
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id ID of selected session
+ * @param sessionID ID of selected session
  * @return ApiStopAllBachOnEsmeSessionUsingDELETERequest
  */
-func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETE(ctx _context.Context, id string) ApiStopAllBachOnEsmeSessionUsingDELETERequest {
+func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETE(ctx _context.Context, sessionID string) ApiStopAllBachOnEsmeSessionUsingDELETERequest {
 	return ApiStopAllBachOnEsmeSessionUsingDELETERequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		sessionID: sessionID,
 	}
 }
 
@@ -690,8 +690,8 @@ func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETEExecu
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-sessions/{id}/batch"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/batch"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

@@ -9,8 +9,8 @@ Method | HTTP request | Description
 [**GetAllEsmeSessions**](EsmeSessionResourceApi.md#GetAllEsmeSessions) | **Get** /api/esme-sessions | getAllEsmeSessions
 [**GetEsmeSessionUsingGET**](EsmeSessionResourceApi.md#GetEsmeSessionUsingGET) | **Get** /api/esme-sessions/{sessionID} | View ESME Session Details
 [**PartialUpdateEsmeSessionUsingPATCH**](EsmeSessionResourceApi.md#PartialUpdateEsmeSessionUsingPATCH) | **Patch** /api/esme-sessions/{sessionID} | partialUpdateEsmeSession
-[**SendSMSonEsmeSessionUsingPOST**](EsmeSessionResourceApi.md#SendSMSonEsmeSessionUsingPOST) | **Post** /api/esme-sessions/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-[**StopAllBachOnEsmeSessionUsingDELETE**](EsmeSessionResourceApi.md#StopAllBachOnEsmeSessionUsingDELETE) | **Delete** /api/esme-sessions/{id}/batch | Stop all batch current running in selected SMSC sessions
+[**SendSMSonEsmeSessionUsingPOST**](EsmeSessionResourceApi.md#SendSMSonEsmeSessionUsingPOST) | **Post** /api/esme-sessions/{sessionID}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
+[**StopAllBachOnEsmeSessionUsingDELETE**](EsmeSessionResourceApi.md#StopAllBachOnEsmeSessionUsingDELETE) | **Delete** /api/esme-sessions/{sessionID}/batch | Stop all batch current running in selected SMSC sessions
 [**UpdateEsmeSessionUsingPUT**](EsmeSessionResourceApi.md#UpdateEsmeSessionUsingPUT) | **Put** /api/esme-sessions/{sessionID} | updateEsmeSession
 
 
@@ -344,7 +344,7 @@ No authorization required
 
 ## SendSMSonEsmeSessionUsingPOST
 
-> SendSMSonEsmeSessionUsingPOST(ctx, id).Batch(batch).Execute()
+> SendSMSonEsmeSessionUsingPOST(ctx, sessionID).Batch(batch).Execute()
 
 Send Mobile Originated SMS on selected session with given patterns and data files
 
@@ -361,12 +361,12 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | ID of selected session
+    sessionID := "sessionID_example" // string | ID of selected session
     batch := *openapiclient.NewBatch() // Batch |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeSessionResourceApi.SendSMSonEsmeSessionUsingPOST(context.Background(), id).Batch(batch).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.SendSMSonEsmeSessionUsingPOST(context.Background(), sessionID).Batch(batch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.SendSMSonEsmeSessionUsingPOST``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -380,7 +380,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID of selected session | 
+**sessionID** | **string** | ID of selected session | 
 
 ### Other Parameters
 
@@ -412,7 +412,7 @@ No authorization required
 
 ## StopAllBachOnEsmeSessionUsingDELETE
 
-> StopAllBachOnEsmeSessionUsingDELETE(ctx, id).Execute()
+> StopAllBachOnEsmeSessionUsingDELETE(ctx, sessionID).Execute()
 
 Stop all batch current running in selected SMSC sessions
 
@@ -429,11 +429,11 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | ID of selected session
+    sessionID := "sessionID_example" // string | ID of selected session
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EsmeSessionResourceApi.StopAllBachOnEsmeSessionUsingDELETE(context.Background(), id).Execute()
+    resp, r, err := api_client.EsmeSessionResourceApi.StopAllBachOnEsmeSessionUsingDELETE(context.Background(), sessionID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EsmeSessionResourceApi.StopAllBachOnEsmeSessionUsingDELETE``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -447,7 +447,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID of selected session | 
+**sessionID** | **string** | ID of selected session | 
 
 ### Other Parameters
 
