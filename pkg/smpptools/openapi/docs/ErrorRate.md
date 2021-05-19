@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | **float32** | Error Code | 
+**Error** | **int32** | Error Code | 
 **Description** | Pointer to **string** | Description about this error rate | [optional] 
-**Rate** | **float32** | Percentage this error will occur | 
+**Rate** | **int32** | Percentage this error will occur | 
 
 ## Methods
 
 ### NewErrorRate
 
-`func NewErrorRate(error_ float32, rate float32, ) *ErrorRate`
+`func NewErrorRate(error_ int32, rate int32, ) *ErrorRate`
 
 NewErrorRate instantiates a new ErrorRate object
 This constructor will assign default values to properties that have it defined,
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *ErrorRate) GetError() float32`
+`func (o *ErrorRate) GetError() int32`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *ErrorRate) GetErrorOk() (*float32, bool)`
+`func (o *ErrorRate) GetErrorOk() (*int32, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *ErrorRate) SetError(v float32)`
+`func (o *ErrorRate) SetError(v int32)`
 
 SetError sets Error field to given value.
 
@@ -74,20 +74,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetRate
 
-`func (o *ErrorRate) GetRate() float32`
+`func (o *ErrorRate) GetRate() int32`
 
 GetRate returns the Rate field if non-nil, zero value otherwise.
 
 ### GetRateOk
 
-`func (o *ErrorRate) GetRateOk() (*float32, bool)`
+`func (o *ErrorRate) GetRateOk() (*int32, bool)`
 
 GetRateOk returns a tuple with the Rate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRate
 
-`func (o *ErrorRate) SetRate(v float32)`
+`func (o *ErrorRate) SetRate(v int32)`
 
 SetRate sets Rate field to given value.
 

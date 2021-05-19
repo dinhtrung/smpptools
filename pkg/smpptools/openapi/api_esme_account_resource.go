@@ -468,7 +468,7 @@ func (a *EsmeAccountResourceApiService) GetAllEsmeSessionsByAccountUsingGETExecu
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/esme-sessions"
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/sessions"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -990,7 +990,7 @@ func (a *EsmeAccountResourceApiService) StopAllEsmeSessionsForAccountUsingDELETE
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/esme-sessions"
+	localVarPath := localBasePath + "/api/esme-accounts/{accountID}/sessions"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountID"+"}", _neturl.PathEscape(parameterToString(r.accountID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

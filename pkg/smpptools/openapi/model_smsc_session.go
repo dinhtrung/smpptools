@@ -21,6 +21,8 @@ type SmscSession struct {
 	Id string `json:"id"`
 	// remote TCP address
 	RemoteAddr *string `json:"remoteAddr,omitempty"`
+	// local TCP address
+	LocalAddr *string `json:"localAddr,omitempty"`
 	// the local time this session is created
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	Account *SmscAccount `json:"account,omitempty"`
@@ -100,6 +102,38 @@ func (o *SmscSession) SetRemoteAddr(v string) {
 	o.RemoteAddr = &v
 }
 
+// GetLocalAddr returns the LocalAddr field value if set, zero value otherwise.
+func (o *SmscSession) GetLocalAddr() string {
+	if o == nil || o.LocalAddr == nil {
+		var ret string
+		return ret
+	}
+	return *o.LocalAddr
+}
+
+// GetLocalAddrOk returns a tuple with the LocalAddr field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscSession) GetLocalAddrOk() (*string, bool) {
+	if o == nil || o.LocalAddr == nil {
+		return nil, false
+	}
+	return o.LocalAddr, true
+}
+
+// HasLocalAddr returns a boolean if a field has been set.
+func (o *SmscSession) HasLocalAddr() bool {
+	if o != nil && o.LocalAddr != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLocalAddr gets a reference to the given string and assigns it to the LocalAddr field.
+func (o *SmscSession) SetLocalAddr(v string) {
+	o.LocalAddr = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *SmscSession) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
@@ -171,6 +205,9 @@ func (o SmscSession) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteAddr != nil {
 		toSerialize["remoteAddr"] = o.RemoteAddr
+	}
+	if o.LocalAddr != nil {
+		toSerialize["localAddr"] = o.LocalAddr
 	}
 	if o.CreatedAt != nil {
 		toSerialize["createdAt"] = o.CreatedAt

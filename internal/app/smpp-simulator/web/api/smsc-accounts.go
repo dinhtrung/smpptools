@@ -11,8 +11,8 @@ func UpdateSmscAccountUsingPUT(c *fiber.Ctx) error {
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
-	if _, ok := req.GetIdOk(); ok {
-		return fiber.NewError(fiber.StatusBadRequest, "new entity cannot have an ID")
+	if _, ok := req.GetIdOk(); !ok {
+		return fiber.NewError(fiber.StatusBadRequest, "missing ID")
 	}
 	if err := instances.SmscAccountRepo.Save(req); err != nil {
 		return err

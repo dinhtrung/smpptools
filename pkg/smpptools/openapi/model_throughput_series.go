@@ -21,11 +21,11 @@ type ThroughputSeries struct {
 	// A short description of this throughput
 	Description *string `json:"description,omitempty"`
 	// throughput per minute of current series
-	Values *[]float32 `json:"values,omitempty"`
+	Values *[]int32 `json:"values,omitempty"`
 	// CDR file name this throughput series was generated from
 	Datafile *string `json:"datafile,omitempty"`
 	// State of this throughput series
-	State *float32 `json:"state,omitempty"`
+	State *int32 `json:"state,omitempty"`
 }
 
 // NewThroughputSeries instantiates a new ThroughputSeries object
@@ -103,9 +103,9 @@ func (o *ThroughputSeries) SetDescription(v string) {
 }
 
 // GetValues returns the Values field value if set, zero value otherwise.
-func (o *ThroughputSeries) GetValues() []float32 {
+func (o *ThroughputSeries) GetValues() []int32 {
 	if o == nil || o.Values == nil {
-		var ret []float32
+		var ret []int32
 		return ret
 	}
 	return *o.Values
@@ -113,7 +113,7 @@ func (o *ThroughputSeries) GetValues() []float32 {
 
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThroughputSeries) GetValuesOk() (*[]float32, bool) {
+func (o *ThroughputSeries) GetValuesOk() (*[]int32, bool) {
 	if o == nil || o.Values == nil {
 		return nil, false
 	}
@@ -129,8 +129,8 @@ func (o *ThroughputSeries) HasValues() bool {
 	return false
 }
 
-// SetValues gets a reference to the given []float32 and assigns it to the Values field.
-func (o *ThroughputSeries) SetValues(v []float32) {
+// SetValues gets a reference to the given []int32 and assigns it to the Values field.
+func (o *ThroughputSeries) SetValues(v []int32) {
 	o.Values = &v
 }
 
@@ -167,9 +167,9 @@ func (o *ThroughputSeries) SetDatafile(v string) {
 }
 
 // GetState returns the State field value if set, zero value otherwise.
-func (o *ThroughputSeries) GetState() float32 {
+func (o *ThroughputSeries) GetState() int32 {
 	if o == nil || o.State == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.State
@@ -177,7 +177,7 @@ func (o *ThroughputSeries) GetState() float32 {
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThroughputSeries) GetStateOk() (*float32, bool) {
+func (o *ThroughputSeries) GetStateOk() (*int32, bool) {
 	if o == nil || o.State == nil {
 		return nil, false
 	}
@@ -193,8 +193,8 @@ func (o *ThroughputSeries) HasState() bool {
 	return false
 }
 
-// SetState gets a reference to the given float32 and assigns it to the State field.
-func (o *ThroughputSeries) SetState(v float32) {
+// SetState gets a reference to the given int32 and assigns it to the State field.
+func (o *ThroughputSeries) SetState(v int32) {
 	o.State = &v
 }
 

@@ -23,6 +23,8 @@ type SmscInstance struct {
 	Description *string `json:"description,omitempty"`
 	// TCP Port to listen to
 	Port *int32 `json:"port,omitempty"`
+	// Identifies the MC to the ESME
+	SystemID *string `json:"systemID,omitempty"`
 	// Connection timeout in milliseconds
 	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
 	// true if this SMSC should be start automatically on start up
@@ -175,6 +177,38 @@ func (o *SmscInstance) SetPort(v int32) {
 	o.Port = &v
 }
 
+// GetSystemID returns the SystemID field value if set, zero value otherwise.
+func (o *SmscInstance) GetSystemID() string {
+	if o == nil || o.SystemID == nil {
+		var ret string
+		return ret
+	}
+	return *o.SystemID
+}
+
+// GetSystemIDOk returns a tuple with the SystemID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscInstance) GetSystemIDOk() (*string, bool) {
+	if o == nil || o.SystemID == nil {
+		return nil, false
+	}
+	return o.SystemID, true
+}
+
+// HasSystemID returns a boolean if a field has been set.
+func (o *SmscInstance) HasSystemID() bool {
+	if o != nil && o.SystemID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSystemID gets a reference to the given string and assigns it to the SystemID field.
+func (o *SmscInstance) SetSystemID(v string) {
+	o.SystemID = &v
+}
+
 // GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
 func (o *SmscInstance) GetConnectionTimeout() int32 {
 	if o == nil || o.ConnectionTimeout == nil {
@@ -316,6 +350,9 @@ func (o SmscInstance) MarshalJSON() ([]byte, error) {
 	}
 	if o.Port != nil {
 		toSerialize["port"] = o.Port
+	}
+	if o.SystemID != nil {
+		toSerialize["systemID"] = o.SystemID
 	}
 	if o.ConnectionTimeout != nil {
 		toSerialize["connectionTimeout"] = o.ConnectionTimeout

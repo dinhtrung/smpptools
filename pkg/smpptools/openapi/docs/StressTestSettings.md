@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SmsPattern** | Pointer to [**BaseSm**](BaseSm.md) |  | [optional] 
 **SmsData** | Pointer to [**IsdnList**](IsdnList.md) |  | [optional] 
-**Throughput** | Pointer to **float32** | maximum throughput try to reach | [optional] 
-**MaxPDU** | Pointer to **float32** | max number of PDU send out | [optional] 
+**Throughput** | Pointer to **int32** | maximum throughput try to reach | [optional] 
+**MaxPDU** | Pointer to **int32** | max number of PDU send out | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasSmsData returns a boolean if a field has been set.
 
 ### GetThroughput
 
-`func (o *StressTestSettings) GetThroughput() float32`
+`func (o *StressTestSettings) GetThroughput() int32`
 
 GetThroughput returns the Throughput field if non-nil, zero value otherwise.
 
 ### GetThroughputOk
 
-`func (o *StressTestSettings) GetThroughputOk() (*float32, bool)`
+`func (o *StressTestSettings) GetThroughputOk() (*int32, bool)`
 
 GetThroughputOk returns a tuple with the Throughput field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThroughput
 
-`func (o *StressTestSettings) SetThroughput(v float32)`
+`func (o *StressTestSettings) SetThroughput(v int32)`
 
 SetThroughput sets Throughput field to given value.
 
@@ -105,20 +105,20 @@ HasThroughput returns a boolean if a field has been set.
 
 ### GetMaxPDU
 
-`func (o *StressTestSettings) GetMaxPDU() float32`
+`func (o *StressTestSettings) GetMaxPDU() int32`
 
 GetMaxPDU returns the MaxPDU field if non-nil, zero value otherwise.
 
 ### GetMaxPDUOk
 
-`func (o *StressTestSettings) GetMaxPDUOk() (*float32, bool)`
+`func (o *StressTestSettings) GetMaxPDUOk() (*int32, bool)`
 
 GetMaxPDUOk returns a tuple with the MaxPDU field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxPDU
 
-`func (o *StressTestSettings) SetMaxPDU(v float32)`
+`func (o *StressTestSettings) SetMaxPDU(v int32)`
 
 SetMaxPDU sets MaxPDU field to given value.
 

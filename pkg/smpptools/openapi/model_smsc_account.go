@@ -43,7 +43,7 @@ type SmscAccount struct {
 	// Error ratio for generate the Delivery Report and send back to client
 	DeliveryRatio *[]ErrorRate `json:"deliveryRatio,omitempty"`
 	// Maximum throughput for sending MO
-	MoThroughput *float32 `json:"moThroughput,omitempty"`
+	MoThroughput *int32 `json:"moThroughput,omitempty"`
 	// max number of active binds on this account
 	MaxBinds *int32 `json:"maxBinds,omitempty"`
 }
@@ -465,9 +465,9 @@ func (o *SmscAccount) SetDeliveryRatio(v []ErrorRate) {
 }
 
 // GetMoThroughput returns the MoThroughput field value if set, zero value otherwise.
-func (o *SmscAccount) GetMoThroughput() float32 {
+func (o *SmscAccount) GetMoThroughput() int32 {
 	if o == nil || o.MoThroughput == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MoThroughput
@@ -475,7 +475,7 @@ func (o *SmscAccount) GetMoThroughput() float32 {
 
 // GetMoThroughputOk returns a tuple with the MoThroughput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetMoThroughputOk() (*float32, bool) {
+func (o *SmscAccount) GetMoThroughputOk() (*int32, bool) {
 	if o == nil || o.MoThroughput == nil {
 		return nil, false
 	}
@@ -491,8 +491,8 @@ func (o *SmscAccount) HasMoThroughput() bool {
 	return false
 }
 
-// SetMoThroughput gets a reference to the given float32 and assigns it to the MoThroughput field.
-func (o *SmscAccount) SetMoThroughput(v float32) {
+// SetMoThroughput gets a reference to the given int32 and assigns it to the MoThroughput field.
+func (o *SmscAccount) SetMoThroughput(v int32) {
 	o.MoThroughput = &v
 }
 

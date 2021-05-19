@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 	"strings"
@@ -19,6 +20,8 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/api"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/ws"
 	"github.com/dinhtrung/smpptools/internal/pkg/esme"
+	"github.com/dinhtrung/smpptools/internal/pkg/smsc"
+	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 )
 
 var configFile string
@@ -75,6 +78,9 @@ func main() {
 
 	esme.ENQUIRELINK_TIMER = time.NewTicker(time.Duration(15) * time.Second)
 	defer esme.ENQUIRELINK_TIMER.Stop()
+
+	startPersistSmscInstances()
+	startPersistEsmeAccounts()
 	log.Fatal(srv.Listen(app.Config.String("http.listen")))
 }
 
@@ -206,4 +212,31 @@ func setupWebSocket(app *fiber.App) {
 	app.Get("/ws", websocket.New(ws.WebsocketHandle))
 	app.Post("api/ws", api.MessagePost)
 
+}
+
+func startPersistSmscInstances() {
+	entities, err := instances.SmscInstanceRepo.FindAll()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, entity := range entities {
+		if entity.GetIsPersist() {
+			instance := smsc.NewSmscSimulatorInstance(entity)
+			go instance.Start(context.Background())
+		}
+	}
+}
+
+func startPersistEsmeAccounts() {
+	entities, err := instances.EsmeAccountRepo.FindAll()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, entity := range entities {
+		if entity.GetIsPersist() {
+			sessionInfo := &openapi.EsmeSession{Account: entity}
+			instance := esme.NewEsmeSimulator(sessionInfo)
+			go instance.Start()
+		}
+	}
 }

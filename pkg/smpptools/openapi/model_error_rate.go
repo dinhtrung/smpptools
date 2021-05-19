@@ -17,18 +17,18 @@ import (
 // ErrorRate struct for ErrorRate
 type ErrorRate struct {
 	// Error Code
-	Error float32 `json:"error"`
+	Error int32 `json:"error"`
 	// Description about this error rate
 	Description *string `json:"description,omitempty"`
 	// Percentage this error will occur
-	Rate float32 `json:"rate"`
+	Rate int32 `json:"rate"`
 }
 
 // NewErrorRate instantiates a new ErrorRate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorRate(error_ float32, rate float32) *ErrorRate {
+func NewErrorRate(error_ int32, rate int32) *ErrorRate {
 	this := ErrorRate{}
 	this.Error = error_
 	this.Rate = rate
@@ -44,9 +44,9 @@ func NewErrorRateWithDefaults() *ErrorRate {
 }
 
 // GetError returns the Error field value
-func (o *ErrorRate) GetError() float32 {
+func (o *ErrorRate) GetError() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -55,7 +55,7 @@ func (o *ErrorRate) GetError() float32 {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *ErrorRate) GetErrorOk() (*float32, bool) {
+func (o *ErrorRate) GetErrorOk() (*int32, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *ErrorRate) GetErrorOk() (*float32, bool) {
 }
 
 // SetError sets field value
-func (o *ErrorRate) SetError(v float32) {
+func (o *ErrorRate) SetError(v int32) {
 	o.Error = v
 }
 
@@ -100,9 +100,9 @@ func (o *ErrorRate) SetDescription(v string) {
 }
 
 // GetRate returns the Rate field value
-func (o *ErrorRate) GetRate() float32 {
+func (o *ErrorRate) GetRate() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -111,7 +111,7 @@ func (o *ErrorRate) GetRate() float32 {
 
 // GetRateOk returns a tuple with the Rate field value
 // and a boolean to check if the value has been set.
-func (o *ErrorRate) GetRateOk() (*float32, bool) {
+func (o *ErrorRate) GetRateOk() (*int32, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *ErrorRate) GetRateOk() (*float32, bool) {
 }
 
 // SetRate sets field value
-func (o *ErrorRate) SetRate(v float32) {
+func (o *ErrorRate) SetRate(v int32) {
 	o.Rate = v
 }
 

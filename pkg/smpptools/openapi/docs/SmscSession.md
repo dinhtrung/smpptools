@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | unique session ID | 
 **RemoteAddr** | Pointer to **string** | remote TCP address | [optional] 
+**LocalAddr** | Pointer to **string** | local TCP address | [optional] 
 **CreatedAt** | Pointer to **time.Time** | the local time this session is created | [optional] 
 **Account** | Pointer to [**SmscAccount**](SmscAccount.md) |  | [optional] 
 
@@ -72,6 +73,31 @@ SetRemoteAddr sets RemoteAddr field to given value.
 `func (o *SmscSession) HasRemoteAddr() bool`
 
 HasRemoteAddr returns a boolean if a field has been set.
+
+### GetLocalAddr
+
+`func (o *SmscSession) GetLocalAddr() string`
+
+GetLocalAddr returns the LocalAddr field if non-nil, zero value otherwise.
+
+### GetLocalAddrOk
+
+`func (o *SmscSession) GetLocalAddrOk() (*string, bool)`
+
+GetLocalAddrOk returns a tuple with the LocalAddr field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLocalAddr
+
+`func (o *SmscSession) SetLocalAddr(v string)`
+
+SetLocalAddr sets LocalAddr field to given value.
+
+### HasLocalAddr
+
+`func (o *SmscSession) HasLocalAddr() bool`
+
+HasLocalAddr returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

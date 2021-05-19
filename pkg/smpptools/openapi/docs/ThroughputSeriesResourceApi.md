@@ -292,8 +292,8 @@ import (
 func main() {
     id := "id_example" // string | id
     variantID := "variantID_example" // string | One of available transform over throughput series values
-    min := float32(8.14) // float32 |  (optional)
-    max := float32(8.14) // float32 |  (optional)
+    min := float32(3.4) // float32 |  (optional)
+    max := float32(3.4) // float32 |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

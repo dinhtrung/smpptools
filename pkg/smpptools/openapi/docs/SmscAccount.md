@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **AddressTON** | Pointer to **int32** | Bind Address Type of Number | [optional] 
 **AcceptRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error ratio for return on receive Submit SM from ESME | [optional] 
 **DeliveryRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error ratio for generate the Delivery Report and send back to client | [optional] 
-**MoThroughput** | Pointer to **float32** | Maximum throughput for sending MO | [optional] 
+**MoThroughput** | Pointer to **int32** | Maximum throughput for sending MO | [optional] 
 **MaxBinds** | Pointer to **int32** | max number of active binds on this account | [optional] 
 
 ## Methods
@@ -351,20 +351,20 @@ HasDeliveryRatio returns a boolean if a field has been set.
 
 ### GetMoThroughput
 
-`func (o *SmscAccount) GetMoThroughput() float32`
+`func (o *SmscAccount) GetMoThroughput() int32`
 
 GetMoThroughput returns the MoThroughput field if non-nil, zero value otherwise.
 
 ### GetMoThroughputOk
 
-`func (o *SmscAccount) GetMoThroughputOk() (*float32, bool)`
+`func (o *SmscAccount) GetMoThroughputOk() (*int32, bool)`
 
 GetMoThroughputOk returns a tuple with the MoThroughput field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMoThroughput
 
-`func (o *SmscAccount) SetMoThroughput(v float32)`
+`func (o *SmscAccount) SetMoThroughput(v int32)`
 
 SetMoThroughput sets MoThroughput field to given value.
 

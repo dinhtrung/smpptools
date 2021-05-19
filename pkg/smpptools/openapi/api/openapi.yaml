@@ -386,7 +386,7 @@ paths:
         required: false
         schema:
           description: Minimum adjustment ratio
-          format: float32
+          format: float
           type: number
         style: form
       - explode: true
@@ -395,7 +395,7 @@ paths:
         required: false
         schema:
           description: Maximum adjustment ratio
-          format: float32
+          format: float
           type: number
         style: form
       responses:
@@ -580,7 +580,7 @@ paths:
       summary: updateEsmeAccount
       tags:
       - esme-account-resource
-  /api/esme-accounts/{accountID}/esme-sessions:
+  /api/esme-accounts/{accountID}/sessions:
     delete:
       operationId: stopAllEsmeSessionsForAccountUsingDELETE
       parameters:
@@ -1659,6 +1659,34 @@ paths:
       summary: createSmscInstance
       tags:
       - smsc-instance-resource
+  /api/smsc-instances/{id}/sessions:
+    get:
+      operationId: getAllSessionsOnInstanceUsingGET
+      parameters:
+      - description: id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscSession'
+          description: OK
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List all connected ESME sessions on this SMSC Instance
+      tags:
+      - smsc-instance-resource
   /api/smsc-instances/{id}/start:
     get:
       operationId: startSmscInstanceUsingGET
@@ -1910,21 +1938,21 @@ components:
       type: object
     ErrorRate:
       example:
-        rate: 7.061401241503109
+        rate: 7
         description: description
-        error: 2.3021358869347655
+        error: 2
       properties:
         error:
           description: Error Code
           format: int8
-          type: number
+          type: integer
         description:
           description: Description about this error rate
           type: string
         rate:
           description: Percentage this error will occur
           format: int8
-          type: number
+          type: integer
       required:
       - error
       - rate
@@ -2064,7 +2092,7 @@ components:
           id: id
           content: content
         maxPDU: 1000
-        throughput: 0.8008281904610115
+        throughput: 0
         smsPattern:
           serviceType: serviceType
           isConcatTLV: false
@@ -2105,11 +2133,12 @@ components:
           $ref: '#/components/schemas/IsdnList'
         throughput:
           description: maximum throughput try to reach
-          type: number
+          format: int8
+          type: integer
         maxPDU:
           description: max number of PDU send out
           example: 1000
-          type: number
+          type: integer
       title: StressTestSettings
     StressTestResult:
       description: Result of stress test
@@ -2140,8 +2169,8 @@ components:
         patterns
       example:
         values:
-        - 0.8008281904610115
-        - 0.8008281904610115
+        - 0
+        - 0
         name: Load test 2021-05-12
         description: Traffic throughput collected from production system on 2021-05-12
         state: 0
@@ -2158,8 +2187,8 @@ components:
         values:
           description: throughput per minute of current series
           items:
-            format: float32
-            type: number
+            format: float
+            type: integer
           type: array
         datafile:
           description: CDR file name this throughput series was generated from
@@ -2168,7 +2197,7 @@ components:
         state:
           description: State of this throughput series
           example: 0
-          type: number
+          type: integer
       required:
       - name
       title: ThroughputSeries
@@ -2182,8 +2211,8 @@ components:
           content: content
         throughput:
           values:
-          - 0.8008281904610115
-          - 0.8008281904610115
+          - 0
+          - 0
           name: Load test 2021-05-12
           description: Traffic throughput collected from production system on 2021-05-12
           state: 0
@@ -2235,12 +2264,12 @@ components:
         SMSC
       example:
         ackRatio:
-        - rate: 7.061401241503109
+        - rate: 7
           description: description
-          error: 2.3021358869347655
-        - rate: 7.061401241503109
+          error: 2
+        - rate: 7
           description: description
-          error: 2.3021358869347655
+          error: 2
         enquireLinkInterval: 9
         systemID: systemID
         bindType: transceiver
@@ -2259,12 +2288,12 @@ components:
         host: host
         systemType: VMS
         acceptRatio:
-        - rate: 7.061401241503109
+        - rate: 7
           description: description
-          error: 2.3021358869347655
-        - rate: 7.061401241503109
+          error: 2
+        - rate: 7
           description: description
-          error: 2.3021358869347655
+          error: 2
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         addressNPI: 1
         connectionTimeout: 5
@@ -2329,7 +2358,7 @@ components:
           type: integer
         connectionTimeout:
           description: Connection timeout in milliseconds
-          format: int32
+          format: int8
           type: integer
         acceptRatio:
           description: Error rate on receiving Mobile Originated SMS
@@ -2343,7 +2372,7 @@ components:
           type: array
         enquireLinkInterval:
           description: Enquire links interval in seconds
-          format: int32
+          format: int8
           type: integer
         isEnable:
           description: true if this ESME should be start automatically
@@ -2355,19 +2384,19 @@ components:
           type: boolean
         mtThroughtput:
           description: Sending out speeds in TPS
-          format: int32
+          format: int8
           type: integer
         numBinds:
           description: number of active binds on start up
-          format: int32
+          format: int8
           type: integer
         reconnectDelay:
           description: Delay in seconds before retry reconnect
-          format: int32
+          format: int8
           type: integer
         windowSize:
           description: Number of packets send out per one go
-          format: int32
+          format: int8
           type: integer
       required:
       - name
@@ -2380,12 +2409,12 @@ components:
         localAddr: 127.0.0.1:23456
         account:
           ackRatio:
-          - rate: 7.061401241503109
+          - rate: 7
             description: description
-            error: 2.3021358869347655
-          - rate: 7.061401241503109
+            error: 2
+          - rate: 7
             description: description
-            error: 2.3021358869347655
+            error: 2
           enquireLinkInterval: 9
           systemID: systemID
           bindType: transceiver
@@ -2404,12 +2433,12 @@ components:
           host: host
           systemType: VMS
           acceptRatio:
-          - rate: 7.061401241503109
+          - rate: 7
             description: description
-            error: 2.3021358869347655
-          - rate: 7.061401241503109
+            error: 2
+          - rate: 7
             description: description
-            error: 2.3021358869347655
+            error: 2
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           addressNPI: 1
           connectionTimeout: 5
@@ -2437,15 +2466,16 @@ components:
       example:
         createdAt: 2021-05-11T12:24:00Z
         id: id
+        localAddr: 127.0.0.1:23456
         account:
           systemID: systemID
           deliveryRatio:
-          - rate: 7.061401241503109
+          - rate: 7
             description: description
-            error: 2.3021358869347655
-          - rate: 7.061401241503109
+            error: 2
+          - rate: 7
             description: description
-            error: 2.3021358869347655
+            error: 2
           maxBinds: 5
           bindType: transceiver
           addressRange: addressRange
@@ -2456,14 +2486,14 @@ components:
           name: name
           systemType: VMS
           acceptRatio:
-          - rate: 7.061401241503109
+          - rate: 7
             description: description
-            error: 2.3021358869347655
-          - rate: 7.061401241503109
+            error: 2
+          - rate: 7
             description: description
-            error: 2.3021358869347655
+            error: 2
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          moThroughput: 5.962133916683182
+          moThroughput: 5
           addressNPI: 6
         remoteAddr: 127.0.0.1:23456
       properties:
@@ -2472,6 +2502,10 @@ components:
           type: string
         remoteAddr:
           description: remote TCP address
+          example: 127.0.0.1:23456
+          type: string
+        localAddr:
+          description: local TCP address
           example: 127.0.0.1:23456
           type: string
         createdAt:
@@ -2514,12 +2548,12 @@ components:
       example:
         systemID: systemID
         deliveryRatio:
-        - rate: 7.061401241503109
+        - rate: 7
           description: description
-          error: 2.3021358869347655
-        - rate: 7.061401241503109
+          error: 2
+        - rate: 7
           description: description
-          error: 2.3021358869347655
+          error: 2
         maxBinds: 5
         bindType: transceiver
         addressRange: addressRange
@@ -2530,14 +2564,14 @@ components:
         name: name
         systemType: VMS
         acceptRatio:
-        - rate: 7.061401241503109
+        - rate: 7
           description: description
-          error: 2.3021358869347655
-        - rate: 7.061401241503109
+          error: 2
+        - rate: 7
           description: description
-          error: 2.3021358869347655
+          error: 2
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        moThroughput: 5.962133916683182
+        moThroughput: 5
         addressNPI: 6
       properties:
         id:
@@ -2605,10 +2639,10 @@ components:
         moThroughput:
           description: Maximum throughput for sending MO
           format: int8
-          type: number
+          type: integer
         maxBinds:
           description: max number of active binds on this account
-          format: int32
+          format: int8
           type: integer
       required:
       - name
@@ -2621,6 +2655,7 @@ components:
         ESME
       example:
         allowAnonymous: false
+        systemID: systemID
         windowSize: 6
         port: 2775
         name: name
@@ -2642,11 +2677,16 @@ components:
         port:
           description: TCP Port to listen to
           example: 2775
-          format: int16
+          format: int816
           type: integer
+        systemID:
+          description: Identifies the MC to the ESME
+          maxLength: 20
+          minLength: 0
+          type: string
         connectionTimeout:
           description: Connection timeout in milliseconds
-          format: int32
+          format: int8
           type: integer
         isPersist:
           description: true if this SMSC should be start automatically on start up
@@ -2659,7 +2699,7 @@ components:
           type: boolean
         windowSize:
           description: Number of packets send out per one go
-          format: int32
+          format: int8
           type: integer
       required:
       - name

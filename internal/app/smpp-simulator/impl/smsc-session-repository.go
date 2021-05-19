@@ -2,6 +2,7 @@ package impl
 
 import (
 	"encoding/json"
+	"log"
 
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/pkg/interfaces"
@@ -143,6 +144,20 @@ func (r *SmscSessionRepository) FindAllById(ids []string) ([]*openapi.SmscSessio
 	return entities, err
 }
 
+func (r *SmscSessionRepository) FindAllByInstance(instanceID string) ([]*openapi.SmscSession, error) {
+	entities := make([]*openapi.SmscSession, 0)
+	err := app.BuntDBInMemory.View(func(tx *buntdb.Tx) error {
+		return tx.Ascend(SMSC_SESSION_PREFIX, func(key, value string) bool {
+			entity := openapi.NewSmscSessionWithDefaults()
+			if err := json.Unmarshal([]byte(value), entity); err == nil {
+				entities = append(entities, entity)
+			}
+			return true
+		})
+	})
+	return entities, err
+}
+
 // Retrieves an entity by its id.
 func (r *SmscSessionRepository) FindById(ID string) (*openapi.SmscSession, error) {
 	entity := openapi.NewSmscSessionWithDefaults()
@@ -169,6 +184,7 @@ func (r *SmscSessionRepository) Save(entity *openapi.SmscSession) error {
 		if err != nil {
 			return err
 		}
+		log.Printf("saving session: %s | %s", entity.GetId(), string(entityJson))
 		_, _, err = tx.Set(SMSC_SESSION_PREFIX+entity.GetId(), string(entityJson), nil)
 		return err
 	})

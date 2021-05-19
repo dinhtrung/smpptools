@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateSmscInstanceUsingPOST**](SmscInstanceResourceApi.md#CreateSmscInstanceUsingPOST) | **Post** /api/smsc-instances | createSmscInstance
 [**DeleteSmscInstanceUsingDELETE**](SmscInstanceResourceApi.md#DeleteSmscInstanceUsingDELETE) | **Delete** /api/smsc-instances/{id} | deleteSmscInstance
+[**GetAllSessionsOnInstanceUsingGET**](SmscInstanceResourceApi.md#GetAllSessionsOnInstanceUsingGET) | **Get** /api/smsc-instances/{id}/sessions | List all connected ESME sessions on this SMSC Instance
 [**GetAllSmscInstancesUsingGET**](SmscInstanceResourceApi.md#GetAllSmscInstancesUsingGET) | **Get** /api/smsc-instances | getAllSmscInstances
 [**GetSmscInstanceUsingGET**](SmscInstanceResourceApi.md#GetSmscInstanceUsingGET) | **Get** /api/smsc-instances/{id} | getSmscInstance
 [**PartialUpdateSmscInstanceUsingPATCH**](SmscInstanceResourceApi.md#PartialUpdateSmscInstanceUsingPATCH) | **Patch** /api/smsc-instances/{id} | partialUpdateSmscInstance
@@ -141,6 +142,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAllSessionsOnInstanceUsingGET
+
+> SmscSession GetAllSessionsOnInstanceUsingGET(ctx, id).Execute()
+
+List all connected ESME sessions on this SMSC Instance
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | id
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SmscInstanceResourceApi.GetAllSessionsOnInstanceUsingGET(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SmscInstanceResourceApi.GetAllSessionsOnInstanceUsingGET``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAllSessionsOnInstanceUsingGET`: SmscSession
+    fmt.Fprintf(os.Stdout, "Response from `SmscInstanceResourceApi.GetAllSessionsOnInstanceUsingGET`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAllSessionsOnInstanceUsingGETRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SmscSession**](SmscSession.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -391,7 +391,7 @@ paths:
         schema:
           type: number
           description: Minimum adjustment ratio
-          format: float32
+          format: float
       - name: max
         in: query
         required: false
@@ -400,7 +400,7 @@ paths:
         schema:
           type: number
           description: Maximum adjustment ratio
-          format: float32
+          format: float
       responses:
         "200":
           description: OK
@@ -580,7 +580,7 @@ paths:
           description: Unauthorized
         "403":
           description: Forbidden
-  /api/esme-accounts/{accountID}/esme-sessions:
+  /api/esme-accounts/{accountID}/sessions:
     get:
       tags:
       - esme-account-resource
@@ -1653,6 +1653,34 @@ paths:
           description: Forbidden
         "404":
           description: Not Found
+  /api/smsc-instances/{id}/sessions:
+    get:
+      tags:
+      - smsc-instance-resource
+      summary: List all connected ESME sessions on this SMSC Instance
+      operationId: getAllSessionsOnInstanceUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SmscSession'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
   /api/smsc-instances/{id}/start:
     get:
       tags:
@@ -1903,14 +1931,14 @@ components:
       type: object
       properties:
         error:
-          type: number
+          type: integer
           description: Error Code
           format: int8
         description:
           type: string
           description: Description about this error rate
         rate:
-          type: number
+          type: integer
           description: Percentage this error will occur
           format: int8
     BaseSm:
@@ -2013,10 +2041,11 @@ components:
         smsData:
           $ref: '#/components/schemas/IsdnList'
         throughput:
-          type: number
+          type: integer
           description: maximum throughput try to reach
+          format: int8
         maxPDU:
-          type: number
+          type: integer
           description: max number of PDU send out
           example: 1000
       description: Configuration for Stress Testing Process
@@ -2061,14 +2090,14 @@ components:
           type: array
           description: throughput per minute of current series
           items:
-            type: number
-            format: float32
+            type: integer
+            format: float
         datafile:
           type: string
           description: CDR file name this throughput series was generated from
           example: cdr-20210512.csv
         state:
-          type: number
+          type: integer
           description: State of this throughput series
           example: 0
       description: A series of traffic throughput used for re-generate traffic throughput patterns
@@ -2148,7 +2177,7 @@ components:
         connectionTimeout:
           type: integer
           description: Connection timeout in milliseconds
-          format: int32
+          format: int8
         acceptRatio:
           type: array
           description: Error rate on receiving Mobile Originated SMS
@@ -2162,7 +2191,7 @@ components:
         enquireLinkInterval:
           type: integer
           description: Enquire links interval in seconds
-          format: int32
+          format: int8
         isEnable:
           type: boolean
           description: true if this ESME should be start automatically
@@ -2174,19 +2203,19 @@ components:
         mtThroughtput:
           type: integer
           description: Sending out speeds in TPS
-          format: int32
+          format: int8
         numBinds:
           type: integer
           description: number of active binds on start up
-          format: int32
+          format: int8
         reconnectDelay:
           type: integer
           description: Delay in seconds before retry reconnect
-          format: int32
+          format: int8
         windowSize:
           type: integer
           description: Number of packets send out per one go
-          format: int32
+          format: int8
       description: ESME hold information on how to establish a SMPP Session towards SMSC
     EsmeSession:
       title: EsmeSession
@@ -2220,6 +2249,10 @@ components:
         remoteAddr:
           type: string
           description: remote TCP address
+          example: 127.0.0.1:23456
+        localAddr:
+          type: string
+          description: local TCP address
           example: 127.0.0.1:23456
         createdAt:
           type: string
@@ -2316,13 +2349,13 @@ components:
           items:
             $ref: '#/components/schemas/ErrorRate'
         moThroughput:
-          type: number
+          type: integer
           description: Maximum throughput for sending MO
           format: int8
         maxBinds:
           type: integer
           description: max number of active binds on this account
-          format: int32
+          format: int8
       description: SMSC account allow or deny BIND request from ESME
     SmscInstance:
       title: SmscInstance
@@ -2343,12 +2376,17 @@ components:
         port:
           type: integer
           description: TCP Port to listen to
-          format: int16
+          format: int816
           example: 2775
+        systemID:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Identifies the MC to the ESME
         connectionTimeout:
           type: integer
           description: Connection timeout in milliseconds
-          format: int32
+          format: int8
         isPersist:
           type: boolean
           description: true if this SMSC should be start automatically on start up
@@ -2360,5 +2398,5 @@ components:
         windowSize:
           type: integer
           description: Number of packets send out per one go
-          format: int32
+          format: int8
       description: SMSC hold information for SMPP instances that serve traffic from ESME

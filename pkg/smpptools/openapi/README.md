@@ -88,12 +88,12 @@ Class | Method | HTTP request | Description
 *EsmeAccountResourceApi* | [**CreateEsmeAccountUsingPOST**](docs/EsmeAccountResourceApi.md#createesmeaccountusingpost) | **Post** /api/esme-accounts | createEsmeAccount
 *EsmeAccountResourceApi* | [**DeleteEsmeAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#deleteesmeaccountusingdelete) | **Delete** /api/esme-accounts/{accountID} | deleteEsmeAccount
 *EsmeAccountResourceApi* | [**GetAllEsmeAccountsUsingGET**](docs/EsmeAccountResourceApi.md#getallesmeaccountsusingget) | **Get** /api/esme-accounts | getAllEsmeAccounts
-*EsmeAccountResourceApi* | [**GetAllEsmeSessionsByAccountUsingGET**](docs/EsmeAccountResourceApi.md#getallesmesessionsbyaccountusingget) | **Get** /api/esme-accounts/{accountID}/esme-sessions | Retrieve all active session for current account
+*EsmeAccountResourceApi* | [**GetAllEsmeSessionsByAccountUsingGET**](docs/EsmeAccountResourceApi.md#getallesmesessionsbyaccountusingget) | **Get** /api/esme-accounts/{accountID}/sessions | Retrieve all active session for current account
 *EsmeAccountResourceApi* | [**GetEsmeAccountUsingGET**](docs/EsmeAccountResourceApi.md#getesmeaccountusingget) | **Get** /api/esme-accounts/{accountID} | getEsmeAccount
 *EsmeAccountResourceApi* | [**PartialUpdateEsmeAccountUsingPATCH**](docs/EsmeAccountResourceApi.md#partialupdateesmeaccountusingpatch) | **Patch** /api/esme-accounts/{accountID} | partialUpdateEsmeAccount
 *EsmeAccountResourceApi* | [**SendMobileTerminatedSMSOnAccountUsingPOST**](docs/EsmeAccountResourceApi.md#sendmobileterminatedsmsonaccountusingpost) | **Post** /api/esme-accounts/{id}/send-mt | Send Mobile Terminated SMS on selected SMSC account during Functional Testing
 *EsmeAccountResourceApi* | [**SendSMSonSMSCsessionUsingPOST**](docs/EsmeAccountResourceApi.md#sendsmsonsmscsessionusingpost) | **Post** /api/esme-accounts/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-*EsmeAccountResourceApi* | [**StopAllEsmeSessionsForAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#stopallesmesessionsforaccountusingdelete) | **Delete** /api/esme-accounts/{accountID}/esme-sessions | Stop all active SMPP sessions from this account
+*EsmeAccountResourceApi* | [**StopAllEsmeSessionsForAccountUsingDELETE**](docs/EsmeAccountResourceApi.md#stopallesmesessionsforaccountusingdelete) | **Delete** /api/esme-accounts/{accountID}/sessions | Stop all active SMPP sessions from this account
 *EsmeAccountResourceApi* | [**UpdateEsmeAccountUsingPUT**](docs/EsmeAccountResourceApi.md#updateesmeaccountusingput) | **Put** /api/esme-accounts/{accountID} | updateEsmeAccount
 *EsmeSessionResourceApi* | [**CreateEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#createesmesessionusingpost) | **Post** /api/esme-sessions | Create a new SMPP Session from ESME based on given account
 *EsmeSessionResourceApi* | [**DeleteEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#deleteesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID} | deleteEsmeSession
@@ -122,6 +122,7 @@ Class | Method | HTTP request | Description
 *SmscAccountResourceApi* | [**UpdateSmscAccountUsingPUT**](docs/SmscAccountResourceApi.md#updatesmscaccountusingput) | **Put** /api/smsc-accounts/{id} | updateSmscAccount
 *SmscInstanceResourceApi* | [**CreateSmscInstanceUsingPOST**](docs/SmscInstanceResourceApi.md#createsmscinstanceusingpost) | **Post** /api/smsc-instances | createSmscInstance
 *SmscInstanceResourceApi* | [**DeleteSmscInstanceUsingDELETE**](docs/SmscInstanceResourceApi.md#deletesmscinstanceusingdelete) | **Delete** /api/smsc-instances/{id} | deleteSmscInstance
+*SmscInstanceResourceApi* | [**GetAllSessionsOnInstanceUsingGET**](docs/SmscInstanceResourceApi.md#getallsessionsoninstanceusingget) | **Get** /api/smsc-instances/{id}/sessions | List all connected ESME sessions on this SMSC Instance
 *SmscInstanceResourceApi* | [**GetAllSmscInstancesUsingGET**](docs/SmscInstanceResourceApi.md#getallsmscinstancesusingget) | **Get** /api/smsc-instances | getAllSmscInstances
 *SmscInstanceResourceApi* | [**GetSmscInstanceUsingGET**](docs/SmscInstanceResourceApi.md#getsmscinstanceusingget) | **Get** /api/smsc-instances/{id} | getSmscInstance
 *SmscInstanceResourceApi* | [**PartialUpdateSmscInstanceUsingPATCH**](docs/SmscInstanceResourceApi.md#partialupdatesmscinstanceusingpatch) | **Patch** /api/smsc-instances/{id} | partialUpdateSmscInstance

@@ -8,12 +8,12 @@ Method | HTTP request | Description
 [**CreateEsmeAccountUsingPOST**](EsmeAccountResourceApi.md#CreateEsmeAccountUsingPOST) | **Post** /api/esme-accounts | createEsmeAccount
 [**DeleteEsmeAccountUsingDELETE**](EsmeAccountResourceApi.md#DeleteEsmeAccountUsingDELETE) | **Delete** /api/esme-accounts/{accountID} | deleteEsmeAccount
 [**GetAllEsmeAccountsUsingGET**](EsmeAccountResourceApi.md#GetAllEsmeAccountsUsingGET) | **Get** /api/esme-accounts | getAllEsmeAccounts
-[**GetAllEsmeSessionsByAccountUsingGET**](EsmeAccountResourceApi.md#GetAllEsmeSessionsByAccountUsingGET) | **Get** /api/esme-accounts/{accountID}/esme-sessions | Retrieve all active session for current account
+[**GetAllEsmeSessionsByAccountUsingGET**](EsmeAccountResourceApi.md#GetAllEsmeSessionsByAccountUsingGET) | **Get** /api/esme-accounts/{accountID}/sessions | Retrieve all active session for current account
 [**GetEsmeAccountUsingGET**](EsmeAccountResourceApi.md#GetEsmeAccountUsingGET) | **Get** /api/esme-accounts/{accountID} | getEsmeAccount
 [**PartialUpdateEsmeAccountUsingPATCH**](EsmeAccountResourceApi.md#PartialUpdateEsmeAccountUsingPATCH) | **Patch** /api/esme-accounts/{accountID} | partialUpdateEsmeAccount
 [**SendMobileTerminatedSMSOnAccountUsingPOST**](EsmeAccountResourceApi.md#SendMobileTerminatedSMSOnAccountUsingPOST) | **Post** /api/esme-accounts/{id}/send-mt | Send Mobile Terminated SMS on selected SMSC account during Functional Testing
 [**SendSMSonSMSCsessionUsingPOST**](EsmeAccountResourceApi.md#SendSMSonSMSCsessionUsingPOST) | **Post** /api/esme-accounts/{id}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-[**StopAllEsmeSessionsForAccountUsingDELETE**](EsmeAccountResourceApi.md#StopAllEsmeSessionsForAccountUsingDELETE) | **Delete** /api/esme-accounts/{accountID}/esme-sessions | Stop all active SMPP sessions from this account
+[**StopAllEsmeSessionsForAccountUsingDELETE**](EsmeAccountResourceApi.md#StopAllEsmeSessionsForAccountUsingDELETE) | **Delete** /api/esme-accounts/{accountID}/sessions | Stop all active SMPP sessions from this account
 [**UpdateEsmeAccountUsingPUT**](EsmeAccountResourceApi.md#UpdateEsmeAccountUsingPUT) | **Put** /api/esme-accounts/{accountID} | updateEsmeAccount
 
 

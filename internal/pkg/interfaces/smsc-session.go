@@ -28,6 +28,9 @@ type SmscSessionCrudRepository interface {
 	// Returns all instances of the type.
 	FindAll() ([]*openapi.SmscSession, error)
 
+	// Return all sessions by instance
+	FindAllByInstance(instanceID string) ([]*openapi.SmscSession, error)
+
 	// Returns all instances of the type T with the given IDs.
 	FindAllById(ids []string) ([]*openapi.SmscSession, error)
 

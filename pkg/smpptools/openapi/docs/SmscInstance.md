@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | name of this SMSC Instance | 
 **Description** | Pointer to **string** | short description text | [optional] 
 **Port** | Pointer to **int32** | TCP Port to listen to | [optional] 
+**SystemID** | Pointer to **string** | Identifies the MC to the ESME | [optional] 
 **ConnectionTimeout** | Pointer to **int32** | Connection timeout in milliseconds | [optional] 
 **IsPersist** | Pointer to **bool** | true if this SMSC should be start automatically on start up | [optional] 
 **AllowAnonymous** | Pointer to **bool** | true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default | [optional] [default to false]
@@ -126,6 +127,31 @@ SetPort sets Port field to given value.
 `func (o *SmscInstance) HasPort() bool`
 
 HasPort returns a boolean if a field has been set.
+
+### GetSystemID
+
+`func (o *SmscInstance) GetSystemID() string`
+
+GetSystemID returns the SystemID field if non-nil, zero value otherwise.
+
+### GetSystemIDOk
+
+`func (o *SmscInstance) GetSystemIDOk() (*string, bool)`
+
+GetSystemIDOk returns a tuple with the SystemID field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSystemID
+
+`func (o *SmscInstance) SetSystemID(v string)`
+
+SetSystemID sets SystemID field to given value.
+
+### HasSystemID
+
+`func (o *SmscInstance) HasSystemID() bool`
+
+HasSystemID returns a boolean if a field has been set.
 
 ### GetConnectionTimeout
 

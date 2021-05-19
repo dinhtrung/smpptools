@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"time"
 
 	"github.com/ajankovic/smpp"
@@ -16,17 +17,13 @@ import (
 	"github.com/google/uuid"
 )
 
-const (
-	CtxKeyAccount = iota
-	CtxKeyFeatures
-)
-
 var MO_CHAN = make(chan *pdu.DeliverSm)
 
 // SmppConnectionProfile hold the session information
 type SmscSimulator struct {
-	config *openapi.SmscInstance
-	server *smpp.Server
+	config     *openapi.SmscInstance
+	server     *smpp.Server
+	accountMap map[*string]*openapi.SmscAccount
 }
 
 func NewSmscSimulatorInstance(config *openapi.SmscInstance) SmscSimulator {
@@ -63,6 +60,7 @@ func (c *SmscSimulator) Start(ctx context.Context) error {
 		}
 	}()
 	c.server = server
+	log.Printf("starting SMSC on port %d", instancePort)
 	return server.ListenAndServe()
 }
 
@@ -81,7 +79,7 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 	switch ctx.CommandID() {
 	case pdu.BindTransceiverID:
 		req, _ := ctx.BindTRx()
-		rsp := req.Response(c.config.GetName())
+		rsp := req.Response(c.config.GetSystemID())
 		if c.config.GetAllowAnonymous() {
 			ctx.Respond(rsp, pdu.StatusOK)
 			return
@@ -103,6 +101,7 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 		sess.Account = account
 		sess.SetCreatedAt(time.Now())
 		sess.SetRemoteAddr(ctx.RemoteAddr())
+		sess.SetLocalAddr(ctx.LocalAddr())
 		sess.SetId(ctx.SessionID())
 		instances.SmscSessionRepo.Save(sess)
 
@@ -110,7 +109,7 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 
 	case pdu.BindReceiverID:
 		req, _ := ctx.BindRx()
-		rsp := req.Response(c.config.GetName())
+		rsp := req.Response(c.config.GetSystemID())
 		if c.config.GetAllowAnonymous() {
 			ctx.Respond(rsp, pdu.StatusOK)
 			return
@@ -133,12 +132,13 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 		sess.SetCreatedAt(time.Now())
 		sess.SetRemoteAddr(ctx.RemoteAddr())
 		sess.SetId(ctx.SessionID())
+		sess.SetLocalAddr(ctx.LocalAddr())
 		instances.SmscSessionRepo.Save(sess)
 		ctx.Respond(rsp, pdu.StatusOK)
 
 	case pdu.BindTransmitterID:
 		req, _ := ctx.BindTx()
-		rsp := req.Response(c.config.GetName())
+		rsp := req.Response(c.config.GetSystemID())
 		if c.config.GetAllowAnonymous() {
 			ctx.Respond(rsp, pdu.StatusOK)
 			return
@@ -161,6 +161,7 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 		sess.SetCreatedAt(time.Now())
 		sess.SetRemoteAddr(ctx.RemoteAddr())
 		sess.SetId(ctx.SessionID())
+		sess.SetLocalAddr(ctx.LocalAddr())
 		instances.SmscSessionRepo.Save(sess)
 		ctx.Respond(rsp, pdu.StatusOK)
 
@@ -209,17 +210,22 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 		req, _ := ctx.SubmitSm()
 		msgID := uuid.NewString()
 		resp := req.Response(msgID)
-		ctx.Respond(resp, pdu.StatusOK)
-		log.Printf("<< [%s] submit_sm %+v", ctx.Sess.ID(), req)
-		if notif, err := json.Marshal(req); err == nil {
-			channels.WS_BROADCAST <- string(notif)
+		// calculate the success ratio based on current account
+		sessInfo, err := instances.SmscSessionRepo.FindById(ctx.SessionID())
+		if err != nil {
+			ctx.Respond(resp, pdu.StatusSysErr)
+			return
 		}
-		go c.SendDLRDelay(ctx.Sess.ID(), msgID, req)
+		errRate := RandomError(*sessInfo.Account.AcceptRatio)
+		ctx.Respond(resp, pdu.Status(errRate.Error))
+		if errRate.Error == 0 {
+			go c.SendDLRDelay(ctx.Sess.ID(), msgID, req, RandomError(*sessInfo.Account.DeliveryRatio))
+		}
 	}
 }
 
 // SendDLRDelay send a message back to current client ID
-func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu.SubmitSm) {
+func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu.SubmitSm, err openapi.ErrorRate) {
 	if sess, ok := c.server.EsmeSessions[sessionID]; ok {
 		dlr := &pdu.DeliveryReceipt{
 			Id:         msgID,
@@ -227,7 +233,7 @@ func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu
 			SubmitDate: time.Now(),
 			DoneDate:   time.Now(),
 			Dlvrd:      "001",
-			Stat:       pdu.DelStatDelivered,
+			Stat:       pdu.DelStatMap[uint8(err.Error%8)],
 			Err:        "000",
 			Text:       "",
 		}
@@ -259,4 +265,19 @@ func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu
 			log.Printf("unable to send delivery receipt")
 		}
 	}
+}
+
+func RandomError(ratio []openapi.ErrorRate) openapi.ErrorRate {
+	maxCnt := int32(0)
+	for _, e := range ratio {
+		maxCnt += e.GetRate()
+	}
+	prop := rand.Int31n(maxCnt)
+	for i, e := range ratio {
+		prop -= e.GetRate()
+		if prop < 0 {
+			return ratio[i]
+		}
+	}
+	return openapi.ErrorRate{Error: 0, Rate: 100}
 }
