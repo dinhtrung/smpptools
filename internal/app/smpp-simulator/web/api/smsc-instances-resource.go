@@ -65,10 +65,6 @@ func PartialUpdateSmscInstanceUsingPATCH(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
 }
 
-func StartBatchOnSmscInstanceUsingPOST(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
-}
-
 // Start selected SMSC Instance
 func StartSmscInstanceUsingGET(c *fiber.Ctx) error {
 	entity, err := instances.SmscInstanceRepo.FindById(c.Params("instanceID"))
@@ -81,10 +77,6 @@ func StartSmscInstanceUsingGET(c *fiber.Ctx) error {
 	instance := smsc.NewSmscSimulatorInstance(entity)
 	go instance.Start(context.Background())
 	return c.JSON(entity)
-}
-
-func StopAllBatchSmscInstanceUsingDELETE(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
 }
 
 func StopSmscInstanceUsingDELETE(c *fiber.Ctx) error {
@@ -100,4 +92,12 @@ func StopSmscInstanceUsingDELETE(c *fiber.Ctx) error {
 	instance.Close()
 	delete(services.SMSC_INSTANCES, entity.GetPort())
 	return c.SendStatus(fiber.StatusNoContent)
+}
+
+func StartBatchOnSmscInstanceUsingPOST(c *fiber.Ctx) error {
+	return fiber.ErrNotImplemented
+}
+
+func StopAllBatchSmscInstanceUsingDELETE(c *fiber.Ctx) error {
+	return fiber.ErrNotImplemented
 }

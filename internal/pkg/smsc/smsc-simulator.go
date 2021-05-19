@@ -73,7 +73,7 @@ func (c *SmscSimulator) Stop() {
 		log.Printf("[%s] unable to send unbind to all connection: %s", c.config.GetName(), err)
 		return
 	}
-	delete(services.SMSC_INSTANCES, *c.config.Port)
+	delete(services.SMSC_INSTANCES, c.config.GetPort())
 }
 
 // SessionHandleFunc handle incoming messages
@@ -82,6 +82,10 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 	case pdu.BindTransceiverID:
 		req, _ := ctx.BindTRx()
 		rsp := req.Response(c.config.GetName())
+		if c.config.GetAllowAnonymous() {
+			ctx.Respond(rsp, pdu.StatusOK)
+			return
+		}
 		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
 		if err != nil {
 			ctx.Respond(rsp, pdu.StatusInvSysID)
@@ -107,6 +111,10 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 	case pdu.BindReceiverID:
 		req, _ := ctx.BindRx()
 		rsp := req.Response(c.config.GetName())
+		if c.config.GetAllowAnonymous() {
+			ctx.Respond(rsp, pdu.StatusOK)
+			return
+		}
 		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
 		if err != nil {
 			ctx.Respond(rsp, pdu.StatusInvSysID)
@@ -131,6 +139,10 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 	case pdu.BindTransmitterID:
 		req, _ := ctx.BindTx()
 		rsp := req.Response(c.config.GetName())
+		if c.config.GetAllowAnonymous() {
+			ctx.Respond(rsp, pdu.StatusOK)
+			return
+		}
 		account, err := instances.SmscAccountRepo.FindById(req.SystemID)
 		if err != nil {
 			ctx.Respond(rsp, pdu.StatusInvSysID)
