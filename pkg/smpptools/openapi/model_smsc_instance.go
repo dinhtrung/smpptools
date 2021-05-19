@@ -16,17 +16,19 @@ import (
 
 // SmscInstance SMSC hold information for SMPP instances that serve traffic from ESME
 type SmscInstance struct {
-	// Connection timeout in milliseconds
-	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// name of this SMSC Instance
+	Name string `json:"name"`
 	// short description text
 	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	// true if this SMSC should be start automatically on start up
-	IsPersist *bool `json:"isPersist,omitempty"`
-	// name of this ESME account
-	Name string `json:"name"`
 	// TCP Port to listen to
 	Port *int32 `json:"port,omitempty"`
+	// Connection timeout in milliseconds
+	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	// true if this SMSC should be start automatically on start up
+	IsPersist *bool `json:"isPersist,omitempty"`
+	// true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default
+	AllowAnonymous *bool `json:"allowAnonymous,omitempty"`
 	// Number of packets send out per one go
 	WindowSize *int32 `json:"windowSize,omitempty"`
 }
@@ -38,6 +40,8 @@ type SmscInstance struct {
 func NewSmscInstance(name string) *SmscInstance {
 	this := SmscInstance{}
 	this.Name = name
+	var allowAnonymous bool = false
+	this.AllowAnonymous = &allowAnonymous
 	return &this
 }
 
@@ -46,71 +50,9 @@ func NewSmscInstance(name string) *SmscInstance {
 // but it doesn't guarantee that properties required by API are set
 func NewSmscInstanceWithDefaults() *SmscInstance {
 	this := SmscInstance{}
+	var allowAnonymous bool = false
+	this.AllowAnonymous = &allowAnonymous
 	return &this
-}
-
-// GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
-func (o *SmscInstance) GetConnectionTimeout() int32 {
-	if o == nil || o.ConnectionTimeout == nil {
-		var ret int32
-		return ret
-	}
-	return *o.ConnectionTimeout
-}
-
-// GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool) {
-	if o == nil || o.ConnectionTimeout == nil {
-		return nil, false
-	}
-	return o.ConnectionTimeout, true
-}
-
-// HasConnectionTimeout returns a boolean if a field has been set.
-func (o *SmscInstance) HasConnectionTimeout() bool {
-	if o != nil && o.ConnectionTimeout != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
-func (o *SmscInstance) SetConnectionTimeout(v int32) {
-	o.ConnectionTimeout = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *SmscInstance) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscInstance) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *SmscInstance) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *SmscInstance) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -145,38 +87,6 @@ func (o *SmscInstance) SetId(v string) {
 	o.Id = &v
 }
 
-// GetIsPersist returns the IsPersist field value if set, zero value otherwise.
-func (o *SmscInstance) GetIsPersist() bool {
-	if o == nil || o.IsPersist == nil {
-		var ret bool
-		return ret
-	}
-	return *o.IsPersist
-}
-
-// GetIsPersistOk returns a tuple with the IsPersist field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscInstance) GetIsPersistOk() (*bool, bool) {
-	if o == nil || o.IsPersist == nil {
-		return nil, false
-	}
-	return o.IsPersist, true
-}
-
-// HasIsPersist returns a boolean if a field has been set.
-func (o *SmscInstance) HasIsPersist() bool {
-	if o != nil && o.IsPersist != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIsPersist gets a reference to the given bool and assigns it to the IsPersist field.
-func (o *SmscInstance) SetIsPersist(v bool) {
-	o.IsPersist = &v
-}
-
 // GetName returns the Name field value
 func (o *SmscInstance) GetName() string {
 	if o == nil {
@@ -199,6 +109,38 @@ func (o *SmscInstance) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *SmscInstance) SetName(v string) {
 	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *SmscInstance) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscInstance) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *SmscInstance) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *SmscInstance) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
@@ -231,6 +173,102 @@ func (o *SmscInstance) HasPort() bool {
 // SetPort gets a reference to the given int32 and assigns it to the Port field.
 func (o *SmscInstance) SetPort(v int32) {
 	o.Port = &v
+}
+
+// GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
+func (o *SmscInstance) GetConnectionTimeout() int32 {
+	if o == nil || o.ConnectionTimeout == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ConnectionTimeout
+}
+
+// GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool) {
+	if o == nil || o.ConnectionTimeout == nil {
+		return nil, false
+	}
+	return o.ConnectionTimeout, true
+}
+
+// HasConnectionTimeout returns a boolean if a field has been set.
+func (o *SmscInstance) HasConnectionTimeout() bool {
+	if o != nil && o.ConnectionTimeout != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
+func (o *SmscInstance) SetConnectionTimeout(v int32) {
+	o.ConnectionTimeout = &v
+}
+
+// GetIsPersist returns the IsPersist field value if set, zero value otherwise.
+func (o *SmscInstance) GetIsPersist() bool {
+	if o == nil || o.IsPersist == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsPersist
+}
+
+// GetIsPersistOk returns a tuple with the IsPersist field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscInstance) GetIsPersistOk() (*bool, bool) {
+	if o == nil || o.IsPersist == nil {
+		return nil, false
+	}
+	return o.IsPersist, true
+}
+
+// HasIsPersist returns a boolean if a field has been set.
+func (o *SmscInstance) HasIsPersist() bool {
+	if o != nil && o.IsPersist != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsPersist gets a reference to the given bool and assigns it to the IsPersist field.
+func (o *SmscInstance) SetIsPersist(v bool) {
+	o.IsPersist = &v
+}
+
+// GetAllowAnonymous returns the AllowAnonymous field value if set, zero value otherwise.
+func (o *SmscInstance) GetAllowAnonymous() bool {
+	if o == nil || o.AllowAnonymous == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AllowAnonymous
+}
+
+// GetAllowAnonymousOk returns a tuple with the AllowAnonymous field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscInstance) GetAllowAnonymousOk() (*bool, bool) {
+	if o == nil || o.AllowAnonymous == nil {
+		return nil, false
+	}
+	return o.AllowAnonymous, true
+}
+
+// HasAllowAnonymous returns a boolean if a field has been set.
+func (o *SmscInstance) HasAllowAnonymous() bool {
+	if o != nil && o.AllowAnonymous != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowAnonymous gets a reference to the given bool and assigns it to the AllowAnonymous field.
+func (o *SmscInstance) SetAllowAnonymous(v bool) {
+	o.AllowAnonymous = &v
 }
 
 // GetWindowSize returns the WindowSize field value if set, zero value otherwise.
@@ -267,23 +305,26 @@ func (o *SmscInstance) SetWindowSize(v int32) {
 
 func (o SmscInstance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ConnectionTimeout != nil {
-		toSerialize["connectionTimeout"] = o.ConnectionTimeout
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
-	}
-	if o.IsPersist != nil {
-		toSerialize["isPersist"] = o.IsPersist
 	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
 	if o.Port != nil {
 		toSerialize["port"] = o.Port
+	}
+	if o.ConnectionTimeout != nil {
+		toSerialize["connectionTimeout"] = o.ConnectionTimeout
+	}
+	if o.IsPersist != nil {
+		toSerialize["isPersist"] = o.IsPersist
+	}
+	if o.AllowAnonymous != nil {
+		toSerialize["allowAnonymous"] = o.AllowAnonymous
 	}
 	if o.WindowSize != nil {
 		toSerialize["windowSize"] = o.WindowSize

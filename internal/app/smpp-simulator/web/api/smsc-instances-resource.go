@@ -15,8 +15,8 @@ func UpdateSmscInstanceUsingPUT(c *fiber.Ctx) error {
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
-	if _, ok := req.GetIdOk(); ok {
-		return fiber.NewError(fiber.StatusBadRequest, "new entity cannot have an ID")
+	if _, ok := req.GetIdOk(); !ok {
+		return fiber.NewError(fiber.StatusBadRequest, "missing ID field")
 	}
 	if err := instances.SmscInstanceRepo.Save(req); err != nil {
 		return err
@@ -75,6 +75,9 @@ func StartSmscInstanceUsingGET(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
+	if _, ok := services.SMSC_INSTANCES[entity.GetPort()]; ok {
+		return fiber.NewError(fiber.StatusConflict, "instance already running")
+	}
 	instance := smsc.NewSmscSimulatorInstance(entity)
 	go instance.Start(context.Background())
 	return c.JSON(entity)
@@ -92,7 +95,7 @@ func StopSmscInstanceUsingDELETE(c *fiber.Ctx) error {
 	}
 	instance, ok := services.SMSC_INSTANCES[entity.GetPort()]
 	if !ok {
-		return fiber.ErrNotFound
+		return fiber.NewError(fiber.StatusConflict, "instance already stopped")
 	}
 	instance.Close()
 	delete(services.SMSC_INSTANCES, entity.GetPort())

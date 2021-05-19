@@ -2620,6 +2620,7 @@ components:
       description: SMSC hold information for SMPP instances that serve traffic from
         ESME
       example:
+        allowAnonymous: false
         windowSize: 6
         port: 2775
         name: name
@@ -2628,29 +2629,34 @@ components:
         isPersist: false
         connectionTimeout: 0
       properties:
-        connectionTimeout:
-          description: Connection timeout in milliseconds
-          format: int32
-          type: integer
-        description:
-          description: short description text
-          type: string
         id:
           type: string
-        isPersist:
-          description: true if this SMSC should be start automatically on start up
-          example: false
-          type: boolean
         name:
-          description: name of this ESME account
+          description: name of this SMSC Instance
           maxLength: 80
           minLength: 0
+          type: string
+        description:
+          description: short description text
           type: string
         port:
           description: TCP Port to listen to
           example: 2775
+          format: int16
+          type: integer
+        connectionTimeout:
+          description: Connection timeout in milliseconds
           format: int32
           type: integer
+        isPersist:
+          description: true if this SMSC should be start automatically on start up
+          example: false
+          type: boolean
+        allowAnonymous:
+          default: false
+          description: true to bypass checking on SMSC account. Accept ratio and Delivery
+            Error ratio will use system default
+          type: boolean
         windowSize:
           description: Number of packets send out per one go
           format: int32

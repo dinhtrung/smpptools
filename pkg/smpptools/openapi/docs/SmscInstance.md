@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionTimeout** | Pointer to **int32** | Connection timeout in milliseconds | [optional] 
-**Description** | Pointer to **string** | short description text | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**IsPersist** | Pointer to **bool** | true if this SMSC should be start automatically on start up | [optional] 
-**Name** | **string** | name of this ESME account | 
+**Name** | **string** | name of this SMSC Instance | 
+**Description** | Pointer to **string** | short description text | [optional] 
 **Port** | Pointer to **int32** | TCP Port to listen to | [optional] 
+**ConnectionTimeout** | Pointer to **int32** | Connection timeout in milliseconds | [optional] 
+**IsPersist** | Pointer to **bool** | true if this SMSC should be start automatically on start up | [optional] 
+**AllowAnonymous** | Pointer to **bool** | true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default | [optional] [default to false]
 **WindowSize** | Pointer to **int32** | Number of packets send out per one go | [optional] 
 
 ## Methods
@@ -30,56 +31,6 @@ will change when the set of required properties is changed
 NewSmscInstanceWithDefaults instantiates a new SmscInstance object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetConnectionTimeout
-
-`func (o *SmscInstance) GetConnectionTimeout() int32`
-
-GetConnectionTimeout returns the ConnectionTimeout field if non-nil, zero value otherwise.
-
-### GetConnectionTimeoutOk
-
-`func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool)`
-
-GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConnectionTimeout
-
-`func (o *SmscInstance) SetConnectionTimeout(v int32)`
-
-SetConnectionTimeout sets ConnectionTimeout field to given value.
-
-### HasConnectionTimeout
-
-`func (o *SmscInstance) HasConnectionTimeout() bool`
-
-HasConnectionTimeout returns a boolean if a field has been set.
-
-### GetDescription
-
-`func (o *SmscInstance) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *SmscInstance) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *SmscInstance) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *SmscInstance) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetId
 
@@ -106,31 +57,6 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetIsPersist
-
-`func (o *SmscInstance) GetIsPersist() bool`
-
-GetIsPersist returns the IsPersist field if non-nil, zero value otherwise.
-
-### GetIsPersistOk
-
-`func (o *SmscInstance) GetIsPersistOk() (*bool, bool)`
-
-GetIsPersistOk returns a tuple with the IsPersist field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsPersist
-
-`func (o *SmscInstance) SetIsPersist(v bool)`
-
-SetIsPersist sets IsPersist field to given value.
-
-### HasIsPersist
-
-`func (o *SmscInstance) HasIsPersist() bool`
-
-HasIsPersist returns a boolean if a field has been set.
-
 ### GetName
 
 `func (o *SmscInstance) GetName() string`
@@ -150,6 +76,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetDescription
+
+`func (o *SmscInstance) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *SmscInstance) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *SmscInstance) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *SmscInstance) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetPort
 
@@ -175,6 +126,81 @@ SetPort sets Port field to given value.
 `func (o *SmscInstance) HasPort() bool`
 
 HasPort returns a boolean if a field has been set.
+
+### GetConnectionTimeout
+
+`func (o *SmscInstance) GetConnectionTimeout() int32`
+
+GetConnectionTimeout returns the ConnectionTimeout field if non-nil, zero value otherwise.
+
+### GetConnectionTimeoutOk
+
+`func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool)`
+
+GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectionTimeout
+
+`func (o *SmscInstance) SetConnectionTimeout(v int32)`
+
+SetConnectionTimeout sets ConnectionTimeout field to given value.
+
+### HasConnectionTimeout
+
+`func (o *SmscInstance) HasConnectionTimeout() bool`
+
+HasConnectionTimeout returns a boolean if a field has been set.
+
+### GetIsPersist
+
+`func (o *SmscInstance) GetIsPersist() bool`
+
+GetIsPersist returns the IsPersist field if non-nil, zero value otherwise.
+
+### GetIsPersistOk
+
+`func (o *SmscInstance) GetIsPersistOk() (*bool, bool)`
+
+GetIsPersistOk returns a tuple with the IsPersist field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsPersist
+
+`func (o *SmscInstance) SetIsPersist(v bool)`
+
+SetIsPersist sets IsPersist field to given value.
+
+### HasIsPersist
+
+`func (o *SmscInstance) HasIsPersist() bool`
+
+HasIsPersist returns a boolean if a field has been set.
+
+### GetAllowAnonymous
+
+`func (o *SmscInstance) GetAllowAnonymous() bool`
+
+GetAllowAnonymous returns the AllowAnonymous field if non-nil, zero value otherwise.
+
+### GetAllowAnonymousOk
+
+`func (o *SmscInstance) GetAllowAnonymousOk() (*bool, bool)`
+
+GetAllowAnonymousOk returns a tuple with the AllowAnonymous field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowAnonymous
+
+`func (o *SmscInstance) SetAllowAnonymous(v bool)`
+
+SetAllowAnonymous sets AllowAnonymous field to given value.
+
+### HasAllowAnonymous
+
+`func (o *SmscInstance) HasAllowAnonymous() bool`
+
+HasAllowAnonymous returns a boolean if a field has been set.
 
 ### GetWindowSize
 

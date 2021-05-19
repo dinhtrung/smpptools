@@ -2330,29 +2330,33 @@ components:
       - name
       type: object
       properties:
-        connectionTimeout:
-          type: integer
-          description: Connection timeout in milliseconds
-          format: int32
-        description:
-          type: string
-          description: short description text
         id:
           type: string
-        isPersist:
-          type: boolean
-          description: true if this SMSC should be start automatically on start up
-          example: false
         name:
           maxLength: 80
           minLength: 0
           type: string
-          description: name of this ESME account
+          description: name of this SMSC Instance
+        description:
+          type: string
+          description: short description text
         port:
           type: integer
           description: TCP Port to listen to
-          format: int32
+          format: int16
           example: 2775
+        connectionTimeout:
+          type: integer
+          description: Connection timeout in milliseconds
+          format: int32
+        isPersist:
+          type: boolean
+          description: true if this SMSC should be start automatically on start up
+          example: false
+        allowAnonymous:
+          type: boolean
+          description: true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default
+          default: false
         windowSize:
           type: integer
           description: Number of packets send out per one go
