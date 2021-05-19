@@ -41,6 +41,7 @@ func DeleteEsmeSessionUsingDELETE(c *fiber.Ctx) error {
 	instances.EsmeSessionRepo.DeleteById(sid)
 	return c.SendStatus(fiber.StatusNoContent)
 }
+
 func GetAllEsmeSessions(c *fiber.Ctx) error {
 	result, err := instances.EsmeSessionRepo.FindAll()
 	if err != nil {
@@ -48,6 +49,7 @@ func GetAllEsmeSessions(c *fiber.Ctx) error {
 	}
 	return c.JSON(result)
 }
+
 func GetEsmeSessionUsingGET(c *fiber.Ctx) error {
 	sid := c.Params("sessionID")
 	if sid == "" {
@@ -63,10 +65,8 @@ func GetEsmeSessionUsingGET(c *fiber.Ctx) error {
 	}
 	return c.JSON(entity)
 }
+
 func PartialUpdateEsmeSessionUsingPATCH(c *fiber.Ctx) error {
-	return fiber.ErrNotImplemented
-}
-func SendSMSonEsmeSessionUsingPOST(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
 }
 
@@ -99,7 +99,46 @@ func SendMTonEsmeSessionUsingPOST(c *fiber.Ctx) error {
 	}
 	return c.JSON(res)
 }
-func StopAllBachOnEsmeSessionUsingDELETE(c *fiber.Ctx) error {
+
+func StartStressTestOnEsmeSessionUsingPOST(c *fiber.Ctx) error {
+	sid := c.Params("sessionID")
+	if sid == "" {
+		return fiber.ErrBadRequest
+	}
+	_, ok := services.SMPP_CLIENT_SESSIONS[sid]
+	if !ok {
+		return fiber.ErrNotFound
+	}
+
+	req := openapi.NewStressTestSettings()
+	if err := c.BodyParser(req); err != nil {
+		return err
+	}
+	return c.JSON(req)
+}
+
+func StopStressTestOnEsmeSessionUsingDELETE(c *fiber.Ctx) error {
+	return fiber.ErrNotImplemented
+}
+
+func SendBatchSMSonEsmeSessionUsingPOST(c *fiber.Ctx) error {
+	sid := c.Params("sessionID")
+	if sid == "" {
+		return fiber.ErrBadRequest
+	}
+	_, ok := services.SMPP_CLIENT_SESSIONS[sid]
+	if !ok {
+		return fiber.ErrNotFound
+	}
+
+	req := openapi.NewBatch()
+	if err := c.BodyParser(req); err != nil {
+		return err
+	}
+	// TODO: start batch processing in one separate go-routine and match the cancelFunc into another global
+	return c.JSON(req)
+}
+func StopAllBatchOnEsmeSessionUsingDELETE(c *fiber.Ctx) error {
 	results := make([]string, 0)
 	for sid, sess := range services.SMPP_CLIENT_SESSIONS {
 		if err := sess.Close(); err == nil {

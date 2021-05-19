@@ -547,30 +547,30 @@ func (a *EsmeSessionResourceApiService) PartialUpdateEsmeSessionUsingPATCHExecut
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSendSMSonEsmeSessionUsingPOSTRequest struct {
+type ApiSendBatchSMSonEsmeSessionUsingPOSTRequest struct {
 	ctx _context.Context
 	ApiService *EsmeSessionResourceApiService
 	sessionID string
 	batch *Batch
 }
 
-func (r ApiSendSMSonEsmeSessionUsingPOSTRequest) Batch(batch Batch) ApiSendSMSonEsmeSessionUsingPOSTRequest {
+func (r ApiSendBatchSMSonEsmeSessionUsingPOSTRequest) Batch(batch Batch) ApiSendBatchSMSonEsmeSessionUsingPOSTRequest {
 	r.batch = &batch
 	return r
 }
 
-func (r ApiSendSMSonEsmeSessionUsingPOSTRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.SendSMSonEsmeSessionUsingPOSTExecute(r)
+func (r ApiSendBatchSMSonEsmeSessionUsingPOSTRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.SendBatchSMSonEsmeSessionUsingPOSTExecute(r)
 }
 
 /*
- * SendSMSonEsmeSessionUsingPOST Send Mobile Originated SMS on selected session with given patterns and data files
+ * SendBatchSMSonEsmeSessionUsingPOST Send Mobile Originated SMS on selected session with given patterns and data files
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sessionID ID of selected session
- * @return ApiSendSMSonEsmeSessionUsingPOSTRequest
+ * @return ApiSendBatchSMSonEsmeSessionUsingPOSTRequest
  */
-func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOST(ctx _context.Context, sessionID string) ApiSendSMSonEsmeSessionUsingPOSTRequest {
-	return ApiSendSMSonEsmeSessionUsingPOSTRequest{
+func (a *EsmeSessionResourceApiService) SendBatchSMSonEsmeSessionUsingPOST(ctx _context.Context, sessionID string) ApiSendBatchSMSonEsmeSessionUsingPOSTRequest {
+	return ApiSendBatchSMSonEsmeSessionUsingPOSTRequest{
 		ApiService: a,
 		ctx: ctx,
 		sessionID: sessionID,
@@ -580,7 +580,7 @@ func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOST(ctx _conte
 /*
  * Execute executes the request
  */
-func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r ApiSendSMSonEsmeSessionUsingPOSTRequest) (*_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) SendBatchSMSonEsmeSessionUsingPOSTExecute(r ApiSendBatchSMSonEsmeSessionUsingPOSTRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -589,7 +589,7 @@ func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r A
 		localVarFileBytes    []byte
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.SendSMSonEsmeSessionUsingPOST")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.SendBatchSMSonEsmeSessionUsingPOST")
 	if err != nil {
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -648,25 +648,30 @@ func (a *EsmeSessionResourceApiService) SendSMSonEsmeSessionUsingPOSTExecute(r A
 	return localVarHTTPResponse, nil
 }
 
-type ApiStopAllBachOnEsmeSessionUsingDELETERequest struct {
+type ApiSendMTonEsmeSessionUsingPostRequest struct {
 	ctx _context.Context
 	ApiService *EsmeSessionResourceApiService
 	sessionID string
+	baseSm *BaseSm
 }
 
+func (r ApiSendMTonEsmeSessionUsingPostRequest) BaseSm(baseSm BaseSm) ApiSendMTonEsmeSessionUsingPostRequest {
+	r.baseSm = &baseSm
+	return r
+}
 
-func (r ApiStopAllBachOnEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.StopAllBachOnEsmeSessionUsingDELETEExecute(r)
+func (r ApiSendMTonEsmeSessionUsingPostRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.SendMTonEsmeSessionUsingPostExecute(r)
 }
 
 /*
- * StopAllBachOnEsmeSessionUsingDELETE Stop all batch current running in selected SMSC sessions
+ * SendMTonEsmeSessionUsingPost Send Mobile Terminated SMS on selected session with given patterns and data files
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sessionID ID of selected session
- * @return ApiStopAllBachOnEsmeSessionUsingDELETERequest
+ * @return ApiSendMTonEsmeSessionUsingPostRequest
  */
-func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETE(ctx _context.Context, sessionID string) ApiStopAllBachOnEsmeSessionUsingDELETERequest {
-	return ApiStopAllBachOnEsmeSessionUsingDELETERequest{
+func (a *EsmeSessionResourceApiService) SendMTonEsmeSessionUsingPost(ctx _context.Context, sessionID string) ApiSendMTonEsmeSessionUsingPostRequest {
+	return ApiSendMTonEsmeSessionUsingPostRequest{
 		ApiService: a,
 		ctx: ctx,
 		sessionID: sessionID,
@@ -676,7 +681,204 @@ func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETE(ctx 
 /*
  * Execute executes the request
  */
-func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETEExecute(r ApiStopAllBachOnEsmeSessionUsingDELETERequest) (*_nethttp.Response, error) {
+func (a *EsmeSessionResourceApiService) SendMTonEsmeSessionUsingPostExecute(r ApiSendMTonEsmeSessionUsingPostRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.SendMTonEsmeSessionUsingPost")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/send-mt"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.baseSm
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiStartStressTestOnEsmeSessionUsingPOSTRequest struct {
+	ctx _context.Context
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
+	stressTestSettings *StressTestSettings
+}
+
+func (r ApiStartStressTestOnEsmeSessionUsingPOSTRequest) StressTestSettings(stressTestSettings StressTestSettings) ApiStartStressTestOnEsmeSessionUsingPOSTRequest {
+	r.stressTestSettings = &stressTestSettings
+	return r
+}
+
+func (r ApiStartStressTestOnEsmeSessionUsingPOSTRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.StartStressTestOnEsmeSessionUsingPOSTExecute(r)
+}
+
+/*
+ * StartStressTestOnEsmeSessionUsingPOST Perform Stress Testing on selected ESME Session
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param sessionID ID of selected session
+ * @return ApiStartStressTestOnEsmeSessionUsingPOSTRequest
+ */
+func (a *EsmeSessionResourceApiService) StartStressTestOnEsmeSessionUsingPOST(ctx _context.Context, sessionID string) ApiStartStressTestOnEsmeSessionUsingPOSTRequest {
+	return ApiStartStressTestOnEsmeSessionUsingPOSTRequest{
+		ApiService: a,
+		ctx: ctx,
+		sessionID: sessionID,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *EsmeSessionResourceApiService) StartStressTestOnEsmeSessionUsingPOSTExecute(r ApiStartStressTestOnEsmeSessionUsingPOSTRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.StartStressTestOnEsmeSessionUsingPOST")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/stress"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.stressTestSettings
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiStopAllBatchOnEsmeSessionUsingDELETERequest struct {
+	ctx _context.Context
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
+}
+
+
+func (r ApiStopAllBatchOnEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.StopAllBatchOnEsmeSessionUsingDELETEExecute(r)
+}
+
+/*
+ * StopAllBatchOnEsmeSessionUsingDELETE Stop all batch current running in selected SMSC sessions
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param sessionID ID of selected session
+ * @return ApiStopAllBatchOnEsmeSessionUsingDELETERequest
+ */
+func (a *EsmeSessionResourceApiService) StopAllBatchOnEsmeSessionUsingDELETE(ctx _context.Context, sessionID string) ApiStopAllBatchOnEsmeSessionUsingDELETERequest {
+	return ApiStopAllBatchOnEsmeSessionUsingDELETERequest{
+		ApiService: a,
+		ctx: ctx,
+		sessionID: sessionID,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *EsmeSessionResourceApiService) StopAllBatchOnEsmeSessionUsingDELETEExecute(r ApiStopAllBatchOnEsmeSessionUsingDELETERequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -685,12 +887,106 @@ func (a *EsmeSessionResourceApiService) StopAllBachOnEsmeSessionUsingDELETEExecu
 		localVarFileBytes    []byte
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.StopAllBachOnEsmeSessionUsingDELETE")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.StopAllBatchOnEsmeSessionUsingDELETE")
 	if err != nil {
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/batch"
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiStopStressTestOnEsmeSessionUsingDELETERequest struct {
+	ctx _context.Context
+	ApiService *EsmeSessionResourceApiService
+	sessionID string
+}
+
+
+func (r ApiStopStressTestOnEsmeSessionUsingDELETERequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.StopStressTestOnEsmeSessionUsingDELETEExecute(r)
+}
+
+/*
+ * StopStressTestOnEsmeSessionUsingDELETE Stop all stress test current running in selected SMSC sessions
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param sessionID ID of selected session
+ * @return ApiStopStressTestOnEsmeSessionUsingDELETERequest
+ */
+func (a *EsmeSessionResourceApiService) StopStressTestOnEsmeSessionUsingDELETE(ctx _context.Context, sessionID string) ApiStopStressTestOnEsmeSessionUsingDELETERequest {
+	return ApiStopStressTestOnEsmeSessionUsingDELETERequest{
+		ApiService: a,
+		ctx: ctx,
+		sessionID: sessionID,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *EsmeSessionResourceApiService) StopStressTestOnEsmeSessionUsingDELETEExecute(r ApiStopStressTestOnEsmeSessionUsingDELETERequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsmeSessionResourceApiService.StopStressTestOnEsmeSessionUsingDELETE")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/esme-sessions/{sessionID}/stress"
 	localVarPath = strings.Replace(localVarPath, "{"+"sessionID"+"}", _neturl.PathEscape(parameterToString(r.sessionID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

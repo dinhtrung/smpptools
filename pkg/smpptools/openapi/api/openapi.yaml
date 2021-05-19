@@ -867,9 +867,91 @@ paths:
       summary: updateEsmeSession
       tags:
       - esme-session-resource
+  /api/esme-sessions/{sessionID}/send-mt:
+    post:
+      operationId: sendMTonEsmeSessionUsingPost
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseSm'
+      responses:
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Send Mobile Terminated SMS on selected session with given patterns
+        and data files
+      tags:
+      - esme-session-resource
+  /api/esme-sessions/{sessionID}/stress:
+    delete:
+      operationId: stopStressTestOnEsmeSessionUsingDELETE
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Stop all stress test current running in selected SMSC sessions
+      tags:
+      - esme-session-resource
+    post:
+      operationId: startStressTestOnEsmeSessionUsingPOST
+      parameters:
+      - description: ID of selected session
+        explode: false
+        in: path
+        name: sessionID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StressTestSettings'
+      responses:
+        "200":
+          description: OK
+        "202":
+          description: Accepted, task will be perform in background
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      summary: Perform Stress Testing on selected ESME Session
+      tags:
+      - esme-session-resource
   /api/esme-sessions/{sessionID}/batch:
     delete:
-      operationId: stopAllBachOnEsmeSessionUsingDELETE
+      operationId: stopAllBatchOnEsmeSessionUsingDELETE
       parameters:
       - description: ID of selected session
         explode: false
@@ -890,7 +972,7 @@ paths:
       tags:
       - esme-session-resource
     post:
-      operationId: sendSMSonEsmeSessionUsingPOST
+      operationId: sendBatchSMSonEsmeSessionUsingPOST
       parameters:
       - description: ID of selected session
         explode: false
@@ -1826,6 +1908,27 @@ components:
           description: hex bytes of the value
           type: string
       type: object
+    ErrorRate:
+      example:
+        rate: 7.061401241503109
+        description: description
+        error: 2.3021358869347655
+      properties:
+        error:
+          description: Error Code
+          format: int8
+          type: number
+        description:
+          description: Description about this error rate
+          type: string
+        rate:
+          description: Percentage this error will occur
+          format: int8
+          type: number
+      required:
+      - error
+      - rate
+      type: object
     BaseSm:
       description: BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
       example:
@@ -1929,6 +2032,10 @@ components:
         validityPeriod:
           description: Validity Period
           type: string
+        charset:
+          description: Character set used for encoding and decoding between text and
+            shortMessages
+          type: string
         text:
           description: Message content in text
           type: string
@@ -1937,10 +2044,6 @@ components:
           items:
             $ref: '#/components/schemas/ShortMessageHex'
           type: array
-        charset:
-          description: Character set used for encoding and decoding between text and
-            shortMessages
-          type: string
         isConcatTLV:
           default: false
           description: is this message using TLV for concatenate long SMS
@@ -1952,59 +2055,16 @@ components:
           type: array
       title: BaseSm
       type: object
-    ThroughputSeries:
-      description: A series of traffic throughput used for re-generate traffic throughput
-        patterns
+    StressTestSettings:
+      description: Configuration for Stress Testing Process
       example:
-        values:
-        - 0.8008281904610115
-        - 0.8008281904610115
-        name: Load test 2021-05-12
-        description: Traffic throughput collected from production system on 2021-05-12
-        state: 0
-        datafile: cdr-20210512.csv
-      properties:
-        name:
-          description: Name of this throughput series
-          example: Load test 2021-05-12
-          type: string
-        description:
-          description: A short description of this throughput
-          example: Traffic throughput collected from production system on 2021-05-12
-          type: string
-        values:
-          description: throughput per minute of current series
-          items:
-            format: float32
-            type: number
-          type: array
-        datafile:
-          description: CDR file name this throughput series was generated from
-          example: cdr-20210512.csv
-          type: string
-        state:
-          description: State of this throughput series
-          example: 0
-          type: number
-      required:
-      - name
-      title: ThroughputSeries
-    Batch:
-      description: model used for stress testing
-      example:
-        throuput:
-          values:
-          - 0.8008281904610115
-          - 0.8008281904610115
-          name: Load test 2021-05-12
-          description: Traffic throughput collected from production system on 2021-05-12
-          state: 0
-          datafile: cdr-20210512.csv
         smsData:
           name: name
           description: description
           id: id
           content: content
+        maxPDU: 1000
+        throughput: 0.8008281904610115
         smsPattern:
           serviceType: serviceType
           isConcatTLV: false
@@ -2043,7 +2103,130 @@ components:
           $ref: '#/components/schemas/BaseSm'
         smsData:
           $ref: '#/components/schemas/IsdnList'
-        throuput:
+        throughput:
+          description: maximum throughput try to reach
+          type: number
+        maxPDU:
+          description: max number of PDU send out
+          example: 1000
+          type: number
+      title: StressTestSettings
+    StressTestResult:
+      description: Result of stress test
+      properties:
+        id:
+          format: uuid
+          type: string
+        createdAt:
+          format: datetime
+          type: string
+        updatedAt:
+          format: datetime
+          type: string
+        state:
+          enum:
+          - pending
+          - starting
+          - running
+          - stopped
+          type: string
+        percent:
+          description: percent complete
+          example: 10
+          type: integer
+      title: StressTest Counter
+    ThroughputSeries:
+      description: A series of traffic throughput used for re-generate traffic throughput
+        patterns
+      example:
+        values:
+        - 0.8008281904610115
+        - 0.8008281904610115
+        name: Load test 2021-05-12
+        description: Traffic throughput collected from production system on 2021-05-12
+        state: 0
+        datafile: cdr-20210512.csv
+      properties:
+        name:
+          description: Name of this throughput series
+          example: Load test 2021-05-12
+          type: string
+        description:
+          description: A short description of this throughput
+          example: Traffic throughput collected from production system on 2021-05-12
+          type: string
+        values:
+          description: throughput per minute of current series
+          items:
+            format: float32
+            type: number
+          type: array
+        datafile:
+          description: CDR file name this throughput series was generated from
+          example: cdr-20210512.csv
+          type: string
+        state:
+          description: State of this throughput series
+          example: 0
+          type: number
+      required:
+      - name
+      title: ThroughputSeries
+    Batch:
+      description: model used for traffic simulation
+      example:
+        smsData:
+          name: name
+          description: description
+          id: id
+          content: content
+        throughput:
+          values:
+          - 0.8008281904610115
+          - 0.8008281904610115
+          name: Load test 2021-05-12
+          description: Traffic throughput collected from production system on 2021-05-12
+          state: 0
+          datafile: cdr-20210512.csv
+        smsPattern:
+          serviceType: serviceType
+          isConcatTLV: false
+          charset: charset
+          sourceNPI: 2
+          description: description
+          registeredDelivery: 9
+          scheduleDeliveryTime: scheduleDeliveryTime
+          destinationTON: 5
+          validityPeriod: validityPeriod
+          protocolID: 7
+          destinationNPI: 1
+          dataCoding: 0
+          destinationAddr: destinationAddr
+          name: name
+          replaceIfPresentFlag: 3
+          id: id
+          sourceAddr: sourceAddr
+          text: text
+          priorityFlag: 2
+          sourceTON: 4
+          tlvList:
+          - tag: 7
+            value: value
+          - tag: 7
+            value: value
+          defaultMessageID: 6
+          shortMessages:
+          - udhPart: udhPart
+            txtPart: txtPart
+          - udhPart: udhPart
+            txtPart: txtPart
+          esmClass: 5
+      properties:
+        smsPattern:
+          $ref: '#/components/schemas/BaseSm'
+        smsData:
+          $ref: '#/components/schemas/IsdnList'
+        throughput:
           $ref: '#/components/schemas/ThroughputSeries'
       title: Batch
       type: object
@@ -2051,68 +2234,117 @@ components:
       description: ESME hold information on how to establish a SMPP Session towards
         SMSC
       example:
-        enquireLinkInterval: 2
+        ackRatio:
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        enquireLinkInterval: 9
         systemID: systemID
+        bindType: transceiver
         addressRange: addressRange
-        bindType: bindType
-        dlrErrorCode: 5
         mtThroughtput: 3
         description: description
+        interfaceVersion: 6
         isPersist: false
-        moErrorRate: 9
-        reconnectDelay: 7
+        reconnectDelay: 4
         isEnable: false
-        addressTON: 6
+        addressTON: 5
         password: password
-        windowSize: 1
-        moErrorCode: 7
-        port: 4
-        dlrErrorRate: 5
-        host: host
+        windowSize: 7
+        port: 0
         name: name
-        id: id
-        addressNPI: 0
-        connectionTimeout: 1
+        host: host
+        systemType: VMS
+        acceptRatio:
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        addressNPI: 1
+        connectionTimeout: 5
         numBinds: 2
       properties:
-        addressNPI:
-          description: Bind Address Numbering Plan Indication
-          format: int32
+        id:
+          description: unique id for this ESME account
+          format: uuid
+          type: string
+        name:
+          description: name of this ESME account
+          maxLength: 80
+          minLength: 0
+          type: string
+        description:
+          description: short description text
+          type: string
+        host:
+          description: remote SMSC host
+          type: string
+        port:
+          description: remote SMSC port
           type: integer
+        systemID:
+          description: SystemID used to connect to remote SMSC
+          type: string
+        password:
+          description: Password for login
+          format: password
+          type: string
+        systemType:
+          description: The system_type parameter is used to categorize the type of
+            ESME that is binding to the SMSC
+          example: VMS
+          type: string
+        interfaceVersion:
+          description: version of the SMPP protocol
+          enum:
+          - 0
+          - 51
+          - 52
+          type: integer
+        bindType:
+          default: transceiver
+          description: Bind Type, transmitter, receiver or transceiver
+          enum:
+          - transmitter
+          - receiver
+          - transceiver
+          example: transceiver
+          type: string
         addressRange:
           description: Bind Address Range
           type: string
+        addressNPI:
+          description: Bind Address Numbering Plan Indication
+          format: int8
+          type: integer
         addressTON:
           description: Bind Address Type of Number
-          format: int32
+          format: int8
           type: integer
-        bindType:
-          description: Bind Type, transmitter, receiver or transceiver
-          type: string
         connectionTimeout:
           description: Connection timeout in milliseconds
           format: int32
           type: integer
-        description:
-          description: short description text
-          type: string
-        dlrErrorCode:
-          description: Error Code return to SMSC for Mobile Originated SMS
-          format: int32
-          type: integer
-        dlrErrorRate:
-          description: Error Ratio for Receiving Mobile Orignated SMS
-          format: int32
-          type: integer
+        acceptRatio:
+          description: Error rate on receiving Mobile Originated SMS
+          items:
+            $ref: '#/components/schemas/ErrorRate'
+          type: array
+        ackRatio:
+          description: Error ratio on receiving Delivery Receipt
+          items:
+            $ref: '#/components/schemas/ErrorRate'
+          type: array
         enquireLinkInterval:
           description: Enquire links interval in seconds
           format: int32
           type: integer
-        host:
-          description: remote SMSC host
-          type: string
-        id:
-          type: string
         isEnable:
           description: true if this ESME should be start automatically
           example: false
@@ -2121,41 +2353,18 @@ components:
           description: true if this ESME should be start automatically on start up
           example: false
           type: boolean
-        moErrorCode:
-          description: Error Code return to SMSC for Mobile Originated SMS
-          format: int32
-          type: integer
-        moErrorRate:
-          description: Error Ratio for Receiving Mobile Orignated SMS
-          format: int32
-          type: integer
         mtThroughtput:
           description: Sending out speeds in TPS
           format: int32
           type: integer
-        name:
-          description: name of this ESME account
-          maxLength: 80
-          minLength: 0
-          type: string
         numBinds:
           description: number of active binds on start up
-          format: int32
-          type: integer
-        password:
-          description: Password for login
-          type: string
-        port:
-          description: remote SMSC port
           format: int32
           type: integer
         reconnectDelay:
           description: Delay in seconds before retry reconnect
           format: int32
           type: integer
-        systemID:
-          description: SystemID used to connect to remote SMSC
-          type: string
         windowSize:
           description: Number of packets send out per one go
           format: int32
@@ -2170,28 +2379,40 @@ components:
         id: id
         localAddr: 127.0.0.1:23456
         account:
-          enquireLinkInterval: 2
+          ackRatio:
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          enquireLinkInterval: 9
           systemID: systemID
+          bindType: transceiver
           addressRange: addressRange
-          bindType: bindType
-          dlrErrorCode: 5
           mtThroughtput: 3
           description: description
+          interfaceVersion: 6
           isPersist: false
-          moErrorRate: 9
-          reconnectDelay: 7
+          reconnectDelay: 4
           isEnable: false
-          addressTON: 6
+          addressTON: 5
           password: password
-          windowSize: 1
-          moErrorCode: 7
-          port: 4
-          dlrErrorRate: 5
-          host: host
+          windowSize: 7
+          port: 0
           name: name
-          id: id
-          addressNPI: 0
-          connectionTimeout: 1
+          host: host
+          systemType: VMS
+          acceptRatio:
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          addressNPI: 1
+          connectionTimeout: 5
           numBinds: 2
       properties:
         id:
@@ -2218,19 +2439,32 @@ components:
         id: id
         account:
           systemID: systemID
+          deliveryRatio:
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
           maxBinds: 5
+          bindType: transceiver
           addressRange: addressRange
-          bindType: bindType
-          dlrErrorCode: 1
           description: description
-          moErrorRate: 7
-          addressTON: 6
+          interfaceVersion: 0
+          addressTON: 1
           password: password
-          moErrorCode: 2
-          dlrErrorRate: 5
           name: name
-          id: id
-          addressNPI: 0
+          systemType: VMS
+          acceptRatio:
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          - rate: 7.061401241503109
+            description: description
+            error: 2.3021358869347655
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          moThroughput: 5.962133916683182
+          addressNPI: 6
         remoteAddr: 127.0.0.1:23456
       properties:
         id:
@@ -2279,70 +2513,103 @@ components:
       description: SMSC account allow or deny BIND request from ESME
       example:
         systemID: systemID
+        deliveryRatio:
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
         maxBinds: 5
+        bindType: transceiver
         addressRange: addressRange
-        bindType: bindType
-        dlrErrorCode: 1
         description: description
-        moErrorRate: 7
-        addressTON: 6
+        interfaceVersion: 0
+        addressTON: 1
         password: password
-        moErrorCode: 2
-        dlrErrorRate: 5
         name: name
-        id: id
-        addressNPI: 0
+        systemType: VMS
+        acceptRatio:
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        - rate: 7.061401241503109
+          description: description
+          error: 2.3021358869347655
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        moThroughput: 5.962133916683182
+        addressNPI: 6
       properties:
-        addressNPI:
-          description: Bind Address Numbering Plan Indication
-          format: int32
-          type: integer
-        addressRange:
-          description: Bind Address Range
-          type: string
-        addressTON:
-          description: Bind Address Type of Number
-          format: int32
-          type: integer
-        bindType:
-          description: Bind Type, transmitter, receiver or transceiver
-          type: string
-        description:
-          description: short description text
-          type: string
-        dlrErrorCode:
-          description: Error Code return to SMSC for Mobile Originated SMS
-          format: int32
-          type: integer
-        dlrErrorRate:
-          description: Error Ratio for Receiving Mobile Orignated SMS
-          format: int32
-          type: integer
         id:
+          description: unique account ID
+          format: uuid
           type: string
-        maxBinds:
-          description: max number of active binds on this account
-          format: int32
-          type: integer
-        moErrorCode:
-          description: Error Code return to SMSC for Mobile Originated SMS
-          format: int32
-          type: integer
-        moErrorRate:
-          description: Error Ratio for Receiving Mobile Orignated SMS
-          format: int32
-          type: integer
         name:
           description: name of this SMSCaccount account
           maxLength: 80
           minLength: 0
           type: string
-        password:
-          description: Password for login
+        description:
+          description: short description text
           type: string
         systemID:
           description: SystemID used to connect to remote SMSC
           type: string
+        password:
+          description: Password for login
+          format: password
+          type: string
+        systemType:
+          description: The system_type parameter is used to categorize the type of
+            ESME that is binding to the SMSC
+          example: VMS
+          type: string
+        interfaceVersion:
+          description: version of the SMPP protocol
+          enum:
+          - 0
+          - 51
+          - 52
+          type: integer
+        bindType:
+          default: transceiver
+          description: Bind Type, transmitter, receiver or transceiver
+          enum:
+          - transmitter
+          - receiver
+          - transceiver
+          example: transceiver
+          type: string
+        addressRange:
+          description: Bind Address Range
+          type: string
+        addressNPI:
+          description: Bind Address Numbering Plan Indication
+          format: int8
+          type: integer
+        addressTON:
+          description: Bind Address Type of Number
+          format: int8
+          type: integer
+        acceptRatio:
+          description: Error ratio for return on receive Submit SM from ESME
+          items:
+            $ref: '#/components/schemas/ErrorRate'
+          type: array
+        deliveryRatio:
+          description: Error ratio for generate the Delivery Report and send back
+            to client
+          items:
+            $ref: '#/components/schemas/ErrorRate'
+          type: array
+        moThroughput:
+          description: Maximum throughput for sending MO
+          format: int8
+          type: number
+        maxBinds:
+          description: max number of active binds on this account
+          format: int32
+          type: integer
       required:
       - name
       - password

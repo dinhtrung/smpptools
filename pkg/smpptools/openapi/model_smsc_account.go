@@ -16,44 +16,49 @@ import (
 
 // SmscAccount SMSC account allow or deny BIND request from ESME
 type SmscAccount struct {
-	// Bind Address Numbering Plan Indication
-	AddressNPI *int32 `json:"addressNPI,omitempty"`
-	// Bind Address Range
-	AddressRange *string `json:"addressRange,omitempty"`
-	// Bind Address Type of Number
-	AddressTON *int32 `json:"addressTON,omitempty"`
-	// Bind Type, transmitter, receiver or transceiver
-	BindType *string `json:"bindType,omitempty"`
-	// short description text
-	Description *string `json:"description,omitempty"`
-	// Error Code return to SMSC for Mobile Originated SMS
-	DlrErrorCode *int32 `json:"dlrErrorCode,omitempty"`
-	// Error Ratio for Receiving Mobile Orignated SMS
-	DlrErrorRate *int32 `json:"dlrErrorRate,omitempty"`
+	// unique account ID
 	Id *string `json:"id,omitempty"`
-	// max number of active binds on this account
-	MaxBinds *int32 `json:"maxBinds,omitempty"`
-	// Error Code return to SMSC for Mobile Originated SMS
-	MoErrorCode *int32 `json:"moErrorCode,omitempty"`
-	// Error Ratio for Receiving Mobile Orignated SMS
-	MoErrorRate *int32 `json:"moErrorRate,omitempty"`
 	// name of this SMSCaccount account
 	Name string `json:"name"`
-	// Password for login
-	Password string `json:"password"`
+	// short description text
+	Description *string `json:"description,omitempty"`
 	// SystemID used to connect to remote SMSC
 	SystemID string `json:"systemID"`
+	// Password for login
+	Password string `json:"password"`
+	// The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
+	SystemType *string `json:"systemType,omitempty"`
+	// version of the SMPP protocol
+	InterfaceVersion *int32 `json:"interfaceVersion,omitempty"`
+	// Bind Type, transmitter, receiver or transceiver
+	BindType *string `json:"bindType,omitempty"`
+	// Bind Address Range
+	AddressRange *string `json:"addressRange,omitempty"`
+	// Bind Address Numbering Plan Indication
+	AddressNPI *int32 `json:"addressNPI,omitempty"`
+	// Bind Address Type of Number
+	AddressTON *int32 `json:"addressTON,omitempty"`
+	// Error ratio for return on receive Submit SM from ESME
+	AcceptRatio *[]ErrorRate `json:"acceptRatio,omitempty"`
+	// Error ratio for generate the Delivery Report and send back to client
+	DeliveryRatio *[]ErrorRate `json:"deliveryRatio,omitempty"`
+	// Maximum throughput for sending MO
+	MoThroughput *float32 `json:"moThroughput,omitempty"`
+	// max number of active binds on this account
+	MaxBinds *int32 `json:"maxBinds,omitempty"`
 }
 
 // NewSmscAccount instantiates a new SmscAccount object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSmscAccount(name string, password string, systemID string) *SmscAccount {
+func NewSmscAccount(name string, systemID string, password string) *SmscAccount {
 	this := SmscAccount{}
 	this.Name = name
-	this.Password = password
 	this.SystemID = systemID
+	this.Password = password
+	var bindType string = "transceiver"
+	this.BindType = &bindType
 	return &this
 }
 
@@ -62,231 +67,9 @@ func NewSmscAccount(name string, password string, systemID string) *SmscAccount 
 // but it doesn't guarantee that properties required by API are set
 func NewSmscAccountWithDefaults() *SmscAccount {
 	this := SmscAccount{}
+	var bindType string = "transceiver"
+	this.BindType = &bindType
 	return &this
-}
-
-// GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
-func (o *SmscAccount) GetAddressNPI() int32 {
-	if o == nil || o.AddressNPI == nil {
-		var ret int32
-		return ret
-	}
-	return *o.AddressNPI
-}
-
-// GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetAddressNPIOk() (*int32, bool) {
-	if o == nil || o.AddressNPI == nil {
-		return nil, false
-	}
-	return o.AddressNPI, true
-}
-
-// HasAddressNPI returns a boolean if a field has been set.
-func (o *SmscAccount) HasAddressNPI() bool {
-	if o != nil && o.AddressNPI != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
-func (o *SmscAccount) SetAddressNPI(v int32) {
-	o.AddressNPI = &v
-}
-
-// GetAddressRange returns the AddressRange field value if set, zero value otherwise.
-func (o *SmscAccount) GetAddressRange() string {
-	if o == nil || o.AddressRange == nil {
-		var ret string
-		return ret
-	}
-	return *o.AddressRange
-}
-
-// GetAddressRangeOk returns a tuple with the AddressRange field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetAddressRangeOk() (*string, bool) {
-	if o == nil || o.AddressRange == nil {
-		return nil, false
-	}
-	return o.AddressRange, true
-}
-
-// HasAddressRange returns a boolean if a field has been set.
-func (o *SmscAccount) HasAddressRange() bool {
-	if o != nil && o.AddressRange != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddressRange gets a reference to the given string and assigns it to the AddressRange field.
-func (o *SmscAccount) SetAddressRange(v string) {
-	o.AddressRange = &v
-}
-
-// GetAddressTON returns the AddressTON field value if set, zero value otherwise.
-func (o *SmscAccount) GetAddressTON() int32 {
-	if o == nil || o.AddressTON == nil {
-		var ret int32
-		return ret
-	}
-	return *o.AddressTON
-}
-
-// GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetAddressTONOk() (*int32, bool) {
-	if o == nil || o.AddressTON == nil {
-		return nil, false
-	}
-	return o.AddressTON, true
-}
-
-// HasAddressTON returns a boolean if a field has been set.
-func (o *SmscAccount) HasAddressTON() bool {
-	if o != nil && o.AddressTON != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
-func (o *SmscAccount) SetAddressTON(v int32) {
-	o.AddressTON = &v
-}
-
-// GetBindType returns the BindType field value if set, zero value otherwise.
-func (o *SmscAccount) GetBindType() string {
-	if o == nil || o.BindType == nil {
-		var ret string
-		return ret
-	}
-	return *o.BindType
-}
-
-// GetBindTypeOk returns a tuple with the BindType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetBindTypeOk() (*string, bool) {
-	if o == nil || o.BindType == nil {
-		return nil, false
-	}
-	return o.BindType, true
-}
-
-// HasBindType returns a boolean if a field has been set.
-func (o *SmscAccount) HasBindType() bool {
-	if o != nil && o.BindType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetBindType gets a reference to the given string and assigns it to the BindType field.
-func (o *SmscAccount) SetBindType(v string) {
-	o.BindType = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *SmscAccount) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *SmscAccount) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *SmscAccount) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetDlrErrorCode returns the DlrErrorCode field value if set, zero value otherwise.
-func (o *SmscAccount) GetDlrErrorCode() int32 {
-	if o == nil || o.DlrErrorCode == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DlrErrorCode
-}
-
-// GetDlrErrorCodeOk returns a tuple with the DlrErrorCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetDlrErrorCodeOk() (*int32, bool) {
-	if o == nil || o.DlrErrorCode == nil {
-		return nil, false
-	}
-	return o.DlrErrorCode, true
-}
-
-// HasDlrErrorCode returns a boolean if a field has been set.
-func (o *SmscAccount) HasDlrErrorCode() bool {
-	if o != nil && o.DlrErrorCode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDlrErrorCode gets a reference to the given int32 and assigns it to the DlrErrorCode field.
-func (o *SmscAccount) SetDlrErrorCode(v int32) {
-	o.DlrErrorCode = &v
-}
-
-// GetDlrErrorRate returns the DlrErrorRate field value if set, zero value otherwise.
-func (o *SmscAccount) GetDlrErrorRate() int32 {
-	if o == nil || o.DlrErrorRate == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DlrErrorRate
-}
-
-// GetDlrErrorRateOk returns a tuple with the DlrErrorRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetDlrErrorRateOk() (*int32, bool) {
-	if o == nil || o.DlrErrorRate == nil {
-		return nil, false
-	}
-	return o.DlrErrorRate, true
-}
-
-// HasDlrErrorRate returns a boolean if a field has been set.
-func (o *SmscAccount) HasDlrErrorRate() bool {
-	if o != nil && o.DlrErrorRate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDlrErrorRate gets a reference to the given int32 and assigns it to the DlrErrorRate field.
-func (o *SmscAccount) SetDlrErrorRate(v int32) {
-	o.DlrErrorRate = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -321,6 +104,398 @@ func (o *SmscAccount) SetId(v string) {
 	o.Id = &v
 }
 
+// GetName returns the Name field value
+func (o *SmscAccount) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *SmscAccount) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *SmscAccount) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *SmscAccount) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *SmscAccount) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetSystemID returns the SystemID field value
+func (o *SmscAccount) GetSystemID() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SystemID
+}
+
+// GetSystemIDOk returns a tuple with the SystemID field value
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetSystemIDOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.SystemID, true
+}
+
+// SetSystemID sets field value
+func (o *SmscAccount) SetSystemID(v string) {
+	o.SystemID = v
+}
+
+// GetPassword returns the Password field value
+func (o *SmscAccount) GetPassword() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetPasswordOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Password, true
+}
+
+// SetPassword sets field value
+func (o *SmscAccount) SetPassword(v string) {
+	o.Password = v
+}
+
+// GetSystemType returns the SystemType field value if set, zero value otherwise.
+func (o *SmscAccount) GetSystemType() string {
+	if o == nil || o.SystemType == nil {
+		var ret string
+		return ret
+	}
+	return *o.SystemType
+}
+
+// GetSystemTypeOk returns a tuple with the SystemType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetSystemTypeOk() (*string, bool) {
+	if o == nil || o.SystemType == nil {
+		return nil, false
+	}
+	return o.SystemType, true
+}
+
+// HasSystemType returns a boolean if a field has been set.
+func (o *SmscAccount) HasSystemType() bool {
+	if o != nil && o.SystemType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSystemType gets a reference to the given string and assigns it to the SystemType field.
+func (o *SmscAccount) SetSystemType(v string) {
+	o.SystemType = &v
+}
+
+// GetInterfaceVersion returns the InterfaceVersion field value if set, zero value otherwise.
+func (o *SmscAccount) GetInterfaceVersion() int32 {
+	if o == nil || o.InterfaceVersion == nil {
+		var ret int32
+		return ret
+	}
+	return *o.InterfaceVersion
+}
+
+// GetInterfaceVersionOk returns a tuple with the InterfaceVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetInterfaceVersionOk() (*int32, bool) {
+	if o == nil || o.InterfaceVersion == nil {
+		return nil, false
+	}
+	return o.InterfaceVersion, true
+}
+
+// HasInterfaceVersion returns a boolean if a field has been set.
+func (o *SmscAccount) HasInterfaceVersion() bool {
+	if o != nil && o.InterfaceVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInterfaceVersion gets a reference to the given int32 and assigns it to the InterfaceVersion field.
+func (o *SmscAccount) SetInterfaceVersion(v int32) {
+	o.InterfaceVersion = &v
+}
+
+// GetBindType returns the BindType field value if set, zero value otherwise.
+func (o *SmscAccount) GetBindType() string {
+	if o == nil || o.BindType == nil {
+		var ret string
+		return ret
+	}
+	return *o.BindType
+}
+
+// GetBindTypeOk returns a tuple with the BindType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetBindTypeOk() (*string, bool) {
+	if o == nil || o.BindType == nil {
+		return nil, false
+	}
+	return o.BindType, true
+}
+
+// HasBindType returns a boolean if a field has been set.
+func (o *SmscAccount) HasBindType() bool {
+	if o != nil && o.BindType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBindType gets a reference to the given string and assigns it to the BindType field.
+func (o *SmscAccount) SetBindType(v string) {
+	o.BindType = &v
+}
+
+// GetAddressRange returns the AddressRange field value if set, zero value otherwise.
+func (o *SmscAccount) GetAddressRange() string {
+	if o == nil || o.AddressRange == nil {
+		var ret string
+		return ret
+	}
+	return *o.AddressRange
+}
+
+// GetAddressRangeOk returns a tuple with the AddressRange field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetAddressRangeOk() (*string, bool) {
+	if o == nil || o.AddressRange == nil {
+		return nil, false
+	}
+	return o.AddressRange, true
+}
+
+// HasAddressRange returns a boolean if a field has been set.
+func (o *SmscAccount) HasAddressRange() bool {
+	if o != nil && o.AddressRange != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressRange gets a reference to the given string and assigns it to the AddressRange field.
+func (o *SmscAccount) SetAddressRange(v string) {
+	o.AddressRange = &v
+}
+
+// GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
+func (o *SmscAccount) GetAddressNPI() int32 {
+	if o == nil || o.AddressNPI == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AddressNPI
+}
+
+// GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetAddressNPIOk() (*int32, bool) {
+	if o == nil || o.AddressNPI == nil {
+		return nil, false
+	}
+	return o.AddressNPI, true
+}
+
+// HasAddressNPI returns a boolean if a field has been set.
+func (o *SmscAccount) HasAddressNPI() bool {
+	if o != nil && o.AddressNPI != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
+func (o *SmscAccount) SetAddressNPI(v int32) {
+	o.AddressNPI = &v
+}
+
+// GetAddressTON returns the AddressTON field value if set, zero value otherwise.
+func (o *SmscAccount) GetAddressTON() int32 {
+	if o == nil || o.AddressTON == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AddressTON
+}
+
+// GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetAddressTONOk() (*int32, bool) {
+	if o == nil || o.AddressTON == nil {
+		return nil, false
+	}
+	return o.AddressTON, true
+}
+
+// HasAddressTON returns a boolean if a field has been set.
+func (o *SmscAccount) HasAddressTON() bool {
+	if o != nil && o.AddressTON != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
+func (o *SmscAccount) SetAddressTON(v int32) {
+	o.AddressTON = &v
+}
+
+// GetAcceptRatio returns the AcceptRatio field value if set, zero value otherwise.
+func (o *SmscAccount) GetAcceptRatio() []ErrorRate {
+	if o == nil || o.AcceptRatio == nil {
+		var ret []ErrorRate
+		return ret
+	}
+	return *o.AcceptRatio
+}
+
+// GetAcceptRatioOk returns a tuple with the AcceptRatio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetAcceptRatioOk() (*[]ErrorRate, bool) {
+	if o == nil || o.AcceptRatio == nil {
+		return nil, false
+	}
+	return o.AcceptRatio, true
+}
+
+// HasAcceptRatio returns a boolean if a field has been set.
+func (o *SmscAccount) HasAcceptRatio() bool {
+	if o != nil && o.AcceptRatio != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptRatio gets a reference to the given []ErrorRate and assigns it to the AcceptRatio field.
+func (o *SmscAccount) SetAcceptRatio(v []ErrorRate) {
+	o.AcceptRatio = &v
+}
+
+// GetDeliveryRatio returns the DeliveryRatio field value if set, zero value otherwise.
+func (o *SmscAccount) GetDeliveryRatio() []ErrorRate {
+	if o == nil || o.DeliveryRatio == nil {
+		var ret []ErrorRate
+		return ret
+	}
+	return *o.DeliveryRatio
+}
+
+// GetDeliveryRatioOk returns a tuple with the DeliveryRatio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetDeliveryRatioOk() (*[]ErrorRate, bool) {
+	if o == nil || o.DeliveryRatio == nil {
+		return nil, false
+	}
+	return o.DeliveryRatio, true
+}
+
+// HasDeliveryRatio returns a boolean if a field has been set.
+func (o *SmscAccount) HasDeliveryRatio() bool {
+	if o != nil && o.DeliveryRatio != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeliveryRatio gets a reference to the given []ErrorRate and assigns it to the DeliveryRatio field.
+func (o *SmscAccount) SetDeliveryRatio(v []ErrorRate) {
+	o.DeliveryRatio = &v
+}
+
+// GetMoThroughput returns the MoThroughput field value if set, zero value otherwise.
+func (o *SmscAccount) GetMoThroughput() float32 {
+	if o == nil || o.MoThroughput == nil {
+		var ret float32
+		return ret
+	}
+	return *o.MoThroughput
+}
+
+// GetMoThroughputOk returns a tuple with the MoThroughput field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SmscAccount) GetMoThroughputOk() (*float32, bool) {
+	if o == nil || o.MoThroughput == nil {
+		return nil, false
+	}
+	return o.MoThroughput, true
+}
+
+// HasMoThroughput returns a boolean if a field has been set.
+func (o *SmscAccount) HasMoThroughput() bool {
+	if o != nil && o.MoThroughput != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMoThroughput gets a reference to the given float32 and assigns it to the MoThroughput field.
+func (o *SmscAccount) SetMoThroughput(v float32) {
+	o.MoThroughput = &v
+}
+
 // GetMaxBinds returns the MaxBinds field value if set, zero value otherwise.
 func (o *SmscAccount) GetMaxBinds() int32 {
 	if o == nil || o.MaxBinds == nil {
@@ -353,185 +528,52 @@ func (o *SmscAccount) SetMaxBinds(v int32) {
 	o.MaxBinds = &v
 }
 
-// GetMoErrorCode returns the MoErrorCode field value if set, zero value otherwise.
-func (o *SmscAccount) GetMoErrorCode() int32 {
-	if o == nil || o.MoErrorCode == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MoErrorCode
-}
-
-// GetMoErrorCodeOk returns a tuple with the MoErrorCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetMoErrorCodeOk() (*int32, bool) {
-	if o == nil || o.MoErrorCode == nil {
-		return nil, false
-	}
-	return o.MoErrorCode, true
-}
-
-// HasMoErrorCode returns a boolean if a field has been set.
-func (o *SmscAccount) HasMoErrorCode() bool {
-	if o != nil && o.MoErrorCode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMoErrorCode gets a reference to the given int32 and assigns it to the MoErrorCode field.
-func (o *SmscAccount) SetMoErrorCode(v int32) {
-	o.MoErrorCode = &v
-}
-
-// GetMoErrorRate returns the MoErrorRate field value if set, zero value otherwise.
-func (o *SmscAccount) GetMoErrorRate() int32 {
-	if o == nil || o.MoErrorRate == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MoErrorRate
-}
-
-// GetMoErrorRateOk returns a tuple with the MoErrorRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetMoErrorRateOk() (*int32, bool) {
-	if o == nil || o.MoErrorRate == nil {
-		return nil, false
-	}
-	return o.MoErrorRate, true
-}
-
-// HasMoErrorRate returns a boolean if a field has been set.
-func (o *SmscAccount) HasMoErrorRate() bool {
-	if o != nil && o.MoErrorRate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMoErrorRate gets a reference to the given int32 and assigns it to the MoErrorRate field.
-func (o *SmscAccount) SetMoErrorRate(v int32) {
-	o.MoErrorRate = &v
-}
-
-// GetName returns the Name field value
-func (o *SmscAccount) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *SmscAccount) SetName(v string) {
-	o.Name = v
-}
-
-// GetPassword returns the Password field value
-func (o *SmscAccount) GetPassword() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetPasswordOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Password, true
-}
-
-// SetPassword sets field value
-func (o *SmscAccount) SetPassword(v string) {
-	o.Password = v
-}
-
-// GetSystemID returns the SystemID field value
-func (o *SmscAccount) GetSystemID() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SystemID
-}
-
-// GetSystemIDOk returns a tuple with the SystemID field value
-// and a boolean to check if the value has been set.
-func (o *SmscAccount) GetSystemIDOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.SystemID, true
-}
-
-// SetSystemID sets field value
-func (o *SmscAccount) SetSystemID(v string) {
-	o.SystemID = v
-}
-
 func (o SmscAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AddressNPI != nil {
-		toSerialize["addressNPI"] = o.AddressNPI
-	}
-	if o.AddressRange != nil {
-		toSerialize["addressRange"] = o.AddressRange
-	}
-	if o.AddressTON != nil {
-		toSerialize["addressTON"] = o.AddressTON
-	}
-	if o.BindType != nil {
-		toSerialize["bindType"] = o.BindType
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.DlrErrorCode != nil {
-		toSerialize["dlrErrorCode"] = o.DlrErrorCode
-	}
-	if o.DlrErrorRate != nil {
-		toSerialize["dlrErrorRate"] = o.DlrErrorRate
-	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
-	}
-	if o.MaxBinds != nil {
-		toSerialize["maxBinds"] = o.MaxBinds
-	}
-	if o.MoErrorCode != nil {
-		toSerialize["moErrorCode"] = o.MoErrorCode
-	}
-	if o.MoErrorRate != nil {
-		toSerialize["moErrorRate"] = o.MoErrorRate
 	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
-		toSerialize["password"] = o.Password
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if true {
 		toSerialize["systemID"] = o.SystemID
+	}
+	if true {
+		toSerialize["password"] = o.Password
+	}
+	if o.SystemType != nil {
+		toSerialize["systemType"] = o.SystemType
+	}
+	if o.InterfaceVersion != nil {
+		toSerialize["interfaceVersion"] = o.InterfaceVersion
+	}
+	if o.BindType != nil {
+		toSerialize["bindType"] = o.BindType
+	}
+	if o.AddressRange != nil {
+		toSerialize["addressRange"] = o.AddressRange
+	}
+	if o.AddressNPI != nil {
+		toSerialize["addressNPI"] = o.AddressNPI
+	}
+	if o.AddressTON != nil {
+		toSerialize["addressTON"] = o.AddressTON
+	}
+	if o.AcceptRatio != nil {
+		toSerialize["acceptRatio"] = o.AcceptRatio
+	}
+	if o.DeliveryRatio != nil {
+		toSerialize["deliveryRatio"] = o.DeliveryRatio
+	}
+	if o.MoThroughput != nil {
+		toSerialize["moThroughput"] = o.MoThroughput
+	}
+	if o.MaxBinds != nil {
+		toSerialize["maxBinds"] = o.MaxBinds
 	}
 	return json.Marshal(toSerialize)
 }

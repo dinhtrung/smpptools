@@ -16,49 +16,50 @@ import (
 
 // EsmeAccount ESME hold information on how to establish a SMPP Session towards SMSC
 type EsmeAccount struct {
-	// Bind Address Numbering Plan Indication
-	AddressNPI *int32 `json:"addressNPI,omitempty"`
-	// Bind Address Range
-	AddressRange *string `json:"addressRange,omitempty"`
-	// Bind Address Type of Number
-	AddressTON *int32 `json:"addressTON,omitempty"`
-	// Bind Type, transmitter, receiver or transceiver
-	BindType *string `json:"bindType,omitempty"`
-	// Connection timeout in milliseconds
-	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	// unique id for this ESME account
+	Id *string `json:"id,omitempty"`
+	// name of this ESME account
+	Name string `json:"name"`
 	// short description text
 	Description *string `json:"description,omitempty"`
-	// Error Code return to SMSC for Mobile Originated SMS
-	DlrErrorCode *int32 `json:"dlrErrorCode,omitempty"`
-	// Error Ratio for Receiving Mobile Orignated SMS
-	DlrErrorRate *int32 `json:"dlrErrorRate,omitempty"`
-	// Enquire links interval in seconds
-	EnquireLinkInterval *int32 `json:"enquireLinkInterval,omitempty"`
 	// remote SMSC host
 	Host *string `json:"host,omitempty"`
-	Id *string `json:"id,omitempty"`
+	// remote SMSC port
+	Port *int32 `json:"port,omitempty"`
+	// SystemID used to connect to remote SMSC
+	SystemID *string `json:"systemID,omitempty"`
+	// Password for login
+	Password *string `json:"password,omitempty"`
+	// The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
+	SystemType *string `json:"systemType,omitempty"`
+	// version of the SMPP protocol
+	InterfaceVersion *int32 `json:"interfaceVersion,omitempty"`
+	// Bind Type, transmitter, receiver or transceiver
+	BindType *string `json:"bindType,omitempty"`
+	// Bind Address Range
+	AddressRange *string `json:"addressRange,omitempty"`
+	// Bind Address Numbering Plan Indication
+	AddressNPI *int32 `json:"addressNPI,omitempty"`
+	// Bind Address Type of Number
+	AddressTON *int32 `json:"addressTON,omitempty"`
+	// Connection timeout in milliseconds
+	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	// Error rate on receiving Mobile Originated SMS
+	AcceptRatio *[]ErrorRate `json:"acceptRatio,omitempty"`
+	// Error ratio on receiving Delivery Receipt
+	AckRatio *[]ErrorRate `json:"ackRatio,omitempty"`
+	// Enquire links interval in seconds
+	EnquireLinkInterval *int32 `json:"enquireLinkInterval,omitempty"`
 	// true if this ESME should be start automatically
 	IsEnable *bool `json:"isEnable,omitempty"`
 	// true if this ESME should be start automatically on start up
 	IsPersist *bool `json:"isPersist,omitempty"`
-	// Error Code return to SMSC for Mobile Originated SMS
-	MoErrorCode *int32 `json:"moErrorCode,omitempty"`
-	// Error Ratio for Receiving Mobile Orignated SMS
-	MoErrorRate *int32 `json:"moErrorRate,omitempty"`
 	// Sending out speeds in TPS
 	MtThroughtput *int32 `json:"mtThroughtput,omitempty"`
-	// name of this ESME account
-	Name string `json:"name"`
 	// number of active binds on start up
 	NumBinds *int32 `json:"numBinds,omitempty"`
-	// Password for login
-	Password *string `json:"password,omitempty"`
-	// remote SMSC port
-	Port *int32 `json:"port,omitempty"`
 	// Delay in seconds before retry reconnect
 	ReconnectDelay *int32 `json:"reconnectDelay,omitempty"`
-	// SystemID used to connect to remote SMSC
-	SystemID *string `json:"systemID,omitempty"`
 	// Number of packets send out per one go
 	WindowSize *int32 `json:"windowSize,omitempty"`
 }
@@ -70,6 +71,8 @@ type EsmeAccount struct {
 func NewEsmeAccount(name string) *EsmeAccount {
 	this := EsmeAccount{}
 	this.Name = name
+	var bindType string = "transceiver"
+	this.BindType = &bindType
 	return &this
 }
 
@@ -78,167 +81,65 @@ func NewEsmeAccount(name string) *EsmeAccount {
 // but it doesn't guarantee that properties required by API are set
 func NewEsmeAccountWithDefaults() *EsmeAccount {
 	this := EsmeAccount{}
+	var bindType string = "transceiver"
+	this.BindType = &bindType
 	return &this
 }
 
-// GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
-func (o *EsmeAccount) GetAddressNPI() int32 {
-	if o == nil || o.AddressNPI == nil {
-		var ret int32
-		return ret
-	}
-	return *o.AddressNPI
-}
-
-// GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetAddressNPIOk() (*int32, bool) {
-	if o == nil || o.AddressNPI == nil {
-		return nil, false
-	}
-	return o.AddressNPI, true
-}
-
-// HasAddressNPI returns a boolean if a field has been set.
-func (o *EsmeAccount) HasAddressNPI() bool {
-	if o != nil && o.AddressNPI != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
-func (o *EsmeAccount) SetAddressNPI(v int32) {
-	o.AddressNPI = &v
-}
-
-// GetAddressRange returns the AddressRange field value if set, zero value otherwise.
-func (o *EsmeAccount) GetAddressRange() string {
-	if o == nil || o.AddressRange == nil {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *EsmeAccount) GetId() string {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-	return *o.AddressRange
+	return *o.Id
 }
 
-// GetAddressRangeOk returns a tuple with the AddressRange field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetAddressRangeOk() (*string, bool) {
-	if o == nil || o.AddressRange == nil {
+func (o *EsmeAccount) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return o.AddressRange, true
+	return o.Id, true
 }
 
-// HasAddressRange returns a boolean if a field has been set.
-func (o *EsmeAccount) HasAddressRange() bool {
-	if o != nil && o.AddressRange != nil {
+// HasId returns a boolean if a field has been set.
+func (o *EsmeAccount) HasId() bool {
+	if o != nil && o.Id != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAddressRange gets a reference to the given string and assigns it to the AddressRange field.
-func (o *EsmeAccount) SetAddressRange(v string) {
-	o.AddressRange = &v
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *EsmeAccount) SetId(v string) {
+	o.Id = &v
 }
 
-// GetAddressTON returns the AddressTON field value if set, zero value otherwise.
-func (o *EsmeAccount) GetAddressTON() int32 {
-	if o == nil || o.AddressTON == nil {
-		var ret int32
-		return ret
-	}
-	return *o.AddressTON
-}
-
-// GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetAddressTONOk() (*int32, bool) {
-	if o == nil || o.AddressTON == nil {
-		return nil, false
-	}
-	return o.AddressTON, true
-}
-
-// HasAddressTON returns a boolean if a field has been set.
-func (o *EsmeAccount) HasAddressTON() bool {
-	if o != nil && o.AddressTON != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
-func (o *EsmeAccount) SetAddressTON(v int32) {
-	o.AddressTON = &v
-}
-
-// GetBindType returns the BindType field value if set, zero value otherwise.
-func (o *EsmeAccount) GetBindType() string {
-	if o == nil || o.BindType == nil {
+// GetName returns the Name field value
+func (o *EsmeAccount) GetName() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BindType
+
+	return o.Name
 }
 
-// GetBindTypeOk returns a tuple with the BindType field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetBindTypeOk() (*string, bool) {
-	if o == nil || o.BindType == nil {
+func (o *EsmeAccount) GetNameOk() (*string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.BindType, true
+	return &o.Name, true
 }
 
-// HasBindType returns a boolean if a field has been set.
-func (o *EsmeAccount) HasBindType() bool {
-	if o != nil && o.BindType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetBindType gets a reference to the given string and assigns it to the BindType field.
-func (o *EsmeAccount) SetBindType(v string) {
-	o.BindType = &v
-}
-
-// GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
-func (o *EsmeAccount) GetConnectionTimeout() int32 {
-	if o == nil || o.ConnectionTimeout == nil {
-		var ret int32
-		return ret
-	}
-	return *o.ConnectionTimeout
-}
-
-// GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetConnectionTimeoutOk() (*int32, bool) {
-	if o == nil || o.ConnectionTimeout == nil {
-		return nil, false
-	}
-	return o.ConnectionTimeout, true
-}
-
-// HasConnectionTimeout returns a boolean if a field has been set.
-func (o *EsmeAccount) HasConnectionTimeout() bool {
-	if o != nil && o.ConnectionTimeout != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
-func (o *EsmeAccount) SetConnectionTimeout(v int32) {
-	o.ConnectionTimeout = &v
+// SetName sets field value
+func (o *EsmeAccount) SetName(v string) {
+	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -273,102 +174,6 @@ func (o *EsmeAccount) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDlrErrorCode returns the DlrErrorCode field value if set, zero value otherwise.
-func (o *EsmeAccount) GetDlrErrorCode() int32 {
-	if o == nil || o.DlrErrorCode == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DlrErrorCode
-}
-
-// GetDlrErrorCodeOk returns a tuple with the DlrErrorCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetDlrErrorCodeOk() (*int32, bool) {
-	if o == nil || o.DlrErrorCode == nil {
-		return nil, false
-	}
-	return o.DlrErrorCode, true
-}
-
-// HasDlrErrorCode returns a boolean if a field has been set.
-func (o *EsmeAccount) HasDlrErrorCode() bool {
-	if o != nil && o.DlrErrorCode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDlrErrorCode gets a reference to the given int32 and assigns it to the DlrErrorCode field.
-func (o *EsmeAccount) SetDlrErrorCode(v int32) {
-	o.DlrErrorCode = &v
-}
-
-// GetDlrErrorRate returns the DlrErrorRate field value if set, zero value otherwise.
-func (o *EsmeAccount) GetDlrErrorRate() int32 {
-	if o == nil || o.DlrErrorRate == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DlrErrorRate
-}
-
-// GetDlrErrorRateOk returns a tuple with the DlrErrorRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetDlrErrorRateOk() (*int32, bool) {
-	if o == nil || o.DlrErrorRate == nil {
-		return nil, false
-	}
-	return o.DlrErrorRate, true
-}
-
-// HasDlrErrorRate returns a boolean if a field has been set.
-func (o *EsmeAccount) HasDlrErrorRate() bool {
-	if o != nil && o.DlrErrorRate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDlrErrorRate gets a reference to the given int32 and assigns it to the DlrErrorRate field.
-func (o *EsmeAccount) SetDlrErrorRate(v int32) {
-	o.DlrErrorRate = &v
-}
-
-// GetEnquireLinkInterval returns the EnquireLinkInterval field value if set, zero value otherwise.
-func (o *EsmeAccount) GetEnquireLinkInterval() int32 {
-	if o == nil || o.EnquireLinkInterval == nil {
-		var ret int32
-		return ret
-	}
-	return *o.EnquireLinkInterval
-}
-
-// GetEnquireLinkIntervalOk returns a tuple with the EnquireLinkInterval field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int32, bool) {
-	if o == nil || o.EnquireLinkInterval == nil {
-		return nil, false
-	}
-	return o.EnquireLinkInterval, true
-}
-
-// HasEnquireLinkInterval returns a boolean if a field has been set.
-func (o *EsmeAccount) HasEnquireLinkInterval() bool {
-	if o != nil && o.EnquireLinkInterval != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnquireLinkInterval gets a reference to the given int32 and assigns it to the EnquireLinkInterval field.
-func (o *EsmeAccount) SetEnquireLinkInterval(v int32) {
-	o.EnquireLinkInterval = &v
-}
-
 // GetHost returns the Host field value if set, zero value otherwise.
 func (o *EsmeAccount) GetHost() string {
 	if o == nil || o.Host == nil {
@@ -401,36 +206,420 @@ func (o *EsmeAccount) SetHost(v string) {
 	o.Host = &v
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *EsmeAccount) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
+// GetPort returns the Port field value if set, zero value otherwise.
+func (o *EsmeAccount) GetPort() int32 {
+	if o == nil || o.Port == nil {
+		var ret int32
 		return ret
 	}
-	return *o.Id
+	return *o.Port
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+func (o *EsmeAccount) GetPortOk() (*int32, bool) {
+	if o == nil || o.Port == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return o.Port, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *EsmeAccount) HasId() bool {
-	if o != nil && o.Id != nil {
+// HasPort returns a boolean if a field has been set.
+func (o *EsmeAccount) HasPort() bool {
+	if o != nil && o.Port != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *EsmeAccount) SetId(v string) {
-	o.Id = &v
+// SetPort gets a reference to the given int32 and assigns it to the Port field.
+func (o *EsmeAccount) SetPort(v int32) {
+	o.Port = &v
+}
+
+// GetSystemID returns the SystemID field value if set, zero value otherwise.
+func (o *EsmeAccount) GetSystemID() string {
+	if o == nil || o.SystemID == nil {
+		var ret string
+		return ret
+	}
+	return *o.SystemID
+}
+
+// GetSystemIDOk returns a tuple with the SystemID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetSystemIDOk() (*string, bool) {
+	if o == nil || o.SystemID == nil {
+		return nil, false
+	}
+	return o.SystemID, true
+}
+
+// HasSystemID returns a boolean if a field has been set.
+func (o *EsmeAccount) HasSystemID() bool {
+	if o != nil && o.SystemID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSystemID gets a reference to the given string and assigns it to the SystemID field.
+func (o *EsmeAccount) SetSystemID(v string) {
+	o.SystemID = &v
+}
+
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *EsmeAccount) GetPassword() string {
+	if o == nil || o.Password == nil {
+		var ret string
+		return ret
+	}
+	return *o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetPasswordOk() (*string, bool) {
+	if o == nil || o.Password == nil {
+		return nil, false
+	}
+	return o.Password, true
+}
+
+// HasPassword returns a boolean if a field has been set.
+func (o *EsmeAccount) HasPassword() bool {
+	if o != nil && o.Password != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *EsmeAccount) SetPassword(v string) {
+	o.Password = &v
+}
+
+// GetSystemType returns the SystemType field value if set, zero value otherwise.
+func (o *EsmeAccount) GetSystemType() string {
+	if o == nil || o.SystemType == nil {
+		var ret string
+		return ret
+	}
+	return *o.SystemType
+}
+
+// GetSystemTypeOk returns a tuple with the SystemType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetSystemTypeOk() (*string, bool) {
+	if o == nil || o.SystemType == nil {
+		return nil, false
+	}
+	return o.SystemType, true
+}
+
+// HasSystemType returns a boolean if a field has been set.
+func (o *EsmeAccount) HasSystemType() bool {
+	if o != nil && o.SystemType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSystemType gets a reference to the given string and assigns it to the SystemType field.
+func (o *EsmeAccount) SetSystemType(v string) {
+	o.SystemType = &v
+}
+
+// GetInterfaceVersion returns the InterfaceVersion field value if set, zero value otherwise.
+func (o *EsmeAccount) GetInterfaceVersion() int32 {
+	if o == nil || o.InterfaceVersion == nil {
+		var ret int32
+		return ret
+	}
+	return *o.InterfaceVersion
+}
+
+// GetInterfaceVersionOk returns a tuple with the InterfaceVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetInterfaceVersionOk() (*int32, bool) {
+	if o == nil || o.InterfaceVersion == nil {
+		return nil, false
+	}
+	return o.InterfaceVersion, true
+}
+
+// HasInterfaceVersion returns a boolean if a field has been set.
+func (o *EsmeAccount) HasInterfaceVersion() bool {
+	if o != nil && o.InterfaceVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInterfaceVersion gets a reference to the given int32 and assigns it to the InterfaceVersion field.
+func (o *EsmeAccount) SetInterfaceVersion(v int32) {
+	o.InterfaceVersion = &v
+}
+
+// GetBindType returns the BindType field value if set, zero value otherwise.
+func (o *EsmeAccount) GetBindType() string {
+	if o == nil || o.BindType == nil {
+		var ret string
+		return ret
+	}
+	return *o.BindType
+}
+
+// GetBindTypeOk returns a tuple with the BindType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetBindTypeOk() (*string, bool) {
+	if o == nil || o.BindType == nil {
+		return nil, false
+	}
+	return o.BindType, true
+}
+
+// HasBindType returns a boolean if a field has been set.
+func (o *EsmeAccount) HasBindType() bool {
+	if o != nil && o.BindType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBindType gets a reference to the given string and assigns it to the BindType field.
+func (o *EsmeAccount) SetBindType(v string) {
+	o.BindType = &v
+}
+
+// GetAddressRange returns the AddressRange field value if set, zero value otherwise.
+func (o *EsmeAccount) GetAddressRange() string {
+	if o == nil || o.AddressRange == nil {
+		var ret string
+		return ret
+	}
+	return *o.AddressRange
+}
+
+// GetAddressRangeOk returns a tuple with the AddressRange field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetAddressRangeOk() (*string, bool) {
+	if o == nil || o.AddressRange == nil {
+		return nil, false
+	}
+	return o.AddressRange, true
+}
+
+// HasAddressRange returns a boolean if a field has been set.
+func (o *EsmeAccount) HasAddressRange() bool {
+	if o != nil && o.AddressRange != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressRange gets a reference to the given string and assigns it to the AddressRange field.
+func (o *EsmeAccount) SetAddressRange(v string) {
+	o.AddressRange = &v
+}
+
+// GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
+func (o *EsmeAccount) GetAddressNPI() int32 {
+	if o == nil || o.AddressNPI == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AddressNPI
+}
+
+// GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetAddressNPIOk() (*int32, bool) {
+	if o == nil || o.AddressNPI == nil {
+		return nil, false
+	}
+	return o.AddressNPI, true
+}
+
+// HasAddressNPI returns a boolean if a field has been set.
+func (o *EsmeAccount) HasAddressNPI() bool {
+	if o != nil && o.AddressNPI != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
+func (o *EsmeAccount) SetAddressNPI(v int32) {
+	o.AddressNPI = &v
+}
+
+// GetAddressTON returns the AddressTON field value if set, zero value otherwise.
+func (o *EsmeAccount) GetAddressTON() int32 {
+	if o == nil || o.AddressTON == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AddressTON
+}
+
+// GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetAddressTONOk() (*int32, bool) {
+	if o == nil || o.AddressTON == nil {
+		return nil, false
+	}
+	return o.AddressTON, true
+}
+
+// HasAddressTON returns a boolean if a field has been set.
+func (o *EsmeAccount) HasAddressTON() bool {
+	if o != nil && o.AddressTON != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
+func (o *EsmeAccount) SetAddressTON(v int32) {
+	o.AddressTON = &v
+}
+
+// GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
+func (o *EsmeAccount) GetConnectionTimeout() int32 {
+	if o == nil || o.ConnectionTimeout == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ConnectionTimeout
+}
+
+// GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetConnectionTimeoutOk() (*int32, bool) {
+	if o == nil || o.ConnectionTimeout == nil {
+		return nil, false
+	}
+	return o.ConnectionTimeout, true
+}
+
+// HasConnectionTimeout returns a boolean if a field has been set.
+func (o *EsmeAccount) HasConnectionTimeout() bool {
+	if o != nil && o.ConnectionTimeout != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
+func (o *EsmeAccount) SetConnectionTimeout(v int32) {
+	o.ConnectionTimeout = &v
+}
+
+// GetAcceptRatio returns the AcceptRatio field value if set, zero value otherwise.
+func (o *EsmeAccount) GetAcceptRatio() []ErrorRate {
+	if o == nil || o.AcceptRatio == nil {
+		var ret []ErrorRate
+		return ret
+	}
+	return *o.AcceptRatio
+}
+
+// GetAcceptRatioOk returns a tuple with the AcceptRatio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetAcceptRatioOk() (*[]ErrorRate, bool) {
+	if o == nil || o.AcceptRatio == nil {
+		return nil, false
+	}
+	return o.AcceptRatio, true
+}
+
+// HasAcceptRatio returns a boolean if a field has been set.
+func (o *EsmeAccount) HasAcceptRatio() bool {
+	if o != nil && o.AcceptRatio != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptRatio gets a reference to the given []ErrorRate and assigns it to the AcceptRatio field.
+func (o *EsmeAccount) SetAcceptRatio(v []ErrorRate) {
+	o.AcceptRatio = &v
+}
+
+// GetAckRatio returns the AckRatio field value if set, zero value otherwise.
+func (o *EsmeAccount) GetAckRatio() []ErrorRate {
+	if o == nil || o.AckRatio == nil {
+		var ret []ErrorRate
+		return ret
+	}
+	return *o.AckRatio
+}
+
+// GetAckRatioOk returns a tuple with the AckRatio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetAckRatioOk() (*[]ErrorRate, bool) {
+	if o == nil || o.AckRatio == nil {
+		return nil, false
+	}
+	return o.AckRatio, true
+}
+
+// HasAckRatio returns a boolean if a field has been set.
+func (o *EsmeAccount) HasAckRatio() bool {
+	if o != nil && o.AckRatio != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAckRatio gets a reference to the given []ErrorRate and assigns it to the AckRatio field.
+func (o *EsmeAccount) SetAckRatio(v []ErrorRate) {
+	o.AckRatio = &v
+}
+
+// GetEnquireLinkInterval returns the EnquireLinkInterval field value if set, zero value otherwise.
+func (o *EsmeAccount) GetEnquireLinkInterval() int32 {
+	if o == nil || o.EnquireLinkInterval == nil {
+		var ret int32
+		return ret
+	}
+	return *o.EnquireLinkInterval
+}
+
+// GetEnquireLinkIntervalOk returns a tuple with the EnquireLinkInterval field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int32, bool) {
+	if o == nil || o.EnquireLinkInterval == nil {
+		return nil, false
+	}
+	return o.EnquireLinkInterval, true
+}
+
+// HasEnquireLinkInterval returns a boolean if a field has been set.
+func (o *EsmeAccount) HasEnquireLinkInterval() bool {
+	if o != nil && o.EnquireLinkInterval != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnquireLinkInterval gets a reference to the given int32 and assigns it to the EnquireLinkInterval field.
+func (o *EsmeAccount) SetEnquireLinkInterval(v int32) {
+	o.EnquireLinkInterval = &v
 }
 
 // GetIsEnable returns the IsEnable field value if set, zero value otherwise.
@@ -497,70 +686,6 @@ func (o *EsmeAccount) SetIsPersist(v bool) {
 	o.IsPersist = &v
 }
 
-// GetMoErrorCode returns the MoErrorCode field value if set, zero value otherwise.
-func (o *EsmeAccount) GetMoErrorCode() int32 {
-	if o == nil || o.MoErrorCode == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MoErrorCode
-}
-
-// GetMoErrorCodeOk returns a tuple with the MoErrorCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetMoErrorCodeOk() (*int32, bool) {
-	if o == nil || o.MoErrorCode == nil {
-		return nil, false
-	}
-	return o.MoErrorCode, true
-}
-
-// HasMoErrorCode returns a boolean if a field has been set.
-func (o *EsmeAccount) HasMoErrorCode() bool {
-	if o != nil && o.MoErrorCode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMoErrorCode gets a reference to the given int32 and assigns it to the MoErrorCode field.
-func (o *EsmeAccount) SetMoErrorCode(v int32) {
-	o.MoErrorCode = &v
-}
-
-// GetMoErrorRate returns the MoErrorRate field value if set, zero value otherwise.
-func (o *EsmeAccount) GetMoErrorRate() int32 {
-	if o == nil || o.MoErrorRate == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MoErrorRate
-}
-
-// GetMoErrorRateOk returns a tuple with the MoErrorRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetMoErrorRateOk() (*int32, bool) {
-	if o == nil || o.MoErrorRate == nil {
-		return nil, false
-	}
-	return o.MoErrorRate, true
-}
-
-// HasMoErrorRate returns a boolean if a field has been set.
-func (o *EsmeAccount) HasMoErrorRate() bool {
-	if o != nil && o.MoErrorRate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMoErrorRate gets a reference to the given int32 and assigns it to the MoErrorRate field.
-func (o *EsmeAccount) SetMoErrorRate(v int32) {
-	o.MoErrorRate = &v
-}
-
 // GetMtThroughtput returns the MtThroughtput field value if set, zero value otherwise.
 func (o *EsmeAccount) GetMtThroughtput() int32 {
 	if o == nil || o.MtThroughtput == nil {
@@ -591,30 +716,6 @@ func (o *EsmeAccount) HasMtThroughtput() bool {
 // SetMtThroughtput gets a reference to the given int32 and assigns it to the MtThroughtput field.
 func (o *EsmeAccount) SetMtThroughtput(v int32) {
 	o.MtThroughtput = &v
-}
-
-// GetName returns the Name field value
-func (o *EsmeAccount) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *EsmeAccount) SetName(v string) {
-	o.Name = v
 }
 
 // GetNumBinds returns the NumBinds field value if set, zero value otherwise.
@@ -649,70 +750,6 @@ func (o *EsmeAccount) SetNumBinds(v int32) {
 	o.NumBinds = &v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
-func (o *EsmeAccount) GetPassword() string {
-	if o == nil || o.Password == nil {
-		var ret string
-		return ret
-	}
-	return *o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
-		return nil, false
-	}
-	return o.Password, true
-}
-
-// HasPassword returns a boolean if a field has been set.
-func (o *EsmeAccount) HasPassword() bool {
-	if o != nil && o.Password != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given string and assigns it to the Password field.
-func (o *EsmeAccount) SetPassword(v string) {
-	o.Password = &v
-}
-
-// GetPort returns the Port field value if set, zero value otherwise.
-func (o *EsmeAccount) GetPort() int32 {
-	if o == nil || o.Port == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Port
-}
-
-// GetPortOk returns a tuple with the Port field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetPortOk() (*int32, bool) {
-	if o == nil || o.Port == nil {
-		return nil, false
-	}
-	return o.Port, true
-}
-
-// HasPort returns a boolean if a field has been set.
-func (o *EsmeAccount) HasPort() bool {
-	if o != nil && o.Port != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *EsmeAccount) SetPort(v int32) {
-	o.Port = &v
-}
-
 // GetReconnectDelay returns the ReconnectDelay field value if set, zero value otherwise.
 func (o *EsmeAccount) GetReconnectDelay() int32 {
 	if o == nil || o.ReconnectDelay == nil {
@@ -743,38 +780,6 @@ func (o *EsmeAccount) HasReconnectDelay() bool {
 // SetReconnectDelay gets a reference to the given int32 and assigns it to the ReconnectDelay field.
 func (o *EsmeAccount) SetReconnectDelay(v int32) {
 	o.ReconnectDelay = &v
-}
-
-// GetSystemID returns the SystemID field value if set, zero value otherwise.
-func (o *EsmeAccount) GetSystemID() string {
-	if o == nil || o.SystemID == nil {
-		var ret string
-		return ret
-	}
-	return *o.SystemID
-}
-
-// GetSystemIDOk returns a tuple with the SystemID field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetSystemIDOk() (*string, bool) {
-	if o == nil || o.SystemID == nil {
-		return nil, false
-	}
-	return o.SystemID, true
-}
-
-// HasSystemID returns a boolean if a field has been set.
-func (o *EsmeAccount) HasSystemID() bool {
-	if o != nil && o.SystemID != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSystemID gets a reference to the given string and assigns it to the SystemID field.
-func (o *EsmeAccount) SetSystemID(v string) {
-	o.SystemID = &v
 }
 
 // GetWindowSize returns the WindowSize field value if set, zero value otherwise.
@@ -811,38 +816,56 @@ func (o *EsmeAccount) SetWindowSize(v int32) {
 
 func (o EsmeAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AddressNPI != nil {
-		toSerialize["addressNPI"] = o.AddressNPI
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
 	}
-	if o.AddressRange != nil {
-		toSerialize["addressRange"] = o.AddressRange
-	}
-	if o.AddressTON != nil {
-		toSerialize["addressTON"] = o.AddressTON
-	}
-	if o.BindType != nil {
-		toSerialize["bindType"] = o.BindType
-	}
-	if o.ConnectionTimeout != nil {
-		toSerialize["connectionTimeout"] = o.ConnectionTimeout
+	if true {
+		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.DlrErrorCode != nil {
-		toSerialize["dlrErrorCode"] = o.DlrErrorCode
-	}
-	if o.DlrErrorRate != nil {
-		toSerialize["dlrErrorRate"] = o.DlrErrorRate
-	}
-	if o.EnquireLinkInterval != nil {
-		toSerialize["enquireLinkInterval"] = o.EnquireLinkInterval
-	}
 	if o.Host != nil {
 		toSerialize["host"] = o.Host
 	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Port != nil {
+		toSerialize["port"] = o.Port
+	}
+	if o.SystemID != nil {
+		toSerialize["systemID"] = o.SystemID
+	}
+	if o.Password != nil {
+		toSerialize["password"] = o.Password
+	}
+	if o.SystemType != nil {
+		toSerialize["systemType"] = o.SystemType
+	}
+	if o.InterfaceVersion != nil {
+		toSerialize["interfaceVersion"] = o.InterfaceVersion
+	}
+	if o.BindType != nil {
+		toSerialize["bindType"] = o.BindType
+	}
+	if o.AddressRange != nil {
+		toSerialize["addressRange"] = o.AddressRange
+	}
+	if o.AddressNPI != nil {
+		toSerialize["addressNPI"] = o.AddressNPI
+	}
+	if o.AddressTON != nil {
+		toSerialize["addressTON"] = o.AddressTON
+	}
+	if o.ConnectionTimeout != nil {
+		toSerialize["connectionTimeout"] = o.ConnectionTimeout
+	}
+	if o.AcceptRatio != nil {
+		toSerialize["acceptRatio"] = o.AcceptRatio
+	}
+	if o.AckRatio != nil {
+		toSerialize["ackRatio"] = o.AckRatio
+	}
+	if o.EnquireLinkInterval != nil {
+		toSerialize["enquireLinkInterval"] = o.EnquireLinkInterval
 	}
 	if o.IsEnable != nil {
 		toSerialize["isEnable"] = o.IsEnable
@@ -850,32 +873,14 @@ func (o EsmeAccount) MarshalJSON() ([]byte, error) {
 	if o.IsPersist != nil {
 		toSerialize["isPersist"] = o.IsPersist
 	}
-	if o.MoErrorCode != nil {
-		toSerialize["moErrorCode"] = o.MoErrorCode
-	}
-	if o.MoErrorRate != nil {
-		toSerialize["moErrorRate"] = o.MoErrorRate
-	}
 	if o.MtThroughtput != nil {
 		toSerialize["mtThroughtput"] = o.MtThroughtput
-	}
-	if true {
-		toSerialize["name"] = o.Name
 	}
 	if o.NumBinds != nil {
 		toSerialize["numBinds"] = o.NumBinds
 	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.Port != nil {
-		toSerialize["port"] = o.Port
-	}
 	if o.ReconnectDelay != nil {
 		toSerialize["reconnectDelay"] = o.ReconnectDelay
-	}
-	if o.SystemID != nil {
-		toSerialize["systemID"] = o.SystemID
 	}
 	if o.WindowSize != nil {
 		toSerialize["windowSize"] = o.WindowSize

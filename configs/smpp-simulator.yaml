@@ -14,3 +14,10 @@ smpp:
         addrTon: 0
         addrNpi: 0
         addrRange: "1234"
+# S3 File Storage for configuration repositories
+s3:
+  endpoint: "play.min.io"
+  accessKeyID: "Q3AM3UQ867SPQQA43P2F"
+  secretAccessKey: "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+  useSSL: true
+  bucket: "smpptools"        

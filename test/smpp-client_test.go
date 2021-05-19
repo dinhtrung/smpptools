@@ -11,9 +11,10 @@ import (
 func TestSMPPClient(t *testing.T) {
 
 	bc := smpp.BindConf{
-		Addr:     "127.0.0.1:2775",
-		SystemID: "1536",
-		Password: "abcd1234",
+		Addr:       "127.0.0.1:2775",
+		SystemID:   "1536",
+		Password:   "abcd1234",
+		SystemType: "VMS",
 	}
 	sc := smpp.SessionConf{
 		Sequencer: pdu.NewSequencer(4098759198),

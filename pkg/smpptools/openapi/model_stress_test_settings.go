@@ -14,32 +14,35 @@ import (
 	"encoding/json"
 )
 
-// Batch model used for traffic simulation
-type Batch struct {
+// StressTestSettings Configuration for Stress Testing Process
+type StressTestSettings struct {
 	SmsPattern *BaseSm `json:"smsPattern,omitempty"`
 	SmsData *IsdnList `json:"smsData,omitempty"`
-	Throughput *ThroughputSeries `json:"throughput,omitempty"`
+	// maximum throughput try to reach
+	Throughput *float32 `json:"throughput,omitempty"`
+	// max number of PDU send out
+	MaxPDU *float32 `json:"maxPDU,omitempty"`
 }
 
-// NewBatch instantiates a new Batch object
+// NewStressTestSettings instantiates a new StressTestSettings object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatch() *Batch {
-	this := Batch{}
+func NewStressTestSettings() *StressTestSettings {
+	this := StressTestSettings{}
 	return &this
 }
 
-// NewBatchWithDefaults instantiates a new Batch object
+// NewStressTestSettingsWithDefaults instantiates a new StressTestSettings object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBatchWithDefaults() *Batch {
-	this := Batch{}
+func NewStressTestSettingsWithDefaults() *StressTestSettings {
+	this := StressTestSettings{}
 	return &this
 }
 
 // GetSmsPattern returns the SmsPattern field value if set, zero value otherwise.
-func (o *Batch) GetSmsPattern() BaseSm {
+func (o *StressTestSettings) GetSmsPattern() BaseSm {
 	if o == nil || o.SmsPattern == nil {
 		var ret BaseSm
 		return ret
@@ -49,7 +52,7 @@ func (o *Batch) GetSmsPattern() BaseSm {
 
 // GetSmsPatternOk returns a tuple with the SmsPattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Batch) GetSmsPatternOk() (*BaseSm, bool) {
+func (o *StressTestSettings) GetSmsPatternOk() (*BaseSm, bool) {
 	if o == nil || o.SmsPattern == nil {
 		return nil, false
 	}
@@ -57,7 +60,7 @@ func (o *Batch) GetSmsPatternOk() (*BaseSm, bool) {
 }
 
 // HasSmsPattern returns a boolean if a field has been set.
-func (o *Batch) HasSmsPattern() bool {
+func (o *StressTestSettings) HasSmsPattern() bool {
 	if o != nil && o.SmsPattern != nil {
 		return true
 	}
@@ -66,12 +69,12 @@ func (o *Batch) HasSmsPattern() bool {
 }
 
 // SetSmsPattern gets a reference to the given BaseSm and assigns it to the SmsPattern field.
-func (o *Batch) SetSmsPattern(v BaseSm) {
+func (o *StressTestSettings) SetSmsPattern(v BaseSm) {
 	o.SmsPattern = &v
 }
 
 // GetSmsData returns the SmsData field value if set, zero value otherwise.
-func (o *Batch) GetSmsData() IsdnList {
+func (o *StressTestSettings) GetSmsData() IsdnList {
 	if o == nil || o.SmsData == nil {
 		var ret IsdnList
 		return ret
@@ -81,7 +84,7 @@ func (o *Batch) GetSmsData() IsdnList {
 
 // GetSmsDataOk returns a tuple with the SmsData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Batch) GetSmsDataOk() (*IsdnList, bool) {
+func (o *StressTestSettings) GetSmsDataOk() (*IsdnList, bool) {
 	if o == nil || o.SmsData == nil {
 		return nil, false
 	}
@@ -89,7 +92,7 @@ func (o *Batch) GetSmsDataOk() (*IsdnList, bool) {
 }
 
 // HasSmsData returns a boolean if a field has been set.
-func (o *Batch) HasSmsData() bool {
+func (o *StressTestSettings) HasSmsData() bool {
 	if o != nil && o.SmsData != nil {
 		return true
 	}
@@ -98,14 +101,14 @@ func (o *Batch) HasSmsData() bool {
 }
 
 // SetSmsData gets a reference to the given IsdnList and assigns it to the SmsData field.
-func (o *Batch) SetSmsData(v IsdnList) {
+func (o *StressTestSettings) SetSmsData(v IsdnList) {
 	o.SmsData = &v
 }
 
 // GetThroughput returns the Throughput field value if set, zero value otherwise.
-func (o *Batch) GetThroughput() ThroughputSeries {
+func (o *StressTestSettings) GetThroughput() float32 {
 	if o == nil || o.Throughput == nil {
-		var ret ThroughputSeries
+		var ret float32
 		return ret
 	}
 	return *o.Throughput
@@ -113,7 +116,7 @@ func (o *Batch) GetThroughput() ThroughputSeries {
 
 // GetThroughputOk returns a tuple with the Throughput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Batch) GetThroughputOk() (*ThroughputSeries, bool) {
+func (o *StressTestSettings) GetThroughputOk() (*float32, bool) {
 	if o == nil || o.Throughput == nil {
 		return nil, false
 	}
@@ -121,7 +124,7 @@ func (o *Batch) GetThroughputOk() (*ThroughputSeries, bool) {
 }
 
 // HasThroughput returns a boolean if a field has been set.
-func (o *Batch) HasThroughput() bool {
+func (o *StressTestSettings) HasThroughput() bool {
 	if o != nil && o.Throughput != nil {
 		return true
 	}
@@ -129,12 +132,44 @@ func (o *Batch) HasThroughput() bool {
 	return false
 }
 
-// SetThroughput gets a reference to the given ThroughputSeries and assigns it to the Throughput field.
-func (o *Batch) SetThroughput(v ThroughputSeries) {
+// SetThroughput gets a reference to the given float32 and assigns it to the Throughput field.
+func (o *StressTestSettings) SetThroughput(v float32) {
 	o.Throughput = &v
 }
 
-func (o Batch) MarshalJSON() ([]byte, error) {
+// GetMaxPDU returns the MaxPDU field value if set, zero value otherwise.
+func (o *StressTestSettings) GetMaxPDU() float32 {
+	if o == nil || o.MaxPDU == nil {
+		var ret float32
+		return ret
+	}
+	return *o.MaxPDU
+}
+
+// GetMaxPDUOk returns a tuple with the MaxPDU field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StressTestSettings) GetMaxPDUOk() (*float32, bool) {
+	if o == nil || o.MaxPDU == nil {
+		return nil, false
+	}
+	return o.MaxPDU, true
+}
+
+// HasMaxPDU returns a boolean if a field has been set.
+func (o *StressTestSettings) HasMaxPDU() bool {
+	if o != nil && o.MaxPDU != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxPDU gets a reference to the given float32 and assigns it to the MaxPDU field.
+func (o *StressTestSettings) SetMaxPDU(v float32) {
+	o.MaxPDU = &v
+}
+
+func (o StressTestSettings) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SmsPattern != nil {
 		toSerialize["smsPattern"] = o.SmsPattern
@@ -145,41 +180,44 @@ func (o Batch) MarshalJSON() ([]byte, error) {
 	if o.Throughput != nil {
 		toSerialize["throughput"] = o.Throughput
 	}
+	if o.MaxPDU != nil {
+		toSerialize["maxPDU"] = o.MaxPDU
+	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableBatch struct {
-	value *Batch
+type NullableStressTestSettings struct {
+	value *StressTestSettings
 	isSet bool
 }
 
-func (v NullableBatch) Get() *Batch {
+func (v NullableStressTestSettings) Get() *StressTestSettings {
 	return v.value
 }
 
-func (v *NullableBatch) Set(val *Batch) {
+func (v *NullableStressTestSettings) Set(val *StressTestSettings) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBatch) IsSet() bool {
+func (v NullableStressTestSettings) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBatch) Unset() {
+func (v *NullableStressTestSettings) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBatch(val *Batch) *NullableBatch {
-	return &NullableBatch{value: val, isSet: true}
+func NewNullableStressTestSettings(val *StressTestSettings) *NullableStressTestSettings {
+	return &NullableStressTestSettings{value: val, isSet: true}
 }
 
-func (v NullableBatch) MarshalJSON() ([]byte, error) {
+func (v NullableStressTestSettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBatch) UnmarshalJSON(src []byte) error {
+func (v *NullableStressTestSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

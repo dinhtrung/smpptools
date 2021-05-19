@@ -13,6 +13,7 @@ import (
 	"github.com/markbates/pkger"
 
 	"github.com/dinhtrung/smpptools/internal/app"
+	"github.com/dinhtrung/smpptools/internal/app/s3proxy"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/impl"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/api"
@@ -29,6 +30,7 @@ func main() {
 
 	// set default settings
 	app.BuntDBConfig()
+	app.S3Config()
 
 	// Load configuration file and watch changes
 	app.ConfigInit(configFile)
@@ -36,6 +38,7 @@ func main() {
 
 	// bring up components
 	app.BuntDBInit()
+	app.S3Init()
 
 	// autowire repository
 	setupDB()
@@ -59,6 +62,7 @@ func main() {
 		},
 		Root: pkger.Dir("/web/smpp-simulator"),
 	})
+
 	srv.Use(staticAsset)
 	srv.Use(logger.New(logger.Config{
 		// Format:     "{\"timestamp\":\"${time}\", \"status\":${status}, \"account\":\"${locals:account}\", \"method\":\"${method}\", \"path\":\"${path}\", \"body\":${body}}\n",
@@ -91,7 +95,7 @@ func setupDB() {
 
 // setupRoutes setup the route for application
 func setupRoutes(app *fiber.App) {
-
+	s3proxy.SetupRoutes(app)
 	// + SMPP actions
 	// -- base-sm-resource
 	app.Post("/api/base-sms", api.CreateBaseSmUsingPOST)
@@ -124,8 +128,10 @@ func setupRoutes(app *fiber.App) {
 	app.Put("/api/esme-sessions/:sessionID", api.UpdateEsmeSessionUsingPUT)
 	app.Patch("/api/esme-sessions/:sessionID", api.PartialUpdateEsmeSessionUsingPATCH)
 	app.Post("/api/esme-sessions/:sessionID/send-mt", api.SendMTonEsmeSessionUsingPOST)
-	app.Post("/api/esme-sessions/:sessionID/batch", api.SendSMSonEsmeSessionUsingPOST)
-	app.Delete("/api/esme-sessions/:sessionID/batch", api.StopAllBachOnEsmeSessionUsingDELETE)
+	app.Post("/api/esme-sessions/:sessionID/stress", api.StartStressTestOnEsmeSessionUsingPOST)
+	app.Delete("/api/esme-sessions/:sessionID/stress", api.StopStressTestOnEsmeSessionUsingDELETE)
+	app.Post("/api/esme-sessions/:sessionID/batch", api.SendBatchSMSonEsmeSessionUsingPOST)
+	app.Delete("/api/esme-sessions/:sessionID/batch", api.StopAllBatchOnEsmeSessionUsingDELETE)
 
 	// + ISDN list
 	app.Post("/api/isdn-lists", api.CreateIsdnListUsingPOST)
@@ -134,6 +140,15 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/api/isdn-lists/:id", api.GetIsdnListUsingGET)
 	app.Patch("/api/isdn-lists/:id", api.PartialUpdateIsdnListUsingPATCH)
 	app.Put("/api/isdn-lists/:id", api.UpdateIsdnListUsingPUT)
+
+	// + DataFile
+	app.Post("/api/data-files", api.CreateDataFileUsingPOST)
+	app.Delete("/api/data-files/:id", api.DeleteDataFileUsingDELETE)
+	app.Get("/api/data-files", api.GetAllDataFilesUsingGET)
+	app.Get("/api/data-files/:id", api.GetDataFileUsingGET)
+	app.Patch("/api/data-files/:id", api.PartialUpdateDataFileUsingPATCH)
+	app.Put("/api/data-files/:id", api.UpdateDataFileUsingPUT)
+
 	app.Post("/api/smsc-accounts", api.CreateSmscAccountUsingPOST)
 	app.Delete("/api/smsc-accounts/:id", api.DeleteSmscAccountUsingDELETE)
 	app.Get("/api/smsc-accounts", api.GetAllSmscAccountsUsingGET)

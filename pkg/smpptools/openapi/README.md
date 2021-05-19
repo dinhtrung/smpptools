@@ -100,8 +100,11 @@ Class | Method | HTTP request | Description
 *EsmeSessionResourceApi* | [**GetAllEsmeSessions**](docs/EsmeSessionResourceApi.md#getallesmesessions) | **Get** /api/esme-sessions | getAllEsmeSessions
 *EsmeSessionResourceApi* | [**GetEsmeSessionUsingGET**](docs/EsmeSessionResourceApi.md#getesmesessionusingget) | **Get** /api/esme-sessions/{sessionID} | View ESME Session Details
 *EsmeSessionResourceApi* | [**PartialUpdateEsmeSessionUsingPATCH**](docs/EsmeSessionResourceApi.md#partialupdateesmesessionusingpatch) | **Patch** /api/esme-sessions/{sessionID} | partialUpdateEsmeSession
-*EsmeSessionResourceApi* | [**SendSMSonEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#sendsmsonesmesessionusingpost) | **Post** /api/esme-sessions/{sessionID}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
-*EsmeSessionResourceApi* | [**StopAllBachOnEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#stopallbachonesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID}/batch | Stop all batch current running in selected SMSC sessions
+*EsmeSessionResourceApi* | [**SendBatchSMSonEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#sendbatchsmsonesmesessionusingpost) | **Post** /api/esme-sessions/{sessionID}/batch | Send Mobile Originated SMS on selected session with given patterns and data files
+*EsmeSessionResourceApi* | [**SendMTonEsmeSessionUsingPost**](docs/EsmeSessionResourceApi.md#sendmtonesmesessionusingpost) | **Post** /api/esme-sessions/{sessionID}/send-mt | Send Mobile Terminated SMS on selected session with given patterns and data files
+*EsmeSessionResourceApi* | [**StartStressTestOnEsmeSessionUsingPOST**](docs/EsmeSessionResourceApi.md#startstresstestonesmesessionusingpost) | **Post** /api/esme-sessions/{sessionID}/stress | Perform Stress Testing on selected ESME Session
+*EsmeSessionResourceApi* | [**StopAllBatchOnEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#stopallbatchonesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID}/batch | Stop all batch current running in selected SMSC sessions
+*EsmeSessionResourceApi* | [**StopStressTestOnEsmeSessionUsingDELETE**](docs/EsmeSessionResourceApi.md#stopstresstestonesmesessionusingdelete) | **Delete** /api/esme-sessions/{sessionID}/stress | Stop all stress test current running in selected SMSC sessions
 *EsmeSessionResourceApi* | [**UpdateEsmeSessionUsingPUT**](docs/EsmeSessionResourceApi.md#updateesmesessionusingput) | **Put** /api/esme-sessions/{sessionID} | updateEsmeSession
 *IsdnListResourceApi* | [**CreateIsdnListUsingPOST**](docs/IsdnListResourceApi.md#createisdnlistusingpost) | **Post** /api/isdn-lists | createIsdnList
 *IsdnListResourceApi* | [**DeleteIsdnListUsingDELETE**](docs/IsdnListResourceApi.md#deleteisdnlistusingdelete) | **Delete** /api/isdn-lists/{id} | deleteIsdnList
@@ -149,6 +152,7 @@ Class | Method | HTTP request | Description
 
  - [BaseSm](docs/BaseSm.md)
  - [Batch](docs/Batch.md)
+ - [ErrorRate](docs/ErrorRate.md)
  - [EsmeAccount](docs/EsmeAccount.md)
  - [EsmeSession](docs/EsmeSession.md)
  - [IsdnList](docs/IsdnList.md)
@@ -157,6 +161,8 @@ Class | Method | HTTP request | Description
  - [SmscAccount](docs/SmscAccount.md)
  - [SmscInstance](docs/SmscInstance.md)
  - [SmscSession](docs/SmscSession.md)
+ - [StressTestResult](docs/StressTestResult.md)
+ - [StressTestSettings](docs/StressTestSettings.md)
  - [ThroughputSeries](docs/ThroughputSeries.md)
 
 

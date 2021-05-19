@@ -15,6 +15,7 @@ configuration.go
 docs/BaseSm.md
 docs/BaseSmResourceApi.md
 docs/Batch.md
+docs/ErrorRate.md
 docs/EsmeAccount.md
 docs/EsmeAccountResourceApi.md
 docs/EsmeSession.md
@@ -29,11 +30,14 @@ docs/SmscInstance.md
 docs/SmscInstanceResourceApi.md
 docs/SmscSession.md
 docs/SmscSessionResourceApi.md
+docs/StressTestResult.md
+docs/StressTestSettings.md
 docs/ThroughputSeries.md
 docs/ThroughputSeriesResourceApi.md
 git_push.sh
 model_base_sm.go
 model_batch.go
+model_error_rate.go
 model_esme_account.go
 model_esme_session.go
 model_isdn_list.go
@@ -42,6 +46,8 @@ model_smpp_tlv.go
 model_smsc_account.go
 model_smsc_instance.go
 model_smsc_session.go
+model_stress_test_result.go
+model_stress_test_settings.go
 model_throughput_series.go
 response.go
 utils.go

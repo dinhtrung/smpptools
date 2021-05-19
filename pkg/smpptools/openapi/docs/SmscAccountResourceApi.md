@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    smscAccount := *openapiclient.NewSmscAccount("Name_example", "SystemID_example", "Password_example") // SmscAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -292,7 +292,7 @@ import (
 
 func main() {
     id := "id_example" // string | id
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    smscAccount := *openapiclient.NewSmscAccount("Name_example", "SystemID_example", "Password_example") // SmscAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -496,7 +496,7 @@ import (
 
 func main() {
     id := "id_example" // string | id
-    smscAccount := *openapiclient.NewSmscAccount("Name_example", "Password_example", "SystemID_example") // SmscAccount |  (optional)
+    smscAccount := *openapiclient.NewSmscAccount("Name_example", "SystemID_example", "Password_example") // SmscAccount |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
