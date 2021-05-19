@@ -227,15 +227,20 @@ func (c *SmscSimulator) SmscHandleFunc(ctx *smpp.Context) {
 // SendDLRDelay send a message back to current client ID
 func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu.SubmitSm, err openapi.ErrorRate) {
 	if sess, ok := c.server.EsmeSessions[sessionID]; ok {
+
 		dlr := &pdu.DeliveryReceipt{
 			Id:         msgID,
 			Sub:        "001",
 			SubmitDate: time.Now(),
 			DoneDate:   time.Now(),
 			Dlvrd:      "001",
-			Stat:       pdu.DelStatMap[uint8(err.Error%8)],
 			Err:        "000",
 			Text:       "",
+		}
+		if err.Error == 0 {
+			dlr.Stat = pdu.DelStatUnknown
+		} else {
+			dlr.Stat = pdu.DelStatMap[uint8(err.Error)]
 		}
 		pduReq := pdu.NewPDU(pdu.DeliverSmID)
 		req := pduReq.(*pdu.DeliverSm)
