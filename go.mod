@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/ajankovic/gsm v0.1.0
 	github.com/ajankovic/smpp v0.1.3
+	github.com/brianvoe/gofakeit/v6 v6.4.1
 	github.com/fiorix/go-smpp v0.0.0-20210403173735-2894b96e70ba
 	github.com/gabriel-vasile/mimetype v1.3.0
 	github.com/gofiber/fiber/v2 v2.8.0
