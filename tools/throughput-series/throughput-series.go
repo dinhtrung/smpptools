@@ -59,7 +59,7 @@ func main() {
 	result.SetDescription("data imported from " + inputFile)
 	result.SetName(inputFile)
 	result.SetState(0)
-	values := make([]int32, 0)
+	values := make([]float32, 0)
 	lineNo := 0
 	lastLineNo := 1
 	windowSize := time.Second
@@ -68,7 +68,7 @@ func main() {
 	for {
 		record, err := r.Read()
 		if err == io.EOF {
-			values = append(values, int32(lineNo-lastLineNo)+1)
+			values = append(values, float32(lineNo-lastLineNo)+1)
 			break
 		}
 		if err != nil {
@@ -80,7 +80,7 @@ func main() {
 			if t.Sub(startTime) >= windowSize {
 				log.Printf("%s offset: %d - %d", record[colDeliveryTime], lineNo, lastLineNo)
 				if lineNo > lastLineNo {
-					values = append(values, int32(lineNo-lastLineNo))
+					values = append(values, float32(lineNo-lastLineNo))
 					lastLineNo = lineNo
 				}
 				startTime = t

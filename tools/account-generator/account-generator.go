@@ -29,6 +29,9 @@ func main() {
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
 
+	err = writer.Write([]string{"PROTOCOL", "USERNAME", "PASSWORD", "TYPE", "BINDS"})
+	checkError("Cannot write to file", err)
+
 	gofakeit.Seed(time.Now().UnixNano())
 	for i := 0; i < accountNo; i++ {
 		value := []string{
