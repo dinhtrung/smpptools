@@ -30,7 +30,6 @@ docs/SmscInstance.md
 docs/SmscInstanceResourceApi.md
 docs/SmscSession.md
 docs/SmscSessionResourceApi.md
-docs/StressTestResult.md
 docs/StressTestSettings.md
 docs/ThroughputSeries.md
 docs/ThroughputSeriesResourceApi.md
@@ -46,7 +45,6 @@ model_smpp_tlv.go
 model_smsc_account.go
 model_smsc_instance.go
 model_smsc_session.go
-model_stress_test_result.go
 model_stress_test_settings.go
 model_throughput_series.go
 response.go

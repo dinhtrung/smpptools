@@ -21,7 +21,7 @@ type ThroughputSeries struct {
 	// A short description of this throughput
 	Description *string `json:"description,omitempty"`
 	// throughput per minute of current series
-	Values *[]int32 `json:"values,omitempty"`
+	Values *[]float32 `json:"values,omitempty"`
 	// CDR file name this throughput series was generated from
 	Datafile *string `json:"datafile,omitempty"`
 	// State of this throughput series
@@ -103,9 +103,9 @@ func (o *ThroughputSeries) SetDescription(v string) {
 }
 
 // GetValues returns the Values field value if set, zero value otherwise.
-func (o *ThroughputSeries) GetValues() []int32 {
+func (o *ThroughputSeries) GetValues() []float32 {
 	if o == nil || o.Values == nil {
-		var ret []int32
+		var ret []float32
 		return ret
 	}
 	return *o.Values
@@ -113,7 +113,7 @@ func (o *ThroughputSeries) GetValues() []int32 {
 
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThroughputSeries) GetValuesOk() (*[]int32, bool) {
+func (o *ThroughputSeries) GetValuesOk() (*[]float32, bool) {
 	if o == nil || o.Values == nil {
 		return nil, false
 	}
@@ -129,8 +129,8 @@ func (o *ThroughputSeries) HasValues() bool {
 	return false
 }
 
-// SetValues gets a reference to the given []int32 and assigns it to the Values field.
-func (o *ThroughputSeries) SetValues(v []int32) {
+// SetValues gets a reference to the given []float32 and assigns it to the Values field.
+func (o *ThroughputSeries) SetValues(v []float32) {
 	o.Values = &v
 }
 

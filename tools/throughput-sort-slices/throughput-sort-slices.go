@@ -74,7 +74,7 @@ func main() {
 	result.SetDescription("data imported from " + inputFile)
 	result.SetName(inputFile)
 	result.SetState(0)
-	values := make([]float32, 0)
+	values := make([]int32, 0)
 	lastLineNo := 0
 	windowSize := time.Second
 
@@ -83,7 +83,7 @@ func main() {
 			if t.Sub(startTime) >= windowSize {
 				log.Printf("%s offset: %d - %d", record[colDeliveryTime], lineNo, lastLineNo)
 				if lineNo > lastLineNo {
-					values = append(values, float32(lineNo-lastLineNo))
+					values = append(values, int32(lineNo-lastLineNo))
 					lastLineNo = lineNo
 				}
 				startTime = t
@@ -93,7 +93,7 @@ func main() {
 			lastLineNo = lineNo + 1
 		}
 	}
-	values = append(values, float32(len(records)-lastLineNo))
+	values = append(values, int32(len(records)-lastLineNo))
 	result.SetValues(values)
 	if jsondata, err := json.Marshal(result); err == nil {
 		log.Printf("final result: %s", string(jsondata))

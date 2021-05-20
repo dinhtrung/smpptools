@@ -2138,39 +2138,16 @@ components:
         maxPDU:
           description: max number of PDU send out
           example: 1000
+          format: int8
           type: integer
       title: StressTestSettings
-    StressTestResult:
-      description: Result of stress test
-      properties:
-        id:
-          format: uuid
-          type: string
-        createdAt:
-          format: datetime
-          type: string
-        updatedAt:
-          format: datetime
-          type: string
-        state:
-          enum:
-          - pending
-          - starting
-          - running
-          - stopped
-          type: string
-        percent:
-          description: percent complete
-          example: 10
-          type: integer
-      title: StressTest Counter
     ThroughputSeries:
       description: A series of traffic throughput used for re-generate traffic throughput
         patterns
       example:
         values:
-        - 0
-        - 0
+        - 0.8008282
+        - 0.8008282
         name: Load test 2021-05-12
         description: Traffic throughput collected from production system on 2021-05-12
         state: 0
@@ -2188,7 +2165,7 @@ components:
           description: throughput per minute of current series
           items:
             format: float
-            type: integer
+            type: number
           type: array
         datafile:
           description: CDR file name this throughput series was generated from
@@ -2197,6 +2174,7 @@ components:
         state:
           description: State of this throughput series
           example: 0
+          format: int8
           type: integer
       required:
       - name
@@ -2211,8 +2189,8 @@ components:
           content: content
         throughput:
           values:
-          - 0
-          - 0
+          - 0.8008282
+          - 0.8008282
           name: Load test 2021-05-12
           description: Traffic throughput collected from production system on 2021-05-12
           state: 0
@@ -2358,7 +2336,7 @@ components:
           type: integer
         connectionTimeout:
           description: Connection timeout in milliseconds
-          format: int8
+          format: int32
           type: integer
         acceptRatio:
           description: Error rate on receiving Mobile Originated SMS
@@ -2372,7 +2350,7 @@ components:
           type: array
         enquireLinkInterval:
           description: Enquire links interval in seconds
-          format: int8
+          format: int32
           type: integer
         isEnable:
           description: true if this ESME should be start automatically
@@ -2384,19 +2362,19 @@ components:
           type: boolean
         mtThroughtput:
           description: Sending out speeds in TPS
-          format: int8
+          format: int32
           type: integer
         numBinds:
           description: number of active binds on start up
-          format: int8
+          format: int32
           type: integer
         reconnectDelay:
           description: Delay in seconds before retry reconnect
-          format: int8
+          format: int32
           type: integer
         windowSize:
           description: Number of packets send out per one go
-          format: int8
+          format: int32
           type: integer
       required:
       - name
@@ -2642,7 +2620,7 @@ components:
           type: integer
         maxBinds:
           description: max number of active binds on this account
-          format: int8
+          format: int32
           type: integer
       required:
       - name
@@ -2677,7 +2655,7 @@ components:
         port:
           description: TCP Port to listen to
           example: 2775
-          format: int816
+          format: int16
           type: integer
         systemID:
           description: Identifies the MC to the ESME

@@ -2047,32 +2047,9 @@ components:
         maxPDU:
           type: integer
           description: max number of PDU send out
+          format: int8
           example: 1000
       description: Configuration for Stress Testing Process
-    StressTestResult:
-      title: StressTest Counter
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: datetime
-        updatedAt:
-          type: string
-          format: datetime
-        state:
-          type: string
-          enum:
-          - pending
-          - starting
-          - running
-          - stopped
-        percent:
-          type: integer
-          description: percent complete
-          example: 10
-      description: Result of stress test
     ThroughputSeries:
       title: ThroughputSeries
       required:
@@ -2090,7 +2067,7 @@ components:
           type: array
           description: throughput per minute of current series
           items:
-            type: integer
+            type: number
             format: float
         datafile:
           type: string
@@ -2099,6 +2076,7 @@ components:
         state:
           type: integer
           description: State of this throughput series
+          format: int8
           example: 0
       description: A series of traffic throughput used for re-generate traffic throughput patterns
     Batch:
@@ -2177,7 +2155,7 @@ components:
         connectionTimeout:
           type: integer
           description: Connection timeout in milliseconds
-          format: int8
+          format: int32
         acceptRatio:
           type: array
           description: Error rate on receiving Mobile Originated SMS
@@ -2191,7 +2169,7 @@ components:
         enquireLinkInterval:
           type: integer
           description: Enquire links interval in seconds
-          format: int8
+          format: int32
         isEnable:
           type: boolean
           description: true if this ESME should be start automatically
@@ -2203,19 +2181,19 @@ components:
         mtThroughtput:
           type: integer
           description: Sending out speeds in TPS
-          format: int8
+          format: int32
         numBinds:
           type: integer
           description: number of active binds on start up
-          format: int8
+          format: int32
         reconnectDelay:
           type: integer
           description: Delay in seconds before retry reconnect
-          format: int8
+          format: int32
         windowSize:
           type: integer
           description: Number of packets send out per one go
-          format: int8
+          format: int32
       description: ESME hold information on how to establish a SMPP Session towards SMSC
     EsmeSession:
       title: EsmeSession
@@ -2355,7 +2333,7 @@ components:
         maxBinds:
           type: integer
           description: max number of active binds on this account
-          format: int8
+          format: int32
       description: SMSC account allow or deny BIND request from ESME
     SmscInstance:
       title: SmscInstance
@@ -2376,7 +2354,7 @@ components:
         port:
           type: integer
           description: TCP Port to listen to
-          format: int816
+          format: int16
           example: 2775
         systemID:
           maxLength: 20

@@ -94,6 +94,14 @@ func StopSmscInstanceUsingDELETE(c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
+func GetAllSessionsOnInstanceUsingGET(c *fiber.Ctx) error {
+	entities, err := instances.SmscSessionRepo.FindAllByInstance(c.Params("instanceID"))
+	if err != nil {
+		return err
+	}
+	return c.JSON(entities)
+}
+
 func StartBatchOnSmscInstanceUsingPOST(c *fiber.Ctx) error {
 	return fiber.ErrNotImplemented
 }

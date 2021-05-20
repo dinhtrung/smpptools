@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of this throughput series | 
 **Description** | Pointer to **string** | A short description of this throughput | [optional] 
-**Values** | Pointer to **[]int32** | throughput per minute of current series | [optional] 
+**Values** | Pointer to **[]float32** | throughput per minute of current series | [optional] 
 **Datafile** | Pointer to **string** | CDR file name this throughput series was generated from | [optional] 
 **State** | Pointer to **int32** | State of this throughput series | [optional] 
 
@@ -76,20 +76,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetValues
 
-`func (o *ThroughputSeries) GetValues() []int32`
+`func (o *ThroughputSeries) GetValues() []float32`
 
 GetValues returns the Values field if non-nil, zero value otherwise.
 
 ### GetValuesOk
 
-`func (o *ThroughputSeries) GetValuesOk() (*[]int32, bool)`
+`func (o *ThroughputSeries) GetValuesOk() (*[]float32, bool)`
 
 GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValues
 
-`func (o *ThroughputSeries) SetValues(v []int32)`
+`func (o *ThroughputSeries) SetValues(v []float32)`
 
 SetValues sets Values field to given value.
 

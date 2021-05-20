@@ -162,7 +162,6 @@ Class | Method | HTTP request | Description
  - [SmscAccount](docs/SmscAccount.md)
  - [SmscInstance](docs/SmscInstance.md)
  - [SmscSession](docs/SmscSession.md)
- - [StressTestResult](docs/StressTestResult.md)
  - [StressTestSettings](docs/StressTestSettings.md)
  - [ThroughputSeries](docs/ThroughputSeries.md)
 
