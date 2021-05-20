@@ -1,0 +1,178 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-smsc-instance-heading"
+        data-cy="SmscInstanceCreateUpdateHeading"
+        jhiTranslate="smpptoolsApp.smscInstance.home.createOrEditLabel"
+      >
+        Create or edit a Smsc Instance
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.name"
+            for="field_name"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.name' | translate"
+            >Name</label
+          >
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 80 }"
+            >
+              This field cannot be longer than 80 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.description"
+            for="field_description"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.description' | translate"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.systemID"
+            for="field_name"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.systemID' | translate"
+            >Name</label
+          >
+          <input type="text" class="form-control" name="systemID" id="field_systemID" data-cy="systemID" formControlName="systemID" />
+          <div *ngIf="editForm.get('systemID')!.invalid && (editForm.get('systemID')!.dirty || editForm.get('systemID')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('systemID')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('systemID')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 20 }"
+            >
+              This field cannot be longer than 20 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.port"
+            for="field_port"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.port' | translate"
+            >Port</label
+          >
+          <input type="number" class="form-control" name="port" id="field_port" data-cy="port" formControlName="port" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.isPersist"
+            for="field_isPersist"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.isPersist' | translate"
+            >Is Persist</label
+          >
+          <input type="checkbox" class="form-check" name="isPersist" id="field_isPersist" data-cy="isPersist" formControlName="isPersist" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.allowAnonymous"
+            for="field_allowAnonymous"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.allowAnonymous' | translate"
+            >Is Persist</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="allowAnonymous"
+            id="field_allowAnonymous"
+            data-cy="allowAnonymous"
+            formControlName="allowAnonymous"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.connectionTimeout"
+            for="field_connectionTimeout"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.connectionTimeout' | translate"
+            >Connection Timeout</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="connectionTimeout"
+            id="field_connectionTimeout"
+            data-cy="connectionTimeout"
+            formControlName="connectionTimeout"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscInstance.windowSize"
+            for="field_windowSize"
+            [ngbTooltip]="'smpptoolsApp.smscInstance.help.windowSize' | translate"
+            >Window Size</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="windowSize"
+            id="field_windowSize"
+            data-cy="windowSize"
+            formControlName="windowSize"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

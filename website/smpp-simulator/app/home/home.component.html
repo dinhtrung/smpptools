@@ -1,0 +1,113 @@
+<h1 class="code-line" data-line-start=0 data-line-end=1><a id="SMPP_Simulation_Tools_0"></a>SMPP Simulation Tools</h1>
+<h3 class="code-line" data-line-start=2 data-line-end=3><a id="Summary_2"></a>Summary</h3>
+<p class="has-line-data" data-line-start="4" data-line-end="5">A SMPP traffic simulation tools for pre-sales and sales department, that easy to setup, bring up and deploy for demonstration purpose.</p>
+<h3 class="code-line" data-line-start=6 data-line-end=7><a id="Main_Features_6"></a>Main Features</h3>
+<ul>
+  <li class="has-line-data" data-line-start="8" data-line-end="9">User Friendly Web Interface: the application main function can be access and interactive via browser.</li>
+  <li class="has-line-data" data-line-start="9" data-line-end="13">SMPP Functional Testing Features:
+    <ul>
+      <li class="has-line-data" data-line-start="10" data-line-end="11">ESME Connection Management: To manage ESME connections available to the system</li>
+      <li class="has-line-data" data-line-start="11" data-line-end="12">SMPP Parameters Management: To manage SMPP PDU payload that is difficult to understand for sales ppl, and re-use this parameter sets for demonstration purpose.</li>
+      <li class="has-line-data" data-line-start="12" data-line-end="13">SMSC Simulation: To bootstrap a SMSC to act as an upstream for other ESME to connect to.</li>
+    </ul>
+  </li>
+  <li class="has-line-data" data-line-start="13" data-line-end="17">SMPP Performance Testing:
+    <ul>
+      <li class="has-line-data" data-line-start="14" data-line-end="15">ESME Stress Test: Start bulk SMS sending from any Account / Connections towards target SMSC</li>
+      <li class="has-line-data" data-line-start="15" data-line-end="16">SMSC Delivery Receipt: Mimic SMSC Delivery Receipt features, with custom delay and success ratio</li>
+      <li class="has-line-data" data-line-start="16" data-line-end="17">SMSC Mobile Originated SMS: To simulate Mobile Originated SMS from Person towards Applications</li>
+    </ul>
+  </li>
+</ul>
+<h3 class="code-line" data-line-start=19 data-line-end=20><a id="User_Manual_19"></a>User Manual</h3>
+<p class="has-line-data" data-line-start="21" data-line-end="22">A sales representative wants to have a demo sessions for SMPP gateway system with following agenda:</p>
+<ol>
+  <li class="has-line-data" data-line-start="23" data-line-end="36">ESME Connection management:
+    <ol>
+      <li class="has-line-data" data-line-start="24" data-line-end="27">Create ESME account:
+        <ol>
+          <li class="has-line-data" data-line-start="25" data-line-end="26">Open ESME Connections tab, and press Create button</li>
+          <li class="has-line-data" data-line-start="26" data-line-end="27">Fill in SMPP Account info (systemID, password, IP, port, Bind Mode) and press Save</li>
+        </ol>
+      </li>
+      <li class="has-line-data" data-line-start="27" data-line-end="33">Start and Stop the ESME connection:
+        <ol>
+          <li class="has-line-data" data-line-start="28" data-line-end="29">On ESME Connection listing page, press the Start button of one account to bring up new connection for this ESME account.</li>
+          <li class="has-line-data" data-line-start="29" data-line-end="30">A notification messages appears to tell User if connection is success or failed.</li>
+          <li class="has-line-data" data-line-start="30" data-line-end="31">To display all active connection, user navigate to Active ESME Connections panel.</li>
+          <li class="has-line-data" data-line-start="31" data-line-end="32">To stop an active connection, user can press the Stop button associate with it.</li>
+          <li class="has-line-data" data-line-start="32" data-line-end="33">To view the statistics on this connection, user can press the View button associate with it. Basic information like total number of PDU send out, current sending TPS etc can
+            be show on screen.</li>
+        </ol>
+      </li>
+      <li class="has-line-data" data-line-start="33" data-line-end="36">Delete ESME connection:
+        <ol>
+          <li class="has-line-data" data-line-start="34" data-line-end="35">From ESME Connection management page, user can delete any profiles any time.</li>
+          <li class="has-line-data" data-line-start="35" data-line-end="36">From Active ESME Sessions tab, user can stop the running connection any time.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li class="has-line-data" data-line-start="36" data-line-end="50">ESME Feature Testing:
+    <ol>
+      <li class="has-line-data" data-line-start="37" data-line-end="38">From Active ESME Sessions page, user click on Feature Testing button to open the Feature Testing page</li>
+      <li class="has-line-data" data-line-start="38" data-line-end="47">In Feature Testing page, User can manually fill in the SMPP parameters for SMS submission.
+        <ol>
+          <li class="has-line-data" data-line-start="39" data-line-end="40">Basic Parameters tab: Source (Address, TON, NPI), Destination (Address, Ton, NPI), Text content</li>
+          <li class="has-line-data" data-line-start="40" data-line-end="47">Advanced Parameters:
+            <ul>
+              <li class="has-line-data" data-line-start="41" data-line-end="42">Flash SMS</li>
+              <li class="has-line-data" data-line-start="42" data-line-end="43">Scheduled Delivery</li>
+              <li class="has-line-data" data-line-start="43" data-line-end="44">Validity Period</li>
+              <li class="has-line-data" data-line-start="44" data-line-end="45">Short Message (hex dump in case Sales want to test out special features)</li>
+              <li class="has-line-data" data-line-start="45" data-line-end="46">Optional TLV</li>
+              <li class="has-line-data" data-line-start="46" data-line-end="47">Special UDH</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li class="has-line-data" data-line-start="47" data-line-end="48">After fill in SMPP parameters, user press the Submit Message button to send the message out on current connection.</li>
+      <li class="has-line-data" data-line-start="48" data-line-end="49">To re-use all the parameter, user click on Save As button save the current SMPP parameter into a SMPP Preset</li>
+      <li class="has-line-data" data-line-start="49" data-line-end="50">To load existing preset, user click Load Preset button and choose a preset to load from.</li>
+    </ol>
+  </li>
+  <li class="has-line-data" data-line-start="50" data-line-end="55">ESME Stress Testing:
+    <ol>
+      <li class="has-line-data" data-line-start="51" data-line-end="52">From Active ESME Sessions listing page, user click on Stress Test button to visit Stress Test page</li>
+      <li class="has-line-data" data-line-start="52" data-line-end="53">On Stress Test panel, user can upload a list of phone numbers, choose a SMPP Preset, then press Import button to load the file contents into system.</li>
+      <li class="has-line-data" data-line-start="53" data-line-end="54">On Stress Test panel, user can set the sending out TPS, click on Start button to start the stress testing process.</li>
+      <li class="has-line-data" data-line-start="54" data-line-end="55">On Stress Test panel, user can view the current TPS, number of SMS send out, number of Delivery Receipt received divide by status.</li>
+    </ol>
+  </li>
+  <li class="has-line-data" data-line-start="55" data-line-end="72">SMSC Simulation:
+    <ol>
+      <li class="has-line-data" data-line-start="56" data-line-end="57">User navigate to SMSC Management page to show list of SMSCs</li>
+      <li class="has-line-data" data-line-start="57" data-line-end="62">To create new SMSC, user press the Create SMSC button, fill in the SMPP features this SMSC have, and press Save:
+        <ul>
+          <li class="has-line-data" data-line-start="58" data-line-end="59">Accept Ratio: The ratio to return OK back to SubmitSM PDU</li>
+          <li class="has-line-data" data-line-start="59" data-line-end="60">Delivery Receipt Success Ratio: The ratio on each state of DLR</li>
+          <li class="has-line-data" data-line-start="60" data-line-end="61">SystemID, Password, Rate Limit: The information for authenticate the ESME, and rate limit its speed.</li>
+          <li class="has-line-data" data-line-start="61" data-line-end="62">Port: Control the TCP port this SMSC listen to.</li>
+        </ul>
+      </li>
+      <li class="has-line-data" data-line-start="62" data-line-end="63">To start the SMSC, user press the Start button on list of SMSC.</li>
+      <li class="has-line-data" data-line-start="63" data-line-end="64">To control the SMSC behavior at any time, user click on the Settings button, change the parameters, and press Save to adjust the settings.</li>
+      <li class="has-line-data" data-line-start="64" data-line-end="65">User press Active Sessions button to show the SMSC current active SMPP Sessions. In this listing, user can press Blacklist button on any ESME connection to prevent connection
+        from ESME’s IP.</li>
+      <li class="has-line-data" data-line-start="65" data-line-end="66">User press on Reports button to show the current SMSC metrics, including number of PDU sent, received, error ratio, etc</li>
+      <li class="has-line-data" data-line-start="66" data-line-end="68">To test out one particular SMPP session, user click on one of the active SMPP Sessions to open it’s Testing page
+        <ol>
+          <li class="has-line-data" data-line-start="67" data-line-end="68">To send Mobile Originated SMS on this selected session, user fill in the SMPP parameters, or load it from SMPP Preset page, and press the Submit button to generate one Mobile
+            Originated SMS on active session.</li>
+        </ol>
+      </li>
+      <li class="has-line-data" data-line-start="68" data-line-end="72">For Stress Testing of Mobile Oriignated SMS, user click on Stress Testing
+        <ul>
+          <li class="has-line-data" data-line-start="69" data-line-end="70">Upload the list of MSISDN to be used as Source address, and press the Begin Stress Test button.</li>
+          <li class="has-line-data" data-line-start="70" data-line-end="71">Press the Start button to start Stress Testing</li>
+          <li class="has-line-data" data-line-start="71" data-line-end="72">Press the Stop button to stop Stress Testing</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ol>

@@ -1,0 +1,25 @@
+{
+  "smpptoolsApp": {
+    "smscSession": {
+      "home": {
+        "title": "Smsc Sessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Smsc Session",
+        "createOrEditLabel": "Create or edit a Smsc Session",
+        "notFound": "No Smsc Sessions found"
+      },
+      "created": "A new Smsc Session is created with identifier {{ param }}",
+      "updated": "A Smsc Session is updated with identifier {{ param }}",
+      "deleted": "A Smsc Session is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Smsc Session {{ id }}?"
+      },
+      "detail": {
+        "title": "Smsc Session"
+      },
+      "id": "ID",
+      "remoteAddr": "Remote Addr",
+      "createdAt": "Created At"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "smpptoolsApp": {
+    "esmeSession": {
+      "home": {
+        "title": "Esme Sessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Esme Session",
+        "createOrEditLabel": "Create or edit a Esme Session",
+        "notFound": "No Esme Sessions found"
+      },
+      "created": "A new Esme Session is created with identifier {{ param }}",
+      "updated": "A Esme Session is updated with identifier {{ param }}",
+      "deleted": "A Esme Session is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Esme Session {{ id }}?"
+      },
+      "detail": {
+        "title": "Esme Session"
+      },
+      "id": "ID",
+      "localAddr": "Local Addr",
+      "createdAt": "Created At"
+    }
+  }
+}

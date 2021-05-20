@@ -1,0 +1,275 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-smsc-account-heading"
+        data-cy="SmscAccountCreateUpdateHeading"
+        jhiTranslate="smpptoolsApp.smscAccount.home.createOrEditLabel"
+      >
+        Create or edit a Smsc Account
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscAccount.name"
+            for="field_name"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.name' | translate"
+            >Name</label
+          >
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 80 }"
+            >
+              This field cannot be longer than 80 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="smpptoolsApp.smscAccount.description"
+            for="field_description"
+            [ngbTooltip]="'smpptoolsApp.smscAccount.help.description' | translate"
+            >Description</label
+          >
+          <textarea class="form-control" name="description" id="field_description" data-cy="description" formControlName="description">
+          </textarea>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.systemID"
+              for="field_systemID"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.systemID' | translate"
+              >System ID</label
+            >
+            <input type="text" class="form-control" name="systemID" id="field_systemID" data-cy="systemID" formControlName="systemID" />
+            <div *ngIf="editForm.get('systemID')!.invalid && (editForm.get('systemID')!.dirty || editForm.get('systemID')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('systemID')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.password"
+              for="field_password"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.password' | translate"
+              >Password</label
+            >
+            <input type="text" class="form-control" name="password" id="field_password" data-cy="password" formControlName="password" />
+            <div *ngIf="editForm.get('password')!.invalid && (editForm.get('password')!.dirty || editForm.get('password')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('password')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.systemType"
+              for="field_systemType"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.systemType' | translate"
+              >System Type</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="systemType"
+              id="field_systemType"
+              data-cy="systemType"
+              formControlName="systemType"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.bindType"
+              for="field_bindType"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.bindType' | translate"
+              >Bind Type</label
+            >
+            <select class="form-control" name="bindType" id="field_bindType" data-cy="bindType" formControlName="bindType">
+              <option value="transceiver">Transceiver</option>
+              <option value="transmitter">Transmitter</option>
+              <option value="receiver">Receiver</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.maxBinds"
+              for="field_maxBinds"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.maxBinds' | translate"
+              >Max Binds</label
+            >
+            <input type="number" class="form-control" name="maxBinds" id="field_maxBinds" data-cy="maxBinds" formControlName="maxBinds" />
+          </div>
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.interfaceVersion"
+              for="field_bindType"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.interfaceVersion' | translate"
+              >Interface Version</label
+            >
+            <select
+              class="form-control"
+              name="interfaceVersion"
+              id="field_interfaceVersion"
+              data-cy="interfaceVersion"
+              formControlName="interfaceVersion"
+            >
+              <option value="51">3.3</option>
+              <option value="52">3.4</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="editForm.get('bindType')!.value !== 'transmitter'">
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.addressRange"
+              for="field_addressRange"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressRange' | translate"
+              >Address Range</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="addressRange"
+              id="field_addressRange"
+              data-cy="addressRange"
+              formControlName="addressRange"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.addressTON"
+              for="field_addressTON"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressTON' | translate"
+              >Address TON</label
+            >
+            <select class="form-control" name="addressTON" id="field_addressTON" data-cy="addressTON" formControlName="addressTON">
+              <option *ngFor="let o of smppTON" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label
+              class="form-control-label"
+              jhiTranslate="smpptoolsApp.smscAccount.addressNPI"
+              for="field_addressNPI"
+              [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressNPI' | translate"
+              >Address NPI</label
+            >
+            <select class="form-control" name="addressNPI" id="field_addressNPI" data-cy="addressNPI" formControlName="addressNPI">
+              <option *ngFor="let o of smppNPI" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <h5>SMSC Account Behavior</h5>
+
+      <div class="form-group">
+        <button type="button" name="addAcceptRatio" (click)="addAcceptRatio()" class="btn btn-primary float-right">Add Error Rate</button>
+        <label
+          class="form-control-label"
+          jhiTranslate="smpptoolsApp.smscAccount.acceptRatio"
+          for="field_tlvList"
+          [ngbTooltip]="'smpptoolsApp.smscAccount.help.acceptRatio' | translate"
+          >Accept Ratio</label
+        >
+
+        <div formArrayName="acceptRatio">
+          <div *ngFor="let item of AcceptRatio.controls; let ratio = index" [formGroupName]="ratio" class="input-group my-3">
+            <label class="input-group-text" jhiTranslate="smpptoolsApp.smscAccount.errorRate">Error</label>
+            <select class="form-control" name="error" formControlName="error">
+              <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+
+            <input type="number" class="form-control" name="rate" formControlName="rate" placeholder="error rate" />
+            <div class="input-group-append">
+              <button type="button" name="button" (click)="delAcceptRatio(ratio)" class="btn btn-sm btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" name="addDeliveryRatio" (click)="addDeliveryRatio()" class="btn btn-primary float-right">
+          Add Error Rate
+        </button>
+        <label
+          class="form-control-label"
+          jhiTranslate="smpptoolsApp.smscAccount.deliveryRatio"
+          for="field_tlvList"
+          [ngbTooltip]="'smpptoolsApp.smscAccount.help.deliveryRatio' | translate"
+          >Delivery Ratio</label
+        >
+
+        <div formArrayName="deliveryRatio">
+          <div *ngFor="let item of DeliveryRatio.controls; let ratio = index" [formGroupName]="ratio" class="input-group my-3">
+            <label class="input-group-text" jhiTranslate="smpptoolsApp.smscAccount.errorRate">Error</label>
+            <select class="form-control" name="error" formControlName="error">
+              <option *ngFor="let o of smppDLR" [ngValue]="o.value" [innerHtml]="o.label"></option>
+            </select>
+
+            <input type="number" class="form-control" name="rate" formControlName="rate" placeholder="error rate" />
+            <div class="input-group-append">
+              <button type="button" name="button" (click)="delDeliveryRatio(ratio)" class="btn btn-sm btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

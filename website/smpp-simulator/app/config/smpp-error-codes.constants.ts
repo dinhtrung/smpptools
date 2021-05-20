@@ -1,0 +1,417 @@
+export const SMPP_STATUS = [
+  {
+    value: 0,
+    label: '0x00000000 -   OK:    OK',
+  },
+  {
+    value: 1,
+    label: '0x00000001 -   INVMSGLEN: Message length invalid -- A2P When SP try to send message longer than max allowed message length',
+  },
+  {
+    value: 2,
+    label: '0x00000002 -   INVCMDLEN: Command length invalid',
+  },
+  {
+    value: 3,
+    label: '0x00000003 -   INVCMDID: Command ID invalid  -- When SP send invalid command, like DeliverSm to trigger A2P',
+  },
+  {
+    value: 4,
+    label:
+      '0x00000004 -   INVBNDSTS: Incorrect bind status for given command  -- A2P when SP try to send message out in a Receiver binding or Binding using wrong type',
+  },
+  {
+    value: 5,
+    label: '0x00000005 -   ALYBND: ESME already in bound state                  -- Maximum allowed connection for client',
+  },
+  {
+    value: 6,
+    label: '0x00000006 -   INVPRTFLG: Priority flag invalid',
+  },
+  {
+    value: 7,
+    label: '0x00000007 -   INVREGDLVFLG: Registered delivery flag invalid',
+  },
+  {
+    value: 8,
+    label: '0x00000008 -   SYSERR: System error',
+  },
+  {
+    value: 10,
+    label:
+      '0x0000000A -   INVSRCADR: Source address invalid  -- A2P destination not routeable, check Route Label and A2P Routing config, or when source address not whitelisted',
+  },
+  {
+    value: 11,
+    label: '0x0000000B -   INVDSTADR: Dest address invalid  -- A2P destination is blacklisted',
+  },
+  {
+    value: 12,
+    label: '0x0000000C -   INVMSGID: Message ID invalid',
+  },
+  {
+    value: 13,
+    label: '0x0000000D -   BINDFAIL: Bind failed                              -- IP Address is not in whitelist',
+  },
+  {
+    value: 14,
+    label: '0x0000000E -   INVPASWD: Password invalid   -- Wrong password for bind request',
+  },
+  {
+    value: 15,
+    label:
+      '0x0000000F -   INVSYSID: System ID invalid  -- Wrong systemdID for bind request, or inbound SMPP Client expired or not activated',
+  },
+  {
+    value: 17,
+    label: '0x00000011 -   CANCELFAIL: Cancel SM failed',
+  },
+  {
+    value: 19,
+    label: '0x00000013 -   REPLACEFAIL: Replace SM failed',
+  },
+  {
+    value: 20,
+    label: '0x00000014 -   MSGQFUL: Message queue full  -- When SP try to send message in peak hours',
+  },
+  {
+    value: 21,
+    label: '0x00000015 -   INVSERTYP: Service type invalid',
+  },
+  {
+    value: 51,
+    label: '0x00000033 -   INVNUMDESTS: Number of destinations invalid',
+  },
+  {
+    value: 52,
+    label: '0x00000034 -   INVDLNAME: Distribution list name invalid',
+  },
+  {
+    value: 64,
+    label: '0x00000040 -   INVDESTFLAG: Destination flag is invalid',
+  },
+  {
+    value: 66,
+    label: '0x00000042 -   INVSUBREP: Submit with replace request invalid',
+  },
+  {
+    value: 67,
+    label: '0x00000043 -   INVESMCLASS: Field esm_class invalid',
+  },
+  {
+    value: 68,
+    label: '0x00000044 -   CNTSUBDL: Cannot submit to distribution list',
+  },
+  {
+    value: 69,
+    label: '0x00000045 -   SUBMITFAIL: Submit SM failed',
+  },
+  {
+    value: 72,
+    label: '0x00000048 -   INVSRCTON: Source address TON invalid',
+  },
+  {
+    value: 73,
+    label: '0x00000049 -   INVSRCNPI: Source address NPI invalid',
+  },
+  {
+    value: 80,
+    label: '0x00000050 -   INVDSTTON: Dest address TON invalid',
+  },
+  {
+    value: 81,
+    label: '0x00000051 -   INVDSTNPI: Dest address NPI invalid',
+  },
+  {
+    value: 83,
+    label: '0x00000053 -   INVSYSTYP: System type invalid',
+  },
+  {
+    value: 84,
+    label: '0x00000054 -   INVREPFLAG: Field replace_if_present invalid',
+  },
+  {
+    value: 85,
+    label: '0x00000055 -   INVNUMMSGS: Number of messages invalid',
+  },
+  {
+    value: 88,
+    label: '0x00000058 -   THROTTLED: Throttling error                        -- Maximum TPS reach',
+  },
+  {
+    value: 97,
+    label:
+      '0x00000061 -   INVSCHED: Scheduled delivery time invalid -- Schedule delivery time is before 3 hours before than validity period expiration',
+  },
+  {
+    value: 98,
+    label: '0x00000062 -   INVEXPIRY: Message validity period invalid -- Check Validity Period field',
+  },
+  {
+    value: 99,
+    label: '0x00000063 -   INVDFTMSGID: Predefined message invalid or not found',
+  },
+  {
+    value: 100,
+    label: '0x00000064 -   X_T_APPN: ESME receiver temporary app error',
+  },
+  {
+    value: 101,
+    label: '0x00000065 -   X_P_APPN: ESME receiver permanent app error',
+  },
+  {
+    value: 102,
+    label: '0x00000066 -   X_R_APPN: ESME receiver reject app error',
+  },
+  {
+    value: 103,
+    label: '0x00000067 -   QUERYFAIL: Query SM failed',
+  },
+  {
+    value: 192,
+    label: '0x000000C0 -   INVOPTPARSTREAM: Error in the optional part of the PDU Body',
+  },
+  {
+    value: 193,
+    label: '0x000000C1 -   OPTPARNOTALLWD: Optional Parameter not allowed',
+  },
+  {
+    value: 194,
+    label: '0x000000C2 -   INVPARLEN: Parameter length invalid',
+  },
+  {
+    value: 195,
+    label: '0x000000C3 -   MISSINGOPTPARAM: Expected optional parameter missing',
+  },
+  {
+    value: 196,
+    label: '0x000000C4 -   INVOPTPARAMVAL: Optional parameter value invalid -- Cannot parse TLV for A2P',
+  },
+  {
+    value: 254,
+    label: '0x000000FE -   DELIVERYFAILURE: Deliver SM failed',
+  },
+  {
+    value: 255,
+    label: '0x000000FF -   UNKNOWNERR: Unknown error',
+  },
+  {
+    value: 256,
+    label: '0x00000100 -   SERTYPUNAUTH: Not authorised to use specified service_type',
+  },
+  {
+    value: 257,
+    label: '0x00000101 -   PROHIBITED: Prohibited from using specified operation',
+  },
+  {
+    value: 258,
+    label: '0x00000102 -   SERTYPUNAVAIL: Specified service_type is unavailable',
+  },
+  {
+    value: 259,
+    label: '0x00000103 -   SERTYPDENIED: Specified service_type is denied',
+  },
+  {
+    value: 260,
+    label: '0x00000104 -   INVDCS: Invalid Data Coding Scheme',
+  },
+  {
+    value: 261,
+    label: '0x00000105 -   INVSRCADDRSUBUNIT: Source Address Sub unit is Invalid',
+  },
+  {
+    value: 262,
+    label: '0x00000106 -   INVDSTADDRSUBUNIT: Destination Address Sub unit is Invalid',
+  },
+  {
+    value: 263,
+    label: '0x00000107 -   INVBCASTFREQINT: Broadcast Frequency Interval is invalid',
+  },
+  {
+    value: 264,
+    label: '0x00000108 -   INVBCASTALIAS_NAME: Broadcast Alias Name is invalid',
+  },
+  {
+    value: 265,
+    label: '0x00000109 -   INVBCASTAREAFMT: Broadcast Area Format is invalid',
+  },
+  {
+    value: 266,
+    label: '0x0000010A -   INVNUMBCAST_AREAS: Number of Broadcast Areas is invalid',
+  },
+  {
+    value: 267,
+    label: '0x0000010B -   INVBCASTCNTTYPE: Broadcast Content Type is invalid',
+  },
+  {
+    value: 268,
+    label: '0x0000010C -   INVBCASTMSGCLASS: Broadcast Message Class is invalid',
+  },
+];
+export const SMPP_TON = [
+  { value: -1, label: 'AUTO' },
+  { value: 0, label: '0 - Unknown' },
+  { value: 1, label: '1 - International' },
+  { value: 2, label: '2 - National' },
+  { value: 3, label: '3 - Network_Specific' },
+  { value: 4, label: '4 - Subscriber_Number' },
+  { value: 5, label: '5 - Alfanumeric' },
+  { value: 6, label: '6 - Abbreviated' },
+];
+export const SMPP_NPI = [
+  { value: -1, label: 'AUTO' },
+  { value: 0, label: '0 - Unknown' },
+  { value: 1, label: '1 - ISDN' },
+  { value: 2, label: '2 - Data' },
+  { value: 3, label: '3 - Telex' },
+  { value: 4, label: '4 - Land_Mobile' },
+  { value: 5, label: '5 - National' },
+  { value: 6, label: '6 - Private' },
+  { value: 7, label: '7 - ERMES' },
+  { value: 8, label: '8 - Internet_IP' },
+  { value: 9, label: '9 - WAP_Client_Id' },
+];
+export const SMPP_TLV = [
+  { label: '0x0010 - TAG_SOURCE_TELEMATICS_ID', value: 16, hex: '0x0010', val: 16 },
+  { label: '0x0019 - TAG_PAYLOAD_TYPE', value: 25, hex: '0x0019', val: 25 },
+  { label: '0x0201 - TAG_PRIVACY_INDICATOR', value: 513, hex: '0x0201', val: 513 },
+  { label: '0x0204 - TAG_USER_MESSAGE_REFERENCE', value: 516, hex: '0x0204', val: 516 },
+  { label: '0x0205 - TAG_USER_RESPONSE_CODE', value: 517, hex: '0x0205', val: 517 },
+  { label: '0x020A - TAG_SOURCE_PORT', value: 522, hex: '0x020A', val: 522 },
+  { label: '0x020B - TAG_DESTINATION_PORT', value: 523, hex: '0x020B', val: 523 },
+  { label: '0x020C - TAG_SAR_MSG_REF_NUM', value: 524, hex: '0x020C', val: 524 },
+  { label: '0x020D - TAG_LANGUAGE_INDICATOR', value: 525, hex: '0x020D', val: 525 },
+  { label: '0x020E - TAG_SAR_TOTAL_SEGMENTS', value: 526, hex: '0x020E', val: 526 },
+  { label: '0x020F - TAG_SAR_SEGMENT_SEQNUM', value: 527, hex: '0x020F', val: 527 },
+  { label: '0x0202 - TAG_SOURCE_SUBADDRESS', value: 514, hex: '0x0202', val: 514 },
+  { label: '0x0203 - TAG_DEST_SUBADDRESS', value: 515, hex: '0x0203', val: 515 },
+  { label: '0x0381 - TAG_CALLBACK_NUM', value: 897, hex: '0x0381', val: 897 },
+  { label: '0x0424 - TAG_MESSAGE_PAYLOAD', value: 1060, hex: '0x0424', val: 1060 },
+  { label: '0x0210 - TAG_SC_INTERFACE_VERSION', value: 528, hex: '0x0210', val: 528 },
+  { label: '0x1201 - TAG_DISPLAY_TIME', value: 4609, hex: '0x1201', val: 4609 },
+  { label: '0x1204 - TAG_MS_VALIDITY', value: 4612, hex: '0x1204', val: 4612 },
+  { label: '0x0420 - TAG_DPF_RESULT', value: 1056, hex: '0x0420', val: 1056 },
+  { label: '0x0421 - TAG_SET_DPF', value: 1057, hex: '0x0421', val: 1057 },
+  { label: '0x0422 - TAG_MS_AVAIL_STATUS', value: 1058, hex: '0x0422', val: 1058 },
+  { label: '0x0423 - TAG_NETWORK_ERROR_CODE', value: 1059, hex: '0x0423', val: 1059 },
+  { label: '0x0425 - TAG_DELIVERY_FAILURE_REASON', value: 1061, hex: '0x0425', val: 1061 },
+  { label: '0x0426 - TAG_MORE_MSGS_TO_FOLLOW', value: 1062, hex: '0x0426', val: 1062 },
+  { label: '0x0427 - TAG_MSG_STATE', value: 1063, hex: '0x0427', val: 1063 },
+  { label: '0x0428 - TAG_CONGESTION_STATE', value: 1064, hex: '0x0428', val: 1064 },
+  { label: '0x0302 - TAG_CALLBACK_NUM_PRES_IND', value: 770, hex: '0x0302', val: 770 },
+  { label: '0x0303 - TAG_CALLBACK_NUM_ATAG', value: 771, hex: '0x0303', val: 771 },
+  { label: '0x0304 - TAG_NUM_MSGS', value: 772, hex: '0x0304', val: 772 },
+  { label: '0x1203 - TAG_SMS_SIGNAL', value: 4611, hex: '0x1203', val: 4611 },
+  { label: '0x130C - TAG_ALERT_ON_MSG_DELIVERY', value: 4876, hex: '0x130C', val: 4876 },
+  { label: '0x1380 - TAG_ITS_REPLY_TYPE', value: 4992, hex: '0x1380', val: 4992 },
+  { label: '0x1383 - TAG_ITS_SESSION_INFO', value: 4995, hex: '0x1383', val: 4995 },
+  { label: '0x0501 - TAG_USSD_SERVICE_OP', value: 1281, hex: '0x0501', val: 1281 },
+  { label: '0x0600 - TAG_BROADCAST_CHANNEL_INDICATOR', value: 1536, hex: '0x0600', val: 1536 },
+  { label: '0x0601 - TAG_BROADCAST_CONTENT_TYPE', value: 1537, hex: '0x0601', val: 1537 },
+  { label: '0x0602 - TAG_BROADCAST_CONTENT_TYPE_INFO', value: 1538, hex: '0x0602', val: 1538 },
+  { label: '0x0603 - TAG_BROADCAST_MESSAGE_CLASS', value: 1539, hex: '0x0603', val: 1539 },
+  { label: '0x0604 - TAG_BROADCAST_REP_NUM', value: 1540, hex: '0x0604', val: 1540 },
+  { label: '0x0605 - TAG_BROADCAST_FREQUENCY_INTERVAL', value: 1541, hex: '0x0605', val: 1541 },
+  { label: '0x0606 - TAG_BROADCAST_AREA_IDENTIFIER', value: 1542, hex: '0x0606', val: 1542 },
+  { label: '0x0607 - TAG_BROADCAST_ERROR_STATUS', value: 1543, hex: '0x0607', val: 1543 },
+  { label: '0x0608 - TAG_BROADCAST_AREA_SUCCESS', value: 1544, hex: '0x0608', val: 1544 },
+  { label: '0x0609 - TAG_BROADCAST_END_TIME', value: 1545, hex: '0x0609', val: 1545 },
+  { label: '0x060A - TAG_BROADCAST_SERVICE_GROUP', value: 1546, hex: '0x060A', val: 1546 },
+  { label: '0x060D - TAG_SOURCE_NETWORK_ID', value: 1549, hex: '0x060D', val: 1549 },
+  { label: '0x060E - TAG_DEST_NETWORK_ID', value: 1550, hex: '0x060E', val: 1550 },
+  { label: '0x060F - TAG_SOURCE_NODE_ID', value: 1551, hex: '0x060F', val: 1551 },
+  { label: '0x0610 - TAG_DEST_NODE_ID', value: 1552, hex: '0x0610', val: 1552 },
+  { label: '0x060B - TAG_BILLING_IDENTIFICATION', value: 1547, hex: '0x060B', val: 1547 },
+  { label: '0x8081 - TAG_ORIG_MSC_ADDR', value: 32897, hex: '0x8081', val: 32897 },
+  { label: '0x8082 - TAG_DEST_MSC_ADDR', value: 32898, hex: '0x8082', val: 32898 },
+  { label: '0x0005 - TAG_DEST_ADDR_SUBUNIT', value: 5, hex: '0x0005', val: 5 },
+  { label: '0x0006 - TAG_DEST_NETWORK_TYPE', value: 6, hex: '0x0006', val: 6 },
+  { label: '0x0007 - TAG_DEST_BEAR_TYPE', value: 7, hex: '0x0007', val: 7 },
+  { label: '0x0008 - TAG_DEST_TELE_ID', value: 8, hex: '0x0008', val: 8 },
+  { label: '0x000D - TAG_SOURCE_ADDR_SUBUNIT', value: 13, hex: '0x000D', val: 13 },
+  { label: '0x000E - TAG_SOURCE_NETWORK_TYPE', value: 14, hex: '0x000E', val: 14 },
+  { label: '0x000F - TAG_SOURCE_BEAR_TYPE', value: 15, hex: '0x000F', val: 15 },
+  { label: '0x0010 - TAG_SOURCE_TELE_ID', value: 16, hex: '0x0010', val: 16 },
+  { label: '0x0017 - TAG_QOS_TIME_TO_LIVE', value: 23, hex: '0x0017', val: 23 },
+  { label: '0x001D - TAG_ADD_STATUS_INFO', value: 29, hex: '0x001D', val: 29 },
+  { label: '0x001E - TAG_RECEIPTED_MSG_ID', value: 30, hex: '0x001E', val: 30 },
+  { label: '0x0030 - TAG_MS_MSG_WAIT_FACILITIES', value: 48, hex: '0x0030', val: 48 },
+];
+
+export const SMPP_DLR = [
+  { label: '0 - SCHEDULED', value: 0 },
+  { label: '1 - ENROUTE', value: 1 },
+  { label: '2 - DELIVERED', value: 2 },
+  { label: '3 - EXPIRED', value: 3 },
+  { label: '4 - DELETED', value: 4 },
+  { label: '5 - UNDELIVERABLE', value: 5 },
+  { label: '6 - ACCEPTED', value: 6 },
+  { label: '7 - UNKNOWN', value: 7 },
+  { label: '8 - REJECTED', value: 8 },
+  { label: '9 - SKIPPED', value: 9 },
+];
+
+export const SMPP_CHARSET = [
+  { label: 'ISO_8859_1', value: 'ISO-8859-1' },
+  { label: 'ISO_8859_15', value: 'ISO-8859-15' },
+  { label: 'GSM', value: 'GSM' },
+  { label: 'PACKED_GSM', value: 'PACKED-GSM' },
+  { label: 'UCS_2', value: 'UCS-2' },
+  { label: 'UCS_2LE', value: 'UCS-2LE' },
+  { label: 'UTF_8', value: 'UTF-8' },
+  { label: 'MODIFIED_UTF8', value: 'MODIFIED-UTF8' },
+  { label: 'AIRWIDE_IA5', value: 'AIRWIDE-IA5' },
+  { label: 'VFD2_GSM', value: 'VFD2-GSM' },
+  { label: 'VFTR_GSM', value: 'VFTR-GSM' },
+  { label: 'GSM7', value: 'GSM7' },
+  { label: 'GSM8', value: 'GSM8' },
+  { label: 'AIRWIDE_GSM', value: 'AIRWIDE-GSM' },
+  { label: 'TMOBILENL_GSM', value: 'TMOBILE-NL-GSM' },
+];
+
+export const SMPP_DLR_ERR = [
+  { value: 0, label: 'OK' },
+  { value: 1, label: 'MT number is unknown in the MT network HLR' },
+  { value: 2, label: 'MT number is unknown in the MT network HLR' },
+  { value: 5, label: 'MT number is unknown in the MT network MSC' },
+  { value: 9, label: 'MT number is classed as an illegal subscriber in the MT network MSC' },
+  { value: 11, label: 'MT HLR sends back a Teleservice not provisioned error in responseto the SRI' },
+  { value: 12, label: 'MT handset is listed as an Illegal device on the MSC.' },
+  { value: 13, label: 'Customer is barred according to the MT HLR from receiving SMS' },
+  { value: 15, label: 'MT customer is part of a CUG that is not allowed to receive SMS' },
+  { value: 21, label: 'SMS not supported in the MT network.' },
+  { value: 22, label: 'SMS not supported in the MT MSC' },
+  { value: 31, label: 'MT handset is busy. The signalling control channel is in use. (Probably receiving another SMS at the same time)' },
+  { value: 32, label: 'GPRS - As above' },
+  { value: 34, label: 'System failure in the MT network.' },
+  { value: 35, label: 'Data Missing in either the MT HLR or MSC' },
+  { value: 36, label: 'Unexpected data value received in response to a FSM or SRI' },
+  { value: 40, label: 'Memory capacity exceeded on the MT handset' },
+  { value: 41, label: 'MT handset protocol error' },
+  { value: 42, label: 'MT handset is not equipped to support SMS' },
+  { value: 43, label: 'Short message type 0 not supported by the MT handset.' },
+  { value: 44, label: 'MT network unable to replace the SMS on the MT customers’ handset' },
+  { value: 45, label: 'Unspecified protocol error on the MT handset' },
+  { value: 46, label: 'Message class not supported on the MT handset' },
+  { value: 47, label: 'Unspecified DCS (Data coding scheme) error on the MT handset' },
+  { value: 48, label: 'Transfer layer PDU not supported by MT handset' },
+  { value: 49, label: 'SIM card full on MT handset' },
+  { value: 50, label: 'MT handset SIM is unable to store the message' },
+  { value: 51, label: 'Error in MT handset' },
+  { value: 52, label: 'Memory capacity exceeded on the MT handset' },
+  { value: 53, label: 'SIM application toolkit busy on the MS handset' },
+  { value: 54, label: 'SIM data download error on the MT customer handset' },
+  { value: 55, label: 'Unspecified MS handset error' },
+  { value: 60, label: 'Absent subscriber. No reason known' },
+  { value: 61, label: 'Absent subscriber due to phone being switched off' },
+  { value: 62, label: 'Absent subscriber due to phone out of coverage/flat battery' },
+  { value: 63, label: 'Absent subscriber due to roaming restriction/restricted area' },
+  { value: 64, label: 'Absent subscriber due to being deregistered in the HLR' },
+  { value: 65, label: 'Absent subscriber due to being purged in the VLR (off for 24+ hours)' },
+  { value: 66, label: 'Absent subscriber (GPRS) cannot be paged by the SGSN' },
+  { value: 67, label: 'Absent subscriber due to GPRS detached' },
+  { value: 68, label: 'Absent subscriber due to deregistration in the HLR (GPRS)' },
+  { value: 69, label: 'Absent subscriber due to GPRS MS purged in VLR' },
+  { value: 70, label: 'Absent subscriber due to unidentified subscriber on the MSC that the FSM was sent to.' },
+  { value: 71, label: 'Absent subscriber due to unidentified subscriber on the SGSN' },
+];

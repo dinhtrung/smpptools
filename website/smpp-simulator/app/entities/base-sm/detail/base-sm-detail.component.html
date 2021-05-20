@@ -1,0 +1,170 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="baseSm">
+      <h2 data-cy="baseSmDetailsHeading"><span jhiTranslate="smpptoolsApp.baseSm.detail.title">Base Sm</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ baseSm.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.serviceType" [ngbTooltip]="'smpptoolsApp.baseSm.help.serviceType' | translate"
+            >Service Type</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.serviceType }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.sourceTON" [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceTON' | translate"
+            >Source TON</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.sourceTON }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.sourceNPI" [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceNPI' | translate"
+            >Source NPI</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.sourceNPI }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.sourceAddr" [ngbTooltip]="'smpptoolsApp.baseSm.help.sourceAddr' | translate"
+            >Source Addr</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.sourceAddr }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.destinationTON" [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationTON' | translate"
+            >Destination TON</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.destinationTON }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.destinationNPI" [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationNPI' | translate"
+            >Destination NPI</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.destinationNPI }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.destinationAddr" [ngbTooltip]="'smpptoolsApp.baseSm.help.destinationAddr' | translate"
+            >Destination Addr</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.destinationAddr }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.esmClass" [ngbTooltip]="'smpptoolsApp.baseSm.help.esmClass' | translate">Esm Class</span>
+        </dt>
+        <dd>
+          <span>{{ baseSm.esmClass }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.protocolID" [ngbTooltip]="'smpptoolsApp.baseSm.help.protocolID' | translate"
+            >Protocol ID</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.protocolID }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.priorityFlag" [ngbTooltip]="'smpptoolsApp.baseSm.help.priorityFlag' | translate"
+            >Priority Flag</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.priorityFlag }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.baseSm.scheduleDeliveryTime"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.scheduleDeliveryTime' | translate"
+            >Schedule Delivery Time</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.scheduleDeliveryTime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.validityPeriod" [ngbTooltip]="'smpptoolsApp.baseSm.help.validityPeriod' | translate"
+            >Validity Period</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.validityPeriod }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.baseSm.registeredDelivery"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.registeredDelivery' | translate"
+            >Registered Delivery</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.registeredDelivery }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="smpptoolsApp.baseSm.replaceIfPresentFlag"
+            [ngbTooltip]="'smpptoolsApp.baseSm.help.replaceIfPresentFlag' | translate"
+            >Replace If Present Flag</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.replaceIfPresentFlag }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.dataCoding" [ngbTooltip]="'smpptoolsApp.baseSm.help.dataCoding' | translate"
+            >Data Coding</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.dataCoding }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.defaultMessageID" [ngbTooltip]="'smpptoolsApp.baseSm.help.defaultMessageID' | translate"
+            >Default Message ID</span
+          >
+        </dt>
+        <dd>
+          <span>{{ baseSm.defaultMessageID }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.baseSm.text" [ngbTooltip]="'smpptoolsApp.baseSm.help.text' | translate">Text</span></dt>
+        <dd>
+          <span>{{ baseSm.text }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.baseSm.tlvList" [ngbTooltip]="'smpptoolsApp.baseSm.help.tlvList' | translate">Tlv List</span>
+        </dt>
+        <dd>
+          <span>{{ baseSm.tlvList }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/base-sm', baseSm.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

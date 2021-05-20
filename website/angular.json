@@ -1,0 +1,102 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "smpptools": {
+      "root": "",
+      "sourceRoot": "smpp-simulator",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "customWebpackConfig": {
+              "path": "./webpack/webpack.custom.js"
+            },
+            "outputPath": "../web/",
+            "index": "smpp-simulator/index.html",
+            "main": "smpp-simulator/main.ts",
+            "polyfills": "smpp-simulator/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "allowedCommonJsDependencies": ["chart.js"],
+            "assets": [
+              "smpp-simulator/content",
+              "smpp-simulator/favicon.ico",
+              "smpp-simulator/manifest.webapp",
+              "smpp-simulator/robots.txt",
+              {
+                "glob": "*.{js,css,html,png}",
+                "input": "./node_modules/swagger-ui-dist",
+                "output": "swagger-ui",
+                "ignore": ["**/index.html"]
+              },
+              { "glob": "axios.min.js", "input": "./node_modules/axios/dist", "output": "swagger-ui" },
+              { "glob": "**/*", "input": "smpp-simulator/swagger-ui/", "output": "swagger-ui" }
+            ],
+            "styles": ["smpp-simulator/content/scss/vendor.scss", "smpp-simulator/content/scss/global.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "smpptools:build",
+            "proxyConfig": "./webpack/proxy.conf.js"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "smpptools:build:production"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "configPath": "jest.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "prefix": "jhi"
+    }
+  },
+  "defaultProject": "smpptools",
+  "cli": {
+    "analytics": false,
+    "packageManager": "npm"
+  }
+}

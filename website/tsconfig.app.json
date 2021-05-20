@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "files": ["smpp-simulator/main.ts", "smpp-simulator/polyfills.ts"],
+  "include": ["smpp-simulator/**/*.d.ts"]
+}

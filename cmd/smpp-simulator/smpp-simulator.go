@@ -63,7 +63,7 @@ func main() {
 		Next: func(c *fiber.Ctx) bool {
 			return strings.HasPrefix(c.Path(), "/api")
 		},
-		Root: pkger.Dir("/web/smpp-simulator"),
+		Root: pkger.Dir("/web"),
 	})
 
 	srv.Use(staticAsset)
@@ -81,7 +81,12 @@ func main() {
 
 	startPersistSmscInstances()
 	startPersistEsmeAccounts()
-	log.Fatal(srv.Listen(app.Config.String("http.listen")))
+
+	if app.Config.String("https.listen") != "" {
+		log.Fatal(srv.ListenTLS(app.Config.String("https.listen"), app.Config.MustString("https.cert"), app.Config.MustString("https.key")))
+	} else {
+		log.Fatal(srv.Listen(app.Config.String("http.listen")))
+	}
 }
 
 // setupDB wire the Repository implement back to its interface

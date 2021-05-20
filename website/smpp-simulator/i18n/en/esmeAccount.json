@@ -1,0 +1,73 @@
+{
+  "smpptoolsApp": {
+    "esmeAccount": {
+      "home": {
+        "title": "Esme Accounts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Esme Account",
+        "createOrEditLabel": "Create or edit a Esme Account",
+        "notFound": "No Esme Accounts found"
+      },
+      "created": "A new Esme Account is created with identifier {{ param }}",
+      "updated": "A Esme Account is updated with identifier {{ param }}",
+      "deleted": "A Esme Account is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Esme Account {{ id }}?"
+      },
+      "detail": {
+        "title": "Esme Account"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "isEnable": "Is Enable",
+      "isPersist": "Is Persist",
+      "numBinds": "Num Binds",
+      "host": "Host",
+      "port": "Port",
+      "systemID": "System ID",
+      "password": "Password",
+      "bindType": "Bind Type",
+      "systemType": "System Type",
+      "interfaceVersion": "Version",
+      "addressRange": "Address Range",
+      "addressTON": "Address TON",
+      "addressNPI": "Address NPI",
+      "moErrorRate": "Mo Error Rate",
+      "moErrorCode": "Mo Error Code",
+      "dlrErrorRate": "Dlr Error Rate",
+      "dlrErrorCode": "Dlr Error Code",
+      "mtThroughtput": "Mt Throughtput",
+      "enquireLinkInterval": "Enquire Link Interval",
+      "connectionTimeout": "Connection Timeout",
+      "windowSize": "Window Size",
+      "reconnectDelay": "Reconnect Delay",
+      "help": {
+        "name": "name of this ESME account",
+        "description": "short description text",
+        "isEnable": "true if this ESME should be start automatically",
+        "isPersist": "true if this ESME should be start automatically on start up",
+        "numBinds": "number of active binds on start up",
+        "host": "remote SMSC host",
+        "port": "remote SMSC port",
+        "systemID": "SystemID used to connect to remote SMSC",
+        "password": "Password for login",
+        "bindType": "Bind Type, transmitter, receiver or transceiver",
+        "addressRange": "Bind Address Range",
+        "addressTON": "Bind Address Type of Number",
+        "addressNPI": "Bind Address Numbering Plan Indication",
+        "moErrorRate": "Error Ratio for Receiving Mobile Orignated SMS",
+        "moErrorCode": "Error Code return to SMSC for Mobile Originated SMS",
+        "dlrErrorRate": "Error Ratio for Receiving Mobile Orignated SMS",
+        "dlrErrorCode": "Error Code return to SMSC for Mobile Originated SMS",
+        "mtThroughtput": "Sending out speeds in TPS",
+        "enquireLinkInterval": "Enquire links interval in seconds",
+        "connectionTimeout": "Connection timeout in milliseconds",
+        "windowSize": "Number of packets send out per one go",
+        "systemType": "The system_type parameter is used to categorize the type of ESME that is binding to the SMSC",
+        "interfaceVersion": "SMPP version",
+        "reconnectDelay": "Delay in seconds before retry reconnect"
+      }
+    }
+  }
+}

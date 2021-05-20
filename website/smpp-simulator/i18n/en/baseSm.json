@@ -1,0 +1,79 @@
+{
+  "smpptoolsApp": {
+    "baseSm": {
+      "home": {
+        "title": "SMPP Presets",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new SMS Preset",
+        "createOrEditLabel": "Create or edit a SMS Preset",
+        "notFound": "No SMPP Preset found"
+      },
+      "created": "A new SMS Preset is created with identifier {{ param }}",
+      "updated": "A SMS Preset is updated with identifier {{ param }}",
+      "deleted": "A SMS Preset is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete SMS Preset {{ id }}?"
+      },
+      "detail": {
+        "title": "SMS Preset"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "serviceType": "Service Type",
+      "sourceTON": "Source TON",
+      "sourceNPI": "Source NPI",
+      "sourceAddr": "Source Addr",
+      "destinationTON": "Destination TON",
+      "destinationNPI": "Destination NPI",
+      "destinationAddr": "Destination Addr",
+      "esmClass": "Esm Class",
+      "protocolID": "Protocol ID",
+      "priorityFlag": "Priority Flag",
+      "scheduleDeliveryTime": "Schedule Delivery Time",
+      "validityPeriod": "Validity Period",
+      "registeredDelivery": "Registered Delivery",
+      "replaceIfPresentFlag": "Replace If Present Flag",
+      "dataCoding": "Data Coding",
+      "defaultMessageID": "Default Message ID",
+      "text": "Text",
+      "udhParts": "Udh Parts",
+      "txtParts": "Txt Parts",
+      "tlvList": "Tlv List",
+      "tag": "TLV Tag",
+      "value": "TLV Value",
+      "shortMessages": "Short Message Parts",
+      "shortMessage": "Short Message",
+      "isConcatTlv": "Long SMS using TLV",
+      "charset": "Character Encoding",
+      "help": {
+        "serviceType": "SMPP Service Type",
+        "name": "name of this ESME account",
+        "description": "short description text",
+        "sourceTON": "source address Type of number",
+        "sourceNPI": "source address Number plan indication",
+        "sourceAddr": "source address",
+        "destinationTON": "destination address Type of number",
+        "destinationNPI": "destination address Number plan indication",
+        "destinationAddr": "destination address",
+        "esmClass": "ESM Class",
+        "protocolID": "Protocol ID",
+        "priorityFlag": "Priority Flag",
+        "scheduleDeliveryTime": "Scheduled Delivery Time",
+        "validityPeriod": "Validity Period",
+        "registeredDelivery": "Registered Delivery",
+        "replaceIfPresentFlag": "Replace if present flag",
+        "dataCoding": "Data Coding for SMS",
+        "defaultMessageID": "Default Message ID",
+        "text": "Message content in text",
+        "shortMessages": "Short Message Parts for concatenate SMS",
+        "udhParts": "List of UDH parts in hex dump",
+        "txtParts": "List of TXT parts in hex dump",
+        "shortMessage": "UDH Part and Text Part",
+        "isConcatTlv": "Long SMS using TLV SAR instead of UDH",
+        "charset": "By default, DCS 0 use GSM charset, DCS 8 use UCS2 and DCS 4 are custom selected.",
+        "tlvList": "List of optional TLV"
+      }
+    }
+  }
+}

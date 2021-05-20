@@ -1,0 +1,14 @@
+<jhi-page-ribbon></jhi-page-ribbon>
+<div class="wrapper default-theme" [ngClass]="getClasses()">
+  <router-outlet name="navbar"></router-outlet>
+  <main>
+    <jhi-sidebar></jhi-sidebar>
+    <div class="pages container-fluid pt-4 pb-4 pl-4 pr-4">
+      <div class="card jh-card">
+        <router-outlet></router-outlet>
+      </div>
+      <jhi-footer></jhi-footer>
+    </div>
+    <div class="overlay" (click)="toggleSidebar()"></div>
+  </main>
+</div>

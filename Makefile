@@ -13,6 +13,7 @@ go-update:
 
 pkger:
 	pkger -o cmd/smpp-simulator
+	go mod vendor
 
 smpp:
 	$(GOBUILD) -o build/package/smpp-simulator cmd/smpp-simulator/*.go

@@ -1,0 +1,154 @@
+
+/**
+ * BaseSM is used to deser DeliverSM, SubmitSM, DataSM PDU
+ */
+entity BaseSm {
+	/** SMPP Service Type **/
+	serviceType String,
+    /** source address Type of number **/
+    sourceTON        Integer    ,
+    /** source address Number plan indication **/
+    sourceNPI        Integer,
+    /** source address **/
+    sourceAddr           String,
+    /** destination address Type of number **/
+    destinationTON          Integer    ,
+    /** destination address Number plan indication **/
+    destinationNPI          Integer    ,
+    /** destination address **/
+    destinationAddr      String,
+    /** ESM Class **/
+    esmClass             Integer    ,
+    /** Protocol ID **/
+    protocolID           Integer,
+    /** Priority Flag **/
+    priorityFlag         Integer,
+    /** Scheduled Delivery Time **/
+    scheduleDeliveryTime String ,
+    /** Validity Period **/
+    validityPeriod       String,
+    /** Registered Delivery **/
+    registeredDelivery   Integer,
+    /** Replace if present flag **/
+    replaceIfPresentFlag Integer   ,
+    /** Data Coding for SMS **/
+    dataCoding           Integer,
+    /** Default Message ID **/
+    defaultMessageID   	 Integer,
+    /** Message content in text **/
+    text    String 
+    /** List of UDH parts in hex dump**/
+    udhParts String,
+    /** List of TXT parts in hex dump **/
+    txtParts String,
+    /** List of optional TLV **/
+    tlvList String,
+}
+/**
+ * ESME hold information on how to establish a SMPP Session towards SMSC
+ */
+entity EsmeAccount {
+	/** name of this ESME account **/
+	name String required maxlength(80),
+    /** short description text **/
+    description String,
+    /** true if this ESME should be start automatically **/
+    isEnable Boolean,
+    /** true if this ESME should be start automatically on start up **/
+    isPersist Boolean,
+    /** number of active binds on start up **/
+    numBinds Integer,
+    /** remote SMSC host **/
+    host String,
+    /** remote SMSC port **/
+    port Integer max(1)
+    /** SystemID used to connect to remote SMSC **/
+    systemID String,
+    /** Password for login **/
+    password String,
+    /** Bind Type, transmitter, receiver or transceiver **/
+    bindType String,
+    /** Bind Address Range **/
+    addressRange String,
+    /** Bind Address Type of Number **/
+    addressTON Integer,
+    /** Bind Address Numbering Plan Indication **/
+    addressNPI Integer,
+ 	/** Error Ratio for Receiving Mobile Orignated SMS **/
+    moErrorRate Integer min(0) max(100),
+    /** Error Code return to SMSC for Mobile Originated SMS **/
+    moErrorCode Integer min(0) max(100)
+    /** Error Ratio for Receiving Mobile Orignated SMS **/
+  	dlrErrorRate Integer min(0) max(100),
+    /** Error Code return to SMSC for Mobile Originated SMS **/
+    dlrErrorCode Integer min(0) max(100)
+    /** Sending out speeds in TPS **/
+    mtThroughtput Integer,
+  	/** Enquire links interval in seconds **/
+    enquireLinkInterval Integer,
+    /** Connection timeout in milliseconds **/
+	connectionTimeout   Integer,
+    /** Number of packets send out per one go **/
+	windowSize          Integer,
+    /** Delay in seconds before retry reconnect **/
+	reconnectDelay      Integer,
+}
+
+/**
+ * SMSC hold information for SMPP instances that serve traffic from ESME
+ */
+entity SmscInstance {
+	/** name of this ESME account **/
+	name String required maxlength(80),
+    /** short description text **/
+    description String,
+    /** TCP Port to listen to **/
+    port Integer ,
+    /** true if this SMSC should be start automatically on start up **/
+    isPersist Boolean,
+    /** Connection timeout in milliseconds **/
+	connectionTimeout   Integer,
+    /** Number of packets send out per one go **/
+	windowSize          Integer,
+}
+
+/**
+* SMSC account allow or deny BIND request from ESME
+*/
+entity SmscAccount {
+	/** name of this SMSCaccount account **/
+	name String required maxlength(80),
+    /** short description text **/
+    description String,
+	 /** max number of active binds on this account **/
+    maxBinds Integer,
+    /** SystemID used to connect to remote SMSC **/
+    systemID String required,
+    /** Password for login **/
+    password String required,
+    /** Bind Type, transmitter, receiver or transceiver **/
+    bindType String,
+    /** Bind Address Range **/
+    addressRange String,
+    /** Bind Address Type of Number **/
+    addressTON Integer,
+    /** Bind Address Numbering Plan Indication **/
+    addressNPI Integer,
+ 	/** Error Ratio for Receiving Mobile Orignated SMS **/
+    moErrorRate Integer min(0) max(100),
+    /** Error Code return to SMSC for Mobile Originated SMS **/
+    moErrorCode Integer min(0) max(100)
+    /** Error Ratio for Receiving Mobile Orignated SMS **/
+  	dlrErrorRate Integer min(0) max(100),
+    /** Error Code return to SMSC for Mobile Originated SMS **/
+    dlrErrorCode Integer min(0) max(100)
+}
+
+entity IsdnList {
+	/** name of this ISDN list **/
+	name String required maxlength(80),
+    /** short description text **/
+    description String,
+    /** Uploaded files or CSV **/
+    content TextBlob,
+}

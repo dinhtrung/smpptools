@@ -1,0 +1,63 @@
+<aside class="sidebar shadow-sm">
+  <div class="sidebar-profile d-flex flex-column justify-content-center pt-5 pb-3">
+    <div class="picture-wrapper mb-4">
+      <div class="user-picture m-auto">
+        <img src="../../../content/images/user.jpg" class="img-fluid" alt="" />
+      </div>
+    </div>
+    <div class="profile-details text-center pb-4">
+      <p class="mb-0 text-uppercase name">SMPP Tools</p>
+      <small class="text-uppercase role">Traffic Generator</small>
+    </div>
+  </div>
+  <div class="sidebar-search pt-1 pb-1 pl-3 pr-3">
+    <input type="search" class="form-control rounded-pill" name="search" placeholder="Search ..." />
+  </div>
+  <nav class="sidebar-menu pt-3 pb-3">
+    <div class="menu-header mt-3 mb-2">SMPP Settings</div>
+    <ul class="menu-items">
+      <li>
+        <a href="javascript: void(0);" routerLink="/base-sm" routerLinkActive="active">
+          <fa-icon icon="sms"></fa-icon>
+          <span jhiTranslate="global.menu.entities.baseSm">Base Sm</span>
+        </a>
+      </li>
+    </ul>
+    <div class="menu-header mt-3 mb-2">ESME Components</div>
+    <ul class="menu-items">
+      <li>
+        <a href="javascript: void(0);" routerLink="/esme-session" routerLinkActive="active">
+          <fa-icon icon="list"></fa-icon>
+          <span jhiTranslate="global.menu.entities.esmeSession">Esme Sessions</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript: void(0);" routerLink="/esme-account" routerLinkActive="active">
+          <fa-icon icon="id-card"></fa-icon>
+          <span jhiTranslate="global.menu.entities.esmeAccount">Esme Account</span>
+        </a>
+      </li>
+    </ul>
+    <div class="menu-header mt-3 mb-2">SMSC Settings</div>
+    <ul class="menu-items">
+      <li>
+        <a href="javascript: void(0);" routerLink="/smsc-instance" routerLinkActive="active">
+          <fa-icon icon="server"></fa-icon>
+          <span jhiTranslate="global.menu.entities.smscInstance">Smsc Instance</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript: void(0);" routerLink="/smsc-account" routerLinkActive="active">
+          <fa-icon icon="unlock"></fa-icon>
+          <span jhiTranslate="global.menu.entities.smscAccount">Smsc Account</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript: void(0);" routerLink="/smsc-session" routerLinkActive="active">
+          <fa-icon icon="check"></fa-icon>
+          <span jhiTranslate="global.menu.entities.smscSession">Smsc Sessions</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>
