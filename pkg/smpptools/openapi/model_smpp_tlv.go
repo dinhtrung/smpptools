@@ -17,7 +17,7 @@ import (
 // SmppTlv struct for SmppTlv
 type SmppTlv struct {
 	// Tag ID
-	Tag *int32 `json:"tag,omitempty"`
+	Tag *int `json:"tag,omitempty"`
 	// hex bytes of the value
 	Value *string `json:"value,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewSmppTlvWithDefaults() *SmppTlv {
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *SmppTlv) GetTag() int32 {
+func (o *SmppTlv) GetTag() int {
 	if o == nil || o.Tag == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.Tag
@@ -50,7 +50,7 @@ func (o *SmppTlv) GetTag() int32 {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmppTlv) GetTagOk() (*int32, bool) {
+func (o *SmppTlv) GetTagOk() (*int, bool) {
 	if o == nil || o.Tag == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *SmppTlv) HasTag() bool {
 	return false
 }
 
-// SetTag gets a reference to the given int32 and assigns it to the Tag field.
-func (o *SmppTlv) SetTag(v int32) {
+// SetTag gets a reference to the given int and assigns it to the Tag field.
+func (o *SmppTlv) SetTag(v int) {
 	o.Tag = &v
 }
 

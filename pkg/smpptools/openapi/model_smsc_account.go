@@ -29,23 +29,23 @@ type SmscAccount struct {
 	// The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
 	SystemType *string `json:"systemType,omitempty"`
 	// version of the SMPP protocol
-	InterfaceVersion *int32 `json:"interfaceVersion,omitempty"`
+	InterfaceVersion *int `json:"interfaceVersion,omitempty"`
 	// Bind Type, transmitter, receiver or transceiver
 	BindType *string `json:"bindType,omitempty"`
 	// Bind Address Range
 	AddressRange *string `json:"addressRange,omitempty"`
 	// Bind Address Numbering Plan Indication
-	AddressNPI *int32 `json:"addressNPI,omitempty"`
+	AddressNPI *int `json:"addressNPI,omitempty"`
 	// Bind Address Type of Number
-	AddressTON *int32 `json:"addressTON,omitempty"`
+	AddressTON *int `json:"addressTON,omitempty"`
 	// Error ratio for return on receive Submit SM from ESME
 	AcceptRatio *[]ErrorRate `json:"acceptRatio,omitempty"`
 	// Error ratio for generate the Delivery Report and send back to client
 	DeliveryRatio *[]ErrorRate `json:"deliveryRatio,omitempty"`
 	// Maximum throughput for sending MO
-	MoThroughput *int32 `json:"moThroughput,omitempty"`
+	MoThroughput *int `json:"moThroughput,omitempty"`
 	// max number of active binds on this account
-	MaxBinds *int32 `json:"maxBinds,omitempty"`
+	MaxBinds *int `json:"maxBinds,omitempty"`
 }
 
 // NewSmscAccount instantiates a new SmscAccount object
@@ -241,9 +241,9 @@ func (o *SmscAccount) SetSystemType(v string) {
 }
 
 // GetInterfaceVersion returns the InterfaceVersion field value if set, zero value otherwise.
-func (o *SmscAccount) GetInterfaceVersion() int32 {
+func (o *SmscAccount) GetInterfaceVersion() int {
 	if o == nil || o.InterfaceVersion == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.InterfaceVersion
@@ -251,7 +251,7 @@ func (o *SmscAccount) GetInterfaceVersion() int32 {
 
 // GetInterfaceVersionOk returns a tuple with the InterfaceVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetInterfaceVersionOk() (*int32, bool) {
+func (o *SmscAccount) GetInterfaceVersionOk() (*int, bool) {
 	if o == nil || o.InterfaceVersion == nil {
 		return nil, false
 	}
@@ -267,8 +267,8 @@ func (o *SmscAccount) HasInterfaceVersion() bool {
 	return false
 }
 
-// SetInterfaceVersion gets a reference to the given int32 and assigns it to the InterfaceVersion field.
-func (o *SmscAccount) SetInterfaceVersion(v int32) {
+// SetInterfaceVersion gets a reference to the given int and assigns it to the InterfaceVersion field.
+func (o *SmscAccount) SetInterfaceVersion(v int) {
 	o.InterfaceVersion = &v
 }
 
@@ -337,9 +337,9 @@ func (o *SmscAccount) SetAddressRange(v string) {
 }
 
 // GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
-func (o *SmscAccount) GetAddressNPI() int32 {
+func (o *SmscAccount) GetAddressNPI() int {
 	if o == nil || o.AddressNPI == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.AddressNPI
@@ -347,7 +347,7 @@ func (o *SmscAccount) GetAddressNPI() int32 {
 
 // GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetAddressNPIOk() (*int32, bool) {
+func (o *SmscAccount) GetAddressNPIOk() (*int, bool) {
 	if o == nil || o.AddressNPI == nil {
 		return nil, false
 	}
@@ -363,15 +363,15 @@ func (o *SmscAccount) HasAddressNPI() bool {
 	return false
 }
 
-// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
-func (o *SmscAccount) SetAddressNPI(v int32) {
+// SetAddressNPI gets a reference to the given int and assigns it to the AddressNPI field.
+func (o *SmscAccount) SetAddressNPI(v int) {
 	o.AddressNPI = &v
 }
 
 // GetAddressTON returns the AddressTON field value if set, zero value otherwise.
-func (o *SmscAccount) GetAddressTON() int32 {
+func (o *SmscAccount) GetAddressTON() int {
 	if o == nil || o.AddressTON == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.AddressTON
@@ -379,7 +379,7 @@ func (o *SmscAccount) GetAddressTON() int32 {
 
 // GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetAddressTONOk() (*int32, bool) {
+func (o *SmscAccount) GetAddressTONOk() (*int, bool) {
 	if o == nil || o.AddressTON == nil {
 		return nil, false
 	}
@@ -395,8 +395,8 @@ func (o *SmscAccount) HasAddressTON() bool {
 	return false
 }
 
-// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
-func (o *SmscAccount) SetAddressTON(v int32) {
+// SetAddressTON gets a reference to the given int and assigns it to the AddressTON field.
+func (o *SmscAccount) SetAddressTON(v int) {
 	o.AddressTON = &v
 }
 
@@ -465,9 +465,9 @@ func (o *SmscAccount) SetDeliveryRatio(v []ErrorRate) {
 }
 
 // GetMoThroughput returns the MoThroughput field value if set, zero value otherwise.
-func (o *SmscAccount) GetMoThroughput() int32 {
+func (o *SmscAccount) GetMoThroughput() int {
 	if o == nil || o.MoThroughput == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.MoThroughput
@@ -475,7 +475,7 @@ func (o *SmscAccount) GetMoThroughput() int32 {
 
 // GetMoThroughputOk returns a tuple with the MoThroughput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetMoThroughputOk() (*int32, bool) {
+func (o *SmscAccount) GetMoThroughputOk() (*int, bool) {
 	if o == nil || o.MoThroughput == nil {
 		return nil, false
 	}
@@ -491,15 +491,15 @@ func (o *SmscAccount) HasMoThroughput() bool {
 	return false
 }
 
-// SetMoThroughput gets a reference to the given int32 and assigns it to the MoThroughput field.
-func (o *SmscAccount) SetMoThroughput(v int32) {
+// SetMoThroughput gets a reference to the given int and assigns it to the MoThroughput field.
+func (o *SmscAccount) SetMoThroughput(v int) {
 	o.MoThroughput = &v
 }
 
 // GetMaxBinds returns the MaxBinds field value if set, zero value otherwise.
-func (o *SmscAccount) GetMaxBinds() int32 {
+func (o *SmscAccount) GetMaxBinds() int {
 	if o == nil || o.MaxBinds == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.MaxBinds
@@ -507,7 +507,7 @@ func (o *SmscAccount) GetMaxBinds() int32 {
 
 // GetMaxBindsOk returns a tuple with the MaxBinds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscAccount) GetMaxBindsOk() (*int32, bool) {
+func (o *SmscAccount) GetMaxBindsOk() (*int, bool) {
 	if o == nil || o.MaxBinds == nil {
 		return nil, false
 	}
@@ -523,8 +523,8 @@ func (o *SmscAccount) HasMaxBinds() bool {
 	return false
 }
 
-// SetMaxBinds gets a reference to the given int32 and assigns it to the MaxBinds field.
-func (o *SmscAccount) SetMaxBinds(v int32) {
+// SetMaxBinds gets a reference to the given int and assigns it to the MaxBinds field.
+func (o *SmscAccount) SetMaxBinds(v int) {
 	o.MaxBinds = &v
 }
 

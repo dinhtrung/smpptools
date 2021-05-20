@@ -1918,9 +1918,8 @@ components:
       type: object
       properties:
         tag:
-          type: integer
+          type: int
           description: Tag ID
-          format: int8
         value:
           type: string
           description: hex bytes of the value
@@ -1931,16 +1930,14 @@ components:
       type: object
       properties:
         error:
-          type: integer
+          type: int
           description: Error Code
-          format: int8
         description:
           type: string
           description: Description about this error rate
         rate:
-          type: integer
+          type: int
           description: Percentage this error will occur
-          format: int8
     BaseSm:
       title: BaseSm
       type: object
@@ -1952,46 +1949,37 @@ components:
           type: string
           description: a short description
         dataCoding:
-          type: integer
+          type: int
           description: Data Coding for SMS
-          format: int8
         defaultMessageID:
-          type: integer
+          type: int
           description: Default Message ID
-          format: int8
         destinationAddr:
           type: string
           description: destination address
         destinationNPI:
-          type: integer
+          type: int
           description: destination address Number plan indication
-          format: int8
         destinationTON:
-          type: integer
+          type: int
           description: destination address Type of number
-          format: int8
         esmClass:
-          type: integer
+          type: int
           description: ESM Class
-          format: int8
         id:
           type: string
         priorityFlag:
-          type: integer
+          type: int
           description: Priority Flag
-          format: int8
         protocolID:
-          type: integer
+          type: int
           description: Protocol ID
-          format: int8
         registeredDelivery:
-          type: integer
+          type: int
           description: Registered Delivery
-          format: int8
         replaceIfPresentFlag:
-          type: integer
+          type: int
           description: Replace if present flag
-          format: int8
         scheduleDeliveryTime:
           type: string
           description: Scheduled Delivery Time
@@ -2002,13 +1990,11 @@ components:
           type: string
           description: source address
         sourceNPI:
-          type: integer
+          type: int
           description: source address Number plan indication
-          format: int8
         sourceTON:
-          type: integer
+          type: int
           description: source address Type of number
-          format: int8
         validityPeriod:
           type: string
           description: Validity Period
@@ -2041,13 +2027,11 @@ components:
         smsData:
           $ref: '#/components/schemas/IsdnList'
         throughput:
-          type: integer
+          type: int
           description: maximum throughput try to reach
-          format: int8
         maxPDU:
-          type: integer
+          type: int
           description: max number of PDU send out
-          format: int8
           example: 1000
       description: Configuration for Stress Testing Process
     ThroughputSeries:
@@ -2074,9 +2058,8 @@ components:
           description: CDR file name this throughput series was generated from
           example: cdr-20210512.csv
         state:
-          type: integer
+          type: int
           description: State of this throughput series
-          format: int8
           example: 0
       description: A series of traffic throughput used for re-generate traffic throughput patterns
     Batch:
@@ -2112,7 +2095,7 @@ components:
           type: string
           description: remote SMSC host
         port:
-          type: integer
+          type: int
           description: remote SMSC port
         systemID:
           type: string
@@ -2126,7 +2109,7 @@ components:
           description: The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
           example: VMS
         interfaceVersion:
-          type: integer
+          type: int
           description: version of the SMPP protocol
           enum:
           - 0
@@ -2145,17 +2128,14 @@ components:
           type: string
           description: Bind Address Range
         addressNPI:
-          type: integer
+          type: int
           description: Bind Address Numbering Plan Indication
-          format: int8
         addressTON:
-          type: integer
+          type: int
           description: Bind Address Type of Number
-          format: int8
         connectionTimeout:
-          type: integer
+          type: int
           description: Connection timeout in milliseconds
-          format: int32
         acceptRatio:
           type: array
           description: Error rate on receiving Mobile Originated SMS
@@ -2167,9 +2147,9 @@ components:
           items:
             $ref: '#/components/schemas/ErrorRate'
         enquireLinkInterval:
-          type: integer
+          type: int
           description: Enquire links interval in seconds
-          format: int32
+          format: int
         isEnable:
           type: boolean
           description: true if this ESME should be start automatically
@@ -2179,21 +2159,17 @@ components:
           description: true if this ESME should be start automatically on start up
           example: false
         mtThroughtput:
-          type: integer
+          type: int
           description: Sending out speeds in TPS
-          format: int32
         numBinds:
-          type: integer
+          type: int
           description: number of active binds on start up
-          format: int32
         reconnectDelay:
-          type: integer
+          type: int
           description: Delay in seconds before retry reconnect
-          format: int32
         windowSize:
-          type: integer
+          type: int
           description: Number of packets send out per one go
-          format: int32
       description: ESME hold information on how to establish a SMPP Session towards SMSC
     EsmeSession:
       title: EsmeSession
@@ -2290,7 +2266,7 @@ components:
           description: The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
           example: VMS
         interfaceVersion:
-          type: integer
+          type: int
           description: version of the SMPP protocol
           enum:
           - 0
@@ -2309,13 +2285,11 @@ components:
           type: string
           description: Bind Address Range
         addressNPI:
-          type: integer
+          type: int
           description: Bind Address Numbering Plan Indication
-          format: int8
         addressTON:
-          type: integer
+          type: int
           description: Bind Address Type of Number
-          format: int8
         acceptRatio:
           type: array
           description: Error ratio for return on receive Submit SM from ESME
@@ -2327,13 +2301,11 @@ components:
           items:
             $ref: '#/components/schemas/ErrorRate'
         moThroughput:
-          type: integer
+          type: int
           description: Maximum throughput for sending MO
-          format: int8
         maxBinds:
-          type: integer
+          type: int
           description: max number of active binds on this account
-          format: int32
       description: SMSC account allow or deny BIND request from ESME
     SmscInstance:
       title: SmscInstance
@@ -2352,7 +2324,7 @@ components:
           type: string
           description: short description text
         port:
-          type: integer
+          type: int
           description: TCP Port to listen to
           format: int16
           example: 2775
@@ -2362,9 +2334,8 @@ components:
           type: string
           description: Identifies the MC to the ESME
         connectionTimeout:
-          type: integer
+          type: int
           description: Connection timeout in milliseconds
-          format: int8
         isPersist:
           type: boolean
           description: true if this SMSC should be start automatically on start up
@@ -2374,7 +2345,6 @@ components:
           description: true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default
           default: false
         windowSize:
-          type: integer
+          type: int
           description: Number of packets send out per one go
-          format: int8
       description: SMSC hold information for SMPP instances that serve traffic from ESME

@@ -8,25 +8,25 @@ Name | Type | Description | Notes
 **Name** | **string** | name of this ESME account | 
 **Description** | Pointer to **string** | short description text | [optional] 
 **Host** | Pointer to **string** | remote SMSC host | [optional] 
-**Port** | Pointer to **int32** | remote SMSC port | [optional] 
+**Port** | Pointer to **int** | remote SMSC port | [optional] 
 **SystemID** | Pointer to **string** | SystemID used to connect to remote SMSC | [optional] 
 **Password** | Pointer to **string** | Password for login | [optional] 
 **SystemType** | Pointer to **string** | The system_type parameter is used to categorize the type of ESME that is binding to the SMSC | [optional] 
-**InterfaceVersion** | Pointer to **int32** | version of the SMPP protocol | [optional] 
+**InterfaceVersion** | Pointer to **int** | version of the SMPP protocol | [optional] 
 **BindType** | Pointer to **string** | Bind Type, transmitter, receiver or transceiver | [optional] [default to "transceiver"]
 **AddressRange** | Pointer to **string** | Bind Address Range | [optional] 
-**AddressNPI** | Pointer to **int32** | Bind Address Numbering Plan Indication | [optional] 
-**AddressTON** | Pointer to **int32** | Bind Address Type of Number | [optional] 
-**ConnectionTimeout** | Pointer to **int32** | Connection timeout in milliseconds | [optional] 
+**AddressNPI** | Pointer to **int** | Bind Address Numbering Plan Indication | [optional] 
+**AddressTON** | Pointer to **int** | Bind Address Type of Number | [optional] 
+**ConnectionTimeout** | Pointer to **int** | Connection timeout in milliseconds | [optional] 
 **AcceptRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error rate on receiving Mobile Originated SMS | [optional] 
 **AckRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error ratio on receiving Delivery Receipt | [optional] 
-**EnquireLinkInterval** | Pointer to **int32** | Enquire links interval in seconds | [optional] 
+**EnquireLinkInterval** | Pointer to **int** | Enquire links interval in seconds | [optional] 
 **IsEnable** | Pointer to **bool** | true if this ESME should be start automatically | [optional] 
 **IsPersist** | Pointer to **bool** | true if this ESME should be start automatically on start up | [optional] 
-**MtThroughtput** | Pointer to **int32** | Sending out speeds in TPS | [optional] 
-**NumBinds** | Pointer to **int32** | number of active binds on start up | [optional] 
-**ReconnectDelay** | Pointer to **int32** | Delay in seconds before retry reconnect | [optional] 
-**WindowSize** | Pointer to **int32** | Number of packets send out per one go | [optional] 
+**MtThroughtput** | Pointer to **int** | Sending out speeds in TPS | [optional] 
+**NumBinds** | Pointer to **int** | number of active binds on start up | [optional] 
+**ReconnectDelay** | Pointer to **int** | Delay in seconds before retry reconnect | [optional] 
+**WindowSize** | Pointer to **int** | Number of packets send out per one go | [optional] 
 
 ## Methods
 
@@ -144,20 +144,20 @@ HasHost returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *EsmeAccount) GetPort() int32`
+`func (o *EsmeAccount) GetPort() int`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *EsmeAccount) GetPortOk() (*int32, bool)`
+`func (o *EsmeAccount) GetPortOk() (*int, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *EsmeAccount) SetPort(v int32)`
+`func (o *EsmeAccount) SetPort(v int)`
 
 SetPort sets Port field to given value.
 
@@ -244,20 +244,20 @@ HasSystemType returns a boolean if a field has been set.
 
 ### GetInterfaceVersion
 
-`func (o *EsmeAccount) GetInterfaceVersion() int32`
+`func (o *EsmeAccount) GetInterfaceVersion() int`
 
 GetInterfaceVersion returns the InterfaceVersion field if non-nil, zero value otherwise.
 
 ### GetInterfaceVersionOk
 
-`func (o *EsmeAccount) GetInterfaceVersionOk() (*int32, bool)`
+`func (o *EsmeAccount) GetInterfaceVersionOk() (*int, bool)`
 
 GetInterfaceVersionOk returns a tuple with the InterfaceVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInterfaceVersion
 
-`func (o *EsmeAccount) SetInterfaceVersion(v int32)`
+`func (o *EsmeAccount) SetInterfaceVersion(v int)`
 
 SetInterfaceVersion sets InterfaceVersion field to given value.
 
@@ -319,20 +319,20 @@ HasAddressRange returns a boolean if a field has been set.
 
 ### GetAddressNPI
 
-`func (o *EsmeAccount) GetAddressNPI() int32`
+`func (o *EsmeAccount) GetAddressNPI() int`
 
 GetAddressNPI returns the AddressNPI field if non-nil, zero value otherwise.
 
 ### GetAddressNPIOk
 
-`func (o *EsmeAccount) GetAddressNPIOk() (*int32, bool)`
+`func (o *EsmeAccount) GetAddressNPIOk() (*int, bool)`
 
 GetAddressNPIOk returns a tuple with the AddressNPI field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddressNPI
 
-`func (o *EsmeAccount) SetAddressNPI(v int32)`
+`func (o *EsmeAccount) SetAddressNPI(v int)`
 
 SetAddressNPI sets AddressNPI field to given value.
 
@@ -344,20 +344,20 @@ HasAddressNPI returns a boolean if a field has been set.
 
 ### GetAddressTON
 
-`func (o *EsmeAccount) GetAddressTON() int32`
+`func (o *EsmeAccount) GetAddressTON() int`
 
 GetAddressTON returns the AddressTON field if non-nil, zero value otherwise.
 
 ### GetAddressTONOk
 
-`func (o *EsmeAccount) GetAddressTONOk() (*int32, bool)`
+`func (o *EsmeAccount) GetAddressTONOk() (*int, bool)`
 
 GetAddressTONOk returns a tuple with the AddressTON field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddressTON
 
-`func (o *EsmeAccount) SetAddressTON(v int32)`
+`func (o *EsmeAccount) SetAddressTON(v int)`
 
 SetAddressTON sets AddressTON field to given value.
 
@@ -369,20 +369,20 @@ HasAddressTON returns a boolean if a field has been set.
 
 ### GetConnectionTimeout
 
-`func (o *EsmeAccount) GetConnectionTimeout() int32`
+`func (o *EsmeAccount) GetConnectionTimeout() int`
 
 GetConnectionTimeout returns the ConnectionTimeout field if non-nil, zero value otherwise.
 
 ### GetConnectionTimeoutOk
 
-`func (o *EsmeAccount) GetConnectionTimeoutOk() (*int32, bool)`
+`func (o *EsmeAccount) GetConnectionTimeoutOk() (*int, bool)`
 
 GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectionTimeout
 
-`func (o *EsmeAccount) SetConnectionTimeout(v int32)`
+`func (o *EsmeAccount) SetConnectionTimeout(v int)`
 
 SetConnectionTimeout sets ConnectionTimeout field to given value.
 
@@ -444,20 +444,20 @@ HasAckRatio returns a boolean if a field has been set.
 
 ### GetEnquireLinkInterval
 
-`func (o *EsmeAccount) GetEnquireLinkInterval() int32`
+`func (o *EsmeAccount) GetEnquireLinkInterval() int`
 
 GetEnquireLinkInterval returns the EnquireLinkInterval field if non-nil, zero value otherwise.
 
 ### GetEnquireLinkIntervalOk
 
-`func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int32, bool)`
+`func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int, bool)`
 
 GetEnquireLinkIntervalOk returns a tuple with the EnquireLinkInterval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnquireLinkInterval
 
-`func (o *EsmeAccount) SetEnquireLinkInterval(v int32)`
+`func (o *EsmeAccount) SetEnquireLinkInterval(v int)`
 
 SetEnquireLinkInterval sets EnquireLinkInterval field to given value.
 
@@ -519,20 +519,20 @@ HasIsPersist returns a boolean if a field has been set.
 
 ### GetMtThroughtput
 
-`func (o *EsmeAccount) GetMtThroughtput() int32`
+`func (o *EsmeAccount) GetMtThroughtput() int`
 
 GetMtThroughtput returns the MtThroughtput field if non-nil, zero value otherwise.
 
 ### GetMtThroughtputOk
 
-`func (o *EsmeAccount) GetMtThroughtputOk() (*int32, bool)`
+`func (o *EsmeAccount) GetMtThroughtputOk() (*int, bool)`
 
 GetMtThroughtputOk returns a tuple with the MtThroughtput field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMtThroughtput
 
-`func (o *EsmeAccount) SetMtThroughtput(v int32)`
+`func (o *EsmeAccount) SetMtThroughtput(v int)`
 
 SetMtThroughtput sets MtThroughtput field to given value.
 
@@ -544,20 +544,20 @@ HasMtThroughtput returns a boolean if a field has been set.
 
 ### GetNumBinds
 
-`func (o *EsmeAccount) GetNumBinds() int32`
+`func (o *EsmeAccount) GetNumBinds() int`
 
 GetNumBinds returns the NumBinds field if non-nil, zero value otherwise.
 
 ### GetNumBindsOk
 
-`func (o *EsmeAccount) GetNumBindsOk() (*int32, bool)`
+`func (o *EsmeAccount) GetNumBindsOk() (*int, bool)`
 
 GetNumBindsOk returns a tuple with the NumBinds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumBinds
 
-`func (o *EsmeAccount) SetNumBinds(v int32)`
+`func (o *EsmeAccount) SetNumBinds(v int)`
 
 SetNumBinds sets NumBinds field to given value.
 
@@ -569,20 +569,20 @@ HasNumBinds returns a boolean if a field has been set.
 
 ### GetReconnectDelay
 
-`func (o *EsmeAccount) GetReconnectDelay() int32`
+`func (o *EsmeAccount) GetReconnectDelay() int`
 
 GetReconnectDelay returns the ReconnectDelay field if non-nil, zero value otherwise.
 
 ### GetReconnectDelayOk
 
-`func (o *EsmeAccount) GetReconnectDelayOk() (*int32, bool)`
+`func (o *EsmeAccount) GetReconnectDelayOk() (*int, bool)`
 
 GetReconnectDelayOk returns a tuple with the ReconnectDelay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReconnectDelay
 
-`func (o *EsmeAccount) SetReconnectDelay(v int32)`
+`func (o *EsmeAccount) SetReconnectDelay(v int)`
 
 SetReconnectDelay sets ReconnectDelay field to given value.
 
@@ -594,20 +594,20 @@ HasReconnectDelay returns a boolean if a field has been set.
 
 ### GetWindowSize
 
-`func (o *EsmeAccount) GetWindowSize() int32`
+`func (o *EsmeAccount) GetWindowSize() int`
 
 GetWindowSize returns the WindowSize field if non-nil, zero value otherwise.
 
 ### GetWindowSizeOk
 
-`func (o *EsmeAccount) GetWindowSizeOk() (*int32, bool)`
+`func (o *EsmeAccount) GetWindowSizeOk() (*int, bool)`
 
 GetWindowSizeOk returns a tuple with the WindowSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWindowSize
 
-`func (o *EsmeAccount) SetWindowSize(v int32)`
+`func (o *EsmeAccount) SetWindowSize(v int)`
 
 SetWindowSize sets WindowSize field to given value.
 

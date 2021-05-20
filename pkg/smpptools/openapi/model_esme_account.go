@@ -25,7 +25,7 @@ type EsmeAccount struct {
 	// remote SMSC host
 	Host *string `json:"host,omitempty"`
 	// remote SMSC port
-	Port *int32 `json:"port,omitempty"`
+	Port *int `json:"port,omitempty"`
 	// SystemID used to connect to remote SMSC
 	SystemID *string `json:"systemID,omitempty"`
 	// Password for login
@@ -33,35 +33,35 @@ type EsmeAccount struct {
 	// The system_type parameter is used to categorize the type of ESME that is binding to the SMSC
 	SystemType *string `json:"systemType,omitempty"`
 	// version of the SMPP protocol
-	InterfaceVersion *int32 `json:"interfaceVersion,omitempty"`
+	InterfaceVersion *int `json:"interfaceVersion,omitempty"`
 	// Bind Type, transmitter, receiver or transceiver
 	BindType *string `json:"bindType,omitempty"`
 	// Bind Address Range
 	AddressRange *string `json:"addressRange,omitempty"`
 	// Bind Address Numbering Plan Indication
-	AddressNPI *int32 `json:"addressNPI,omitempty"`
+	AddressNPI *int `json:"addressNPI,omitempty"`
 	// Bind Address Type of Number
-	AddressTON *int32 `json:"addressTON,omitempty"`
+	AddressTON *int `json:"addressTON,omitempty"`
 	// Connection timeout in milliseconds
-	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *int `json:"connectionTimeout,omitempty"`
 	// Error rate on receiving Mobile Originated SMS
 	AcceptRatio *[]ErrorRate `json:"acceptRatio,omitempty"`
 	// Error ratio on receiving Delivery Receipt
 	AckRatio *[]ErrorRate `json:"ackRatio,omitempty"`
 	// Enquire links interval in seconds
-	EnquireLinkInterval *int32 `json:"enquireLinkInterval,omitempty"`
+	EnquireLinkInterval *int `json:"enquireLinkInterval,omitempty"`
 	// true if this ESME should be start automatically
 	IsEnable *bool `json:"isEnable,omitempty"`
 	// true if this ESME should be start automatically on start up
 	IsPersist *bool `json:"isPersist,omitempty"`
 	// Sending out speeds in TPS
-	MtThroughtput *int32 `json:"mtThroughtput,omitempty"`
+	MtThroughtput *int `json:"mtThroughtput,omitempty"`
 	// number of active binds on start up
-	NumBinds *int32 `json:"numBinds,omitempty"`
+	NumBinds *int `json:"numBinds,omitempty"`
 	// Delay in seconds before retry reconnect
-	ReconnectDelay *int32 `json:"reconnectDelay,omitempty"`
+	ReconnectDelay *int `json:"reconnectDelay,omitempty"`
 	// Number of packets send out per one go
-	WindowSize *int32 `json:"windowSize,omitempty"`
+	WindowSize *int `json:"windowSize,omitempty"`
 }
 
 // NewEsmeAccount instantiates a new EsmeAccount object
@@ -207,9 +207,9 @@ func (o *EsmeAccount) SetHost(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *EsmeAccount) GetPort() int32 {
+func (o *EsmeAccount) GetPort() int {
 	if o == nil || o.Port == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.Port
@@ -217,7 +217,7 @@ func (o *EsmeAccount) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetPortOk() (*int32, bool) {
+func (o *EsmeAccount) GetPortOk() (*int, bool) {
 	if o == nil || o.Port == nil {
 		return nil, false
 	}
@@ -233,8 +233,8 @@ func (o *EsmeAccount) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *EsmeAccount) SetPort(v int32) {
+// SetPort gets a reference to the given int and assigns it to the Port field.
+func (o *EsmeAccount) SetPort(v int) {
 	o.Port = &v
 }
 
@@ -335,9 +335,9 @@ func (o *EsmeAccount) SetSystemType(v string) {
 }
 
 // GetInterfaceVersion returns the InterfaceVersion field value if set, zero value otherwise.
-func (o *EsmeAccount) GetInterfaceVersion() int32 {
+func (o *EsmeAccount) GetInterfaceVersion() int {
 	if o == nil || o.InterfaceVersion == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.InterfaceVersion
@@ -345,7 +345,7 @@ func (o *EsmeAccount) GetInterfaceVersion() int32 {
 
 // GetInterfaceVersionOk returns a tuple with the InterfaceVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetInterfaceVersionOk() (*int32, bool) {
+func (o *EsmeAccount) GetInterfaceVersionOk() (*int, bool) {
 	if o == nil || o.InterfaceVersion == nil {
 		return nil, false
 	}
@@ -361,8 +361,8 @@ func (o *EsmeAccount) HasInterfaceVersion() bool {
 	return false
 }
 
-// SetInterfaceVersion gets a reference to the given int32 and assigns it to the InterfaceVersion field.
-func (o *EsmeAccount) SetInterfaceVersion(v int32) {
+// SetInterfaceVersion gets a reference to the given int and assigns it to the InterfaceVersion field.
+func (o *EsmeAccount) SetInterfaceVersion(v int) {
 	o.InterfaceVersion = &v
 }
 
@@ -431,9 +431,9 @@ func (o *EsmeAccount) SetAddressRange(v string) {
 }
 
 // GetAddressNPI returns the AddressNPI field value if set, zero value otherwise.
-func (o *EsmeAccount) GetAddressNPI() int32 {
+func (o *EsmeAccount) GetAddressNPI() int {
 	if o == nil || o.AddressNPI == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.AddressNPI
@@ -441,7 +441,7 @@ func (o *EsmeAccount) GetAddressNPI() int32 {
 
 // GetAddressNPIOk returns a tuple with the AddressNPI field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetAddressNPIOk() (*int32, bool) {
+func (o *EsmeAccount) GetAddressNPIOk() (*int, bool) {
 	if o == nil || o.AddressNPI == nil {
 		return nil, false
 	}
@@ -457,15 +457,15 @@ func (o *EsmeAccount) HasAddressNPI() bool {
 	return false
 }
 
-// SetAddressNPI gets a reference to the given int32 and assigns it to the AddressNPI field.
-func (o *EsmeAccount) SetAddressNPI(v int32) {
+// SetAddressNPI gets a reference to the given int and assigns it to the AddressNPI field.
+func (o *EsmeAccount) SetAddressNPI(v int) {
 	o.AddressNPI = &v
 }
 
 // GetAddressTON returns the AddressTON field value if set, zero value otherwise.
-func (o *EsmeAccount) GetAddressTON() int32 {
+func (o *EsmeAccount) GetAddressTON() int {
 	if o == nil || o.AddressTON == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.AddressTON
@@ -473,7 +473,7 @@ func (o *EsmeAccount) GetAddressTON() int32 {
 
 // GetAddressTONOk returns a tuple with the AddressTON field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetAddressTONOk() (*int32, bool) {
+func (o *EsmeAccount) GetAddressTONOk() (*int, bool) {
 	if o == nil || o.AddressTON == nil {
 		return nil, false
 	}
@@ -489,15 +489,15 @@ func (o *EsmeAccount) HasAddressTON() bool {
 	return false
 }
 
-// SetAddressTON gets a reference to the given int32 and assigns it to the AddressTON field.
-func (o *EsmeAccount) SetAddressTON(v int32) {
+// SetAddressTON gets a reference to the given int and assigns it to the AddressTON field.
+func (o *EsmeAccount) SetAddressTON(v int) {
 	o.AddressTON = &v
 }
 
 // GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
-func (o *EsmeAccount) GetConnectionTimeout() int32 {
+func (o *EsmeAccount) GetConnectionTimeout() int {
 	if o == nil || o.ConnectionTimeout == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.ConnectionTimeout
@@ -505,7 +505,7 @@ func (o *EsmeAccount) GetConnectionTimeout() int32 {
 
 // GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetConnectionTimeoutOk() (*int32, bool) {
+func (o *EsmeAccount) GetConnectionTimeoutOk() (*int, bool) {
 	if o == nil || o.ConnectionTimeout == nil {
 		return nil, false
 	}
@@ -521,8 +521,8 @@ func (o *EsmeAccount) HasConnectionTimeout() bool {
 	return false
 }
 
-// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
-func (o *EsmeAccount) SetConnectionTimeout(v int32) {
+// SetConnectionTimeout gets a reference to the given int and assigns it to the ConnectionTimeout field.
+func (o *EsmeAccount) SetConnectionTimeout(v int) {
 	o.ConnectionTimeout = &v
 }
 
@@ -591,9 +591,9 @@ func (o *EsmeAccount) SetAckRatio(v []ErrorRate) {
 }
 
 // GetEnquireLinkInterval returns the EnquireLinkInterval field value if set, zero value otherwise.
-func (o *EsmeAccount) GetEnquireLinkInterval() int32 {
+func (o *EsmeAccount) GetEnquireLinkInterval() int {
 	if o == nil || o.EnquireLinkInterval == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.EnquireLinkInterval
@@ -601,7 +601,7 @@ func (o *EsmeAccount) GetEnquireLinkInterval() int32 {
 
 // GetEnquireLinkIntervalOk returns a tuple with the EnquireLinkInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int32, bool) {
+func (o *EsmeAccount) GetEnquireLinkIntervalOk() (*int, bool) {
 	if o == nil || o.EnquireLinkInterval == nil {
 		return nil, false
 	}
@@ -617,8 +617,8 @@ func (o *EsmeAccount) HasEnquireLinkInterval() bool {
 	return false
 }
 
-// SetEnquireLinkInterval gets a reference to the given int32 and assigns it to the EnquireLinkInterval field.
-func (o *EsmeAccount) SetEnquireLinkInterval(v int32) {
+// SetEnquireLinkInterval gets a reference to the given int and assigns it to the EnquireLinkInterval field.
+func (o *EsmeAccount) SetEnquireLinkInterval(v int) {
 	o.EnquireLinkInterval = &v
 }
 
@@ -687,9 +687,9 @@ func (o *EsmeAccount) SetIsPersist(v bool) {
 }
 
 // GetMtThroughtput returns the MtThroughtput field value if set, zero value otherwise.
-func (o *EsmeAccount) GetMtThroughtput() int32 {
+func (o *EsmeAccount) GetMtThroughtput() int {
 	if o == nil || o.MtThroughtput == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.MtThroughtput
@@ -697,7 +697,7 @@ func (o *EsmeAccount) GetMtThroughtput() int32 {
 
 // GetMtThroughtputOk returns a tuple with the MtThroughtput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetMtThroughtputOk() (*int32, bool) {
+func (o *EsmeAccount) GetMtThroughtputOk() (*int, bool) {
 	if o == nil || o.MtThroughtput == nil {
 		return nil, false
 	}
@@ -713,15 +713,15 @@ func (o *EsmeAccount) HasMtThroughtput() bool {
 	return false
 }
 
-// SetMtThroughtput gets a reference to the given int32 and assigns it to the MtThroughtput field.
-func (o *EsmeAccount) SetMtThroughtput(v int32) {
+// SetMtThroughtput gets a reference to the given int and assigns it to the MtThroughtput field.
+func (o *EsmeAccount) SetMtThroughtput(v int) {
 	o.MtThroughtput = &v
 }
 
 // GetNumBinds returns the NumBinds field value if set, zero value otherwise.
-func (o *EsmeAccount) GetNumBinds() int32 {
+func (o *EsmeAccount) GetNumBinds() int {
 	if o == nil || o.NumBinds == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.NumBinds
@@ -729,7 +729,7 @@ func (o *EsmeAccount) GetNumBinds() int32 {
 
 // GetNumBindsOk returns a tuple with the NumBinds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetNumBindsOk() (*int32, bool) {
+func (o *EsmeAccount) GetNumBindsOk() (*int, bool) {
 	if o == nil || o.NumBinds == nil {
 		return nil, false
 	}
@@ -745,15 +745,15 @@ func (o *EsmeAccount) HasNumBinds() bool {
 	return false
 }
 
-// SetNumBinds gets a reference to the given int32 and assigns it to the NumBinds field.
-func (o *EsmeAccount) SetNumBinds(v int32) {
+// SetNumBinds gets a reference to the given int and assigns it to the NumBinds field.
+func (o *EsmeAccount) SetNumBinds(v int) {
 	o.NumBinds = &v
 }
 
 // GetReconnectDelay returns the ReconnectDelay field value if set, zero value otherwise.
-func (o *EsmeAccount) GetReconnectDelay() int32 {
+func (o *EsmeAccount) GetReconnectDelay() int {
 	if o == nil || o.ReconnectDelay == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.ReconnectDelay
@@ -761,7 +761,7 @@ func (o *EsmeAccount) GetReconnectDelay() int32 {
 
 // GetReconnectDelayOk returns a tuple with the ReconnectDelay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetReconnectDelayOk() (*int32, bool) {
+func (o *EsmeAccount) GetReconnectDelayOk() (*int, bool) {
 	if o == nil || o.ReconnectDelay == nil {
 		return nil, false
 	}
@@ -777,15 +777,15 @@ func (o *EsmeAccount) HasReconnectDelay() bool {
 	return false
 }
 
-// SetReconnectDelay gets a reference to the given int32 and assigns it to the ReconnectDelay field.
-func (o *EsmeAccount) SetReconnectDelay(v int32) {
+// SetReconnectDelay gets a reference to the given int and assigns it to the ReconnectDelay field.
+func (o *EsmeAccount) SetReconnectDelay(v int) {
 	o.ReconnectDelay = &v
 }
 
 // GetWindowSize returns the WindowSize field value if set, zero value otherwise.
-func (o *EsmeAccount) GetWindowSize() int32 {
+func (o *EsmeAccount) GetWindowSize() int {
 	if o == nil || o.WindowSize == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.WindowSize
@@ -793,7 +793,7 @@ func (o *EsmeAccount) GetWindowSize() int32 {
 
 // GetWindowSizeOk returns a tuple with the WindowSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EsmeAccount) GetWindowSizeOk() (*int32, bool) {
+func (o *EsmeAccount) GetWindowSizeOk() (*int, bool) {
 	if o == nil || o.WindowSize == nil {
 		return nil, false
 	}
@@ -809,8 +809,8 @@ func (o *EsmeAccount) HasWindowSize() bool {
 	return false
 }
 
-// SetWindowSize gets a reference to the given int32 and assigns it to the WindowSize field.
-func (o *EsmeAccount) SetWindowSize(v int32) {
+// SetWindowSize gets a reference to the given int and assigns it to the WindowSize field.
+func (o *EsmeAccount) SetWindowSize(v int) {
 	o.WindowSize = &v
 }
 

@@ -6,22 +6,22 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | a short name for this SMPP parameter set | [optional] 
 **Description** | Pointer to **string** | a short description | [optional] 
-**DataCoding** | Pointer to **int32** | Data Coding for SMS | [optional] 
-**DefaultMessageID** | Pointer to **int32** | Default Message ID | [optional] 
+**DataCoding** | Pointer to **int** | Data Coding for SMS | [optional] 
+**DefaultMessageID** | Pointer to **int** | Default Message ID | [optional] 
 **DestinationAddr** | Pointer to **string** | destination address | [optional] 
-**DestinationNPI** | Pointer to **int32** | destination address Number plan indication | [optional] 
-**DestinationTON** | Pointer to **int32** | destination address Type of number | [optional] 
-**EsmClass** | Pointer to **int32** | ESM Class | [optional] 
+**DestinationNPI** | Pointer to **int** | destination address Number plan indication | [optional] 
+**DestinationTON** | Pointer to **int** | destination address Type of number | [optional] 
+**EsmClass** | Pointer to **int** | ESM Class | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**PriorityFlag** | Pointer to **int32** | Priority Flag | [optional] 
-**ProtocolID** | Pointer to **int32** | Protocol ID | [optional] 
-**RegisteredDelivery** | Pointer to **int32** | Registered Delivery | [optional] 
-**ReplaceIfPresentFlag** | Pointer to **int32** | Replace if present flag | [optional] 
+**PriorityFlag** | Pointer to **int** | Priority Flag | [optional] 
+**ProtocolID** | Pointer to **int** | Protocol ID | [optional] 
+**RegisteredDelivery** | Pointer to **int** | Registered Delivery | [optional] 
+**ReplaceIfPresentFlag** | Pointer to **int** | Replace if present flag | [optional] 
 **ScheduleDeliveryTime** | Pointer to **string** | Scheduled Delivery Time | [optional] 
 **ServiceType** | Pointer to **string** | SMPP Service Type | [optional] 
 **SourceAddr** | Pointer to **string** | source address | [optional] 
-**SourceNPI** | Pointer to **int32** | source address Number plan indication | [optional] 
-**SourceTON** | Pointer to **int32** | source address Type of number | [optional] 
+**SourceNPI** | Pointer to **int** | source address Number plan indication | [optional] 
+**SourceTON** | Pointer to **int** | source address Type of number | [optional] 
 **ValidityPeriod** | Pointer to **string** | Validity Period | [optional] 
 **Charset** | Pointer to **string** | Character set used for encoding and decoding between text and shortMessages | [optional] 
 **Text** | Pointer to **string** | Message content in text | [optional] 
@@ -100,20 +100,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDataCoding
 
-`func (o *BaseSm) GetDataCoding() int32`
+`func (o *BaseSm) GetDataCoding() int`
 
 GetDataCoding returns the DataCoding field if non-nil, zero value otherwise.
 
 ### GetDataCodingOk
 
-`func (o *BaseSm) GetDataCodingOk() (*int32, bool)`
+`func (o *BaseSm) GetDataCodingOk() (*int, bool)`
 
 GetDataCodingOk returns a tuple with the DataCoding field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDataCoding
 
-`func (o *BaseSm) SetDataCoding(v int32)`
+`func (o *BaseSm) SetDataCoding(v int)`
 
 SetDataCoding sets DataCoding field to given value.
 
@@ -125,20 +125,20 @@ HasDataCoding returns a boolean if a field has been set.
 
 ### GetDefaultMessageID
 
-`func (o *BaseSm) GetDefaultMessageID() int32`
+`func (o *BaseSm) GetDefaultMessageID() int`
 
 GetDefaultMessageID returns the DefaultMessageID field if non-nil, zero value otherwise.
 
 ### GetDefaultMessageIDOk
 
-`func (o *BaseSm) GetDefaultMessageIDOk() (*int32, bool)`
+`func (o *BaseSm) GetDefaultMessageIDOk() (*int, bool)`
 
 GetDefaultMessageIDOk returns a tuple with the DefaultMessageID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultMessageID
 
-`func (o *BaseSm) SetDefaultMessageID(v int32)`
+`func (o *BaseSm) SetDefaultMessageID(v int)`
 
 SetDefaultMessageID sets DefaultMessageID field to given value.
 
@@ -175,20 +175,20 @@ HasDestinationAddr returns a boolean if a field has been set.
 
 ### GetDestinationNPI
 
-`func (o *BaseSm) GetDestinationNPI() int32`
+`func (o *BaseSm) GetDestinationNPI() int`
 
 GetDestinationNPI returns the DestinationNPI field if non-nil, zero value otherwise.
 
 ### GetDestinationNPIOk
 
-`func (o *BaseSm) GetDestinationNPIOk() (*int32, bool)`
+`func (o *BaseSm) GetDestinationNPIOk() (*int, bool)`
 
 GetDestinationNPIOk returns a tuple with the DestinationNPI field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDestinationNPI
 
-`func (o *BaseSm) SetDestinationNPI(v int32)`
+`func (o *BaseSm) SetDestinationNPI(v int)`
 
 SetDestinationNPI sets DestinationNPI field to given value.
 
@@ -200,20 +200,20 @@ HasDestinationNPI returns a boolean if a field has been set.
 
 ### GetDestinationTON
 
-`func (o *BaseSm) GetDestinationTON() int32`
+`func (o *BaseSm) GetDestinationTON() int`
 
 GetDestinationTON returns the DestinationTON field if non-nil, zero value otherwise.
 
 ### GetDestinationTONOk
 
-`func (o *BaseSm) GetDestinationTONOk() (*int32, bool)`
+`func (o *BaseSm) GetDestinationTONOk() (*int, bool)`
 
 GetDestinationTONOk returns a tuple with the DestinationTON field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDestinationTON
 
-`func (o *BaseSm) SetDestinationTON(v int32)`
+`func (o *BaseSm) SetDestinationTON(v int)`
 
 SetDestinationTON sets DestinationTON field to given value.
 
@@ -225,20 +225,20 @@ HasDestinationTON returns a boolean if a field has been set.
 
 ### GetEsmClass
 
-`func (o *BaseSm) GetEsmClass() int32`
+`func (o *BaseSm) GetEsmClass() int`
 
 GetEsmClass returns the EsmClass field if non-nil, zero value otherwise.
 
 ### GetEsmClassOk
 
-`func (o *BaseSm) GetEsmClassOk() (*int32, bool)`
+`func (o *BaseSm) GetEsmClassOk() (*int, bool)`
 
 GetEsmClassOk returns a tuple with the EsmClass field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEsmClass
 
-`func (o *BaseSm) SetEsmClass(v int32)`
+`func (o *BaseSm) SetEsmClass(v int)`
 
 SetEsmClass sets EsmClass field to given value.
 
@@ -275,20 +275,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetPriorityFlag
 
-`func (o *BaseSm) GetPriorityFlag() int32`
+`func (o *BaseSm) GetPriorityFlag() int`
 
 GetPriorityFlag returns the PriorityFlag field if non-nil, zero value otherwise.
 
 ### GetPriorityFlagOk
 
-`func (o *BaseSm) GetPriorityFlagOk() (*int32, bool)`
+`func (o *BaseSm) GetPriorityFlagOk() (*int, bool)`
 
 GetPriorityFlagOk returns a tuple with the PriorityFlag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPriorityFlag
 
-`func (o *BaseSm) SetPriorityFlag(v int32)`
+`func (o *BaseSm) SetPriorityFlag(v int)`
 
 SetPriorityFlag sets PriorityFlag field to given value.
 
@@ -300,20 +300,20 @@ HasPriorityFlag returns a boolean if a field has been set.
 
 ### GetProtocolID
 
-`func (o *BaseSm) GetProtocolID() int32`
+`func (o *BaseSm) GetProtocolID() int`
 
 GetProtocolID returns the ProtocolID field if non-nil, zero value otherwise.
 
 ### GetProtocolIDOk
 
-`func (o *BaseSm) GetProtocolIDOk() (*int32, bool)`
+`func (o *BaseSm) GetProtocolIDOk() (*int, bool)`
 
 GetProtocolIDOk returns a tuple with the ProtocolID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProtocolID
 
-`func (o *BaseSm) SetProtocolID(v int32)`
+`func (o *BaseSm) SetProtocolID(v int)`
 
 SetProtocolID sets ProtocolID field to given value.
 
@@ -325,20 +325,20 @@ HasProtocolID returns a boolean if a field has been set.
 
 ### GetRegisteredDelivery
 
-`func (o *BaseSm) GetRegisteredDelivery() int32`
+`func (o *BaseSm) GetRegisteredDelivery() int`
 
 GetRegisteredDelivery returns the RegisteredDelivery field if non-nil, zero value otherwise.
 
 ### GetRegisteredDeliveryOk
 
-`func (o *BaseSm) GetRegisteredDeliveryOk() (*int32, bool)`
+`func (o *BaseSm) GetRegisteredDeliveryOk() (*int, bool)`
 
 GetRegisteredDeliveryOk returns a tuple with the RegisteredDelivery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRegisteredDelivery
 
-`func (o *BaseSm) SetRegisteredDelivery(v int32)`
+`func (o *BaseSm) SetRegisteredDelivery(v int)`
 
 SetRegisteredDelivery sets RegisteredDelivery field to given value.
 
@@ -350,20 +350,20 @@ HasRegisteredDelivery returns a boolean if a field has been set.
 
 ### GetReplaceIfPresentFlag
 
-`func (o *BaseSm) GetReplaceIfPresentFlag() int32`
+`func (o *BaseSm) GetReplaceIfPresentFlag() int`
 
 GetReplaceIfPresentFlag returns the ReplaceIfPresentFlag field if non-nil, zero value otherwise.
 
 ### GetReplaceIfPresentFlagOk
 
-`func (o *BaseSm) GetReplaceIfPresentFlagOk() (*int32, bool)`
+`func (o *BaseSm) GetReplaceIfPresentFlagOk() (*int, bool)`
 
 GetReplaceIfPresentFlagOk returns a tuple with the ReplaceIfPresentFlag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplaceIfPresentFlag
 
-`func (o *BaseSm) SetReplaceIfPresentFlag(v int32)`
+`func (o *BaseSm) SetReplaceIfPresentFlag(v int)`
 
 SetReplaceIfPresentFlag sets ReplaceIfPresentFlag field to given value.
 
@@ -450,20 +450,20 @@ HasSourceAddr returns a boolean if a field has been set.
 
 ### GetSourceNPI
 
-`func (o *BaseSm) GetSourceNPI() int32`
+`func (o *BaseSm) GetSourceNPI() int`
 
 GetSourceNPI returns the SourceNPI field if non-nil, zero value otherwise.
 
 ### GetSourceNPIOk
 
-`func (o *BaseSm) GetSourceNPIOk() (*int32, bool)`
+`func (o *BaseSm) GetSourceNPIOk() (*int, bool)`
 
 GetSourceNPIOk returns a tuple with the SourceNPI field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSourceNPI
 
-`func (o *BaseSm) SetSourceNPI(v int32)`
+`func (o *BaseSm) SetSourceNPI(v int)`
 
 SetSourceNPI sets SourceNPI field to given value.
 
@@ -475,20 +475,20 @@ HasSourceNPI returns a boolean if a field has been set.
 
 ### GetSourceTON
 
-`func (o *BaseSm) GetSourceTON() int32`
+`func (o *BaseSm) GetSourceTON() int`
 
 GetSourceTON returns the SourceTON field if non-nil, zero value otherwise.
 
 ### GetSourceTONOk
 
-`func (o *BaseSm) GetSourceTONOk() (*int32, bool)`
+`func (o *BaseSm) GetSourceTONOk() (*int, bool)`
 
 GetSourceTONOk returns a tuple with the SourceTON field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSourceTON
 
-`func (o *BaseSm) SetSourceTON(v int32)`
+`func (o *BaseSm) SetSourceTON(v int)`
 
 SetSourceTON sets SourceTON field to given value.
 

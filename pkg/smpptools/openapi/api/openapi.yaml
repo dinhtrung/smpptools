@@ -1925,34 +1925,31 @@ components:
       type: object
     SmppTlv:
       example:
-        tag: 7
+        tag: ""
         value: value
       properties:
         tag:
           description: Tag ID
-          format: int8
-          type: integer
+          type: int
         value:
           description: hex bytes of the value
           type: string
       type: object
     ErrorRate:
       example:
-        rate: 7
+        rate: ""
         description: description
-        error: 2
+        error: ""
       properties:
         error:
           description: Error Code
-          format: int8
-          type: integer
+          type: int
         description:
           description: Description about this error rate
           type: string
         rate:
           description: Percentage this error will occur
-          format: int8
-          type: integer
+          type: int
       required:
       - error
       - rate
@@ -1963,35 +1960,35 @@ components:
         serviceType: serviceType
         isConcatTLV: false
         charset: charset
-        sourceNPI: 2
+        sourceNPI: ""
         description: description
-        registeredDelivery: 9
+        registeredDelivery: ""
         scheduleDeliveryTime: scheduleDeliveryTime
-        destinationTON: 5
+        destinationTON: ""
         validityPeriod: validityPeriod
-        protocolID: 7
-        destinationNPI: 1
-        dataCoding: 0
+        protocolID: ""
+        destinationNPI: ""
+        dataCoding: ""
         destinationAddr: destinationAddr
         name: name
-        replaceIfPresentFlag: 3
+        replaceIfPresentFlag: ""
         id: id
         sourceAddr: sourceAddr
         text: text
-        priorityFlag: 2
-        sourceTON: 4
+        priorityFlag: ""
+        sourceTON: ""
         tlvList:
-        - tag: 7
+        - tag: ""
           value: value
-        - tag: 7
+        - tag: ""
           value: value
-        defaultMessageID: 6
+        defaultMessageID: ""
         shortMessages:
         - udhPart: udhPart
           txtPart: txtPart
         - udhPart: udhPart
           txtPart: txtPart
-        esmClass: 5
+        esmClass: ""
       properties:
         name:
           description: a short name for this SMPP parameter set
@@ -2001,45 +1998,36 @@ components:
           type: string
         dataCoding:
           description: Data Coding for SMS
-          format: int8
-          type: integer
+          type: int
         defaultMessageID:
           description: Default Message ID
-          format: int8
-          type: integer
+          type: int
         destinationAddr:
           description: destination address
           type: string
         destinationNPI:
           description: destination address Number plan indication
-          format: int8
-          type: integer
+          type: int
         destinationTON:
           description: destination address Type of number
-          format: int8
-          type: integer
+          type: int
         esmClass:
           description: ESM Class
-          format: int8
-          type: integer
+          type: int
         id:
           type: string
         priorityFlag:
           description: Priority Flag
-          format: int8
-          type: integer
+          type: int
         protocolID:
           description: Protocol ID
-          format: int8
-          type: integer
+          type: int
         registeredDelivery:
           description: Registered Delivery
-          format: int8
-          type: integer
+          type: int
         replaceIfPresentFlag:
           description: Replace if present flag
-          format: int8
-          type: integer
+          type: int
         scheduleDeliveryTime:
           description: Scheduled Delivery Time
           type: string
@@ -2051,12 +2039,10 @@ components:
           type: string
         sourceNPI:
           description: source address Number plan indication
-          format: int8
-          type: integer
+          type: int
         sourceTON:
           description: source address Type of number
-          format: int8
-          type: integer
+          type: int
         validityPeriod:
           description: Validity Period
           type: string
@@ -2092,40 +2078,40 @@ components:
           id: id
           content: content
         maxPDU: 1000
-        throughput: 0
+        throughput: ""
         smsPattern:
           serviceType: serviceType
           isConcatTLV: false
           charset: charset
-          sourceNPI: 2
+          sourceNPI: ""
           description: description
-          registeredDelivery: 9
+          registeredDelivery: ""
           scheduleDeliveryTime: scheduleDeliveryTime
-          destinationTON: 5
+          destinationTON: ""
           validityPeriod: validityPeriod
-          protocolID: 7
-          destinationNPI: 1
-          dataCoding: 0
+          protocolID: ""
+          destinationNPI: ""
+          dataCoding: ""
           destinationAddr: destinationAddr
           name: name
-          replaceIfPresentFlag: 3
+          replaceIfPresentFlag: ""
           id: id
           sourceAddr: sourceAddr
           text: text
-          priorityFlag: 2
-          sourceTON: 4
+          priorityFlag: ""
+          sourceTON: ""
           tlvList:
-          - tag: 7
+          - tag: ""
             value: value
-          - tag: 7
+          - tag: ""
             value: value
-          defaultMessageID: 6
+          defaultMessageID: ""
           shortMessages:
           - udhPart: udhPart
             txtPart: txtPart
           - udhPart: udhPart
             txtPart: txtPart
-          esmClass: 5
+          esmClass: ""
       properties:
         smsPattern:
           $ref: '#/components/schemas/BaseSm'
@@ -2133,13 +2119,11 @@ components:
           $ref: '#/components/schemas/IsdnList'
         throughput:
           description: maximum throughput try to reach
-          format: int8
-          type: integer
+          type: int
         maxPDU:
           description: max number of PDU send out
           example: 1000
-          format: int8
-          type: integer
+          type: int
       title: StressTestSettings
     ThroughputSeries:
       description: A series of traffic throughput used for re-generate traffic throughput
@@ -2174,8 +2158,7 @@ components:
         state:
           description: State of this throughput series
           example: 0
-          format: int8
-          type: integer
+          type: int
       required:
       - name
       title: ThroughputSeries
@@ -2199,35 +2182,35 @@ components:
           serviceType: serviceType
           isConcatTLV: false
           charset: charset
-          sourceNPI: 2
+          sourceNPI: ""
           description: description
-          registeredDelivery: 9
+          registeredDelivery: ""
           scheduleDeliveryTime: scheduleDeliveryTime
-          destinationTON: 5
+          destinationTON: ""
           validityPeriod: validityPeriod
-          protocolID: 7
-          destinationNPI: 1
-          dataCoding: 0
+          protocolID: ""
+          destinationNPI: ""
+          dataCoding: ""
           destinationAddr: destinationAddr
           name: name
-          replaceIfPresentFlag: 3
+          replaceIfPresentFlag: ""
           id: id
           sourceAddr: sourceAddr
           text: text
-          priorityFlag: 2
-          sourceTON: 4
+          priorityFlag: ""
+          sourceTON: ""
           tlvList:
-          - tag: 7
+          - tag: ""
             value: value
-          - tag: 7
+          - tag: ""
             value: value
-          defaultMessageID: 6
+          defaultMessageID: ""
           shortMessages:
           - udhPart: udhPart
             txtPart: txtPart
           - udhPart: udhPart
             txtPart: txtPart
-          esmClass: 5
+          esmClass: ""
       properties:
         smsPattern:
           $ref: '#/components/schemas/BaseSm'
@@ -2242,40 +2225,40 @@ components:
         SMSC
       example:
         ackRatio:
-        - rate: 7
+        - rate: ""
           description: description
-          error: 2
-        - rate: 7
+          error: ""
+        - rate: ""
           description: description
-          error: 2
-        enquireLinkInterval: 9
+          error: ""
+        enquireLinkInterval: ""
         systemID: systemID
         bindType: transceiver
         addressRange: addressRange
-        mtThroughtput: 3
+        mtThroughtput: ""
         description: description
-        interfaceVersion: 6
+        interfaceVersion: ""
         isPersist: false
-        reconnectDelay: 4
+        reconnectDelay: ""
         isEnable: false
-        addressTON: 5
+        addressTON: ""
         password: password
-        windowSize: 7
-        port: 0
+        windowSize: ""
+        port: ""
         name: name
         host: host
         systemType: VMS
         acceptRatio:
-        - rate: 7
+        - rate: ""
           description: description
-          error: 2
-        - rate: 7
+          error: ""
+        - rate: ""
           description: description
-          error: 2
+          error: ""
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        addressNPI: 1
-        connectionTimeout: 5
-        numBinds: 2
+        addressNPI: ""
+        connectionTimeout: ""
+        numBinds: ""
       properties:
         id:
           description: unique id for this ESME account
@@ -2294,7 +2277,7 @@ components:
           type: string
         port:
           description: remote SMSC port
-          type: integer
+          type: int
         systemID:
           description: SystemID used to connect to remote SMSC
           type: string
@@ -2313,7 +2296,7 @@ components:
           - 0
           - 51
           - 52
-          type: integer
+          type: int
         bindType:
           default: transceiver
           description: Bind Type, transmitter, receiver or transceiver
@@ -2328,16 +2311,13 @@ components:
           type: string
         addressNPI:
           description: Bind Address Numbering Plan Indication
-          format: int8
-          type: integer
+          type: int
         addressTON:
           description: Bind Address Type of Number
-          format: int8
-          type: integer
+          type: int
         connectionTimeout:
           description: Connection timeout in milliseconds
-          format: int32
-          type: integer
+          type: int
         acceptRatio:
           description: Error rate on receiving Mobile Originated SMS
           items:
@@ -2350,8 +2330,8 @@ components:
           type: array
         enquireLinkInterval:
           description: Enquire links interval in seconds
-          format: int32
-          type: integer
+          format: int
+          type: int
         isEnable:
           description: true if this ESME should be start automatically
           example: false
@@ -2362,20 +2342,16 @@ components:
           type: boolean
         mtThroughtput:
           description: Sending out speeds in TPS
-          format: int32
-          type: integer
+          type: int
         numBinds:
           description: number of active binds on start up
-          format: int32
-          type: integer
+          type: int
         reconnectDelay:
           description: Delay in seconds before retry reconnect
-          format: int32
-          type: integer
+          type: int
         windowSize:
           description: Number of packets send out per one go
-          format: int32
-          type: integer
+          type: int
       required:
       - name
       title: EsmeAccount
@@ -2387,40 +2363,40 @@ components:
         localAddr: 127.0.0.1:23456
         account:
           ackRatio:
-          - rate: 7
+          - rate: ""
             description: description
-            error: 2
-          - rate: 7
+            error: ""
+          - rate: ""
             description: description
-            error: 2
-          enquireLinkInterval: 9
+            error: ""
+          enquireLinkInterval: ""
           systemID: systemID
           bindType: transceiver
           addressRange: addressRange
-          mtThroughtput: 3
+          mtThroughtput: ""
           description: description
-          interfaceVersion: 6
+          interfaceVersion: ""
           isPersist: false
-          reconnectDelay: 4
+          reconnectDelay: ""
           isEnable: false
-          addressTON: 5
+          addressTON: ""
           password: password
-          windowSize: 7
-          port: 0
+          windowSize: ""
+          port: ""
           name: name
           host: host
           systemType: VMS
           acceptRatio:
-          - rate: 7
+          - rate: ""
             description: description
-            error: 2
-          - rate: 7
+            error: ""
+          - rate: ""
             description: description
-            error: 2
+            error: ""
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          addressNPI: 1
-          connectionTimeout: 5
-          numBinds: 2
+          addressNPI: ""
+          connectionTimeout: ""
+          numBinds: ""
       properties:
         id:
           description: unique session ID
@@ -2448,31 +2424,31 @@ components:
         account:
           systemID: systemID
           deliveryRatio:
-          - rate: 7
+          - rate: ""
             description: description
-            error: 2
-          - rate: 7
+            error: ""
+          - rate: ""
             description: description
-            error: 2
-          maxBinds: 5
+            error: ""
+          maxBinds: ""
           bindType: transceiver
           addressRange: addressRange
           description: description
-          interfaceVersion: 0
-          addressTON: 1
+          interfaceVersion: ""
+          addressTON: ""
           password: password
           name: name
           systemType: VMS
           acceptRatio:
-          - rate: 7
+          - rate: ""
             description: description
-            error: 2
-          - rate: 7
+            error: ""
+          - rate: ""
             description: description
-            error: 2
+            error: ""
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          moThroughput: 5
-          addressNPI: 6
+          moThroughput: ""
+          addressNPI: ""
         remoteAddr: 127.0.0.1:23456
       properties:
         id:
@@ -2526,31 +2502,31 @@ components:
       example:
         systemID: systemID
         deliveryRatio:
-        - rate: 7
+        - rate: ""
           description: description
-          error: 2
-        - rate: 7
+          error: ""
+        - rate: ""
           description: description
-          error: 2
-        maxBinds: 5
+          error: ""
+        maxBinds: ""
         bindType: transceiver
         addressRange: addressRange
         description: description
-        interfaceVersion: 0
-        addressTON: 1
+        interfaceVersion: ""
+        addressTON: ""
         password: password
         name: name
         systemType: VMS
         acceptRatio:
-        - rate: 7
+        - rate: ""
           description: description
-          error: 2
-        - rate: 7
+          error: ""
+        - rate: ""
           description: description
-          error: 2
+          error: ""
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        moThroughput: 5
-        addressNPI: 6
+        moThroughput: ""
+        addressNPI: ""
       properties:
         id:
           description: unique account ID
@@ -2582,7 +2558,7 @@ components:
           - 0
           - 51
           - 52
-          type: integer
+          type: int
         bindType:
           default: transceiver
           description: Bind Type, transmitter, receiver or transceiver
@@ -2597,12 +2573,10 @@ components:
           type: string
         addressNPI:
           description: Bind Address Numbering Plan Indication
-          format: int8
-          type: integer
+          type: int
         addressTON:
           description: Bind Address Type of Number
-          format: int8
-          type: integer
+          type: int
         acceptRatio:
           description: Error ratio for return on receive Submit SM from ESME
           items:
@@ -2616,12 +2590,10 @@ components:
           type: array
         moThroughput:
           description: Maximum throughput for sending MO
-          format: int8
-          type: integer
+          type: int
         maxBinds:
           description: max number of active binds on this account
-          format: int32
-          type: integer
+          type: int
       required:
       - name
       - password
@@ -2634,13 +2606,13 @@ components:
       example:
         allowAnonymous: false
         systemID: systemID
-        windowSize: 6
+        windowSize: ""
         port: 2775
         name: name
         description: description
         id: id
         isPersist: false
-        connectionTimeout: 0
+        connectionTimeout: ""
       properties:
         id:
           type: string
@@ -2656,7 +2628,7 @@ components:
           description: TCP Port to listen to
           example: 2775
           format: int16
-          type: integer
+          type: int
         systemID:
           description: Identifies the MC to the ESME
           maxLength: 20
@@ -2664,8 +2636,7 @@ components:
           type: string
         connectionTimeout:
           description: Connection timeout in milliseconds
-          format: int8
-          type: integer
+          type: int
         isPersist:
           description: true if this SMSC should be start automatically on start up
           example: false
@@ -2677,8 +2648,7 @@ components:
           type: boolean
         windowSize:
           description: Number of packets send out per one go
-          format: int8
-          type: integer
+          type: int
       required:
       - name
       title: SmscInstance

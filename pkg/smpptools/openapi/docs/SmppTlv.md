@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tag** | Pointer to **int32** | Tag ID | [optional] 
+**Tag** | Pointer to **int** | Tag ID | [optional] 
 **Value** | Pointer to **string** | hex bytes of the value | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetTag
 
-`func (o *SmppTlv) GetTag() int32`
+`func (o *SmppTlv) GetTag() int`
 
 GetTag returns the Tag field if non-nil, zero value otherwise.
 
 ### GetTagOk
 
-`func (o *SmppTlv) GetTagOk() (*int32, bool)`
+`func (o *SmppTlv) GetTagOk() (*int, bool)`
 
 GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTag
 
-`func (o *SmppTlv) SetTag(v int32)`
+`func (o *SmppTlv) SetTag(v int)`
 
 SetTag sets Tag field to given value.
 

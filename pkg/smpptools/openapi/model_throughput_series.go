@@ -25,7 +25,7 @@ type ThroughputSeries struct {
 	// CDR file name this throughput series was generated from
 	Datafile *string `json:"datafile,omitempty"`
 	// State of this throughput series
-	State *int32 `json:"state,omitempty"`
+	State *int `json:"state,omitempty"`
 }
 
 // NewThroughputSeries instantiates a new ThroughputSeries object
@@ -167,9 +167,9 @@ func (o *ThroughputSeries) SetDatafile(v string) {
 }
 
 // GetState returns the State field value if set, zero value otherwise.
-func (o *ThroughputSeries) GetState() int32 {
+func (o *ThroughputSeries) GetState() int {
 	if o == nil || o.State == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.State
@@ -177,7 +177,7 @@ func (o *ThroughputSeries) GetState() int32 {
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThroughputSeries) GetStateOk() (*int32, bool) {
+func (o *ThroughputSeries) GetStateOk() (*int, bool) {
 	if o == nil || o.State == nil {
 		return nil, false
 	}
@@ -193,8 +193,8 @@ func (o *ThroughputSeries) HasState() bool {
 	return false
 }
 
-// SetState gets a reference to the given int32 and assigns it to the State field.
-func (o *ThroughputSeries) SetState(v int32) {
+// SetState gets a reference to the given int and assigns it to the State field.
+func (o *ThroughputSeries) SetState(v int) {
 	o.State = &v
 }
 

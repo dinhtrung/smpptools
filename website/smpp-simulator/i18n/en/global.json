@@ -1,19 +1,19 @@
 {
   "global": {
-    "title": "Smpptools",
+    "title": "SMPP Tools",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "baseSm": "Base Sm",
-        "esmeAccount": "Esme Account",
-        "smscInstance": "Smsc Instance",
-        "smscAccount": "Smsc Account",
-        "isdnList": "Isdn List",
-        "esmeSession": "Esme Session",
-        "smscSession": "Smsc Session",
+        "baseSm": "SMPP Preset",
+        "esmeAccount": "ESME Account",
+        "smscInstance": "SMSC Instance",
+        "smscAccount": "SMSC Account",
+        "isdnList": "ISDN List",
+        "esmeSession": "ESME Session",
+        "smscSession": "SMSC Session",
         "dataFile": "Data File",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },

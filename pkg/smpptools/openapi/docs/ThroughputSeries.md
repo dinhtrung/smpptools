@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | A short description of this throughput | [optional] 
 **Values** | Pointer to **[]float32** | throughput per minute of current series | [optional] 
 **Datafile** | Pointer to **string** | CDR file name this throughput series was generated from | [optional] 
-**State** | Pointer to **int32** | State of this throughput series | [optional] 
+**State** | Pointer to **int** | State of this throughput series | [optional] 
 
 ## Methods
 
@@ -126,20 +126,20 @@ HasDatafile returns a boolean if a field has been set.
 
 ### GetState
 
-`func (o *ThroughputSeries) GetState() int32`
+`func (o *ThroughputSeries) GetState() int`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *ThroughputSeries) GetStateOk() (*int32, bool)`
+`func (o *ThroughputSeries) GetStateOk() (*int, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *ThroughputSeries) SetState(v int32)`
+`func (o *ThroughputSeries) SetState(v int)`
 
 SetState sets State field to given value.
 

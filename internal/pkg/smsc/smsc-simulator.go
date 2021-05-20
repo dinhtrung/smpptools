@@ -21,9 +21,8 @@ var MO_CHAN = make(chan *pdu.DeliverSm)
 
 // SmppConnectionProfile hold the session information
 type SmscSimulator struct {
-	config     *openapi.SmscInstance
-	server     *smpp.Server
-	accountMap map[*string]*openapi.SmscAccount
+	config *openapi.SmscInstance
+	server *smpp.Server
 }
 
 func NewSmscSimulatorInstance(config *openapi.SmscInstance) SmscSimulator {
@@ -273,11 +272,11 @@ func (c *SmscSimulator) SendDLRDelay(sessionID string, msgID string, origin *pdu
 }
 
 func RandomError(ratio []openapi.ErrorRate) openapi.ErrorRate {
-	maxCnt := int32(0)
+	maxCnt := 0
 	for _, e := range ratio {
 		maxCnt += e.GetRate()
 	}
-	prop := rand.Int31n(maxCnt)
+	prop := rand.Intn(maxCnt)
 	for i, e := range ratio {
 		prop -= e.GetRate()
 		if prop < 0 {

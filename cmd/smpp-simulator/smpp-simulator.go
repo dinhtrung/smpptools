@@ -181,15 +181,17 @@ func setupRoutes(app *fiber.App) {
 	app.Delete("/api/smsc-instances/:instanceID/stop", api.StopSmscInstanceUsingDELETE)
 	app.Put("/api/smsc-instances/:instanceID", api.UpdateSmscInstanceUsingPUT)
 
-	app.Delete("/api/smsc-sessions/:id/batch", api.ApiSmscSessionsIdBatchDelete)
-	app.Delete("/api/smsc-sessions/:id/stop", api.ApiSmscSessionsIdStopDelete)
-	app.Delete("/api/smsc-sessions/:id", api.DeleteSmscSessionUsingDELETE)
+	// + SMSC sessions
+	app.Delete("/api/smsc-sessions/:sessionID/batch", api.ApiSmscSessionsIdBatchDelete)
+	app.Delete("/api/smsc-sessions/:sessionID/stop", api.ApiSmscSessionsIdStopDelete)
+	app.Delete("/api/smsc-sessions/:sessionID", api.DeleteSmscSessionUsingDELETE)
 	app.Get("/api/smsc-sessions", api.GetAllSmscSessions)
-	app.Get("/api/smsc-sessions/:id", api.GetSmscSessionUsingGET)
-	app.Patch("/api/smsc-sessions/:id", api.PartialUpdateSmscSessionUsingPATCH)
-	app.Post("/api/smsc-sessions/:id/send-mo", api.SendMobileOriginatedSMSUsingPOST)
-	app.Post("/api/smsc-sessions/:id/batch", api.SendSMSonSmscSessionUsingPOST)
-	app.Put("/api/smsc-sessions/:id", api.UpdateSmscSessionUsingPUT)
+	app.Get("/api/smsc-sessions/:sessionID", api.GetSmscSessionUsingGET)
+	app.Patch("/api/smsc-sessions/:sessionID", api.PartialUpdateSmscSessionUsingPATCH)
+	app.Post("/api/smsc-sessions/:sessionID/send-mo", api.SendMobileOriginatedSMSUsingPOST)
+	app.Post("/api/smsc-sessions/:sessionID/batch", api.SendSMSonSmscSessionUsingPOST)
+	app.Put("/api/smsc-sessions/:sessionID", api.UpdateSmscSessionUsingPUT)
+
 	app.Post("/api/throughput-series", api.CreateThroughputSeriesUsingPOST)
 	app.Delete("/api/throughput-series/:id", api.DeleteThroughputSeriesUsingDELETE)
 	app.Get("/api/throughput-series", api.GetAllThroughputSeriessUsingGET)
@@ -239,9 +241,15 @@ func startPersistEsmeAccounts() {
 	}
 	for _, entity := range entities {
 		if entity.GetIsPersist() {
-			sessionInfo := &openapi.EsmeSession{Account: entity}
-			instance := esme.NewEsmeSimulator(sessionInfo)
-			go instance.Start()
+			numBinds := int(entity.GetNumBinds())
+			if numBinds <= 0 {
+				numBinds = 1
+			}
+			for cnt := 0; cnt < numBinds; cnt++ {
+				sessionInfo := &openapi.EsmeSession{Account: entity}
+				instance := esme.NewEsmeSimulator(sessionInfo)
+				go instance.Start()
+			}
 		}
 	}
 }

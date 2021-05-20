@@ -21,26 +21,26 @@ type BaseSm struct {
 	// a short description
 	Description *string `json:"description,omitempty"`
 	// Data Coding for SMS
-	DataCoding *int32 `json:"dataCoding,omitempty"`
+	DataCoding *int `json:"dataCoding,omitempty"`
 	// Default Message ID
-	DefaultMessageID *int32 `json:"defaultMessageID,omitempty"`
+	DefaultMessageID *int `json:"defaultMessageID,omitempty"`
 	// destination address
 	DestinationAddr *string `json:"destinationAddr,omitempty"`
 	// destination address Number plan indication
-	DestinationNPI *int32 `json:"destinationNPI,omitempty"`
+	DestinationNPI *int `json:"destinationNPI,omitempty"`
 	// destination address Type of number
-	DestinationTON *int32 `json:"destinationTON,omitempty"`
+	DestinationTON *int `json:"destinationTON,omitempty"`
 	// ESM Class
-	EsmClass *int32 `json:"esmClass,omitempty"`
+	EsmClass *int `json:"esmClass,omitempty"`
 	Id *string `json:"id,omitempty"`
 	// Priority Flag
-	PriorityFlag *int32 `json:"priorityFlag,omitempty"`
+	PriorityFlag *int `json:"priorityFlag,omitempty"`
 	// Protocol ID
-	ProtocolID *int32 `json:"protocolID,omitempty"`
+	ProtocolID *int `json:"protocolID,omitempty"`
 	// Registered Delivery
-	RegisteredDelivery *int32 `json:"registeredDelivery,omitempty"`
+	RegisteredDelivery *int `json:"registeredDelivery,omitempty"`
 	// Replace if present flag
-	ReplaceIfPresentFlag *int32 `json:"replaceIfPresentFlag,omitempty"`
+	ReplaceIfPresentFlag *int `json:"replaceIfPresentFlag,omitempty"`
 	// Scheduled Delivery Time
 	ScheduleDeliveryTime *string `json:"scheduleDeliveryTime,omitempty"`
 	// SMPP Service Type
@@ -48,9 +48,9 @@ type BaseSm struct {
 	// source address
 	SourceAddr *string `json:"sourceAddr,omitempty"`
 	// source address Number plan indication
-	SourceNPI *int32 `json:"sourceNPI,omitempty"`
+	SourceNPI *int `json:"sourceNPI,omitempty"`
 	// source address Type of number
-	SourceTON *int32 `json:"sourceTON,omitempty"`
+	SourceTON *int `json:"sourceTON,omitempty"`
 	// Validity Period
 	ValidityPeriod *string `json:"validityPeriod,omitempty"`
 	// Character set used for encoding and decoding between text and shortMessages
@@ -151,9 +151,9 @@ func (o *BaseSm) SetDescription(v string) {
 }
 
 // GetDataCoding returns the DataCoding field value if set, zero value otherwise.
-func (o *BaseSm) GetDataCoding() int32 {
+func (o *BaseSm) GetDataCoding() int {
 	if o == nil || o.DataCoding == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.DataCoding
@@ -161,7 +161,7 @@ func (o *BaseSm) GetDataCoding() int32 {
 
 // GetDataCodingOk returns a tuple with the DataCoding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetDataCodingOk() (*int32, bool) {
+func (o *BaseSm) GetDataCodingOk() (*int, bool) {
 	if o == nil || o.DataCoding == nil {
 		return nil, false
 	}
@@ -177,15 +177,15 @@ func (o *BaseSm) HasDataCoding() bool {
 	return false
 }
 
-// SetDataCoding gets a reference to the given int32 and assigns it to the DataCoding field.
-func (o *BaseSm) SetDataCoding(v int32) {
+// SetDataCoding gets a reference to the given int and assigns it to the DataCoding field.
+func (o *BaseSm) SetDataCoding(v int) {
 	o.DataCoding = &v
 }
 
 // GetDefaultMessageID returns the DefaultMessageID field value if set, zero value otherwise.
-func (o *BaseSm) GetDefaultMessageID() int32 {
+func (o *BaseSm) GetDefaultMessageID() int {
 	if o == nil || o.DefaultMessageID == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.DefaultMessageID
@@ -193,7 +193,7 @@ func (o *BaseSm) GetDefaultMessageID() int32 {
 
 // GetDefaultMessageIDOk returns a tuple with the DefaultMessageID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetDefaultMessageIDOk() (*int32, bool) {
+func (o *BaseSm) GetDefaultMessageIDOk() (*int, bool) {
 	if o == nil || o.DefaultMessageID == nil {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *BaseSm) HasDefaultMessageID() bool {
 	return false
 }
 
-// SetDefaultMessageID gets a reference to the given int32 and assigns it to the DefaultMessageID field.
-func (o *BaseSm) SetDefaultMessageID(v int32) {
+// SetDefaultMessageID gets a reference to the given int and assigns it to the DefaultMessageID field.
+func (o *BaseSm) SetDefaultMessageID(v int) {
 	o.DefaultMessageID = &v
 }
 
@@ -247,9 +247,9 @@ func (o *BaseSm) SetDestinationAddr(v string) {
 }
 
 // GetDestinationNPI returns the DestinationNPI field value if set, zero value otherwise.
-func (o *BaseSm) GetDestinationNPI() int32 {
+func (o *BaseSm) GetDestinationNPI() int {
 	if o == nil || o.DestinationNPI == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.DestinationNPI
@@ -257,7 +257,7 @@ func (o *BaseSm) GetDestinationNPI() int32 {
 
 // GetDestinationNPIOk returns a tuple with the DestinationNPI field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetDestinationNPIOk() (*int32, bool) {
+func (o *BaseSm) GetDestinationNPIOk() (*int, bool) {
 	if o == nil || o.DestinationNPI == nil {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *BaseSm) HasDestinationNPI() bool {
 	return false
 }
 
-// SetDestinationNPI gets a reference to the given int32 and assigns it to the DestinationNPI field.
-func (o *BaseSm) SetDestinationNPI(v int32) {
+// SetDestinationNPI gets a reference to the given int and assigns it to the DestinationNPI field.
+func (o *BaseSm) SetDestinationNPI(v int) {
 	o.DestinationNPI = &v
 }
 
 // GetDestinationTON returns the DestinationTON field value if set, zero value otherwise.
-func (o *BaseSm) GetDestinationTON() int32 {
+func (o *BaseSm) GetDestinationTON() int {
 	if o == nil || o.DestinationTON == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.DestinationTON
@@ -289,7 +289,7 @@ func (o *BaseSm) GetDestinationTON() int32 {
 
 // GetDestinationTONOk returns a tuple with the DestinationTON field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetDestinationTONOk() (*int32, bool) {
+func (o *BaseSm) GetDestinationTONOk() (*int, bool) {
 	if o == nil || o.DestinationTON == nil {
 		return nil, false
 	}
@@ -305,15 +305,15 @@ func (o *BaseSm) HasDestinationTON() bool {
 	return false
 }
 
-// SetDestinationTON gets a reference to the given int32 and assigns it to the DestinationTON field.
-func (o *BaseSm) SetDestinationTON(v int32) {
+// SetDestinationTON gets a reference to the given int and assigns it to the DestinationTON field.
+func (o *BaseSm) SetDestinationTON(v int) {
 	o.DestinationTON = &v
 }
 
 // GetEsmClass returns the EsmClass field value if set, zero value otherwise.
-func (o *BaseSm) GetEsmClass() int32 {
+func (o *BaseSm) GetEsmClass() int {
 	if o == nil || o.EsmClass == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.EsmClass
@@ -321,7 +321,7 @@ func (o *BaseSm) GetEsmClass() int32 {
 
 // GetEsmClassOk returns a tuple with the EsmClass field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetEsmClassOk() (*int32, bool) {
+func (o *BaseSm) GetEsmClassOk() (*int, bool) {
 	if o == nil || o.EsmClass == nil {
 		return nil, false
 	}
@@ -337,8 +337,8 @@ func (o *BaseSm) HasEsmClass() bool {
 	return false
 }
 
-// SetEsmClass gets a reference to the given int32 and assigns it to the EsmClass field.
-func (o *BaseSm) SetEsmClass(v int32) {
+// SetEsmClass gets a reference to the given int and assigns it to the EsmClass field.
+func (o *BaseSm) SetEsmClass(v int) {
 	o.EsmClass = &v
 }
 
@@ -375,9 +375,9 @@ func (o *BaseSm) SetId(v string) {
 }
 
 // GetPriorityFlag returns the PriorityFlag field value if set, zero value otherwise.
-func (o *BaseSm) GetPriorityFlag() int32 {
+func (o *BaseSm) GetPriorityFlag() int {
 	if o == nil || o.PriorityFlag == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.PriorityFlag
@@ -385,7 +385,7 @@ func (o *BaseSm) GetPriorityFlag() int32 {
 
 // GetPriorityFlagOk returns a tuple with the PriorityFlag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetPriorityFlagOk() (*int32, bool) {
+func (o *BaseSm) GetPriorityFlagOk() (*int, bool) {
 	if o == nil || o.PriorityFlag == nil {
 		return nil, false
 	}
@@ -401,15 +401,15 @@ func (o *BaseSm) HasPriorityFlag() bool {
 	return false
 }
 
-// SetPriorityFlag gets a reference to the given int32 and assigns it to the PriorityFlag field.
-func (o *BaseSm) SetPriorityFlag(v int32) {
+// SetPriorityFlag gets a reference to the given int and assigns it to the PriorityFlag field.
+func (o *BaseSm) SetPriorityFlag(v int) {
 	o.PriorityFlag = &v
 }
 
 // GetProtocolID returns the ProtocolID field value if set, zero value otherwise.
-func (o *BaseSm) GetProtocolID() int32 {
+func (o *BaseSm) GetProtocolID() int {
 	if o == nil || o.ProtocolID == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.ProtocolID
@@ -417,7 +417,7 @@ func (o *BaseSm) GetProtocolID() int32 {
 
 // GetProtocolIDOk returns a tuple with the ProtocolID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetProtocolIDOk() (*int32, bool) {
+func (o *BaseSm) GetProtocolIDOk() (*int, bool) {
 	if o == nil || o.ProtocolID == nil {
 		return nil, false
 	}
@@ -433,15 +433,15 @@ func (o *BaseSm) HasProtocolID() bool {
 	return false
 }
 
-// SetProtocolID gets a reference to the given int32 and assigns it to the ProtocolID field.
-func (o *BaseSm) SetProtocolID(v int32) {
+// SetProtocolID gets a reference to the given int and assigns it to the ProtocolID field.
+func (o *BaseSm) SetProtocolID(v int) {
 	o.ProtocolID = &v
 }
 
 // GetRegisteredDelivery returns the RegisteredDelivery field value if set, zero value otherwise.
-func (o *BaseSm) GetRegisteredDelivery() int32 {
+func (o *BaseSm) GetRegisteredDelivery() int {
 	if o == nil || o.RegisteredDelivery == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.RegisteredDelivery
@@ -449,7 +449,7 @@ func (o *BaseSm) GetRegisteredDelivery() int32 {
 
 // GetRegisteredDeliveryOk returns a tuple with the RegisteredDelivery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetRegisteredDeliveryOk() (*int32, bool) {
+func (o *BaseSm) GetRegisteredDeliveryOk() (*int, bool) {
 	if o == nil || o.RegisteredDelivery == nil {
 		return nil, false
 	}
@@ -465,15 +465,15 @@ func (o *BaseSm) HasRegisteredDelivery() bool {
 	return false
 }
 
-// SetRegisteredDelivery gets a reference to the given int32 and assigns it to the RegisteredDelivery field.
-func (o *BaseSm) SetRegisteredDelivery(v int32) {
+// SetRegisteredDelivery gets a reference to the given int and assigns it to the RegisteredDelivery field.
+func (o *BaseSm) SetRegisteredDelivery(v int) {
 	o.RegisteredDelivery = &v
 }
 
 // GetReplaceIfPresentFlag returns the ReplaceIfPresentFlag field value if set, zero value otherwise.
-func (o *BaseSm) GetReplaceIfPresentFlag() int32 {
+func (o *BaseSm) GetReplaceIfPresentFlag() int {
 	if o == nil || o.ReplaceIfPresentFlag == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.ReplaceIfPresentFlag
@@ -481,7 +481,7 @@ func (o *BaseSm) GetReplaceIfPresentFlag() int32 {
 
 // GetReplaceIfPresentFlagOk returns a tuple with the ReplaceIfPresentFlag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetReplaceIfPresentFlagOk() (*int32, bool) {
+func (o *BaseSm) GetReplaceIfPresentFlagOk() (*int, bool) {
 	if o == nil || o.ReplaceIfPresentFlag == nil {
 		return nil, false
 	}
@@ -497,8 +497,8 @@ func (o *BaseSm) HasReplaceIfPresentFlag() bool {
 	return false
 }
 
-// SetReplaceIfPresentFlag gets a reference to the given int32 and assigns it to the ReplaceIfPresentFlag field.
-func (o *BaseSm) SetReplaceIfPresentFlag(v int32) {
+// SetReplaceIfPresentFlag gets a reference to the given int and assigns it to the ReplaceIfPresentFlag field.
+func (o *BaseSm) SetReplaceIfPresentFlag(v int) {
 	o.ReplaceIfPresentFlag = &v
 }
 
@@ -599,9 +599,9 @@ func (o *BaseSm) SetSourceAddr(v string) {
 }
 
 // GetSourceNPI returns the SourceNPI field value if set, zero value otherwise.
-func (o *BaseSm) GetSourceNPI() int32 {
+func (o *BaseSm) GetSourceNPI() int {
 	if o == nil || o.SourceNPI == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.SourceNPI
@@ -609,7 +609,7 @@ func (o *BaseSm) GetSourceNPI() int32 {
 
 // GetSourceNPIOk returns a tuple with the SourceNPI field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetSourceNPIOk() (*int32, bool) {
+func (o *BaseSm) GetSourceNPIOk() (*int, bool) {
 	if o == nil || o.SourceNPI == nil {
 		return nil, false
 	}
@@ -625,15 +625,15 @@ func (o *BaseSm) HasSourceNPI() bool {
 	return false
 }
 
-// SetSourceNPI gets a reference to the given int32 and assigns it to the SourceNPI field.
-func (o *BaseSm) SetSourceNPI(v int32) {
+// SetSourceNPI gets a reference to the given int and assigns it to the SourceNPI field.
+func (o *BaseSm) SetSourceNPI(v int) {
 	o.SourceNPI = &v
 }
 
 // GetSourceTON returns the SourceTON field value if set, zero value otherwise.
-func (o *BaseSm) GetSourceTON() int32 {
+func (o *BaseSm) GetSourceTON() int {
 	if o == nil || o.SourceTON == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.SourceTON
@@ -641,7 +641,7 @@ func (o *BaseSm) GetSourceTON() int32 {
 
 // GetSourceTONOk returns a tuple with the SourceTON field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSm) GetSourceTONOk() (*int32, bool) {
+func (o *BaseSm) GetSourceTONOk() (*int, bool) {
 	if o == nil || o.SourceTON == nil {
 		return nil, false
 	}
@@ -657,8 +657,8 @@ func (o *BaseSm) HasSourceTON() bool {
 	return false
 }
 
-// SetSourceTON gets a reference to the given int32 and assigns it to the SourceTON field.
-func (o *BaseSm) SetSourceTON(v int32) {
+// SetSourceTON gets a reference to the given int and assigns it to the SourceTON field.
+func (o *BaseSm) SetSourceTON(v int) {
 	o.SourceTON = &v
 }
 

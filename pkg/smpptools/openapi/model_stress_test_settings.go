@@ -19,9 +19,9 @@ type StressTestSettings struct {
 	SmsPattern *BaseSm `json:"smsPattern,omitempty"`
 	SmsData *IsdnList `json:"smsData,omitempty"`
 	// maximum throughput try to reach
-	Throughput *int32 `json:"throughput,omitempty"`
+	Throughput *int `json:"throughput,omitempty"`
 	// max number of PDU send out
-	MaxPDU *int32 `json:"maxPDU,omitempty"`
+	MaxPDU *int `json:"maxPDU,omitempty"`
 }
 
 // NewStressTestSettings instantiates a new StressTestSettings object
@@ -106,9 +106,9 @@ func (o *StressTestSettings) SetSmsData(v IsdnList) {
 }
 
 // GetThroughput returns the Throughput field value if set, zero value otherwise.
-func (o *StressTestSettings) GetThroughput() int32 {
+func (o *StressTestSettings) GetThroughput() int {
 	if o == nil || o.Throughput == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.Throughput
@@ -116,7 +116,7 @@ func (o *StressTestSettings) GetThroughput() int32 {
 
 // GetThroughputOk returns a tuple with the Throughput field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StressTestSettings) GetThroughputOk() (*int32, bool) {
+func (o *StressTestSettings) GetThroughputOk() (*int, bool) {
 	if o == nil || o.Throughput == nil {
 		return nil, false
 	}
@@ -132,15 +132,15 @@ func (o *StressTestSettings) HasThroughput() bool {
 	return false
 }
 
-// SetThroughput gets a reference to the given int32 and assigns it to the Throughput field.
-func (o *StressTestSettings) SetThroughput(v int32) {
+// SetThroughput gets a reference to the given int and assigns it to the Throughput field.
+func (o *StressTestSettings) SetThroughput(v int) {
 	o.Throughput = &v
 }
 
 // GetMaxPDU returns the MaxPDU field value if set, zero value otherwise.
-func (o *StressTestSettings) GetMaxPDU() int32 {
+func (o *StressTestSettings) GetMaxPDU() int {
 	if o == nil || o.MaxPDU == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.MaxPDU
@@ -148,7 +148,7 @@ func (o *StressTestSettings) GetMaxPDU() int32 {
 
 // GetMaxPDUOk returns a tuple with the MaxPDU field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StressTestSettings) GetMaxPDUOk() (*int32, bool) {
+func (o *StressTestSettings) GetMaxPDUOk() (*int, bool) {
 	if o == nil || o.MaxPDU == nil {
 		return nil, false
 	}
@@ -164,8 +164,8 @@ func (o *StressTestSettings) HasMaxPDU() bool {
 	return false
 }
 
-// SetMaxPDU gets a reference to the given int32 and assigns it to the MaxPDU field.
-func (o *StressTestSettings) SetMaxPDU(v int32) {
+// SetMaxPDU gets a reference to the given int and assigns it to the MaxPDU field.
+func (o *StressTestSettings) SetMaxPDU(v int) {
 	o.MaxPDU = &v
 }
 

@@ -22,17 +22,17 @@ type SmscInstance struct {
 	// short description text
 	Description *string `json:"description,omitempty"`
 	// TCP Port to listen to
-	Port *int32 `json:"port,omitempty"`
+	Port *int `json:"port,omitempty"`
 	// Identifies the MC to the ESME
 	SystemID *string `json:"systemID,omitempty"`
 	// Connection timeout in milliseconds
-	ConnectionTimeout *int32 `json:"connectionTimeout,omitempty"`
+	ConnectionTimeout *int `json:"connectionTimeout,omitempty"`
 	// true if this SMSC should be start automatically on start up
 	IsPersist *bool `json:"isPersist,omitempty"`
 	// true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default
 	AllowAnonymous *bool `json:"allowAnonymous,omitempty"`
 	// Number of packets send out per one go
-	WindowSize *int32 `json:"windowSize,omitempty"`
+	WindowSize *int `json:"windowSize,omitempty"`
 }
 
 // NewSmscInstance instantiates a new SmscInstance object
@@ -146,9 +146,9 @@ func (o *SmscInstance) SetDescription(v string) {
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *SmscInstance) GetPort() int32 {
+func (o *SmscInstance) GetPort() int {
 	if o == nil || o.Port == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.Port
@@ -156,7 +156,7 @@ func (o *SmscInstance) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscInstance) GetPortOk() (*int32, bool) {
+func (o *SmscInstance) GetPortOk() (*int, bool) {
 	if o == nil || o.Port == nil {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *SmscInstance) HasPort() bool {
 	return false
 }
 
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *SmscInstance) SetPort(v int32) {
+// SetPort gets a reference to the given int and assigns it to the Port field.
+func (o *SmscInstance) SetPort(v int) {
 	o.Port = &v
 }
 
@@ -210,9 +210,9 @@ func (o *SmscInstance) SetSystemID(v string) {
 }
 
 // GetConnectionTimeout returns the ConnectionTimeout field value if set, zero value otherwise.
-func (o *SmscInstance) GetConnectionTimeout() int32 {
+func (o *SmscInstance) GetConnectionTimeout() int {
 	if o == nil || o.ConnectionTimeout == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.ConnectionTimeout
@@ -220,7 +220,7 @@ func (o *SmscInstance) GetConnectionTimeout() int32 {
 
 // GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool) {
+func (o *SmscInstance) GetConnectionTimeoutOk() (*int, bool) {
 	if o == nil || o.ConnectionTimeout == nil {
 		return nil, false
 	}
@@ -236,8 +236,8 @@ func (o *SmscInstance) HasConnectionTimeout() bool {
 	return false
 }
 
-// SetConnectionTimeout gets a reference to the given int32 and assigns it to the ConnectionTimeout field.
-func (o *SmscInstance) SetConnectionTimeout(v int32) {
+// SetConnectionTimeout gets a reference to the given int and assigns it to the ConnectionTimeout field.
+func (o *SmscInstance) SetConnectionTimeout(v int) {
 	o.ConnectionTimeout = &v
 }
 
@@ -306,9 +306,9 @@ func (o *SmscInstance) SetAllowAnonymous(v bool) {
 }
 
 // GetWindowSize returns the WindowSize field value if set, zero value otherwise.
-func (o *SmscInstance) GetWindowSize() int32 {
+func (o *SmscInstance) GetWindowSize() int {
 	if o == nil || o.WindowSize == nil {
-		var ret int32
+		var ret int
 		return ret
 	}
 	return *o.WindowSize
@@ -316,7 +316,7 @@ func (o *SmscInstance) GetWindowSize() int32 {
 
 // GetWindowSizeOk returns a tuple with the WindowSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SmscInstance) GetWindowSizeOk() (*int32, bool) {
+func (o *SmscInstance) GetWindowSizeOk() (*int, bool) {
 	if o == nil || o.WindowSize == nil {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *SmscInstance) HasWindowSize() bool {
 	return false
 }
 
-// SetWindowSize gets a reference to the given int32 and assigns it to the WindowSize field.
-func (o *SmscInstance) SetWindowSize(v int32) {
+// SetWindowSize gets a reference to the given int and assigns it to the WindowSize field.
+func (o *SmscInstance) SetWindowSize(v int) {
 	o.WindowSize = &v
 }
 

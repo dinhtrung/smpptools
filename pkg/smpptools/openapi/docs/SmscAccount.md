@@ -10,15 +10,15 @@ Name | Type | Description | Notes
 **SystemID** | **string** | SystemID used to connect to remote SMSC | 
 **Password** | **string** | Password for login | 
 **SystemType** | Pointer to **string** | The system_type parameter is used to categorize the type of ESME that is binding to the SMSC | [optional] 
-**InterfaceVersion** | Pointer to **int32** | version of the SMPP protocol | [optional] 
+**InterfaceVersion** | Pointer to **int** | version of the SMPP protocol | [optional] 
 **BindType** | Pointer to **string** | Bind Type, transmitter, receiver or transceiver | [optional] [default to "transceiver"]
 **AddressRange** | Pointer to **string** | Bind Address Range | [optional] 
-**AddressNPI** | Pointer to **int32** | Bind Address Numbering Plan Indication | [optional] 
-**AddressTON** | Pointer to **int32** | Bind Address Type of Number | [optional] 
+**AddressNPI** | Pointer to **int** | Bind Address Numbering Plan Indication | [optional] 
+**AddressTON** | Pointer to **int** | Bind Address Type of Number | [optional] 
 **AcceptRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error ratio for return on receive Submit SM from ESME | [optional] 
 **DeliveryRatio** | Pointer to [**[]ErrorRate**](ErrorRate.md) | Error ratio for generate the Delivery Report and send back to client | [optional] 
-**MoThroughput** | Pointer to **int32** | Maximum throughput for sending MO | [optional] 
-**MaxBinds** | Pointer to **int32** | max number of active binds on this account | [optional] 
+**MoThroughput** | Pointer to **int** | Maximum throughput for sending MO | [optional] 
+**MaxBinds** | Pointer to **int** | max number of active binds on this account | [optional] 
 
 ## Methods
 
@@ -176,20 +176,20 @@ HasSystemType returns a boolean if a field has been set.
 
 ### GetInterfaceVersion
 
-`func (o *SmscAccount) GetInterfaceVersion() int32`
+`func (o *SmscAccount) GetInterfaceVersion() int`
 
 GetInterfaceVersion returns the InterfaceVersion field if non-nil, zero value otherwise.
 
 ### GetInterfaceVersionOk
 
-`func (o *SmscAccount) GetInterfaceVersionOk() (*int32, bool)`
+`func (o *SmscAccount) GetInterfaceVersionOk() (*int, bool)`
 
 GetInterfaceVersionOk returns a tuple with the InterfaceVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInterfaceVersion
 
-`func (o *SmscAccount) SetInterfaceVersion(v int32)`
+`func (o *SmscAccount) SetInterfaceVersion(v int)`
 
 SetInterfaceVersion sets InterfaceVersion field to given value.
 
@@ -251,20 +251,20 @@ HasAddressRange returns a boolean if a field has been set.
 
 ### GetAddressNPI
 
-`func (o *SmscAccount) GetAddressNPI() int32`
+`func (o *SmscAccount) GetAddressNPI() int`
 
 GetAddressNPI returns the AddressNPI field if non-nil, zero value otherwise.
 
 ### GetAddressNPIOk
 
-`func (o *SmscAccount) GetAddressNPIOk() (*int32, bool)`
+`func (o *SmscAccount) GetAddressNPIOk() (*int, bool)`
 
 GetAddressNPIOk returns a tuple with the AddressNPI field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddressNPI
 
-`func (o *SmscAccount) SetAddressNPI(v int32)`
+`func (o *SmscAccount) SetAddressNPI(v int)`
 
 SetAddressNPI sets AddressNPI field to given value.
 
@@ -276,20 +276,20 @@ HasAddressNPI returns a boolean if a field has been set.
 
 ### GetAddressTON
 
-`func (o *SmscAccount) GetAddressTON() int32`
+`func (o *SmscAccount) GetAddressTON() int`
 
 GetAddressTON returns the AddressTON field if non-nil, zero value otherwise.
 
 ### GetAddressTONOk
 
-`func (o *SmscAccount) GetAddressTONOk() (*int32, bool)`
+`func (o *SmscAccount) GetAddressTONOk() (*int, bool)`
 
 GetAddressTONOk returns a tuple with the AddressTON field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddressTON
 
-`func (o *SmscAccount) SetAddressTON(v int32)`
+`func (o *SmscAccount) SetAddressTON(v int)`
 
 SetAddressTON sets AddressTON field to given value.
 
@@ -351,20 +351,20 @@ HasDeliveryRatio returns a boolean if a field has been set.
 
 ### GetMoThroughput
 
-`func (o *SmscAccount) GetMoThroughput() int32`
+`func (o *SmscAccount) GetMoThroughput() int`
 
 GetMoThroughput returns the MoThroughput field if non-nil, zero value otherwise.
 
 ### GetMoThroughputOk
 
-`func (o *SmscAccount) GetMoThroughputOk() (*int32, bool)`
+`func (o *SmscAccount) GetMoThroughputOk() (*int, bool)`
 
 GetMoThroughputOk returns a tuple with the MoThroughput field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMoThroughput
 
-`func (o *SmscAccount) SetMoThroughput(v int32)`
+`func (o *SmscAccount) SetMoThroughput(v int)`
 
 SetMoThroughput sets MoThroughput field to given value.
 
@@ -376,20 +376,20 @@ HasMoThroughput returns a boolean if a field has been set.
 
 ### GetMaxBinds
 
-`func (o *SmscAccount) GetMaxBinds() int32`
+`func (o *SmscAccount) GetMaxBinds() int`
 
 GetMaxBinds returns the MaxBinds field if non-nil, zero value otherwise.
 
 ### GetMaxBindsOk
 
-`func (o *SmscAccount) GetMaxBindsOk() (*int32, bool)`
+`func (o *SmscAccount) GetMaxBindsOk() (*int, bool)`
 
 GetMaxBindsOk returns a tuple with the MaxBinds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxBinds
 
-`func (o *SmscAccount) SetMaxBinds(v int32)`
+`func (o *SmscAccount) SetMaxBinds(v int)`
 
 SetMaxBinds sets MaxBinds field to given value.
 

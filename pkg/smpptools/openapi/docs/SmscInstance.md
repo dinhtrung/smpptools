@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** | name of this SMSC Instance | 
 **Description** | Pointer to **string** | short description text | [optional] 
-**Port** | Pointer to **int32** | TCP Port to listen to | [optional] 
+**Port** | Pointer to **int** | TCP Port to listen to | [optional] 
 **SystemID** | Pointer to **string** | Identifies the MC to the ESME | [optional] 
-**ConnectionTimeout** | Pointer to **int32** | Connection timeout in milliseconds | [optional] 
+**ConnectionTimeout** | Pointer to **int** | Connection timeout in milliseconds | [optional] 
 **IsPersist** | Pointer to **bool** | true if this SMSC should be start automatically on start up | [optional] 
 **AllowAnonymous** | Pointer to **bool** | true to bypass checking on SMSC account. Accept ratio and Delivery Error ratio will use system default | [optional] [default to false]
-**WindowSize** | Pointer to **int32** | Number of packets send out per one go | [optional] 
+**WindowSize** | Pointer to **int** | Number of packets send out per one go | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetPort
 
-`func (o *SmscInstance) GetPort() int32`
+`func (o *SmscInstance) GetPort() int`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *SmscInstance) GetPortOk() (*int32, bool)`
+`func (o *SmscInstance) GetPortOk() (*int, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *SmscInstance) SetPort(v int32)`
+`func (o *SmscInstance) SetPort(v int)`
 
 SetPort sets Port field to given value.
 
@@ -155,20 +155,20 @@ HasSystemID returns a boolean if a field has been set.
 
 ### GetConnectionTimeout
 
-`func (o *SmscInstance) GetConnectionTimeout() int32`
+`func (o *SmscInstance) GetConnectionTimeout() int`
 
 GetConnectionTimeout returns the ConnectionTimeout field if non-nil, zero value otherwise.
 
 ### GetConnectionTimeoutOk
 
-`func (o *SmscInstance) GetConnectionTimeoutOk() (*int32, bool)`
+`func (o *SmscInstance) GetConnectionTimeoutOk() (*int, bool)`
 
 GetConnectionTimeoutOk returns a tuple with the ConnectionTimeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectionTimeout
 
-`func (o *SmscInstance) SetConnectionTimeout(v int32)`
+`func (o *SmscInstance) SetConnectionTimeout(v int)`
 
 SetConnectionTimeout sets ConnectionTimeout field to given value.
 
@@ -230,20 +230,20 @@ HasAllowAnonymous returns a boolean if a field has been set.
 
 ### GetWindowSize
 
-`func (o *SmscInstance) GetWindowSize() int32`
+`func (o *SmscInstance) GetWindowSize() int`
 
 GetWindowSize returns the WindowSize field if non-nil, zero value otherwise.
 
 ### GetWindowSizeOk
 
-`func (o *SmscInstance) GetWindowSizeOk() (*int32, bool)`
+`func (o *SmscInstance) GetWindowSizeOk() (*int, bool)`
 
 GetWindowSizeOk returns a tuple with the WindowSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWindowSize
 
-`func (o *SmscInstance) SetWindowSize(v int32)`
+`func (o *SmscInstance) SetWindowSize(v int)`
 
 SetWindowSize sets WindowSize field to given value.
 
