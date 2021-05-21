@@ -16,6 +16,8 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
+	app.Get("api/file-browser", FileListing)
+	app.Get("api/file-browser/:bucket", FileListing)
 	// + eptw regions endpoints
 	app.Post("api/file-upload", FileUpload)
 	app.Post("api/file-upload/:name", FileUpload)
@@ -26,11 +28,30 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Get("api/statics/:name", FileDownload)
 	app.Get("api/statics/:bucket/:name", FileDownload)
+	app.Get("api/file-download/:name", FileDownload)
+	app.Get("api/file-download/:bucket/:name", FileDownload)
 	app.Get("api/file-download", FileDownload)
 
 	app.Get("api/file-info/:bucket/:name", FileCheck)
 	app.Get("api/file-info/:name", FileCheck)
 	app.Get("api/file-check", FileCheck)
+}
+
+// FileListing list the files information from S3
+func FileListing(c *fiber.Ctx) error {
+	bucketName := c.Get("bucket", c.Query("bucket", app.Config.String("s3.bucket")))
+	exists, err := app.S3Client.BucketExists(c.Context(), bucketName)
+	if err != nil {
+		return err
+	}
+	if !exists {
+		return fiber.ErrNotFound
+	}
+	entities := make([]minio.ObjectInfo, 0)
+	for file := range app.S3Client.ListObjects(c.Context(), bucketName, minio.ListObjectsOptions{Recursive: true, Prefix: c.Query("name")}) {
+		entities = append(entities, file)
+	}
+	return c.JSON(entities)
 }
 
 // FileUpload upload a file into minio bucket
@@ -84,12 +105,14 @@ func FileUpload(c *fiber.Ctx) error {
 	suffix := 0
 	newFileName := fmt.Sprintf("%s%s", baseName, ext)
 	for {
-		_, err := app.S3Client.StatObject(context.Background(), bucketName, newFileName, minio.StatObjectOptions{})
+		_, err := app.S3Client.StatObject(c.Context(), bucketName, newFileName, minio.StatObjectOptions{})
 		if err != nil {
 
-			uploadInfo, err := app.S3Client.PutObject(context.Background(), bucketName, newFileName, file, fileStat.Size(), minio.PutObjectOptions{ContentType: fileMime})
+			uploadInfo, err := app.S3Client.PutObject(c.Context(), bucketName, newFileName, file, fileStat.Size(), minio.PutObjectOptions{ContentType: fileMime})
 			if err == nil {
-				return c.JSON(uploadInfo)
+				if info, err := app.S3Client.StatObject(context.Background(), uploadInfo.Bucket, uploadInfo.Key, minio.StatObjectOptions{}); err == nil {
+					return c.JSON(info)
+				}
 			}
 		}
 		suffix++

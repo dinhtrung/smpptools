@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"encoding/json"
 
 	"flag"
 	"fmt"
@@ -85,6 +84,8 @@ func main() {
 	cr := csv.NewReader(file)
 	cnt := 0
 	tps := make(map[int64]int)
+	minTs := time.Now()
+	maxTs := time.Time{}
 	for {
 		// Read each record from *.csv file
 		row, err := cr.Read()
@@ -93,9 +94,6 @@ func main() {
 		}
 		if err != nil {
 			log.Fatal(err)
-		}
-		if len(row) < 2 {
-			log.Fatal("invalid data on file - len row <1")
 		}
 		// skip first row
 		if ts, err := time.Parse("20060102150405", row[START]); err == nil {
@@ -109,6 +107,12 @@ func main() {
 			} else {
 				tps[ts.Unix()] = val + 1
 			}
+			if ts.Before(minTs) {
+				minTs = ts
+			}
+			if ts.After(maxTs) {
+				maxTs = ts
+			}
 			cnt++
 		}
 
@@ -117,15 +121,22 @@ func main() {
 	wg.Wait()
 	endTime := time.Now()
 	log.Printf("Total rows %d,  seconds %d", cnt, endTime.Unix()-startTime.Unix())
-	outfile2, err := os.OpenFile(outputFile+".tps", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+
+	log.Printf("time range: %s -> %s", minTs.Format(time.RFC3339), maxTs.Format(time.RFC3339))
+
+	// Finally store the TPS
+	err = app.BuntDB.Update(func(tx *buntdb.Tx) error {
+		tx.Set("min", fmt.Sprint(minTs.Unix()), nil)
+		tx.Set("max", fmt.Sprint(maxTs.Unix()), nil)
+		for k, v := range tps {
+			if _, _, err := tx.Set(fmt.Sprintf("tps:%d", k), fmt.Sprint(v), nil); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
 	if err != nil {
 		log.Fatal(err)
-	}
-	defer outfile2.Close()
-	enc2 := json.NewEncoder(outfile2)
-	if err := enc2.Encode(tps); err != nil {
-		log.Printf("error writing tps data %s", err)
-		fmt.Printf("%+v", tps)
 	}
 }
 

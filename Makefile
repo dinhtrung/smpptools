@@ -16,7 +16,7 @@ pkger:
 	go mod vendor
 
 smpp:
-	$(GOBUILD) -o build/package/smpp-simulator cmd/smpp-simulator/*.go
+	$(GOBUILD) -o build/package/smpptools cmd/smpp-simulator/*.go
 
 smpp-windows:
 	$(GOWIN) -o build/package/smpp-simulator.exe cmd/smpp-simulator/*.go

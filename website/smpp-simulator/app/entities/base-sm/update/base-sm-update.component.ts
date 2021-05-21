@@ -7,7 +7,7 @@ import { finalize, tap } from 'rxjs/operators';
 
 import { IBaseSm, BaseSm } from '../base-sm.model';
 import { BaseSmService } from '../service/base-sm.service';
-import { SMPP_TON, SMPP_NPI, SMPP_TLV } from 'app/config/smpp-error-codes.constants';
+import { SMPP_TON, SMPP_NPI, SMPP_TLV, SMPP_CHARSET } from 'app/config/smpp-error-codes.constants';
 
 @Component({
   selector: 'jhi-base-sm-update',
@@ -46,6 +46,7 @@ export class BaseSmUpdateComponent implements OnInit {
   smppTON = SMPP_TON;
   smppNPI = SMPP_NPI;
   tlvOptions = SMPP_TLV;
+  charsets = SMPP_CHARSET;
 
   constructor(
     protected httpClient: HttpClient,

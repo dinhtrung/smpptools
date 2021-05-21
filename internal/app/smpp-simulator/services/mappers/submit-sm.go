@@ -7,11 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ajankovic/gsm"
 	"github.com/ajankovic/smpp/pdu"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 	"github.com/fiorix/go-smpp/smpp/pdu/pdutext"
-	"golang.org/x/text/transform"
 )
 
 const GSM_MAXLEN = 160
@@ -171,31 +169,25 @@ func SplitDCS8(r *openapi.BaseSm) error {
 }
 
 func SplitGSM(r *openapi.BaseSm) error {
-	encoder := gsm.NewEncoder(0)
 	parts := make([]openapi.ShortMessageHex, 0)
 	if len(r.GetText()) > GSM_MAXLEN {
-		msgTotal := len(r.GetText()) / GSM_SPLITLEN
+		txtParts := splitByWidth(r.GetText(), GSM_SPLITLEN)
+		msgTotal := len(txtParts)
 		msgRef := rand.Int()
 		msgPart := openapi.NewShortMessageHex()
-		for msgCur := 1; msgCur <= msgTotal; msgCur++ {
-			output, _, err := transform.Bytes(encoder, []byte(r.GetText()[(msgCur-1)*GSM_SPLITLEN:msgCur*GSM_SPLITLEN]))
-			if err != nil {
-				return err
-			}
+		for msgCur, txtPart := range txtParts {
+			output := pdutext.GSM7([]byte(txtPart))
 			if !r.GetIsConcatTLV() {
-				msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur, msgTotal))
+				msgPart.SetUdhPart(ConcatenateUdh5(msgRef, msgCur+1, msgTotal))
 			}
-			msgPart.SetTxtPart(hex.EncodeToString(output))
+			msgPart.SetTxtPart(hex.EncodeToString(output.Encode()))
 			parts = append(parts, *msgPart)
 		}
 		r.SetEsmClass(r.GetEsmClass() | 32)
 	} else {
-		output, _, err := transform.Bytes(encoder, []byte(r.GetText()))
-		if err != nil {
-			return err
-		}
+		output := pdutext.GSM7([]byte(r.GetText()))
 		msgPart := openapi.NewShortMessageHex()
-		msgPart.SetTxtPart(hex.EncodeToString(output))
+		msgPart.SetTxtPart(hex.EncodeToString(output.Encode()))
 		parts = append(parts, *msgPart)
 	}
 	r.SetShortMessages(parts)
