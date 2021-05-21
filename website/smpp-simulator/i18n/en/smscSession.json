@@ -2,23 +2,24 @@
   "smpptoolsApp": {
     "smscSession": {
       "home": {
-        "title": "Smsc Sessions",
+        "title": "SMSC Sessions",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Smsc Session",
-        "createOrEditLabel": "Create or edit a Smsc Session",
-        "notFound": "No Smsc Sessions found"
+        "createLabel": "Create a new SMSC Session",
+        "createOrEditLabel": "Create or edit a SMSC Session",
+        "notFound": "No SMSC Sessions found"
       },
-      "created": "A new Smsc Session is created with identifier {{ param }}",
-      "updated": "A Smsc Session is updated with identifier {{ param }}",
-      "deleted": "A Smsc Session is deleted with identifier {{ param }}",
+      "created": "A new SMSC Session is created with identifier {{ param }}",
+      "updated": "A SMSC Session is updated with identifier {{ param }}",
+      "deleted": "A SMSC Session is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Smsc Session {{ id }}?"
+        "question": "Are you sure you want to delete SMSC Session {{ id }}?"
       },
       "detail": {
-        "title": "Smsc Session"
+        "title": "SMSC Session"
       },
       "id": "ID",
-      "remoteAddr": "Remote Addr",
+      "remoteAddr": "Remote Address",
+      "localAddr": "Local Address",
       "createdAt": "Created At"
     }
   }

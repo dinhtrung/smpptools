@@ -18,11 +18,94 @@
         <dd>
           <span>{{ smscSession.remoteAddr }}</span>
         </dd>
+        <dt><span jhiTranslate="smpptoolsApp.smscSession.localAddr">Local Addr</span></dt>
+        <dd>
+          <span>{{ smscSession.localAddr }}</span>
+        </dd>
         <dt><span jhiTranslate="smpptoolsApp.smscSession.createdAt">Created At</span></dt>
         <dd>
           <span>{{ smscSession.createdAt | formatMediumDatetime }}</span>
         </dd>
       </dl>
+
+      <div *ngIf="smscSession.account">
+      <h5>SMSC Account Information</h5>
+
+      <dl class="row-md jh-entity-details">
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.name" [ngbTooltip]="'smpptoolsApp.smscAccount.help.name' | translate">Name</span>
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.description" [ngbTooltip]="'smpptoolsApp.smscAccount.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.description }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.maxBinds" [ngbTooltip]="'smpptoolsApp.smscAccount.help.maxBinds' | translate"
+            >Max Binds</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.maxBinds }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.systemID" [ngbTooltip]="'smpptoolsApp.smscAccount.help.systemID' | translate"
+            >System ID</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.systemID }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.password" [ngbTooltip]="'smpptoolsApp.smscAccount.help.password' | translate"
+            >Password</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.password }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.bindType" [ngbTooltip]="'smpptoolsApp.smscAccount.help.bindType' | translate"
+            >Bind Type</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.bindType }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressRange" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressRange' | translate"
+            >Address Range</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.addressRange }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressTON" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressTON' | translate"
+            >Address TON</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.addressTON }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="smpptoolsApp.smscAccount.addressNPI" [ngbTooltip]="'smpptoolsApp.smscAccount.help.addressNPI' | translate"
+            >Address NPI</span
+          >
+        </dt>
+        <dd>
+          <span>{{ smscSession.account?.addressNPI }}</span>
+        </dd>
+      </dl>
+      </div>
+
+
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>

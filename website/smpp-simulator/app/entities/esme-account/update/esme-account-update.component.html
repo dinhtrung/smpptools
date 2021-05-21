@@ -347,138 +347,62 @@
           </div>
         </fieldset>
 
-        <fieldset>
-          <legend>SMS Receiving</legend>
-          <div class="row">
-            <div class="form-group col-md-2">
-              <label
-                class="form-control-label"
-                jhiTranslate="smpptoolsApp.esmeAccount.moErrorRate"
-                for="field_moErrorRate"
-                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorRate' | translate"
-                >Mo Error Rate</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                name="moErrorRate"
-                id="field_moErrorRate"
-                data-cy="moErrorRate"
-                formControlName="moErrorRate"
-              />
-              <div
-                *ngIf="editForm.get('moErrorRate')!.invalid && (editForm.get('moErrorRate')!.dirty || editForm.get('moErrorRate')!.touched)"
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('moErrorRate')?.errors?.min"
-                  jhiTranslate="entity.validation.min"
-                  [translateValues]="{ min: 0 }"
-                >
-                  This field should be at least 0.
-                </small>
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('moErrorRate')?.errors?.max"
-                  jhiTranslate="entity.validation.max"
-                  [translateValues]="{ max: 100 }"
-                >
-                  This field cannot be more than 100.
-                </small>
-                <small
-                  class="form-text text-danger"
-                  [hidden]="!editForm.get('moErrorRate')?.errors?.number"
-                  jhiTranslate="entity.validation.number"
-                >
-                  This field should be a number.
-                </small>
-              </div>
-            </div>
 
-            <div class="form-group col-md-10">
-              <label
-                class="form-control-label"
-                jhiTranslate="smpptoolsApp.esmeAccount.moErrorCode"
-                for="field_moErrorCode"
-                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.moErrorCode' | translate"
-                >Mo Error Code</label
-              >
-              <select class="form-control" name="moErrorCode" id="field_moErrorCode" data-cy="moErrorCode" formControlName="moErrorCode">
-                <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
-              </select>
-            </div>
-          </div>
-        </fieldset>
+              <div class="form-group">
+                <button type="button" name="addAcceptRatio" (click)="addAcceptRatio()" class="btn btn-primary float-right">Add Error Rate</button>
+                <label
+                  class="form-control-label"
+                  jhiTranslate="smpptoolsApp.esmeAccount.acceptRatio"
+                  for="field_tlvList"
+                  [ngbTooltip]="'smpptoolsApp.esmeAccount.help.acceptRatio' | translate"
+                  >Accept Ratio</label
+                >
 
-        <fieldset>
-          <legend>Delivery Receipt Processing</legend>
-          <div class="row">
-            <div class="form-group col-md-2">
-              <label
-                class="form-control-label"
-                jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorRate"
-                for="field_dlrErrorRate"
-                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorRate' | translate"
-                >Dlr Error Rate</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                name="dlrErrorRate"
-                id="field_dlrErrorRate"
-                data-cy="dlrErrorRate"
-                formControlName="dlrErrorRate"
-              />
-              <div
-                *ngIf="
-                  editForm.get('dlrErrorRate')!.invalid && (editForm.get('dlrErrorRate')!.dirty || editForm.get('dlrErrorRate')!.touched)
-                "
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('dlrErrorRate')?.errors?.min"
-                  jhiTranslate="entity.validation.min"
-                  [translateValues]="{ min: 0 }"
-                >
-                  This field should be at least 0.
-                </small>
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('dlrErrorRate')?.errors?.max"
-                  jhiTranslate="entity.validation.max"
-                  [translateValues]="{ max: 100 }"
-                >
-                  This field cannot be more than 100.
-                </small>
-                <small
-                  class="form-text text-danger"
-                  [hidden]="!editForm.get('dlrErrorRate')?.errors?.number"
-                  jhiTranslate="entity.validation.number"
-                >
-                  This field should be a number.
-                </small>
+                <div formArrayName="acceptRatio">
+                  <div *ngFor="let item of AcceptRatio.controls; let ratio = index" [formGroupName]="ratio" class="input-group my-3">
+                    <label class="input-group-text" jhiTranslate="smpptoolsApp.esmeAccount.errorRate">Error</label>
+                    <select class="form-control" name="error" formControlName="error">
+                      <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
+                    </select>
+
+                    <input type="number" class="form-control" name="rate" formControlName="rate" placeholder="error rate" />
+                    <div class="input-group-append">
+                      <button type="button" name="button" (click)="delAcceptRatio(ratio)" class="btn btn-sm btn-danger">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <p class="form-help text-muted" jhiTranslate="smpptoolsApp.esmeAccount.help.acceptRatio"></p>
               </div>
-            </div>
-            <div class="form-group col-md-10">
-              <label
-                class="form-control-label"
-                jhiTranslate="smpptoolsApp.esmeAccount.dlrErrorCode"
-                for="field_dlrErrorCode"
-                [ngbTooltip]="'smpptoolsApp.esmeAccount.help.dlrErrorCode' | translate"
-                >Dlr Error Code</label
-              >
-              <select
-                class="form-control"
-                name="dlrErrorCode"
-                id="field_dlrErrorCode"
-                data-cy="dlrErrorCode"
-                formControlName="dlrErrorCode"
-              >
-                <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
-              </select>
-            </div>
-          </div>
-        </fieldset>
+
+              <div class="form-group">
+                <button type="button" name="addAckRatio" (click)="addAckRatio()" class="btn btn-primary float-right">
+                  Add Error Rate
+                </button>
+                <label
+                  class="form-control-label"
+                  jhiTranslate="smpptoolsApp.esmeAccount.ackRatio"
+                  for="field_tlvList"
+                  [ngbTooltip]="'smpptoolsApp.esmeAccount.help.ackRatio' | translate"
+                  >Delivery Ratio</label
+                >
+
+                <div formArrayName="ackRatio">
+                  <div *ngFor="let item of AckRatio.controls; let ratio = index" [formGroupName]="ratio" class="input-group my-3">
+                    <label class="input-group-text" jhiTranslate="smpptoolsApp.esmeAccount.errorRate">Error</label>
+                    <select class="form-control" name="error" formControlName="error">
+                      <option *ngFor="let o of smppStatus" [ngValue]="o.value" [innerHtml]="o.label"></option>
+                    </select>
+
+                    <input type="number" class="form-control" name="rate" formControlName="rate" placeholder="error rate" />
+                    <div class="input-group-append">
+                      <button type="button" name="button" (click)="delAckRatio(ratio)" class="btn btn-sm btn-danger">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <p class="form-help text-muted" jhiTranslate="smpptoolsApp.esmeAccount.help.ackRatio"></p>
+              </div>
+
+
       </div>
 
       <div>

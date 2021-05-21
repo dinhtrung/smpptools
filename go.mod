@@ -17,6 +17,8 @@ require (
 	github.com/minio/minio-go/v7 v7.0.10
 	github.com/sethvargo/go-limiter v0.6.0
 	github.com/tidwall/buntdb v1.2.3
+	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
+	github.com/vmihailenco/msgpack/v5 v5.3.2
 	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 	golang.org/x/text v0.3.6
 )

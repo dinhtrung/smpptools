@@ -2,20 +2,20 @@
   "smpptoolsApp": {
     "smscAccount": {
       "home": {
-        "title": "Smsc Accounts",
+        "title": "SMSC Accounts",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Smsc Account",
-        "createOrEditLabel": "Create or edit a Smsc Account",
-        "notFound": "No Smsc Accounts found"
+        "createLabel": "Create a new SMSC Account",
+        "createOrEditLabel": "Create or edit a SMSC Account",
+        "notFound": "No SMSC Accounts found"
       },
-      "created": "A new Smsc Account is created with identifier {{ param }}",
-      "updated": "A Smsc Account is updated with identifier {{ param }}",
-      "deleted": "A Smsc Account is deleted with identifier {{ param }}",
+      "created": "A new SMSC Account is created with identifier {{ param }}",
+      "updated": "A SMSC Account is updated with identifier {{ param }}",
+      "deleted": "A SMSC Account is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Smsc Account {{ id }}?"
+        "question": "Are you sure you want to delete SMSC Account {{ id }}?"
       },
       "detail": {
-        "title": "Smsc Account"
+        "title": "SMSC Account"
       },
       "id": "ID",
       "name": "Name",

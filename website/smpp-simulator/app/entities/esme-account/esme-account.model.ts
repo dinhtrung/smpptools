@@ -1,3 +1,7 @@
+export class ErrorRate {
+  constructor(public error?: number, public rate?: number, public description?: string | null) {}
+}
+
 export interface IEsmeAccount {
   id?: string;
   name?: string;
@@ -15,10 +19,8 @@ export interface IEsmeAccount {
   addressRange?: string | null;
   addressTON?: number | null;
   addressNPI?: number | null;
-  moErrorRate?: number | null;
-  moErrorCode?: number | null;
-  dlrErrorRate?: number | null;
-  dlrErrorCode?: number | null;
+  acceptRatio?: ErrorRate[];
+  ackRatio?: ErrorRate[];
   mtThroughtput?: number | null;
   enquireLinkInterval?: number | null;
   connectionTimeout?: number | null;
@@ -44,10 +46,8 @@ export class EsmeAccount implements IEsmeAccount {
     public addressRange?: string | null,
     public addressTON?: number | null,
     public addressNPI?: number | null,
-    public moErrorRate?: number | null,
-    public moErrorCode?: number | null,
-    public dlrErrorRate?: number | null,
-    public dlrErrorCode?: number | null,
+    public acceptRatio?: ErrorRate[],
+    public ackRatio?: ErrorRate[],
     public mtThroughtput?: number | null,
     public enquireLinkInterval?: number | null,
     public connectionTimeout?: number | null,
@@ -57,6 +57,9 @@ export class EsmeAccount implements IEsmeAccount {
     this.bindType = this.bindType ?? 'transceiver';
     this.isEnable = this.isEnable ?? false;
     this.isPersist = this.isPersist ?? false;
+    this.numBinds = 1;
+    this.acceptRatio = [new ErrorRate(0, 100)];
+    this.ackRatio = [new ErrorRate(0, 100)];
   }
 }
 

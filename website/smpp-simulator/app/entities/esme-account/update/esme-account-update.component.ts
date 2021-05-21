@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -36,10 +36,8 @@ export class EsmeAccountUpdateComponent implements OnInit {
     addressRange: [],
     addressTON: [],
     addressNPI: [],
-    moErrorRate: [null, [Validators.min(0), Validators.max(100)]],
-    moErrorCode: [],
-    dlrErrorRate: [null, [Validators.min(0), Validators.max(100)]],
-    dlrErrorCode: [],
+    acceptRatio: this.fb.array([]),
+    ackRatio: this.fb.array([]),
     mtThroughtput: [],
     enquireLinkInterval: [],
     connectionTimeout: [],
@@ -47,7 +45,11 @@ export class EsmeAccountUpdateComponent implements OnInit {
     reconnectDelay: [],
   });
 
-  constructor(protected esmeAccountService: EsmeAccountService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected esmeAccountService: EsmeAccountService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ esmeAccount }) => {
@@ -66,6 +68,50 @@ export class EsmeAccountUpdateComponent implements OnInit {
       this.subscribeToSaveResponse(this.esmeAccountService.update(esmeAccount));
     } else {
       this.subscribeToSaveResponse(this.esmeAccountService.create(esmeAccount));
+    }
+  }
+
+  // Accept Ratio
+  get AcceptRatio(): FormArray {
+    return this.editForm.get('acceptRatio') as FormArray;
+  }
+
+  addAcceptRatio(): void {
+    this.AcceptRatio.push(this.fb.group({ error: '', rate: '' }));
+  }
+
+  delAcceptRatio(index: number): void {
+    this.AcceptRatio.removeAt(index);
+  }
+
+  patchAcceptRatio(account: IEsmeAccount): void {
+    this.AcceptRatio.clear();
+    if (account.acceptRatio) {
+      for (const entry of account.acceptRatio) {
+        this.AcceptRatio.push(this.fb.group(entry));
+      }
+    }
+  }
+
+  // Acknowledgement Ratio
+  get AckRatio(): FormArray {
+    return this.editForm.get('ackRatio') as FormArray;
+  }
+
+  addAckRatio(): void {
+    this.AckRatio.push(this.fb.group({ error: '', rate: '' }));
+  }
+
+  delAckRatio(index: number): void {
+    this.AckRatio.removeAt(index);
+  }
+
+  patchAckRatio(account: IEsmeAccount): void {
+    this.AckRatio.clear();
+    if (account.ackRatio) {
+      for (const entry of account.ackRatio) {
+        this.AckRatio.push(this.fb.group(entry));
+      }
     }
   }
 
@@ -106,16 +152,14 @@ export class EsmeAccountUpdateComponent implements OnInit {
       addressRange: esmeAccount.addressRange,
       addressTON: esmeAccount.addressTON,
       addressNPI: esmeAccount.addressNPI,
-      moErrorRate: esmeAccount.moErrorRate,
-      moErrorCode: esmeAccount.moErrorCode,
-      dlrErrorRate: esmeAccount.dlrErrorRate,
-      dlrErrorCode: esmeAccount.dlrErrorCode,
       mtThroughtput: esmeAccount.mtThroughtput,
       enquireLinkInterval: esmeAccount.enquireLinkInterval,
       connectionTimeout: esmeAccount.connectionTimeout,
       windowSize: esmeAccount.windowSize,
       reconnectDelay: esmeAccount.reconnectDelay,
     });
+    this.patchAckRatio(esmeAccount);
+    this.patchAcceptRatio(esmeAccount);
   }
 
   protected createFromForm(): IEsmeAccount {
@@ -137,10 +181,8 @@ export class EsmeAccountUpdateComponent implements OnInit {
       addressRange: this.editForm.get(['addressRange'])!.value,
       addressTON: this.editForm.get(['addressTON'])!.value,
       addressNPI: this.editForm.get(['addressNPI'])!.value,
-      moErrorRate: this.editForm.get(['moErrorRate'])!.value,
-      moErrorCode: this.editForm.get(['moErrorCode'])!.value,
-      dlrErrorRate: this.editForm.get(['dlrErrorRate'])!.value,
-      dlrErrorCode: this.editForm.get(['dlrErrorCode'])!.value,
+      ackRatio: this.editForm.get(['ackRatio'])!.value,
+      acceptRatio: this.editForm.get(['acceptRatio'])!.value,
       mtThroughtput: this.editForm.get(['mtThroughtput'])!.value,
       enquireLinkInterval: this.editForm.get(['enquireLinkInterval'])!.value,
       connectionTimeout: this.editForm.get(['connectionTimeout'])!.value,

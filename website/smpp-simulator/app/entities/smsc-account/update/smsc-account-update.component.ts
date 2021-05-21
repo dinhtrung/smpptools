@@ -58,7 +58,7 @@ export class SmscAccountUpdateComponent implements OnInit {
     }
   }
 
-  // TLV List
+  // Accept Ratio
   get AcceptRatio(): FormArray {
     return this.editForm.get('acceptRatio') as FormArray;
   }
@@ -80,7 +80,7 @@ export class SmscAccountUpdateComponent implements OnInit {
     }
   }
 
-  // TLV List
+  // Delivery Ratio
   get DeliveryRatio(): FormArray {
     return this.editForm.get('deliveryRatio') as FormArray;
   }

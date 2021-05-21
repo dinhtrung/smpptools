@@ -2,27 +2,27 @@
   "smpptoolsApp": {
     "smscInstance": {
       "home": {
-        "title": "Smsc Instances",
+        "title": "SMSC Instances",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Smsc Instance",
-        "createOrEditLabel": "Create or edit a Smsc Instance",
-        "notFound": "No Smsc Instances found"
+        "createLabel": "Create a new SMSC Instance",
+        "createOrEditLabel": "Create or edit a SMSC Instance",
+        "notFound": "No SMSC Instances found"
       },
-      "created": "A new Smsc Instance is created with identifier {{ param }}",
-      "updated": "A Smsc Instance is updated with identifier {{ param }}",
-      "deleted": "A Smsc Instance is deleted with identifier {{ param }}",
+      "created": "A new SMSC Instance is created with identifier {{ param }}",
+      "updated": "A SMSC Instance is updated with identifier {{ param }}",
+      "deleted": "A SMSC Instance is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Smsc Instance {{ id }}?"
+        "question": "Are you sure you want to delete SMSC Instance {{ id }}?"
       },
       "detail": {
-        "title": "Smsc Instance"
+        "title": "SMSC Instance"
       },
       "id": "ID",
       "name": "Name",
       "description": "Description",
       "port": "Port",
       "isPersist": "Is Persist",
-      "systemID": "System ID",
+      "systemID": "SMSC System ID",
       "allowAnonymous": "Allow Anonymous",
       "connectionTimeout": "Connection Timeout",
       "windowSize": "Window Size",
@@ -31,7 +31,7 @@
         "description": "short description text",
         "port": "TCP Port to listen to",
         "isPersist": "true if this SMSC should be start automatically on start up",
-        "systemID": "Identifies the MC to the ESME",
+        "systemID": "Identifies the SMSC to the ESME",
         "allowAnonymous": "bypass authorization on this SMSC instance",
         "connectionTimeout": "Connection timeout in milliseconds",
         "windowSize": "Number of packets send out per one go"

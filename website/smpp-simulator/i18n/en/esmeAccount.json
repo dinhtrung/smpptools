@@ -2,20 +2,20 @@
   "smpptoolsApp": {
     "esmeAccount": {
       "home": {
-        "title": "Esme Accounts",
+        "title": "ESME Accounts",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Esme Account",
-        "createOrEditLabel": "Create or edit a Esme Account",
-        "notFound": "No Esme Accounts found"
+        "createLabel": "Create a new ESME Account",
+        "createOrEditLabel": "Create or edit a ESME Account",
+        "notFound": "No ESME Accounts found"
       },
-      "created": "A new Esme Account is created with identifier {{ param }}",
-      "updated": "A Esme Account is updated with identifier {{ param }}",
-      "deleted": "A Esme Account is deleted with identifier {{ param }}",
+      "created": "A new ESME Account is created with identifier {{ param }}",
+      "updated": "A ESME Account is updated with identifier {{ param }}",
+      "deleted": "A ESME Account is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Esme Account {{ id }}?"
+        "question": "Are you sure you want to delete ESME Account {{ id }}?"
       },
       "detail": {
-        "title": "Esme Account"
+        "title": "ESME Account"
       },
       "id": "ID",
       "name": "Name",
@@ -33,14 +33,13 @@
       "addressRange": "Address Range",
       "addressTON": "Address TON",
       "addressNPI": "Address NPI",
-      "moErrorRate": "Mo Error Rate",
-      "moErrorCode": "Mo Error Code",
-      "dlrErrorRate": "Dlr Error Rate",
-      "dlrErrorCode": "Dlr Error Code",
+      "ackRatio": "Acknowledgement Ratio",
+      "acceptRatio": "Accept Ratio",
       "mtThroughtput": "Mt Throughtput",
       "enquireLinkInterval": "Enquire Link Interval",
       "connectionTimeout": "Connection Timeout",
       "windowSize": "Window Size",
+      "errorRate": "Error Rate",
       "reconnectDelay": "Reconnect Delay",
       "help": {
         "name": "name of this ESME account",
@@ -56,10 +55,8 @@
         "addressRange": "Bind Address Range",
         "addressTON": "Bind Address Type of Number",
         "addressNPI": "Bind Address Numbering Plan Indication",
-        "moErrorRate": "Error Ratio for Receiving Mobile Orignated SMS",
-        "moErrorCode": "Error Code return to SMSC for Mobile Originated SMS",
-        "dlrErrorRate": "Error Ratio for Receiving Mobile Orignated SMS",
-        "dlrErrorCode": "Error Code return to SMSC for Mobile Originated SMS",
+        "acceptRatio": "Error Ratio for Receiving Mobile Orignated SMS",
+        "ackRatio": "Error Ratio for receving Delivery Receipt from SMSC",
         "mtThroughtput": "Sending out speeds in TPS",
         "enquireLinkInterval": "Enquire links interval in seconds",
         "connectionTimeout": "Connection timeout in milliseconds",
