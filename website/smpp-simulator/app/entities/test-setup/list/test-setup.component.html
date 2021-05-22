@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="TestSetupHeading">
+    <span jhiTranslate="smpptoolsApp.testSetup.home.title">Test Setups</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="smpptoolsApp.testSetup.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-test-setup"
+        [routerLink]="['/test-setup/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="smpptoolsApp.testSetup.home.createLabel"> Create a new Test Setup </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="testSetups?.length === 0">
+    <span jhiTranslate="smpptoolsApp.testSetup.home.notFound">No testSetups found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="testSetups && testSetups.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.accountFile">Account File</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.connectionFile">Connection File</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.supplierFile">Supplier File</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let testSetup of testSetups; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/test-setup', testSetup.id, 'view']">{{ testSetup.id }}</a>
+          </td>
+          <td>{{ testSetup.name }}</td>
+          <td>{{ testSetup.description }}</td>
+          <td>
+            <a
+              *ngIf="testSetup.accountFile"
+              (click)="openFile(testSetup.accountFile, testSetup.accountFileContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="testSetup.accountFile">{{ testSetup.accountFileContentType }}, {{ byteSize(testSetup.accountFile) }}</span>
+          </td>
+          <td>
+            <a
+              *ngIf="testSetup.connectionFile"
+              (click)="openFile(testSetup.connectionFile, testSetup.connectionFileContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="testSetup.connectionFile"
+              >{{ testSetup.connectionFileContentType }}, {{ byteSize(testSetup.connectionFile) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="testSetup.supplierFile"
+              (click)="openFile(testSetup.supplierFile, testSetup.supplierFileContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="testSetup.supplierFile">{{ testSetup.supplierFileContentType }}, {{ byteSize(testSetup.supplierFile) }}</span>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/test-setup', testSetup.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/test-setup', testSetup.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(testSetup)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

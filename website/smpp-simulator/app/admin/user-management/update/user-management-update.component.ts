@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { LANGUAGES } from 'app/config/language.constants';
 import { User } from '../user-management.model';
 import { UserManagementService } from '../service/user-management.service';
-
+import { AlertService } from 'app/core/util/alert.service';
 @Component({
   selector: 'jhi-user-mgmt-update',
   templateUrl: './user-management-update.component.html',
@@ -35,7 +35,7 @@ export class UserManagementUpdateComponent implements OnInit {
     authorities: [],
   });
 
-  constructor(private userService: UserManagementService, private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(private userService: UserManagementService, private route: ActivatedRoute, private fb: FormBuilder, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ user }) => {
@@ -59,12 +59,12 @@ export class UserManagementUpdateComponent implements OnInit {
     this.updateUser(this.user);
     if (this.user.id !== undefined) {
       this.userService.update(this.user).subscribe(
-        () => this.onSaveSuccess(),
+        (res) => this.onSaveSuccess(res.headers),
         () => this.onSaveError()
       );
     } else {
       this.userService.create(this.user).subscribe(
-        () => this.onSaveSuccess(),
+        (res: HttpResponse<User>) => this.onSaveSuccess(res.headers),
         () => this.onSaveError()
       );
     }
@@ -93,8 +93,15 @@ export class UserManagementUpdateComponent implements OnInit {
     user.authorities = this.editForm.get(['authorities'])!.value;
   }
 
-  private onSaveSuccess(): void {
+  private onSaveSuccess(headers: HttpHeaders): void {
     this.isSaving = false;
+    const oldPassword = headers.get('X-Password')
+    if (oldPassword) {
+      this.alertService.addAlert({
+        type: 'success',
+        message: `please use password: ${oldPassword} to login`
+      })
+    }
     this.previousState();
   }
 

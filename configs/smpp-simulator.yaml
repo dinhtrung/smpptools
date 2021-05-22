@@ -2,6 +2,13 @@ http:
   listen: 127.0.0.1:19060
 buntdb:
   path: build/package/bunt.db
+security:
+  jwt-secret: YzExNDViNjcxOTI4ZTMxMTYxMTJlNDJmNWUwM2U0MDEgIC0K
+  authorities:
+    - ROLE_ADMIN
+    - ROLE_USER
+    - SALES
+    - DEVELOPER
 smpp:
   client:
     bind:

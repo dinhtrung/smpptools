@@ -40,6 +40,16 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./isdn-list/isdn-list.module').then(m => m.IsdnListModule),
       },
       {
+        path: 'test-setup',
+        data: { pageTitle: 'smpptoolsApp.smscSession.home.title' },
+        loadChildren: () => import('./test-setup/test-setup.module').then(m => m.TestSetupModule),
+      },
+      {
+        path: 'test-session',
+        data: { pageTitle: 'smpptoolsApp.smscSession.home.title' },
+        loadChildren: () => import('./test-session/test-session.module').then(m => m.TestSessionModule),
+      },
+      {
         path: 'data-file',
         data: { pageTitle: 'smpptoolsApp.dataFile.home.title' },
         loadChildren: () => import('./data-file/data-file.module').then(m => m.DataFileModule),

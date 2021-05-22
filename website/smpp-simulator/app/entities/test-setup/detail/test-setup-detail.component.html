@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="testSetup">
+      <h2 data-cy="testSetupDetailsHeading"><span jhiTranslate="smpptoolsApp.testSetup.detail.title">Test Setup</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ testSetup.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSetup.name">Name</span></dt>
+        <dd>
+          <span>{{ testSetup.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSetup.description">Description</span></dt>
+        <dd>
+          <span>{{ testSetup.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSetup.accountFile">Account File</span></dt>
+        <dd>
+          <div *ngIf="testSetup.accountFile">
+            <a (click)="openFile(testSetup.accountFile, testSetup.accountFileContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ testSetup.accountFileContentType }}, {{ byteSize(testSetup.accountFile) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSetup.connectionFile">Connection File</span></dt>
+        <dd>
+          <div *ngIf="testSetup.connectionFile">
+            <a (click)="openFile(testSetup.connectionFile, testSetup.connectionFileContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ testSetup.connectionFileContentType }}, {{ byteSize(testSetup.connectionFile) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSetup.supplierFile">Supplier File</span></dt>
+        <dd>
+          <div *ngIf="testSetup.supplierFile">
+            <a (click)="openFile(testSetup.supplierFile, testSetup.supplierFileContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ testSetup.supplierFileContentType }}, {{ byteSize(testSetup.supplierFile) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/test-setup', testSetup.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

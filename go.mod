@@ -6,8 +6,10 @@ require (
 	github.com/ajankovic/smpp v0.1.3
 	github.com/brianvoe/gofakeit/v6 v6.4.1
 	github.com/fiorix/go-smpp v0.0.0-20210403173735-2894b96e70ba
+	github.com/form3tech-oss/jwt-go v3.2.3+incompatible
 	github.com/gabriel-vasile/mimetype v1.3.0
 	github.com/gofiber/fiber/v2 v2.8.0
+	github.com/gofiber/jwt/v2 v2.2.1
 	github.com/gofiber/websocket/v2 v2.0.3
 	github.com/google/uuid v1.2.0
 	github.com/gosimple/slug v1.9.0
@@ -17,6 +19,7 @@ require (
 	github.com/sethvargo/go-limiter v0.6.0
 	github.com/tidwall/buntdb v1.2.3
 	github.com/vmihailenco/msgpack/v5 v5.3.2
+	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 )
 

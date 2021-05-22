@@ -1,0 +1,207 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-test-setup-heading" data-cy="TestSetupCreateUpdateHeading" jhiTranslate="smpptoolsApp.testSetup.home.createOrEditLabel">
+        Create or edit a Test Setup
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.testSetup.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.testSetup.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.testSetup.accountFile" for="field_accountFile">Account File</label>
+          <div>
+            <div *ngIf="editForm.get('accountFile')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('accountFile')!.value, editForm.get('accountFileContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('accountFileContentType')!.value }}, {{ byteSize(editForm.get('accountFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ accountFile: null }); editForm.patchValue({ accountFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_accountFile"
+              data-cy="accountFile"
+              (change)="setFileData($event, 'accountFile', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="accountFile"
+            id="field_accountFile"
+            data-cy="accountFile"
+            formControlName="accountFile"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="accountFileContentType"
+            id="field_accountFileContentType"
+            formControlName="accountFileContentType"
+          />
+          <div *ngIf="editForm.get('accountFile')!.invalid && (editForm.get('accountFile')!.dirty || editForm.get('accountFile')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('accountFile')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.testSetup.connectionFile" for="field_connectionFile"
+            >Connection File</label
+          >
+          <div>
+            <div *ngIf="editForm.get('connectionFile')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('connectionFile')!.value, editForm.get('connectionFileContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('connectionFileContentType')!.value }}, {{ byteSize(editForm.get('connectionFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ connectionFile: null }); editForm.patchValue({ connectionFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_connectionFile"
+              data-cy="connectionFile"
+              (change)="setFileData($event, 'connectionFile', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="connectionFile"
+            id="field_connectionFile"
+            data-cy="connectionFile"
+            formControlName="connectionFile"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="connectionFileContentType"
+            id="field_connectionFileContentType"
+            formControlName="connectionFileContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="smpptoolsApp.testSetup.supplierFile" for="field_supplierFile"
+            >Supplier File</label
+          >
+          <div>
+            <div *ngIf="editForm.get('supplierFile')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('supplierFile')!.value, editForm.get('supplierFileContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('supplierFileContentType')!.value }}, {{ byteSize(editForm.get('supplierFile')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ supplierFile: null }); editForm.patchValue({ supplierFileContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_supplierFile"
+              data-cy="supplierFile"
+              (change)="setFileData($event, 'supplierFile', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="supplierFile"
+            id="field_supplierFile"
+            data-cy="supplierFile"
+            formControlName="supplierFile"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="supplierFileContentType"
+            id="field_supplierFileContentType"
+            formControlName="supplierFileContentType"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

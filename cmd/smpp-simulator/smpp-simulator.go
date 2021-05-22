@@ -14,6 +14,7 @@ import (
 	"github.com/markbates/pkger"
 
 	"github.com/dinhtrung/smpptools/internal/app"
+	authImpl "github.com/dinhtrung/smpptools/internal/app/api-gateway/services/impl"
 	"github.com/dinhtrung/smpptools/internal/app/s3proxy"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/impl"
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
@@ -21,6 +22,8 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/web/ws"
 	"github.com/dinhtrung/smpptools/internal/pkg/esme"
 	"github.com/dinhtrung/smpptools/internal/pkg/smsc"
+	"github.com/dinhtrung/smpptools/pkg/fiber/authjwt"
+	authApi "github.com/dinhtrung/smpptools/pkg/fiber/authjwt/web/rest"
 	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
 )
 
@@ -73,6 +76,14 @@ func main() {
 		TimeFormat: "2006-01-02T15:04:05-0700",
 	}))
 
+	// + user
+	userRepo := authImpl.NewUserRepositoryBuntDB()
+	userSvc := authImpl.NewUserServiceBuntDB(userRepo)
+	authjwt.USER_RESOURCE = authApi.NewDefaultUserResource(userSvc, userRepo)
+	authjwt.ACCOUNT_RESOURCE = authApi.NewDefaultAccountResource(userSvc)
+	authjwt.SetupAuthJWT(srv, app.Config.MustString("security.jwt-secret"))
+	authjwt.SetupRoutes(srv)
+
 	setupWebSocket(srv)
 	setupRoutes(srv)
 
@@ -83,10 +94,9 @@ func main() {
 	startPersistEsmeAccounts()
 
 	if app.Config.String("https.listen") != "" {
-		log.Fatal(srv.ListenTLS(app.Config.String("https.listen"), app.Config.MustString("https.cert"), app.Config.MustString("https.key")))
-	} else {
-		log.Fatal(srv.Listen(app.Config.String("http.listen")))
+		go log.Fatal(srv.ListenTLS(app.Config.String("https.listen"), app.Config.MustString("https.cert"), app.Config.MustString("https.key")))
 	}
+	log.Fatal(srv.Listen(app.Config.String("http.listen")))
 }
 
 // setupDB wire the Repository implement back to its interface
@@ -108,6 +118,7 @@ func setupDB() {
 func setupRoutes(app *fiber.App) {
 	s3proxy.SetupRoutes(app)
 	// + SMPP actions
+	app.Get("/management/health", performHealthCheck)
 	// -- base-sm-resource
 	app.Post("/api/base-sms", api.CreateBaseSmUsingPOST)
 	app.Post("/api/base-sms/convert-text", api.ConvertTextUsingPOST)
@@ -252,4 +263,8 @@ func startPersistEsmeAccounts() {
 			}
 		}
 	}
+}
+
+func performHealthCheck(c *fiber.Ctx) error {
+	return c.SendStatus(fiber.StatusOK)
 }

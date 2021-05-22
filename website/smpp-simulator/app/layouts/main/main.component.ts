@@ -56,6 +56,10 @@ export class MainComponent implements OnInit {
     this.layoutService.toggleSidebar();
   }
 
+  isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
+  }
+
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
     let title: string = routeSnapshot.data['pageTitle'] ?? '';
     if (routeSnapshot.firstChild) {

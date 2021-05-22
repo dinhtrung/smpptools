@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="testSession">
+      <h2 data-cy="testSessionDetailsHeading"><span jhiTranslate="smpptoolsApp.testSession.detail.title">Test Session</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ testSession.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSession.name">Name</span></dt>
+        <dd>
+          <span>{{ testSession.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSession.description">Description</span></dt>
+        <dd>
+          <span>{{ testSession.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSession.testSetup">Test Setup</span></dt>
+        <dd>
+          <span>{{ testSession.testSetup }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSession.trafficFile">Traffic File</span></dt>
+        <dd>
+          <div *ngIf="testSession.trafficFile">
+            <a (click)="openFile(testSession.trafficFile, testSession.trafficFileContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ testSession.trafficFileContentType }}, {{ byteSize(testSession.trafficFile) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.testSession.patternVariant">Pattern Variant</span></dt>
+        <dd>
+          <span>{{ testSession.patternVariant }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/test-session', testSession.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

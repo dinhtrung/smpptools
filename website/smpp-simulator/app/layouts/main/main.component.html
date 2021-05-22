@@ -2,7 +2,9 @@
 <div class="wrapper default-theme" [ngClass]="getClasses()">
   <router-outlet name="navbar"></router-outlet>
   <main>
+    <div *ngIf="isAuthenticated()">
     <jhi-sidebar></jhi-sidebar>
+    </div>
     <div class="pages container-fluid pt-4 pb-4 pl-4 pr-4">
       <div class="card jh-card">
         <router-outlet></router-outlet>
