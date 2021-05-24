@@ -15,6 +15,9 @@
         "esmeSession": "ESME Session",
         "smscSession": "SMSC Session",
         "dataFile": "Data File",
+        "testSession": "Test Session",
+        "testSetup": "Test Setup",
+        "testCase": "Test Case",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -41,13 +41,18 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'test-setup',
-        data: { pageTitle: 'smpptoolsApp.smscSession.home.title' },
+        data: { pageTitle: 'smpptoolsApp.testSetup.home.title' },
         loadChildren: () => import('./test-setup/test-setup.module').then(m => m.TestSetupModule),
       },
       {
         path: 'test-session',
-        data: { pageTitle: 'smpptoolsApp.smscSession.home.title' },
+        data: { pageTitle: 'smpptoolsApp.testSession.home.title' },
         loadChildren: () => import('./test-session/test-session.module').then(m => m.TestSessionModule),
+      },
+      {
+        path: 'test-case',
+        data: { pageTitle: 'smpptoolsApp.testCase.home.title' },
+        loadChildren: () => import('./test-case/test-case.module').then(m => m.TestCaseModule),
       },
       {
         path: 'data-file',

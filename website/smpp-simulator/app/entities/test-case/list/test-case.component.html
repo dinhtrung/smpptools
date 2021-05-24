@@ -1,0 +1,63 @@
+<div>
+  <h2 id="page-heading" data-cy="TestCaseHeading">
+    <span jhiTranslate="smpptoolsApp.testCase.home.title">Test Cases</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="smpptoolsApp.testCase.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="testCases?.length === 0">
+    <span jhiTranslate="smpptoolsApp.testCase.home.notFound">No testCases found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="testCases && testCases.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.testSession">Test Session</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.state">State</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.createdAt">Created At</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.testCase.updatedAt">Updated At</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let testCase of testCases; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/test-case', testCase.id, 'view']">{{ testCase.id }}</a>
+          </td>
+          <td>{{ testCase.name }}</td>
+          <td>{{ testCase.description }}</td>
+          <td>{{ testCase.testSession }}</td>
+          <td>{{ testCase.state }}</td>
+          <td>{{ testCase.createdAt | formatMediumDatetime }}</td>
+          <td>{{ testCase.updatedAt | formatMediumDatetime }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/test-case', testCase.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

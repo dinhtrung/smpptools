@@ -1,0 +1,51 @@
+{
+  "smpptoolsApp": {
+    "testSession": {
+      "home": {
+        "title": "Test Sessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Test Session",
+        "createOrEditLabel": "Create or edit a Test Session",
+        "notFound": "No Test Sessions found"
+      },
+      "created": "A new Test Session is created with identifier {{ param }}",
+      "updated": "A Test Session is updated with identifier {{ param }}",
+      "deleted": "A Test Session is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Test Session {{ id }}?"
+      },
+      "detail": {
+        "title": "Test Session"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "localAddr": "Local Addr",
+      "createdAt": "Created At",
+      "testSetup": "Test Setup",
+      "trafficFile": "Traffic Template File",
+      "patternVariant": "Traffic Pattern Variant",
+      "variants": {
+        "stressTest": "Stress Test",
+        "trafficReduction": "Traffic Reduction",
+        "timestampShift": "Timestamp Shift",
+        "speedVariation": "Speed Variation"
+      },
+      "variantMin": "From",
+      "variantMax": "To",
+      "help": {
+        "name": "name of this SMSCaccount account",
+        "description": "short description text",
+        "testSetup": "Choose the Test Setup associate with this Test session",
+        "trafficFile": "A CSV file contain traffic template used for send message out",
+        "patternVariant": "Pattern Variant to apply on this traffic template",
+        "variants": {
+          "stressTest": "Run as fast as it can",
+          "trafficReduction": "Reduce traffic based on Min and Max ratio",
+          "timestampShift": "Increase or decrease the timestamp on Traffic Template before send out",
+          "speedVariation": "Increase or decreate the send out speed on a random value between the defined range"
+        }
+      }
+    }
+  }
+}

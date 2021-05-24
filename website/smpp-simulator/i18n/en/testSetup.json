@@ -1,0 +1,40 @@
+{
+  "smpptoolsApp": {
+    "testSetup": {
+      "home": {
+        "title": "Test Setups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Test Setup",
+        "createOrEditLabel": "Create or edit a Test Setup",
+        "notFound": "No Test Setups found"
+      },
+      "created": "A new Test Setup is created with identifier {{ param }}",
+      "updated": "A Test Setup is updated with identifier {{ param }}",
+      "deleted": "A Test Setup is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Test Setup {{ id }}?"
+      },
+      "detail": {
+        "title": "Test Setup"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "start": "Start",
+      "stop": "Stop",
+      "pause": "Pause",
+      "resume": "Resume",
+      "restart": "Restart",
+      "accountFile": "Account File",
+      "connectionFile": "Connection File",
+      "supplierFile": "Supplier File",
+      "help": {
+        "name": "name of this SMSCaccount account",
+        "description": "short description text",
+        "accountFile": "A CSV file with following columns: PROTOCOL, SYSID_USERNAME, PASSWORD, BINDS",
+        "connectionFile": "A JSON file contain IP and port for Customer to connect to",
+        "supplierFile": "A CSV file with following columns: PORT, ACCEPT_RATIO, UNDELIVERED, REJECTED, UNKNOWN, DELIVERED percent"
+      }
+    }
+  }
+}

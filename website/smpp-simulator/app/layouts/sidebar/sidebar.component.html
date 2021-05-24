@@ -14,6 +14,27 @@
     <input type="search" class="form-control rounded-pill" name="search" placeholder="Search ..." />
   </div>
   <nav class="sidebar-menu pt-3 pb-3">
+    <div class="menu-header mt-3 mb-2">Traffic Simulation</div>
+    <ul class="menu-items">
+      <li>
+        <a href="javascript: void(0);" routerLink="/test-setup" routerLinkActive="active">
+          <fa-icon icon="cogs"></fa-icon>
+          <span jhiTranslate="global.menu.entities.testSetup">Test Setup</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript: void(0);" routerLink="/test-session" routerLinkActive="active">
+          <fa-icon icon="tasks"></fa-icon>
+          <span jhiTranslate="global.menu.entities.testSession">Test Session</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript: void(0);" routerLink="/test-case" routerLinkActive="active">
+          <fa-icon icon="tasks"></fa-icon>
+          <span jhiTranslate="global.menu.entities.testCase">Test Case</span>
+        </a>
+      </li>
+    </ul>
     <div class="menu-header mt-3 mb-2">SMPP Settings</div>
     <ul class="menu-items">
       <li>
