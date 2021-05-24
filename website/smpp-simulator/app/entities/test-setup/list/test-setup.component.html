@@ -3,7 +3,7 @@
     <span jhiTranslate="smpptoolsApp.testSetup.home.title">Test Setups</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="d-none btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="smpptoolsApp.testSetup.home.refreshListLabel">Refresh List</span>
       </button>
@@ -32,7 +32,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.name">Name</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.description">Description</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSetup.accountFile">Account File</span></th>
@@ -44,9 +43,8 @@
       <tbody>
         <tr *ngFor="let testSetup of testSetups; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/test-setup', testSetup.id, 'view']">{{ testSetup.id }}</a>
+            <a [routerLink]="['/test-setup', testSetup.id, 'view']">{{ testSetup.name }}</a>
           </td>
-          <td>{{ testSetup.name }}</td>
           <td>{{ testSetup.description }}</td>
           <td>
             <a

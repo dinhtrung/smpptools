@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { ITestSession, TestSession } from '../test-session.model';
+import { ITestSession, TestSession, PATTERN_VARIANTS } from '../test-session.model';
 import { TestSessionService } from '../service/test-session.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+// + upload handle
+import { IUploadFile } from '../../upload-file/upload-file.model'
+// + Test SEtup
+import { ITestSetup } from '../../test-setup/test-setup.model';
+import { TestSetupService } from '../../test-setup/service/test-setup.service';
 
 @Component({
   selector: 'jhi-test-session-update',
@@ -17,6 +22,8 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 })
 export class TestSessionUpdateComponent implements OnInit {
   isSaving = false;
+  testSetupRef: ITestSetup[] = [];
+  patternVariants = PATTERN_VARIANTS;
 
   editForm = this.fb.group({
     id: [],
@@ -26,12 +33,16 @@ export class TestSessionUpdateComponent implements OnInit {
     trafficFile: [],
     trafficFileContentType: [],
     patternVariant: [],
+    patternMin: [],
+    patternMax: [],
   });
 
   constructor(
+    protected httpClient: HttpClient,
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected testSessionService: TestSessionService,
+    protected testSetupService : TestSetupService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -39,6 +50,7 @@ export class TestSessionUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ testSession }) => {
       this.updateForm(testSession);
+      this.testSetupService.query().subscribe((res: HttpResponse<ITestSetup[]>) => this.testSetupRef = res.body ?? []);
     });
   }
 
@@ -58,6 +70,23 @@ export class TestSessionUpdateComponent implements OnInit {
         ),
     });
   }
+  // setFileData upload file to S3 bucket and return the file info as reference
+  patchFileData(event: Event, field: string): void {
+    const formData = new FormData();
+    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
+    if (eventTarget?.files?.[0]) {
+      const file: File = eventTarget.files[0];
+      formData.append('file', file, file.name);
+      this.httpClient.post('api/file-upload', formData, { observe: 'response' })
+        .subscribe(
+          (res: HttpResponse<IUploadFile>) => this.editForm.get(field)?.patchValue(res.body?.name),
+          (err: Error) =>
+          this.eventManager.broadcast(
+            new EventWithContent<AlertError>('smpptoolsApp.error', { ...err, key: 'error.file.' + err.name })
+          )
+        );
+    }
+  }
 
   previousState(): void {
     window.history.back();
@@ -71,6 +100,11 @@ export class TestSessionUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.testSessionService.create(testSession));
     }
+  }
+
+  hideRange(): boolean {
+    const variant = this.editForm.get(['patternVariant'])!.value;
+    return (variant === undefined) || (variant === 'STRESS_TEST');
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITestSession>>): void {
@@ -101,6 +135,8 @@ export class TestSessionUpdateComponent implements OnInit {
       trafficFile: testSession.trafficFile,
       trafficFileContentType: testSession.trafficFileContentType,
       patternVariant: testSession.patternVariant,
+      patternMin: testSession.patternMin,
+      patternMax: testSession.patternMax,
     });
   }
 
@@ -114,6 +150,8 @@ export class TestSessionUpdateComponent implements OnInit {
       trafficFileContentType: this.editForm.get(['trafficFileContentType'])!.value,
       trafficFile: this.editForm.get(['trafficFile'])!.value,
       patternVariant: this.editForm.get(['patternVariant'])!.value,
+      patternMin: this.editForm.get(['patternMin'])!.value,
+      patternMax: this.editForm.get(['patternMax'])!.value,
     };
   }
 }

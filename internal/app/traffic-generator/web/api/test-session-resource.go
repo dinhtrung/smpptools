@@ -1,17 +1,17 @@
 package api
 
 import (
-	"github.com/dinhtrung/smpptools/internal/app/smpp-simulator/instances"
-	"github.com/dinhtrung/smpptools/pkg/smpptools/openapi"
+	"github.com/dinhtrung/smpptools/internal/app/traffic-generator/instances"
+	"github.com/dinhtrung/smpptools/internal/pkg/domain"
 	"github.com/gofiber/fiber/v2"
 )
 
 func CreateTestSessionUsingPOST(c *fiber.Ctx) error {
-	req := openapi.NewTestSessionWithDefaults()
+	req := &domain.TestSession{}
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
-	if _, ok := req.GetIdOk(); ok {
+	if req.ID != "" {
 		return fiber.NewError(fiber.StatusBadRequest, "new entity cannot have an ID")
 	}
 	if err := instances.TestSessionRepo.Save(req); err != nil {
@@ -48,11 +48,11 @@ func PartialUpdateTestSessionUsingPATCH(c *fiber.Ctx) error {
 }
 
 func UpdateTestSessionUsingPUT(c *fiber.Ctx) error {
-	req := openapi.NewTestSessionWithDefaults()
+	req := &domain.TestSession{}
 	if err := c.BodyParser(req); err != nil {
 		return err
 	}
-	if _, ok := req.GetIdOk(); !ok {
+	if req.ID == "" {
 		return fiber.NewError(fiber.StatusBadRequest, "exists entity should have an ID")
 	}
 	if err := instances.TestSessionRepo.Save(req); err != nil {

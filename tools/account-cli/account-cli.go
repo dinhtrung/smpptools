@@ -5,7 +5,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/app/api-gateway/services/impl"
 	"github.com/dinhtrung/smpptools/pkg/fiber/shared"
 )
@@ -14,7 +13,7 @@ var configFile, username, email, password, authorities, operator string
 
 func main() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
-	flag.StringVar(&configFile, "config", "configs/api-gateway.yaml", "API Gateway configuration file")
+	flag.StringVar(&configFile, "o", "user.db", "BuntDB database path")
 	flag.StringVar(&username, "username", "admin", "Username to create")
 	flag.StringVar(&email, "email", "admin@localhost", "Email to create")
 	flag.StringVar(&password, "password", "admin", "Password to create")
@@ -22,16 +21,7 @@ func main() {
 	flag.StringVar(&operator, "action", "list", "list / delete / create / update / truncate ")
 	flag.Parse()
 
-	// 1 - set default settings for components.
-	app.BuntDBConfig()
-
-	// 2 - override defaults with configuration file and watch changes
-	app.ConfigInit(configFile)
-
-	// 3 - bring up components
-	app.BuntDBInit()
-
-	userRepo := impl.NewUserRepositoryBuntDB()
+	userRepo := impl.NewUserRepositoryBuntDB(configFile)
 	userSvc := impl.NewUserServiceBuntDB(userRepo)
 
 	switch operator {

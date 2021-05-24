@@ -6,6 +6,9 @@ import { ITestSession } from '../test-session.model';
 import { TestSessionService } from '../service/test-session.service';
 import { TestSessionDeleteDialogComponent } from '../delete/test-session-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+// + Test SEtup
+import { ITestSetup } from '../../test-setup/test-setup.model';
+import { TestSetupService } from '../../test-setup/service/test-setup.service';
 
 @Component({
   selector: 'jhi-test-session',
@@ -14,8 +17,14 @@ import { DataUtils } from 'app/core/util/data-util.service';
 export class TestSessionComponent implements OnInit {
   testSessions?: ITestSession[];
   isLoading = false;
+  testSetupMap: any = {};
 
-  constructor(protected testSessionService: TestSessionService, protected dataUtils: DataUtils, protected modalService: NgbModal) {}
+  constructor(
+    protected testSetupService : TestSetupService,
+    protected testSessionService: TestSessionService,
+    protected dataUtils: DataUtils,
+    protected modalService: NgbModal
+  ) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -24,6 +33,7 @@ export class TestSessionComponent implements OnInit {
       (res: HttpResponse<ITestSession[]>) => {
         this.isLoading = false;
         this.testSessions = res.body ?? [];
+        this.loadTestSetup();
       },
       () => {
         this.isLoading = false;
@@ -56,5 +66,13 @@ export class TestSessionComponent implements OnInit {
         this.loadAll();
       }
     });
+  }
+
+  loadTestSetup(): void {
+    this.testSetupService.query().subscribe((res: HttpResponse<ITestSetup[]>) => (res.body ?? []).forEach((i : ITestSetup) => {
+      if (i.id) {
+        this.testSetupMap[i.id] = i;
+      }
+    }));
   }
 }

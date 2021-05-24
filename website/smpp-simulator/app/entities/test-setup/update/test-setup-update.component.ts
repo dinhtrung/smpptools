@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,6 +11,8 @@ import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
+// + upload handle
+import { IUploadFile } from '../../upload-file/upload-file.model'
 @Component({
   selector: 'jhi-test-setup-update',
   templateUrl: './test-setup-update.component.html',
@@ -24,13 +26,14 @@ export class TestSetupUpdateComponent implements OnInit {
     description: [],
     accountFile: [null, [Validators.required]],
     accountFileContentType: [],
-    connectionFile: [],
+    connectionFile: [null, [Validators.required]],
     connectionFileContentType: [],
-    supplierFile: [],
+    supplierFile: [null, [Validators.required]],
     supplierFileContentType: [],
   });
 
   constructor(
+    protected httpClient: HttpClient,
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected testSetupService: TestSetupService,
@@ -59,6 +62,24 @@ export class TestSetupUpdateComponent implements OnInit {
           new EventWithContent<AlertError>('smpptoolsApp.error', { ...err, key: 'error.file.' + err.key })
         ),
     });
+  }
+
+  // setFileData upload file to S3 bucket and return the file info as reference
+  patchFileData(event: Event, field: string): void {
+    const formData = new FormData();
+    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
+    if (eventTarget?.files?.[0]) {
+      const file: File = eventTarget.files[0];
+      formData.append('file', file, file.name);
+      this.httpClient.post('api/file-upload', formData, { observe: 'response' })
+        .subscribe(
+          (res: HttpResponse<IUploadFile>) => this.editForm.get(field)?.patchValue(res.body?.name),
+          (err: Error) =>
+          this.eventManager.broadcast(
+            new EventWithContent<AlertError>('smpptoolsApp.error', { ...err, key: 'error.file.' + err.name })
+          )
+        );
+    }
   }
 
   previousState(): void {

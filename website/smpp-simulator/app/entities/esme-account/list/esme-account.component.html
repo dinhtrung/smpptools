@@ -4,7 +4,7 @@
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-success mr-2" (click)="openImportDialog()">Import</button>
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="d-none btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="smpptoolsApp.esmeAccount.home.refreshListLabel">Refresh List</span>
       </button>

@@ -1,7 +1,8 @@
 http:
-  listen: 127.0.0.1:19061
+  listen: 127.0.0.1:19063
 buntdb:
   path: build/package/bunt.db
+  user-db: build/package/user.db
 security:
   jwt-secret: YzExNDViNjcxOTI4ZTMxMTYxMTJlNDJmNWUwM2U0MDEgIC0K
   authorities:

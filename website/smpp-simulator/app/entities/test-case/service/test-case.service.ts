@@ -14,7 +14,7 @@ export type EntityArrayResponseType = HttpResponse<ITestCase[]>;
 
 @Injectable({ providedIn: 'root' })
 export class TestCaseService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/test-cases');
+  public resourceUrl = this.applicationConfigService.getEndpointFor('api/test-cases',  'traffic-generator');
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 

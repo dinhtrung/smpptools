@@ -6,10 +6,11 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/pkg/domain"
 	"github.com/dinhtrung/smpptools/internal/pkg/interfaces"
+	"github.com/google/uuid"
 	"github.com/tidwall/buntdb"
 )
 
-const TEST_CASE_PREFIX = "THROUGHPUT:SERIES:"
+const TEST_CASE_PREFIX = "TEST_CASE:"
 
 type TestCaseRepository struct {
 }
@@ -35,7 +36,7 @@ func (r *TestCaseRepository) Count() (int, error) {
 // Deletes a given entity.
 func (r *TestCaseRepository) Delete(entity *domain.TestCase) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(TEST_CASE_PREFIX + entity.Name)
+		_, err := tx.Delete(TEST_CASE_PREFIX + entity.ID)
 		if err != nil {
 			return err
 		}
@@ -70,7 +71,7 @@ func (r *TestCaseRepository) DeleteAll() error {
 func (r *TestCaseRepository) DeleteAllEntities(entities []*domain.TestCase) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
-			_, err := tx.Delete(entity.Name)
+			_, err := tx.Delete(entity.ID)
 			if err != nil {
 				return err
 			}
@@ -160,12 +161,15 @@ func (r *TestCaseRepository) FindById(ID string) (*domain.TestCase, error) {
 
 // Saves a given entity.
 func (r *TestCaseRepository) Save(entity *domain.TestCase) error {
+	if entity.ID == "" {
+		entity.ID = uuid.NewString()
+	}
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		entityJson, err := json.Marshal(entity)
 		if err != nil {
 			return err
 		}
-		_, _, err = tx.Set(TEST_CASE_PREFIX+entity.Name, string(entityJson), nil)
+		_, _, err = tx.Set(TEST_CASE_PREFIX+entity.ID, string(entityJson), nil)
 		return err
 	})
 }
@@ -174,11 +178,14 @@ func (r *TestCaseRepository) Save(entity *domain.TestCase) error {
 func (r *TestCaseRepository) SaveAll(entities []*domain.TestCase) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
+			if entity.ID == "" {
+				entity.ID = uuid.NewString()
+			}
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err
 			}
-			_, _, err = tx.Set(TEST_CASE_PREFIX+entity.Name, string(entityJson), nil)
+			_, _, err = tx.Set(TEST_CASE_PREFIX+entity.ID, string(entityJson), nil)
 			if err != nil {
 				return err
 			}

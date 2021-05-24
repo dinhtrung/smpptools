@@ -1,7 +1,7 @@
 http:
-  listen: 127.0.0.1:19061
+  listen: 127.0.0.1:19060
 buntdb:
-  path: build/package/bunt.db
+  path: build/package/api-gateway.db
 security:
   jwt-secret: YzExNDViNjcxOTI4ZTMxMTYxMTJlNDJmNWUwM2U0MDEgIC0K
   authorities:
@@ -9,18 +9,11 @@ security:
     - ROLE_USER
     - SALES
     - DEVELOPER
-smpp:
-  client:
-    bind:
-      bindType: "transceiver"
-      connection:
-        addr: "staging.soibe.xyz:12346"
-        systemID: "test"
-        password: "test"
-        systemType: ""
-        addrTon: 0
-        addrNpi: 0
-        addrRange: "1234"
+services:
+  smpp-simulator:
+    - http://127.0.0.1:19061
+  traffic-generator:
+    - http://127.0.0.1:19063
 # S3 File Storage for configuration repositories
 s3:
   endpoint: "play.min.io"

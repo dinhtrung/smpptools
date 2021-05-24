@@ -6,10 +6,11 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/pkg/domain"
 	"github.com/dinhtrung/smpptools/internal/pkg/interfaces"
+	"github.com/google/uuid"
 	"github.com/tidwall/buntdb"
 )
 
-const TEST_SESSION_PREFIX = "THROUGHPUT:SERIES:"
+const TEST_SESSION_PREFIX = "TEST_SESSION:"
 
 type TestSessionRepository struct {
 }
@@ -35,7 +36,7 @@ func (r *TestSessionRepository) Count() (int, error) {
 // Deletes a given entity.
 func (r *TestSessionRepository) Delete(entity *domain.TestSession) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(TEST_SESSION_PREFIX + entity.Name)
+		_, err := tx.Delete(TEST_SESSION_PREFIX + entity.ID)
 		if err != nil {
 			return err
 		}
@@ -70,7 +71,7 @@ func (r *TestSessionRepository) DeleteAll() error {
 func (r *TestSessionRepository) DeleteAllEntities(entities []*domain.TestSession) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
-			_, err := tx.Delete(entity.Name)
+			_, err := tx.Delete(entity.ID)
 			if err != nil {
 				return err
 			}
@@ -160,12 +161,15 @@ func (r *TestSessionRepository) FindById(ID string) (*domain.TestSession, error)
 
 // Saves a given entity.
 func (r *TestSessionRepository) Save(entity *domain.TestSession) error {
+	if entity.ID == "" {
+		entity.ID = uuid.NewString()
+	}
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		entityJson, err := json.Marshal(entity)
 		if err != nil {
 			return err
 		}
-		_, _, err = tx.Set(TEST_SESSION_PREFIX+entity.Name, string(entityJson), nil)
+		_, _, err = tx.Set(TEST_SESSION_PREFIX+entity.ID, string(entityJson), nil)
 		return err
 	})
 }
@@ -174,11 +178,14 @@ func (r *TestSessionRepository) Save(entity *domain.TestSession) error {
 func (r *TestSessionRepository) SaveAll(entities []*domain.TestSession) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
+			if entity.ID == "" {
+				entity.ID = uuid.NewString()
+			}
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err
 			}
-			_, _, err = tx.Set(TEST_SESSION_PREFIX+entity.Name, string(entityJson), nil)
+			_, _, err = tx.Set(TEST_SESSION_PREFIX+entity.ID, string(entityJson), nil)
 			if err != nil {
 				return err
 			}

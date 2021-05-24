@@ -3,7 +3,7 @@
     <span jhiTranslate="smpptoolsApp.uploadFile.home.title">Upload Files</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="d-none btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="smpptoolsApp.uploadFile.home.refreshListLabel">Refresh List</span>
       </button>

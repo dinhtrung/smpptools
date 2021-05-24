@@ -31,6 +31,7 @@ export class UserManagementUpdateComponent implements OnInit {
     lastName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     activated: [],
+    newPassword: [],
     langKey: [],
     authorities: [],
   });
@@ -91,6 +92,7 @@ export class UserManagementUpdateComponent implements OnInit {
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
+    user.password = this.editForm.get(['newPassword'])!.value;
   }
 
   private onSaveSuccess(headers: HttpHeaders): void {

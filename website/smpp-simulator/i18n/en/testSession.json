@@ -31,8 +31,8 @@
         "timestampShift": "Timestamp Shift",
         "speedVariation": "Speed Variation"
       },
-      "variantMin": "From",
-      "variantMax": "To",
+      "patternMin": "From",
+      "patternMax": "To",
       "help": {
         "name": "name of this SMSCaccount account",
         "description": "short description text",

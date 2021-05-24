@@ -3,7 +3,7 @@
     <span jhiTranslate="smpptoolsApp.testSession.home.title">Test Sessions</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="d-none btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="smpptoolsApp.testSession.home.refreshListLabel">Refresh List</span>
       </button>
@@ -32,7 +32,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSession.name">Name</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSession.description">Description</span></th>
           <th scope="col"><span jhiTranslate="smpptoolsApp.testSession.testSetup">Test Setup</span></th>
@@ -44,11 +43,10 @@
       <tbody>
         <tr *ngFor="let testSession of testSessions; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/test-session', testSession.id, 'view']">{{ testSession.id }}</a>
+            <a [routerLink]="['/test-session', testSession.id, 'view']">{{ testSession.name }}</a>
           </td>
-          <td>{{ testSession.name }}</td>
           <td>{{ testSession.description }}</td>
-          <td>{{ testSession.testSetup }}</td>
+          <td>{{ testSetupMap[testSession.testSetup!]?.name }}</td>
           <td>
             <a
               *ngIf="testSession.trafficFile"

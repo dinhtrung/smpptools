@@ -6,15 +6,17 @@ import (
 	"github.com/dinhtrung/smpptools/internal/app"
 	"github.com/dinhtrung/smpptools/internal/pkg/domain"
 	"github.com/dinhtrung/smpptools/internal/pkg/interfaces"
+	"github.com/google/uuid"
 	"github.com/tidwall/buntdb"
 )
 
-const TEST_SETUP_PREFIX = "THROUGHPUT:SERIES:"
+const TEST_SETUP_PREFIX = "TEST_SETUP:"
 
 type TestSetupRepository struct {
 }
 
 func NewTestSetupRepository() interfaces.TestSetupCrudRepository {
+
 	app.BuntDB.CreateIndex(TEST_SETUP_PREFIX, TEST_SETUP_PREFIX+"*", buntdb.IndexString)
 
 	return &TestSetupRepository{}
@@ -35,7 +37,7 @@ func (r *TestSetupRepository) Count() (int, error) {
 // Deletes a given entity.
 func (r *TestSetupRepository) Delete(entity *domain.TestSetup) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
-		_, err := tx.Delete(TEST_SETUP_PREFIX + entity.Name)
+		_, err := tx.Delete(TEST_SETUP_PREFIX + entity.ID)
 		if err != nil {
 			return err
 		}
@@ -70,7 +72,7 @@ func (r *TestSetupRepository) DeleteAll() error {
 func (r *TestSetupRepository) DeleteAllEntities(entities []*domain.TestSetup) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
-			_, err := tx.Delete(entity.Name)
+			_, err := tx.Delete(entity.ID)
 			if err != nil {
 				return err
 			}
@@ -160,12 +162,15 @@ func (r *TestSetupRepository) FindById(ID string) (*domain.TestSetup, error) {
 
 // Saves a given entity.
 func (r *TestSetupRepository) Save(entity *domain.TestSetup) error {
+	if entity.ID == "" {
+		entity.ID = uuid.NewString()
+	}
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		entityJson, err := json.Marshal(entity)
 		if err != nil {
 			return err
 		}
-		_, _, err = tx.Set(TEST_SETUP_PREFIX+entity.Name, string(entityJson), nil)
+		_, _, err = tx.Set(TEST_SETUP_PREFIX+entity.ID, string(entityJson), nil)
 		return err
 	})
 }
@@ -174,11 +179,14 @@ func (r *TestSetupRepository) Save(entity *domain.TestSetup) error {
 func (r *TestSetupRepository) SaveAll(entities []*domain.TestSetup) error {
 	return app.BuntDB.Update(func(tx *buntdb.Tx) error {
 		for _, entity := range entities {
+			if entity.ID == "" {
+				entity.ID = uuid.NewString()
+			}
 			entityJson, err := json.Marshal(entity)
 			if err != nil {
 				return err
 			}
-			_, _, err = tx.Set(TEST_SETUP_PREFIX+entity.Name, string(entityJson), nil)
+			_, _, err = tx.Set(TEST_SETUP_PREFIX+entity.ID, string(entityJson), nil)
 			if err != nil {
 				return err
 			}

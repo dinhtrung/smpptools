@@ -29,19 +29,20 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="smpptoolsApp.testSession.description" for="field_description">Description</label>
-          <input
-            type="text"
+          <textarea
             class="form-control"
             name="description"
             id="field_description"
             data-cy="description"
             formControlName="description"
-          />
+          ></textarea>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="testSetupRef.length">
           <label class="form-control-label" jhiTranslate="smpptoolsApp.testSession.testSetup" for="field_testSetup">Test Setup</label>
-          <input type="text" class="form-control" name="testSetup" id="field_testSetup" data-cy="testSetup" formControlName="testSetup" />
+          <select class="form-control" name="testSetup" id="field_testSetup" data-cy="testSetup" formControlName="testSetup">
+            <option *ngFor="let o of testSetupRef" [ngValue]="o.id" [innerHtml]="o.name"></option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -69,7 +70,7 @@
               type="file"
               id="file_trafficFile"
               data-cy="trafficFile"
-              (change)="setFileData($event, 'trafficFile', false)"
+              (change)="patchFileData($event, 'trafficFile')"
               jhiTranslate="entity.action.addblob"
             />
           </div>
@@ -94,14 +95,45 @@
           <label class="form-control-label" jhiTranslate="smpptoolsApp.testSession.patternVariant" for="field_patternVariant"
             >Pattern Variant</label
           >
-          <input
-            type="text"
+          <select
             class="form-control"
             name="patternVariant"
             id="field_patternVariant"
             data-cy="patternVariant"
             formControlName="patternVariant"
-          />
+          >
+            <option *ngFor="let o of patternVariants" [ngValue]="o.value" [innerHtml]="o.label"></option>
+          </select>
+        </div>
+
+        <div class="row" [hidden]="hideRange()">
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="smpptoolsApp.testSession.patternMin" for="field_patternMin"
+              >Pattern Min</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="patternMin"
+              id="field_patternMin"
+              data-cy="patternMin"
+              formControlName="patternMin"
+            />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="smpptoolsApp.testSession.patternMax" for="field_patternMax"
+              >Pattern Max</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="patternMax"
+              id="field_patternMax"
+              data-cy="patternMax"
+              formControlName="patternMax"
+            />
+          </div>
         </div>
       </div>
 

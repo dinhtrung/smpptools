@@ -14,14 +14,6 @@ import (
 var ACCOUNT_RESOURCE rest.AccountResource
 var USER_RESOURCE rest.UserResource
 
-// Protected protect routes
-func Protected() fiber.Handler {
-	return jwtware.New(jwtware.Config{
-		SigningKey:   []byte(consts.JWTSECRET),
-		ErrorHandler: jwtError,
-	})
-}
-
 // HasAuthority check if the current role has specified authorities
 func HasAuthority(authorityName string) fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -75,7 +67,8 @@ func SetupAuthJWT(srv *fiber.App, jwtSecret string) {
 	consts.JWTSECRET = jwtSecret
 	// JWT Middleware
 	srv.Use(jwtware.New(jwtware.Config{
-		ContextKey: consts.FIBER_CONTEXT_KEY,
+		ContextKey:   consts.FIBER_CONTEXT_KEY,
+		ErrorHandler: jwtError,
 		// return true to skip middleware
 		Filter: func(c *fiber.Ctx) bool {
 			//log.Printf("Checking jwt on path %s", c.Path())
@@ -95,6 +88,4 @@ func SetupAuthJWT(srv *fiber.App, jwtSecret string) {
 		SigningKey:    []byte(consts.JWTSECRET),
 		SigningMethod: "HS512",
 	}))
-	srv.Get("api/account", HasAuthority("ROLE_USER"), ACCOUNT_RESOURCE.GetAccount)   // getAccount
-	srv.Post("api/account", HasAuthority("ROLE_USER"), ACCOUNT_RESOURCE.SaveAccount) // saveAccount
 }
