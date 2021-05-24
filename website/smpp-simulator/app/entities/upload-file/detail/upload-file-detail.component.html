@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="uploadFile">
+      <h2 data-cy="uploadFileDetailsHeading"><span jhiTranslate="smpptoolsApp.uploadFile.detail.title">Upload File</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="smpptoolsApp.uploadFile.name">Name</span></dt>
+        <dd>
+          <span>{{ uploadFile.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.uploadFile.contentType">Content Type</span></dt>
+        <dd>
+          <span>{{ uploadFile.contentType }}</span>
+        </dd>
+        <dt><span jhiTranslate="smpptoolsApp.uploadFile.size">Size</span></dt>
+        <dd>
+          <span>{{ uploadFile.size | number }}</span>
+        </dd>
+
+        <dt><span jhiTranslate="smpptoolsApp.uploadFile.etag">Etag</span></dt>
+        <dd>
+          <span>{{ uploadFile.etag }}</span>
+        </dd>
+
+        <dt><span jhiTranslate="smpptoolsApp.uploadFile.lastModified">Last Modified</span></dt>
+        <dd>
+          <span>{{ uploadFile.lastModified }}</span>
+        </dd>
+
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/upload-file', uploadFile.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

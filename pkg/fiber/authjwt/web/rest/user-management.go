@@ -3,6 +3,7 @@ package rest
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/dinhtrung/smpptools/pkg/fiber/authjwt/utils"
 	"github.com/dinhtrung/smpptools/pkg/fiber/services"
@@ -74,6 +75,22 @@ func (r *DefaultUserResource) CreateUser(c *fiber.Ctx) error {
 	}
 
 	user.Password = hash
+
+	hasRoleUser := false
+	for _, r := range user.Authorities {
+		if r == "ROLE_USER" {
+			hasRoleUser = true
+			break
+		}
+	}
+	if !hasRoleUser {
+		user.Authorities = append(user.Authorities, "ROLE_USER")
+	}
+
+	user.CreatedDate = time.Now().Format(time.RFC3339)
+	if currentLogin, err := utils.GetCurrentUserLogin(c); err == nil {
+		user.CreatedBy = currentLogin
+	}
 	if err := r.Repo.Save(&user); err != nil {
 		return err
 	}
@@ -100,6 +117,12 @@ func (r *DefaultUserResource) UpdateUser(c *fiber.Ctx) error {
 
 	exists.Password = hash
 	exists.UserDTO = user.UserDTO
+
+	user.LastModifiedDate = time.Now().Format(time.RFC3339)
+	if currentLogin, err := utils.GetCurrentUserLogin(c); err == nil {
+		user.LastModifiedBy = currentLogin
+	}
+
 	if err := r.Repo.Save(&exists); err != nil {
 		return err
 	}

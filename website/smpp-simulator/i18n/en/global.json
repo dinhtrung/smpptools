@@ -18,6 +18,7 @@
         "testSession": "Test Session",
         "testSetup": "Test Setup",
         "testCase": "Test Case",
+        "uploadFile": "File Browser",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

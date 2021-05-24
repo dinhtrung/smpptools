@@ -17,8 +17,10 @@ import (
 
 func SetupRoutes(app *fiber.App) {
 	app.Get("api/file-browser", FileListing)
-	app.Get("api/file-browser/:bucket", FileListing)
-	// + eptw regions endpoints
+	app.Get("api/file-browser/:name", FileCheck)
+	app.Post("api/file-browser", FileUpload)
+	app.Delete("api/file-browser/:name", FileRemove)
+
 	app.Post("api/file-upload", FileUpload)
 	app.Post("api/file-upload/:name", FileUpload)
 	app.Post("api/file-upload/:bucket/:name", FileUpload)

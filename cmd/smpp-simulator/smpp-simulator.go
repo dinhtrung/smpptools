@@ -119,6 +119,30 @@ func setupRoutes(app *fiber.App) {
 	s3proxy.SetupRoutes(app)
 	// + SMPP actions
 	app.Get("/management/health", performHealthCheck)
+	app.Get("/management/info", performHealthCheck)
+
+	// + test cases
+	app.Post("/api/data-files", api.CreateDataFileUsingPOST)
+	app.Delete("/api/data-files/:id", api.DeleteDataFileUsingDELETE)
+	app.Get("/api/data-files", api.GetAllDataFilesUsingGET)
+	app.Get("/api/data-files/:id", api.GetDataFileUsingGET)
+	app.Patch("/api/data-files/:id", api.PartialUpdateDataFileUsingPATCH)
+	app.Put("/api/data-files/:id", api.UpdateDataFileUsingPUT)
+
+	app.Post("/api/data-files", api.CreateDataFileUsingPOST)
+	app.Delete("/api/data-files/:id", api.DeleteDataFileUsingDELETE)
+	app.Get("/api/data-files", api.GetAllDataFilesUsingGET)
+	app.Get("/api/data-files/:id", api.GetDataFileUsingGET)
+	app.Patch("/api/data-files/:id", api.PartialUpdateDataFileUsingPATCH)
+	app.Put("/api/data-files/:id", api.UpdateDataFileUsingPUT)
+
+	app.Post("/api/data-files", api.CreateDataFileUsingPOST)
+	app.Delete("/api/data-files/:id", api.DeleteDataFileUsingDELETE)
+	app.Get("/api/data-files", api.GetAllDataFilesUsingGET)
+	app.Get("/api/data-files/:id", api.GetDataFileUsingGET)
+	app.Patch("/api/data-files/:id", api.PartialUpdateDataFileUsingPATCH)
+	app.Put("/api/data-files/:id", api.UpdateDataFileUsingPUT)
+
 	// -- base-sm-resource
 	app.Post("/api/base-sms", api.CreateBaseSmUsingPOST)
 	app.Post("/api/base-sms/convert-text", api.ConvertTextUsingPOST)

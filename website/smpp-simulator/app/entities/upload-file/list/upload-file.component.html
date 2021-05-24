@@ -1,0 +1,77 @@
+<div>
+  <h2 id="page-heading" data-cy="UploadFileHeading">
+    <span jhiTranslate="smpptoolsApp.uploadFile.home.title">Upload Files</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="smpptoolsApp.uploadFile.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-upload-file"
+        [routerLink]="['/upload-file/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="smpptoolsApp.uploadFile.home.createLabel"> Create a new Upload File </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="uploadFiles?.length === 0">
+    <span jhiTranslate="smpptoolsApp.uploadFile.home.notFound">No uploadFiles found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="uploadFiles && uploadFiles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.uploadFile.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.uploadFile.contentType">Content Type</span></th>
+          <th scope="col"><span jhiTranslate="smpptoolsApp.uploadFile.size">Size</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let uploadFile of uploadFiles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/upload-file', uploadFile.name, 'view']">{{ uploadFile.name }}</a>
+            <a *ngIf="uploadFile.name" (click)="openFile(uploadFile.name, uploadFile.contentType)" jhiTranslate="entity.action.open"
+              >open</a
+            >
+          </td>
+          <td>
+            <span>{{ uploadFile.contentType }}</span>
+          </td>
+          <td>
+            <span *ngIf="uploadFile.size">{{ uploadFile.size | number }}</span>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/upload-file', uploadFile.name, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" (click)="delete(uploadFile)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

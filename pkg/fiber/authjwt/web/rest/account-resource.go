@@ -164,10 +164,7 @@ func (r *DefaultAccountResource) Register(c *fiber.Ctx) error {
 		return err
 	}
 	exists, err := r.UserSvc.GetUserByUsername(c.Context(), user.Login)
-	if err != nil {
-		return err
-	}
-	if exists != nil {
+	if err == nil && exists != nil {
 		return fiber.NewError(fiber.StatusConflict, "user exists")
 	}
 
@@ -175,9 +172,15 @@ func (r *DefaultAccountResource) Register(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-	exists.UserDTO = user
-	exists.Password = hash
-	if err := r.UserSvc.SaveAccount(c.Context(), exists); err != nil {
+	newUser := shared.ManagedUserDTO{
+		UserDTO:     user,
+		Password:    hash,
+		CreatedBy:   user.Login,
+		CreatedDate: time.Now().Format(time.RFC3339),
+	}
+	newUser.Activated = false
+	newUser.Authorities = []string{"ROLE_USER"}
+	if err := r.UserSvc.SaveAccount(c.Context(), &newUser); err != nil {
 		return err
 	}
 	return c.JSON(user)

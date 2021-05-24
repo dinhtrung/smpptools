@@ -55,6 +55,11 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./test-case/test-case.module').then(m => m.TestCaseModule),
       },
       {
+        path: 'upload-file',
+        data: { pageTitle: 'smpptoolsApp.dataFile.home.title' },
+        loadChildren: () => import('./upload-file/upload-file.module').then(m => m.UploadFileModule),
+      },
+      {
         path: 'data-file',
         data: { pageTitle: 'smpptoolsApp.dataFile.home.title' },
         loadChildren: () => import('./data-file/data-file.module').then(m => m.DataFileModule),

@@ -33,44 +33,7 @@
     <li class="nav-item navicon">
       <a class="btn nav-link" (click)="toggleSidebarPin()"><fa-icon icon="bars"></fa-icon></a>
     </li>
-    <li class="nav-item flex-fill">
-      <input class="form-control navbar-search" type="text" placeholder="Search . . ." />
-    </li>
   </ul>
-
-  <!-- right menu -->
-  <div class="collapse navbar-collapse right-nav" id="collapseBasic" [ngbCollapse]="isNavbarCollapsed">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="btn nav-link">
-          <fa-icon icon="bell"></fa-icon>
-          <span class="link-text">Alerts</span>
-          <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
-          <span class="nav-alert notifications"></span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="btn nav-link">
-          <fa-icon icon="envelope"></fa-icon>
-          <span class="link-text">Messages</span>
-          <!-- <span class="badge badge-pill badge-success">5</span> -->
-          <span class="nav-alert messages"></span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="btn nav-link">
-          <fa-icon icon="user"></fa-icon>
-          <span class="link-text">Profile</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="btn nav-link">
-          <fa-icon icon="cogs"></fa-icon>
-          <span class="link-text">Setting</span>
-        </a>
-      </li>
-    </ul>
-  </div>
 
   <a
     class="navbar-toggler d-lg-none"
@@ -93,85 +56,6 @@
             <span jhiTranslate="global.menu.home">Home</span>
           </span>
         </a>
-      </li>
-      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-      <li
-        *ngSwitchCase="true"
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
-          <span>
-            <fa-icon icon="th-list"></fa-icon>
-            <span jhiTranslate="global.menu.entities.main">Entities</span>
-          </span>
-        </a>
-        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="base-sm"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.baseSm">Base Sm</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="esme-account"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.esmeAccount">Esme Account</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="smsc-instance"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.smscInstance">Smsc Instance</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="smsc-account"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.smscAccount">Smsc Account</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="isdn-list"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.isdnList">Isdn List</span>
-            </a>
-          </li>
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </ul>
       </li>
       <li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
